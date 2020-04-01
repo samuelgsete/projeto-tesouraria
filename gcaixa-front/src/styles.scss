@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~ngx-toastr/toastr';
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+.mat-button, .mat-raised-button:focus {
+    outline: none;
+}
+.cdk-overlay-container {
+    z-index: 1060;
+}

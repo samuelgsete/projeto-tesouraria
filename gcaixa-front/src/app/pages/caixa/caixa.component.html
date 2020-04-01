@@ -1,0 +1,115 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4" *ngFor="let c of caixas">
+            <mdb-card cascade="true">
+                <mdb-card-body cascade="true" class="text-center">
+                    <mat-icon class="icon-remove-card" (click)="deletarCaixa(c)">delete</mat-icon>
+                    <h6 style="float:left;">Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</h6>
+                    <br>
+                    <h6 class="card-title" style="clear: both;">
+                        <strong>{{ c.nome }}</strong>
+                    </h6>
+                    <button type="button" mdbBtn color="info" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
+                    <button type="button" mdbBtn color="warning" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
+                </mdb-card-body>
+            </mdb-card><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+           
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button mdbBtn type="button" color="default" mdbWavesEffect (click)="modalCadastro.show()" >NOVO</button>
+        </div>
+    </div>
+</div>
+<div mdbModal #modalCadastro="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalCadastrar()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100 text-center" id="myModalLabel">Novo Caixa</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="f">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field  class="input-width">
+                            <input matInput placeholder="Nome" formControlName="nome" required>
+                            <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field  class="input-width">
+                            <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="input-width">
+                            <textarea  #input matInput placeholder="observações" maxlength="200" formControlName="observacoes"></textarea>
+                            <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                            <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer"> 
+          <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>CADASTRAR</button>
+        </div>
+      </div>
+    </div>
+</div>
+<div mdbModal #modalEditar="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEditar()">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title w-100 text-center" id="myModalLabel">EDITAR CAIXA</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="f">
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field  class="input-width">
+                            <input matInput placeholder="Nome" formControlName="nome" required>
+                            <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field  class="input-width">
+                            <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="input-width">
+                            <textarea  #input matInput placeholder="observações" maxlength="200" formControlName="observacoes"></textarea>
+                            <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                            <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer"> 
+          <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>ATUALIZAR</button>
+        </div>
+      </div>
+    </div>
+</div>
+<mdb-card>

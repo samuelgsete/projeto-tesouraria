@@ -1,0 +1,397 @@
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h5>Dashboard</h5>
+        </div>
+        <div class="col-2">
+            <button  type="button" mdbBtn color="danger" class="z-depth-0 button-float-right" (click)="router.navigateByUrl('home')" mdbWavesEffect>FECHAR</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h6 class="text-saldo">Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-center">Todas as movimentações</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
+                <div class="row">
+                    <div class="col-11">{{movimentacoesSelecionadas.length}} selecionado(s) ...</div>
+                    <div class="col-1"><mat-icon style="float: right; cursor: pointer;" (click)="deletarMovimentacoesSelecionadas()">delete</mat-icon></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <ngx-datatable
+                [rows]="rows"
+                style="width: 100%; box-shadow: none;"
+                class="material"
+                [loadingIndicator]="indicadorDeCarregamento"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
+                [selectionType]="'checkbox'"
+                (select)="aoSelecionar($event)"
+                [selected]="movimentacoesSelecionadas"
+                [limit]="5"
+            >
+                <ngx-datatable-column
+                    [width]="60"
+                    [sortable]="false"
+                    [canAutoResize]="false"
+                    [draggable]="false"
+                    [resizeable]="false"
+                    [headerCheckboxable]="true"
+                    [checkboxable]="true">
+            </ngx-datatable-column>
+                <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Descrição" [width]="300" prop="descricao"></ngx-datatable-column>
+                <ngx-datatable-column name="Valor" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.valor | currency:'BRL' }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Tipo" [width]="200">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                       <div class="text-center tipo-movimentacao" [ngClass]="{'default-color': row.tipo == 'ENTRADA', 'secondary-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Ações" [width]="100">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                        <i class="material-icons edit-icon" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)">edit</i>
+                        <i class="material-icons edit-icon" (click)="deletarMovimentacao(row)">delete</i>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-10"></div>
+        <div class="col-2"> 
+            <button class="z-depth-0 button-float-right" type="button" mdbBtn color="primary" mdbWavesEffect [matMenuTriggerFor]="novaMovimentacao">NOVO</button> 
+            <mat-menu #novaMovimentacao="matMenu">
+                <button mat-menu-item (click)="mostrarModalEntrada(modalEntrada)">Entrada</button>
+                <button mat-menu-item (click)="mostrarModalSaida(modalSaida)">Saida</button>
+            </mat-menu>  
+        </div>
+    </div>
+</div>
+<div mdbModal #modalEntrada="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Nova Entrada</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="f">
+                    <div class="row">
+                        <div class="col-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="descricao" required>
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Ofertante" formControlName="ofertante">
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="creditos-content">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Creditos</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><p class="text-center" *ngIf="creditos.length == 0">Não há créditos adicionados</p></div>
+                        </div> 
+                        <div class="list-credit" *ngIf="creditos.length != 0">
+                            <div class="row credit-item" *ngFor="let c of creditos; let i = index">
+                                <div class="col-1"></div>
+                                <div class="col-4"> {{ c.titular }}</div>
+                                <div class="col-2"> {{ c.valor | currency:'BRL' }}</div>
+                                <div class="col-3"> 
+                                    <div class="status-credito" [ngClass]="{'success-color': c.situacao == 'ENCERRADO', 'danger-color': c.situacao == 'ABERTO', 'info-color': c.situacao == 'QUITADO'}">
+                                        {{ c.situacao }}
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <i *ngIf="c.situacao == 'ABERTO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#ff0000;">thumb_down</i>
+                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#1955fa;">thumb_up</i>
+                                    <i *ngIf="c.situacao != 'ENCERRADO'" class="material-icons edit-icon" (click)="removerCredito(i, c)">delete</i>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><br></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button class="relative waves-light z-depth-0" mdbBtn type="button" color="amber" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #input matInput placeholder="observacões" maxlength="200" formControlName="observacoes"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>    
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="danger" class="waves-light z-depth-0" (click)="limparForm(f)" mdbWavesEffect>LIMPAR</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarEntrada(f.value, modalEntrada)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalAtualizarEntrada="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Atualizar Entrada</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="f">
+                    <div class="row">
+                        <div class="col-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="descricao" required>
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Ofertante" formControlName="ofertante">
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="creditos-content">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Creditos</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><p class="text-center" *ngIf="creditos.length == 0">Não há créditos adicionados</p></div>
+                        </div> 
+                        <div class="list-credit">
+                            <div class="row credit-item" *ngFor="let c of creditos; let i = index">
+                                <div class="col-1"></div>
+                                <div class="col-4"> {{ c.titular }}</div>
+                                <div class="col-2"> {{ c.valor | currency:'BRL' }}</div>
+                                <div class="col-3"> 
+                                    <div class="status-credito" [ngClass]="{'success-color': c.situacao == 'ENCERRADO', 'danger-color': c.situacao == 'ABERTO', 'info-color': c.situacao == 'QUITADO'}">
+                                        {{ c.situacao }}
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <i 
+                                        *ngIf="c.situacao == 'ABERTO'"
+                                        class="material-icons edit-icon" 
+                                        (click)="quitarCredito(c)" 
+                                        style="color:#ff0000;"
+                                    >
+                                        thumb_down
+                                    </i>
+                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#1955fa;">thumb_up</i>
+                                    <i *ngIf="c.situacao != 'ENCERRADO'" class="material-icons edit-icon" (click)="removerCredito(i, c)">delete</i>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><br></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-9"></div>
+                            <div class="col-3">
+                                <button class="relative waves-light z-depth-0" mdbBtn type="button" color="amber" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #input matInput placeholder="observacões" maxlength="200" formControlName="observacoes"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>       
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarEntrada(f.value, modalAtualizarEntrada)" mdbWavesEffect>ATUALIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalSaida="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalSaida.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Nova Saida</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="fsaidas">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="descricao">
+                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="danger" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid" (click)="salvarOuAtualizarSaida(fsaidas.value, modalSaida)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalAtualizarSaida="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Atualizar Saida</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="fsaidas">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="descricao">
+                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="danger" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid || fsaidas.pristine" (click)="salvarOuAtualizarSaida(fsaidas.value, modalAtualizarSaida)" mdbWavesEffect>ATUALIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div mdbModal #modalCredito="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalCredito.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Novo Crédito</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="fcreditos">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Titular" formControlName="titular" required >
+                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="valorCredito" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>O valor é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div><br>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="light-green" block=true class="relative waves-light z-depth-0" (click)="addCredito(fcreditos, modalCredito)" [disabled]="!fcreditos.valid" mdbWavesEffect>ADICIONAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
