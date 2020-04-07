@@ -1,39 +1,26 @@
 <div class="container">
     <div class="row">
-        <div class="col-10">
-            <h5>Dashboard</h5>
-        </div>
-        <div class="col-2">
-            <button  type="button" mdbBtn color="danger" class="z-depth-0 button-float-right" (click)="router.navigateByUrl('home')" mdbWavesEffect>FECHAR</button>
+        <div class="col-8"></div>
+        <div class="col-4">
+            <h6 class="text-saldo float-right">Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <h6 class="text-saldo">Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="text-center">Todas as movimentações</p>
-        </div>
-    </div>
-    <br>
-    <div class="row">
+    <div class="row all-delete">
         <div class="col">
             <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
                 <div class="row">
                     <div class="col-11">{{movimentacoesSelecionadas.length}} selecionado(s) ...</div>
-                    <div class="col-1"><mat-icon style="float: right; cursor: pointer;" (click)="deletarMovimentacoesSelecionadas()">delete</mat-icon></div>
+                    <div class="col-1"><mat-icon class="icons-delete" (click)="deletarMovimentacoesSelecionadas()">delete</mat-icon></div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row"><br></div>
     <div class="row">
         <div class="col-12">
             <ngx-datatable
                 [rows]="rows"
-                style="width: 100%; box-shadow: none;"
-                class="material"
+                class="material table-prop"
                 [loadingIndicator]="indicadorDeCarregamento"
                 [columnMode]="'force'"
                 [headerHeight]="50"
@@ -61,7 +48,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Tipo" [width]="200">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
-                       <div class="text-center tipo-movimentacao" [ngClass]="{'default-color': row.tipo == 'ENTRADA', 'secondary-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
+                       <div class="text-center tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'ENTRADA', 'danger-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
@@ -73,10 +60,14 @@
             </ngx-datatable>
         </div>    
     </div>
+    <div class="row"><br></div>
     <div class="row">
-        <div class="col-10"></div>
+        <div class="col-8"></div>
+        <div class="col-2">
+            <button  type="button" block="true" mdbBtn color="danger" class="z-depth-0" (click)="router.navigateByUrl('home')" mdbWavesEffect>FECHAR</button>
+        </div>
         <div class="col-2"> 
-            <button class="z-depth-0 button-float-right" type="button" mdbBtn color="primary" mdbWavesEffect [matMenuTriggerFor]="novaMovimentacao">NOVO</button> 
+            <button class="z-depth-0" type="button" block="true" mdbBtn color="primary" mdbWavesEffect [matMenuTriggerFor]="novaMovimentacao">NOVO</button> 
             <mat-menu #novaMovimentacao="matMenu">
                 <button mat-menu-item (click)="mostrarModalEntrada(modalEntrada)">Entrada</button>
                 <button mat-menu-item (click)="mostrarModalSaida(modalSaida)">Saida</button>
@@ -84,8 +75,8 @@
         </div>
     </div>
 </div>
-<div mdbModal #modalEntrada="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div mdbModal #modalEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
@@ -138,7 +129,7 @@
                                 </div>
                                 <div class="col-2">
                                     <i *ngIf="c.situacao == 'ABERTO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#ff0000;">thumb_down</i>
-                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#1955fa;">thumb_up</i>
+                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#33b5e5;">thumb_up</i>
                                     <i *ngIf="c.situacao != 'ENCERRADO'" class="material-icons edit-icon" (click)="removerCredito(i, c)">delete</i>
                                 </div>
                                 <br>
@@ -173,8 +164,8 @@
     </div>
 </div>
 
-<div mdbModal #modalAtualizarEntrada="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div mdbModal #modalAtualizarEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
@@ -199,10 +190,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-8">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Ofertante" formControlName="ofertante">
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Data de registro" formControlName="registro" readonly>
                             </mat-form-field>
                         </div>
                     </div>
@@ -234,7 +230,7 @@
                                     >
                                         thumb_down
                                     </i>
-                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#1955fa;">thumb_up</i>
+                                    <i *ngIf="c.situacao == 'QUITADO'" class="material-icons edit-icon" (click)="quitarCredito(c)" style="color:#33b5e5;">thumb_up</i>
                                     <i *ngIf="c.situacao != 'ENCERRADO'" class="material-icons edit-icon" (click)="removerCredito(i, c)">delete</i>
                                 </div>
                                 <br>
@@ -268,8 +264,8 @@
     </div>
 </div>
 
-<div mdbModal #modalSaida="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+<div mdbModal #modalSaida="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalSaida.hide()">
@@ -298,9 +294,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <textarea #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                                <mat-hint>{{ input.value?.length || 0 }}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -313,8 +309,8 @@
     </div>
 </div>
 
-<div mdbModal #modalAtualizarSaida="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+<div mdbModal #modalAtualizarSaida="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
@@ -342,25 +338,32 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Data de registro" formControlName="registro" readonly>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <textarea #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                                <mat-hint>{{ input.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="danger" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid || fsaidas.pristine" (click)="salvarOuAtualizarSaida(fsaidas.value, modalAtualizarSaida)" mdbWavesEffect>ATUALIZAR</button>
+                <button type="button" mdbBtn color="danger" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid" (click)="salvarOuAtualizarSaida(fsaidas.value, modalAtualizarSaida)" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div mdbModal #modalCredito="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+<div mdbModal #modalCredito="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalCredito.hide()">
@@ -389,7 +392,7 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="light-green" block=true class="relative waves-light z-depth-0" (click)="addCredito(fcreditos, modalCredito)" [disabled]="!fcreditos.valid" mdbWavesEffect>ADICIONAR</button>
+                <button type="button" mdbBtn color="default" block=true class="relative waves-light z-depth-0" (click)="addCredito(fcreditos, modalCredito)" [disabled]="!fcreditos.valid" mdbWavesEffect>ADICIONAR</button>
             </div>
         </div>
     </div>

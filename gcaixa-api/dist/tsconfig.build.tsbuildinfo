@@ -2286,7 +2286,7 @@
         "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
       },
       "../src/caixa/caixa.service.ts": {
-        "version": "36fcae93f05a358d320078dd33bf81a92c886ea405810cf2cd8134b5ebac8f9a",
+        "version": "235f89f61f259069a5abf905436da6a065943f455a12e0f46825b8c07324839b",
         "signature": "5a5762be897d5e2b47913cf2d9ca1aa075df7e877a383a0599ba055eea8e961d"
       },
       "../src/shared/pipes/validation.pipe.ts": {
@@ -13946,12 +13946,12 @@
       "../src/shared/models/credito.entity.ts",
       "../src/shared/models/entrada.entity.ts",
       "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
+      "../src/shared/models/caixa.entity.ts",
       "../src/shared/models/filtro-busca.ts",
       "../src/shared/exceptions/modelos/id-invalid.exception.ts",
       "../src/caixa/caixa.service.ts",
       "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
-      "../src/caixa/caixa.controller.ts",
       "../src/caixa/caixa.module.ts",
       "../src/users/users.module.ts",
       "../node_modules/@types/passport-strategy/index.d.ts",
@@ -14031,7 +14031,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/models/caixa.entity.ts"
+      "../src/caixa/caixa.controller.ts"
     ]
   },
   "version": "3.8.3"
