@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
 
 import { Caixa } from 'src/app/shared/modelos/Caixa';
 import { ToastrService } from 'ngx-toastr';
@@ -17,30 +18,39 @@ import { Paginacao } from 'src/app/shared/modelos/paginacao';
 export class CaixaComponent implements OnInit {
 
   public f: FormGroup;
+  public pesquisar: FormControl = new FormControl();
 
   @ViewChild('modalCadastro', null) modalCadastrar: any;
   @ViewChild('modalEditar', null) modalEditar: any;
 
   public caixas = [];
-
   public paginacao = new Paginacao();
 
   constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: CaixaService) { 
-    this.load();
-  }
-
-  load() {
-    this.servico.findPaginate(this.paginacao).subscribe( res => {
-      this.paginacao.count = res.body.count;
-      console.log(this.paginacao);
-      this.caixas = res.body.data;
-    }, e => {
-      console.log(e.message);
+    this.load(this.paginacao);
+    this.pesquisar.valueChanges.pipe(debounceTime(700)).subscribe(value => {
+      this.load(new Paginacao({ filter: value }));
     });
   }
 
-  proximaPagina(page: number) {
-    console.log(page);
+  load(paginacao: Paginacao) {
+    this.servico.findPaginate(paginacao).subscribe( res => {
+      this.caixas = res.body.data;
+      paginacao.count = res.body.count;
+    }, e => {
+      this.toastr.error(e.error.detalhes, 'ERRO', { progressBar: true });
+    });
+  }
+
+  trocarPagina(sentido: boolean) {
+    if(sentido){
+      this.paginacao.nextPage();
+    }
+    else {
+      this.paginacao.previousPage();
+    }
+    console.log(this.paginacao);
+    this.load(this.paginacao);
   }
 
   cadastrarOuAtualizarCaixa(dados: Caixa) {
@@ -56,7 +66,6 @@ export class CaixaComponent implements OnInit {
     if(caixa.id == null) {
       this.servico.save(caixa).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
-        this.load(); 
         this.ocultarModalCadastrar();      
       }, e => {
         this.toastr.error(e.error.detalhes, '', { progressBar: true });
@@ -64,13 +73,14 @@ export class CaixaComponent implements OnInit {
     }
     else {
       this.servico.update(caixa).subscribe(res => {
-        this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
         this.toastr.error("Não foi possivel atualizar",'ERRO', { progressBar: true })
       });
       this.ocultarModalEditar();
     }
+    this.paginacao = new Paginacao();
+    this.load(this.paginacao); 
     this.f.reset();
   }
 
@@ -86,7 +96,8 @@ export class CaixaComponent implements OnInit {
       if (result.value) {
         this.servico.remove(c.id).subscribe(r => {   
           this.toastr.success('Removido com sucesso!', 'Feito', {progressBar: true});
-          this.load();
+          this.paginacao = new Paginacao();
+          this.load(this.paginacao);
         })
         , e => {
           this.toastr.error('Não foi possível remover', 'ERRO', {progressBar: true});

@@ -24,7 +24,7 @@ let CaixaService = class CaixaService {
     }
     async findAll(filtro) {
         const [result, total] = await this.repositoryCaixa.findAndCount({
-            relations: ["saidas", "entradas"],
+            relations: ["saidas", "entradas", "entradas.creditos"],
             where: { nome: typeorm_2.Like(filtro.palavra) },
             order: { nome: "ASC" },
             take: 6,

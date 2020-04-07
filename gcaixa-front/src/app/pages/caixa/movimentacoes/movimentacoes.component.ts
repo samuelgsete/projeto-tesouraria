@@ -247,6 +247,7 @@ export class MovimentacoesComponent implements OnInit {
         id: row.id,
         descricao: row.descricao,
         valor: row.valor,
+        registro: row.registro,
         motivo: row.motivo,
       });
       modalAtualizarSaida.show();
@@ -257,6 +258,7 @@ export class MovimentacoesComponent implements OnInit {
         descricao: row.descricao,
         valor: row.valor,
         ofertante: row.ofertante,
+        registro: row.registro,
         observacoes: row.observacoes
       });
       this.creditos = row.creditos;
@@ -277,6 +279,7 @@ export class MovimentacoesComponent implements OnInit {
       valor:[Validators.required],
       ofertante: ['', [Validators.minLength(4), Validators.maxLength(50)]],
       tipo: [''],
+      registro: [''],
       observacoes: ['', Validators.maxLength(250)],
     });
 
@@ -292,7 +295,8 @@ export class MovimentacoesComponent implements OnInit {
       descricao:['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       valor:[Validators.required],
       tipo: [''],
-      motivo: ['', Validators.maxLength(250)]
+      registro: [''],
+      motivo: ['', Validators.maxLength(200)]
     });
   }
 }

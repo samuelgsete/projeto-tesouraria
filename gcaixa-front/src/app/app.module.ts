@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
 import { CaixaModule } from './pages/caixa/caixa.module';
-import { LayoutModule } from './shared/layout/layout.module';
 import { routing } from './app.routing';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { routing } from './app.routing';
     MDBBootstrapModule.forRoot(),
     FormsModule,
     CaixaModule,
-    LayoutModule,
     routing,
   ],
   providers: [],
