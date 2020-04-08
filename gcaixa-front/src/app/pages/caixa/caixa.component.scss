@@ -2,14 +2,16 @@
     width:100%;
 }
 
-.icon-remove-card {
+.icon-more-actions {
     float: right;
-    color: #be1d1d;
-    margin: -15px;
-    cursor: pointer;
+    margin: -20px;
+}
+
+.icon-more-actions:focus {
+    outline: none;
 }
 
 .content-flex {
     height: 100%;
-    margin: 4% 4%;
+    margin: 1% 4% 1% 4%;
 }

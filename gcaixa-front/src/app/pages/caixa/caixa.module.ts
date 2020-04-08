@@ -4,11 +4,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CaixaComponent } from './caixa.component';
 import { MovimentacoesComponent } from './movimentacoes/movimentacoes.component';
 import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioService } from 'src/app/shared/services/relatorio.service';
 
 @NgModule({
   declarations: [
     CaixaComponent,
-    MovimentacoesComponent
+    MovimentacoesComponent,
+    RelatorioComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +21,8 @@ import { CaixaService } from 'src/app/shared/services/caixa.service';
     CaixaComponent
   ],
   providers: [
-    CaixaService
+    CaixaService,
+    RelatorioService
   ]
 })
 export class CaixaModule { }

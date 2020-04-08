@@ -1,0 +1,58 @@
+* {
+    font-family: 'Times New Roman';
+    font-size: 18px;
+}
+
+.report {
+    height: 100%;
+    margin: 1% 12% 1% 12%;
+
+    .header {
+        text-align: center;
+
+        .logo { margin-bottom: 15px }
+
+        h4 { font-weight: bold }
+
+        p { text-decoration: underline } 
+    }
+
+    .form-filter {
+        .input-width {
+            width: 100%;
+        }
+        
+    }
+
+    .report-header {
+        p.saldo-atual { font-weight: bold }
+        
+        .nome-caixa {
+            font-weight: bold; 
+            font-size: 23px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+
+    .main-content {
+        p { text-align: center }
+        
+        table, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;  
+        }
+        table { 
+            width: 100%; 
+            tr.saldo-mensal { text-align: center }
+            tr td {
+                line-height: 18px; 
+                padding: 5px;
+
+                .box-moviment {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+}
