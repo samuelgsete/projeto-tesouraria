@@ -133,6 +133,10 @@ export class CaixaComponent implements OnInit {
     this.router.navigateByUrl('movimentacoes/' + id);
   }
 
+  emitirRelatorio(id: number) {
+    this.router.navigateByUrl(`relatorio/${id}`);
+  }
+
   ngOnInit() {
     this.f = this._fb.group({
       id: [null],

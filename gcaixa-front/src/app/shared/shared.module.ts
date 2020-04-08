@@ -12,9 +12,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatMenuModule} from '@angular/material/menu';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DateFormatPipe } from './pipes/date-format.pipe';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    DateFormatPipe
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,6 +31,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatIconModule,
     MatMenuModule,
     TextMaskModule,
+    MatSelectModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -40,6 +45,8 @@ import { TextMaskModule } from 'angular2-text-mask';
     MatIconModule,
     MatMenuModule,
     TextMaskModule,
+    DateFormatPipe,
+    MatSelectModule
   ],
 })
 export class SharedModule { }

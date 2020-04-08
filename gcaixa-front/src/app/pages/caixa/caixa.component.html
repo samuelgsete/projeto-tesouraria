@@ -18,7 +18,13 @@
         <div class="col-4" *ngFor="let c of caixas">
             <mdb-card cascade="true">
                 <mdb-card-body cascade="true" class="text-center">
-                    <mat-icon class="icon-remove-card" (click)="deletarCaixa(c)">delete</mat-icon>
+                    <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #actions="matMenu">
+                        <button mat-menu-item (click)="emitirRelatorio(c.id)" >Relatório</button>
+                        <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
+                    </mat-menu>  
                     <h6 style="float:left;">Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</h6>
                     <br><br>
                     <h6 class="card-title" style="clear: both;">

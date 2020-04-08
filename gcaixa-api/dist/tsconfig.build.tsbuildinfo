@@ -2286,7 +2286,7 @@
         "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
       },
       "../src/caixa/caixa.service.ts": {
-        "version": "235f89f61f259069a5abf905436da6a065943f455a12e0f46825b8c07324839b",
+        "version": "0d70d61d4e812689a1d527276a22e379a52c1df49f2d408bc8e60b96ce43a743",
         "signature": "5a5762be897d5e2b47913cf2d9ca1aa075df7e877a383a0599ba055eea8e961d"
       },
       "../src/shared/pipes/validation.pipe.ts": {
@@ -2301,8 +2301,20 @@
         "version": "2b5f70f7335fc9d0fedc511f67e1aa9831a31dd202edd370501596dd612e44d2",
         "signature": "0fee6dfab5eac736234a1a3ded2312ebe3f668921d93b8b525c1224a3f20ba95"
       },
+      "../src/caixa/relatorio/relatorio.entity.ts": {
+        "version": "5d107d30e9bb57a3f7fc3c3d9bc3eff7ab3833cab461493d4d5e1dc754ce4617",
+        "signature": "a2566c812fd97a2857873bb43c11a0ec94f43fd0250f8c2f652f1a22bc6cab80"
+      },
+      "../src/caixa/relatorio/relatorio.service.ts": {
+        "version": "1498119bb98b8e7d23b4834c39bafe7cb2a231f6ea256480ea24554190bc6a94",
+        "signature": "90067bc913726a7562788910c06e27a26c43161d3589d79470a5e6f6f93cbf38"
+      },
+      "../src/caixa/relatorio/relatorio.controller.ts": {
+        "version": "aa6275346d19e69324c391147d21d4b267eb48310739f6127c7851385483e0ae",
+        "signature": "a243e2741975278cf1701b8b610f9b82adac8cd295f938b962747d745a9f648c"
+      },
       "../src/caixa/caixa.module.ts": {
-        "version": "1bf1a626c6c01bc59d89cfb3c443c0bb39a5ae04950513531e91f22fe6eac005",
+        "version": "83517b877f8180e867ac1b38fd4259dd771b9f2ce9fbf312873c9067252b2a91",
         "signature": "dae4ca2621a70b6f26ef67121e9d515e9dcee2d403148b4514f02f9692eac5ff"
       },
       "../src/users/users.module.ts": {
@@ -7438,6 +7450,34 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/caixa/relatorio/relatorio.entity.ts": [
+        "../src/shared/models/entrada.entity.ts",
+        "../src/shared/models/saida.entity.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/caixa/relatorio/relatorio.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/caixa.entity.ts",
+        "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+        "../src/caixa/relatorio/relatorio.entity.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/caixa/relatorio/relatorio.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/caixa/relatorio/relatorio.service.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/caixa/caixa.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
@@ -7447,6 +7487,8 @@
         "../src/shared/models/saida.entity.ts",
         "../src/shared/models/entrada.entity.ts",
         "../src/shared/models/credito.entity.ts",
+        "../src/caixa/relatorio/relatorio.controller.ts",
+        "../src/caixa/relatorio/relatorio.service.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -12796,7 +12838,7 @@
         "../src/shared/models/entidade-base.ts"
       ],
       "../src/caixa/caixa.service.ts": [
-        "../../../node_modules/typeorm/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/shared/models/caixa.entity.ts",
         "../src/shared/models/filtro-busca.ts"
       ],
@@ -12809,6 +12851,17 @@
       "../src/caixa/caixa.controller.ts": [
         "../src/caixa/caixa.service.ts",
         "../src/shared/models/caixa.entity.ts"
+      ],
+      "../src/caixa/relatorio/relatorio.entity.ts": [
+        "../src/shared/models/entrada.entity.ts",
+        "../src/shared/models/saida.entity.ts"
+      ],
+      "../src/caixa/relatorio/relatorio.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/caixa.entity.ts"
+      ],
+      "../src/caixa/relatorio/relatorio.controller.ts": [
+        "../src/caixa/relatorio/relatorio.service.ts"
       ],
       "../node_modules/@types/passport-strategy/index.d.ts": [
         "../node_modules/@types/passport/index.d.ts",
@@ -13952,6 +14005,8 @@
       "../src/caixa/caixa.service.ts",
       "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
+      "../src/caixa/caixa.controller.ts",
+      "../src/caixa/relatorio/relatorio.controller.ts",
       "../src/caixa/caixa.module.ts",
       "../src/users/users.module.ts",
       "../node_modules/@types/passport-strategy/index.d.ts",
@@ -14031,7 +14086,8 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/caixa/caixa.controller.ts"
+      "../src/caixa/relatorio/relatorio.entity.ts",
+      "../src/caixa/relatorio/relatorio.service.ts"
     ]
   },
   "version": "3.8.3"

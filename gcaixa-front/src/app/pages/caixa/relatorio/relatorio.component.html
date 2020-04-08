@@ -1,0 +1,97 @@
+<div class="report">
+    <div class="header">
+        <div class="logo">
+            <img src="/assets/img/adtc.png" alt="adtc" width="88px" height="74px">
+        </div>
+        <h4>RELATÓRIO</h4>
+        <p>Assembléia de Deus Templo central em Água Verde</p>
+    </div>
+    <div class="form-filter">
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="input-width">
+                    <mat-label>Escolha um mês de referência</mat-label>
+                    <mat-select [(value)]="monthSelected" (selectionChange)="loadReport()">
+                        <mat-option *ngFor="let month of months; let i = index" [value]="month">{{ month }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="input-width">
+                    <mat-label>Escolha um ano de referência</mat-label>
+                    <mat-select [(value)]="yearSelected" (selectionChange)="loadReport()">
+                        <mat-option *ngFor="let year of years; let i = index" [value]="year">{{ year }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="report-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="nome-caixa">{{ report.nomeCaixa }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Saldo inicial {{ report. saldoInicial | currency:'BRL' }}</div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="saldo-atual">Total em caixa {{ report. saldoAtual | currency:'BRL' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="row">
+            <div class="col">
+                <p *ngIf="report.entradas[0] == null && report.saidas[0] == null">Nenhuma movimentação encontrada no período solicitado</p>
+            </div>
+        </div>
+        <div *ngIf="report.entradas[0] != null || report.saidas[0] != null">
+            <div class="row"><div class="col">Mês/ano: {{ monthSelected }} de {{ yearSelected }}</div></div>
+            <table>
+                <tr>
+                    <th>Entradas</th>
+                    <th>Saidas</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="box-moviment" *ngFor="let e of report.entradas">
+                            <div class="row">
+                                <div class="col">Data: {{ e.registro | dateFormat }}</div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col">Descrição: {{ e.descricao }}</div>
+                            </div>
+                            <div class="row">
+                            <div class="col">valor: {{ e.valor | currency:'BRL' }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box-moviment" *ngFor="let s of report.saidas">
+                            <div class="row">
+                                <div class="col">Data: {{ s.registro | dateFormat}}</div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col">Descrição: {{ s.descricao }}</div>
+                            </div>
+                            <div class="row">
+                            <div class="col">valor: {{ s.valor | currency:'BRL' }}</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total de entradas: {{ report.totalEntradas | currency:'BRL' }}</td>
+                    <td>Total de saidas: {{ report.totalSaidas | currency:'BRL' }}</td>
+                </tr>
+                <tr class="saldo-mensal">
+                    <td colspan="2">Saldo do mês: {{ report.saldoMensal | currency:'BRL'}}</td>    
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

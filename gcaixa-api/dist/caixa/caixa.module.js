@@ -14,6 +14,8 @@ const caixa_entity_1 = require("../shared/models/caixa.entity");
 const saida_entity_1 = require("../shared/models/saida.entity");
 const entrada_entity_1 = require("../shared/models/entrada.entity");
 const credito_entity_1 = require("../shared/models/credito.entity");
+const relatorio_controller_1 = require("./relatorio/relatorio.controller");
+const relatorio_service_1 = require("./relatorio/relatorio.service");
 let CaixaModule = class CaixaModule {
 };
 CaixaModule = __decorate([
@@ -24,8 +26,8 @@ CaixaModule = __decorate([
                 entrada_entity_1.Entrada,
                 credito_entity_1.Credito,
             ])],
-        controllers: [caixa_controller_1.CaixaController],
-        providers: [caixa_service_1.CaixaService]
+        controllers: [caixa_controller_1.CaixaController, relatorio_controller_1.RelatorioController],
+        providers: [caixa_service_1.CaixaService, relatorio_service_1.RelatorioService]
     })
 ], CaixaModule);
 exports.CaixaModule = CaixaModule;
