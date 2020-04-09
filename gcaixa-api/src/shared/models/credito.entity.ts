@@ -12,6 +12,12 @@ export class Credito extends EntidadeBase {
     @Column({ unique: false, nullable: false})
     public valor: number;
 
+    @Column({ type:'timestamp', unique: false, nullable: true })
+    public abertura: Date;
+
+    @Column({ type:'timestamp', unique: false, nullable: true })
+    public encerramento: Date;
+
     @Column({ 
         type: "enum", 
         enum: ["QUITADO", "ABERTO", "ENCERRADO"], 

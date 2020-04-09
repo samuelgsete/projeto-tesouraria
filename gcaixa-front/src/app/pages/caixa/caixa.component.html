@@ -1,55 +1,63 @@
-<div class="content-flex">
-    <div class="row">
-        <div class="col">
-            <mat-form-field class="input-width" appearance="fill">
-                <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
-                <button mat-icon-button matSuffix >
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="text-center" *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4" *ngFor="let c of caixas">
-            <mdb-card cascade="true">
-                <mdb-card-body cascade="true" class="text-center">
-                    <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
-                        <mat-icon>more_horiz</mat-icon>
+<div class="box">
+
+    <div class="header">
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="input-width" appearance="fill">
+                    <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
+                    <button mat-icon-button matSuffix>
+                        <mat-icon>search</mat-icon>
                     </button>
-                    <mat-menu #actions="matMenu">
-                        <button mat-menu-item (click)="emitirRelatorio(c.id)" >Relatório</button>
-                        <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
-                    </mat-menu>  
-                    <h6 style="float:left;">Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</h6>
-                    <br><br>
-                    <h6 class="card-title" style="clear: both;">
-                        <strong>{{ c.nome }}</strong>
-                    </h6>
-                    <button type="button" mdbBtn color="info" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
-                    <button type="button" mdbBtn color="warning" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
-                </mdb-card-body>
-            </mdb-card><br>
+                </mat-form-field>
+            </div>
         </div>
     </div>
-    <div class="row"><br></div>
-    <div class="row">
-        <div class="col-2">
-            <button mdbBtn type="button" block="true" color="default" mdbWavesEffect (click)="modalCadastro.show()" >NOVO</button>
+    
+    <div class="main-content">
+        <p *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
+        <div class="row">
+            <div class="col-4" *ngFor="let c of caixas">
+                <mdb-card>
+                    <mdb-card-body>
+                        <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #actions="matMenu">
+                            <button mat-menu-item (click)="emitirRelatorio(c.id)">Relatório</button>
+                            <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
+                        </mat-menu>  
+
+                        <mdb-card-title>
+                            <h4>{{ c.nome }}</h4>
+                        </mdb-card-title>
+                
+                        <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                    
+                        <button type="button" mdbBtn color="indigo" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
+                        <button type="button" mdbBtn color="amber" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
         </div>
-        <div class="col-6"></div>
-        <div class="col-2">
-            <button mdbBtn type="button" block="true" color="blue-grey" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
+            
+        <div class="main-footer">
+            <div class="row">
+                <div class="col-2">
+                    <button mdbBtn type="button" block="true" color="primary" class="z-depth-0" mdbWavesEffect (click)="modalCadastro.show()" >NOVO</button>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-2">
+                    <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
+                </div>
+                <div class="col-2">
+                    <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                </div>
+            </div>
         </div>
-        <div class="col-2">
-            <button mdbBtn type="button" block="true"color="blue-grey" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
-        </div>
-    </div>
+
+    </div>    
 </div>
+
 <div mdbModal #modalCadastro="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -57,7 +65,7 @@
           <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalCadastrar()">
             <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title w-100 text-center" id="myModalLabel">Novo Caixa</h4>
+          <h4 class="modal-title w-100" id="myModalLabel">NOVO CAIXA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
@@ -88,7 +96,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>CADASTRAR</button>
+          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>CADASTRAR</button>
         </div>
       </div>
     </div>
@@ -100,7 +108,7 @@
           <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEditar()">
             <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title w-100 text-center" id="myModalLabel">EDITAR CAIXA</h4>
+          <h4 class="modal-title w-100" id="myModalLabel">EDITAR CAIXA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
@@ -131,7 +139,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>ATUALIZAR</button>
+          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>ATUALIZAR</button>
         </div>
       </div>
     </div>

@@ -18,9 +18,7 @@
     }
 
     .form-filter {
-        .input-width {
-            width: 100%;
-        }
+        .input-width { width: 100% }
         
     }
 
@@ -38,7 +36,7 @@
     .main-content {
         p { text-align: center }
         
-        table, tr, td {
+        table, th, tr, td {
             border: 1px solid black;
             border-collapse: collapse;  
         }
@@ -47,11 +45,9 @@
             tr.saldo-mensal { text-align: center }
             tr td {
                 line-height: 18px; 
-                padding: 5px;
+                padding: 8px;
 
-                .box-moviment {
-                    margin-bottom: 15px;
-                }
+                .box-moviment { margin-bottom: 15px }
             }
         }
     }

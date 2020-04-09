@@ -47,6 +47,7 @@ export class Entrada extends EntidadeBase {
             if(c.situacao === 'QUITADO'){
                 _valor += c.valor;
                 c.situacao = 'ENCERRADO';
+                c.encerramento = new Date();
             }
         });
         this.valor += _valor;

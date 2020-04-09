@@ -25,6 +25,7 @@ let Entrada = class Entrada extends entidade_base_1.EntidadeBase {
             if (c.situacao === 'QUITADO') {
                 _valor += c.valor;
                 c.situacao = 'ENCERRADO';
+                c.encerramento = new Date();
             }
         });
         this.valor += _valor;

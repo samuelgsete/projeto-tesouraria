@@ -14,6 +14,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatMenuModule,
     TextMaskModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -46,7 +48,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatMenuModule,
     TextMaskModule,
     DateFormatPipe,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
 })
 export class SharedModule { }
