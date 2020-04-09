@@ -1,60 +1,84 @@
-.button-float-right {
-    float: right;
+.moviment {
+    margin: 1% 4% 0 4%;
+
+    .header {
+        h6 { text-align: right }
+
+        .all-delete { 
+            height: 53px;
+            button { 
+                float: right;
+                margin-top:-8px;
+            }
+
+            button:focus { outline: none }
+        }   
+    }
+
+    .main-content {
+        ngx-datatable {
+            width: 100%; 
+            box-shadow: none;
+
+            .button-actions { margin-top: -5px }
+
+            .button-actions:focus { outline: none }
+
+            .tipo-movimentacao {
+                color: #fff;
+                border-radius: 15px;
+                padding: 5px;
+                text-align: center;
+            }   
+        }
+    }
+
+    .footer { margin-top: 20px }
 }
 
-.all-delete {
-    height: 25px;
-}
+.modal {
+    .modal-dialog {
+        .modal-content {
+            .modal-header { h4 { text-align: center } }
 
-.icon-delete {
-    float: right; 
-    cursor: pointer;
-}
+            .modal-body {
+                form {
+                    mat-form-field.input-width { width:100% }
+                    
+                    .creditos-content {
+                        p { text-align: center }
+                         mat-accordion {
+                            margin-bottom: 5px;
 
-.table-prop {
-    width: 100%; 
-    box-shadow: none;
-}
+                            .credit-header { font-weight: bold }
 
-.edit-icon {
-    cursor: pointer;
-}
+                            .titular-credito {
+                                margin-top: 10px;
+                                
+                                button { margin-top: -10px }
 
-.input-width {
-    width: 100%;
-}
+                                .credito-ativo { color:#ff0000 }
+                                .credito-ativo:focus { outline: none }
 
-.text-white {
-    color: #ffff;
-}
+                                .credito-quitado { color:#33b5e5 }
+                                .credito-quitado:focus { outline: none }
+                            }
 
-.tipo-movimentacao {
-    color: #fff;
-    border-radius: 15px;
-    padding: 5px;
-}
+                            .info-credit {
+                                margin-top: 8px;
+                                font-size: 12px;
+                                span {
+                                    float: left;
+                                    font-style: italic;
+                                }
+                                p { text-align: justify }
+                            }
+                        }
 
-.status-credito {
-    color: #fff;
-    border-radius: 15px;
-    padding: 2px;
-    text-align: center; 
-}
-
-.list-credit {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 100px;
-}
-
-.credit-item {
-    margin-bottom: 6px;
-}
-
-
-.situacao-pendencia {
-    color: #fff;
-    border-radius: 15px;
-    font-size: 12px;
-    padding: 3px;
+                        .button-add-credit { margin-top: 10px }
+                    }
+                }
+            }
+        }
+    }
 }

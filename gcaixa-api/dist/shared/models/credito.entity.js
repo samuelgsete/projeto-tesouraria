@@ -27,6 +27,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Credito.prototype, "valor", void 0);
 __decorate([
+    typeorm_1.Column({ type: 'timestamp', unique: false, nullable: true }),
+    __metadata("design:type", Date)
+], Credito.prototype, "abertura", void 0);
+__decorate([
+    typeorm_1.Column({ type: 'timestamp', unique: false, nullable: true }),
+    __metadata("design:type", Date)
+], Credito.prototype, "encerramento", void 0);
+__decorate([
     typeorm_1.Column({
         type: "enum",
         enum: ["QUITADO", "ABERTO", "ENCERRADO"],

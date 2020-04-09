@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, Form } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +9,7 @@ import { Saida } from 'src/app/shared/modelos/Saida';
 import { Entrada } from 'src/app/shared/modelos/Entrada';
 import Swal from 'sweetalert2';
 import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-movimentacoes',
@@ -28,8 +28,10 @@ export class MovimentacoesComponent implements OnInit {
   public rows: any = [];
   public indicadorDeCarregamento: boolean = true;
   public movimentacoesSelecionadas: any = [];
+
+  public dateFormat = new DateFormatPipe();
   
-  constructor(private _fb: FormBuilder, private http: HttpClient, private router: Router, private toastr: ToastrService, private servico: CaixaService) { }
+  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: CaixaService) { }
 
   load() {
     let id = this.router.url.split('/')[2];
@@ -228,6 +230,7 @@ export class MovimentacoesComponent implements OnInit {
       id: data.id,
       titular: data.titular,
       valor: data.valor,
+      abertura: new Date().toISOString(),
       situacao: 'ABERTO'
     }));
     form.reset();
@@ -247,7 +250,7 @@ export class MovimentacoesComponent implements OnInit {
         id: row.id,
         descricao: row.descricao,
         valor: row.valor,
-        registro: row.registro,
+        registro: this.dateFormat.transform(row.registro),
         motivo: row.motivo,
       });
       modalAtualizarSaida.show();
@@ -258,7 +261,7 @@ export class MovimentacoesComponent implements OnInit {
         descricao: row.descricao,
         valor: row.valor,
         ofertante: row.ofertante,
-        registro: row.registro,
+        registro: this.dateFormat.transform(row.registro),
         observacoes: row.observacoes
       });
       this.creditos = row.creditos;

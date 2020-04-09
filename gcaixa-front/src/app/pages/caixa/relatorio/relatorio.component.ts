@@ -48,7 +48,6 @@ export class RelatorioComponent implements OnInit {
     let monthIndex = this.months.indexOf(this.monthSelected);
     this.servico.findByDate(parseInt(id), monthIndex, this.yearSelected).subscribe( res => {
       this.report = res.body;
-      console.log(this.report);
     });
   }
 
