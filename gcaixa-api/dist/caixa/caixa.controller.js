@@ -75,6 +75,7 @@ __decorate([
 ], CaixaController.prototype, "delete", null);
 CaixaController = __decorate([
     common_1.Controller('caixa'),
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [caixa_service_1.CaixaService])
 ], CaixaController);
 exports.CaixaController = CaixaController;

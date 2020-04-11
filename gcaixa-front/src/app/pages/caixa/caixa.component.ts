@@ -38,8 +38,19 @@ export class CaixaComponent implements OnInit {
       this.caixas = res.body.data;
       paginacao.count = res.body.count;
     }, e => {
-      this.toastr.error(e.error.detalhes, 'ERRO', { progressBar: true });
+      this.errorMessage(e);
     });
+  }
+
+  errorMessage(err: any) {
+    if(err.status == 401) {
+      this.router.navigateByUrl('/login');
+      this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      localStorage.removeItem('id_token');
+    }
+    else {
+      this.toastr.error(err.message, 'ERRO', { progressBar: true });
+    }
   }
 
   trocarPagina(sentido: boolean) {
@@ -68,14 +79,14 @@ export class CaixaComponent implements OnInit {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.ocultarModalCadastrar();      
       }, e => {
-        this.toastr.error(e.error.detalhes, '', { progressBar: true });
+        this.errorMessage(e);
       });
     }
     else {
       this.servico.update(caixa).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
-        this.toastr.error("Não foi possivel atualizar",'ERRO', { progressBar: true })
+        this.errorMessage(e);
       });
       this.ocultarModalEditar();
     }
@@ -98,12 +109,11 @@ export class CaixaComponent implements OnInit {
           this.toastr.success('Removido com sucesso!', 'Feito', {progressBar: true});
           this.paginacao = new Paginacao();
           this.load(this.paginacao);
+        }, e =>{
+          this.errorMessage(e);
         })
-        , e => {
-          this.toastr.error('Não foi possível remover', 'ERRO', {progressBar: true});
-          }; 
-        } 
-      })
+      } 
+    })
   }
 
   ocultarModalCadastrar() {

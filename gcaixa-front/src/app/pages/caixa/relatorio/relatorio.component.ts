@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { RelatorioService } from 'src/app/shared/services/relatorio.service';
 import { Relatorio } from 'src/app/shared/modelos/Relatorio';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-relatorio',
@@ -39,7 +40,11 @@ export class RelatorioComponent implements OnInit {
   public monthSelected = 'Janeiro';
   public yearSelected = 2020;
 
-  constructor(private servico: RelatorioService, private router: Router) {
+  constructor(
+        private servico: RelatorioService,
+        private router: Router,
+        private toastr: ToastrService
+  ) {
     this.loadReport();
   }
 
@@ -48,6 +53,15 @@ export class RelatorioComponent implements OnInit {
     let monthIndex = this.months.indexOf(this.monthSelected);
     this.servico.findByDate(parseInt(id), monthIndex, this.yearSelected).subscribe( res => {
       this.report = res.body;
+    }, e => {
+      if(e.status == 401) {
+        this.router.navigateByUrl('/login');
+        this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+        localStorage.removeItem('id_token');
+      }
+      else {
+        this.toastr.error(e.message, 'ERRO', { progressBar: true });
+      }
     });
   }
 
