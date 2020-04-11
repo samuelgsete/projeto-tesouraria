@@ -47,8 +47,19 @@ export class MovimentacoesComponent implements OnInit {
         this.toastr.error('Nenhum caixa encontrada', 'Erro', {progressBar: true});
       } 
     }, e => {
-      this.toastr.error('Os dados não foram carregados', 'Falha', { progressBar: true });
+      this.errorMessage(e);
     });
+  }
+
+  errorMessage(err: any) {
+    if(err.status == 401) {
+      this.router.navigateByUrl('/login');
+      this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      localStorage.removeItem('id_token');
+    }
+    else {
+      this.toastr.error(err.message, 'ERRO', { progressBar: true });
+    }
   }
 
   aoSelecionar(movimentacoes: any) {
@@ -101,7 +112,7 @@ export class MovimentacoesComponent implements OnInit {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();      
       }, e => {
-        this.toastr.error(e.error.detalhes, '', { progressBar: true });
+        this.errorMessage(e);
       });
     }
     else {
@@ -116,7 +127,7 @@ export class MovimentacoesComponent implements OnInit {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
-        this.toastr.error("Não foi possivel atualizar",'ERRO', { progressBar: true })
+        this.errorMessage(e);
       });
     }
     modal.hide();
@@ -139,7 +150,7 @@ export class MovimentacoesComponent implements OnInit {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();      
       }, e => {
-        this.toastr.error(e.error.detalhes, '', { progressBar: true });
+        this.errorMessage(e);
       });
     }
     else {
@@ -155,7 +166,7 @@ export class MovimentacoesComponent implements OnInit {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
-        this.toastr.error("Não foi possivel atualizar",'ERRO', { progressBar: true })
+        this.errorMessage(e);
       });
     }
     modal.hide();
@@ -186,7 +197,7 @@ export class MovimentacoesComponent implements OnInit {
             this.load();
             this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
           }, e => {
-            this.toastr.error("Não foi possivel remover",'ERRO', { progressBar: true })
+            this.errorMessage(e);
           }); 
         });
         this.movimentacoesSelecionadas = [];
@@ -217,7 +228,7 @@ export class MovimentacoesComponent implements OnInit {
           this.load();
           this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
         }, e => {
-          this.toastr.error("Não foi possivel remover",'ERRO', { progressBar: true })
+          this.errorMessage(e);
         });
       } 
     });

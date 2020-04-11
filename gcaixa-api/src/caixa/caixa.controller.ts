@@ -7,7 +7,7 @@ import { ValidationPipe } from 'src/shared/pipes/validation.pipe';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('caixa')
-//@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class CaixaController {
 
     constructor(private service: CaixaService) { }

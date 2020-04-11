@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;;
+}
+  
+.login {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    background-color: #1C2331;
+    .content {
+        margin: 0 auto;
+        background-color: #dce7f5;
+        padding: 3%;
+
+        .header {
+            text-align: center;
+            h6 {
+                margin-top: 30px;
+                font-size: 20px;
+            }
+        }
+
+        .body {
+            margin-top: 40px;
+            line-height: 20px;
+            form {
+                .input-width { width: 100% }
+
+                .senha, .entrar { margin-top: 25px }
+
+                mat-form-field {
+                    button:focus { outline: none }
+                }
+
+                mat-error { margin-left: -12px }
+            }    
+        }
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1200px) { 
+    .login {
+        .content {
+            width: 30%;
+            height: 600px;
+        }
+    }
+}
+
+
+/* Tablet em retrato a paisagem e desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+    .login {
+        .content {
+            width: 50%;
+            height: 600px;
+        }
+    }
+}
+
+/*Telefones em paisagem a tablet em retrato */
+@media (max-width: 767px) { 
+    .login {
+        .content {
+            width: 60%;
+            height: 600px;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .login {
+        .content {
+            width: 90%;
+            height: 600px;
+        }
+    }
+}
