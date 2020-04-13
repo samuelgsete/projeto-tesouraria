@@ -2,8 +2,9 @@ import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from "@nestjs/commo
 import { Response } from 'express';
 
 import { InsufficientFunds } from "./modelos/insufficient-funds.exception";
+import { IdInvalidException } from "./modelos/Id-invalid.exception";
 
-@Catch(InsufficientFunds)
+@Catch(InsufficientFunds, IdInvalidException)
 export class GenericaExceptionsFilter implements ExceptionFilter {
     catch(ex: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();

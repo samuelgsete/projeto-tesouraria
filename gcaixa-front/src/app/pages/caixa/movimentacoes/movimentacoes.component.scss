@@ -1,39 +1,58 @@
-.moviment {
-    margin: 1% 4% 0 4%;
+ .body {
+    padding-bottom: 8%;
+    background-color: #d3e0e2;
 
-    .header {
-        h6 { text-align: right }
-
-        .all-delete { 
-            height: 53px;
-            button { 
-                float: right;
-                margin-top:-8px;
-            }
-
-            button:focus { outline: none }
-        }   
+    .hero {
+        height: 150px;
+        padding: 25px 4%;
+        background-color: #00b8d4;
+        
+        a:first-child {
+            color: #fff;
+            margin-left: -10px;
+        }
+        a, mdb-icon { color: #fff; }
     }
 
-    .main-content {
-        ngx-datatable {
-            width: 100%; 
-            box-shadow: none;
+    .moviment {
+        height: 600px;
+        margin: -4% 4%;
+        padding: 15px 35px;
+        background-color: #fff;
+        border-radius: 6px;
 
-            .button-actions { margin-top: -5px }
+        .header {
+            h6 { text-align: right }
 
-            .button-actions:focus { outline: none }
+            .all-delete { 
+                height: 53px;
+                button { 
+                    float: right;
+                    margin-top:-8px;
+                }
 
-            .tipo-movimentacao {
-                color: #fff;
-                border-radius: 15px;
-                padding: 5px;
-                text-align: center;
+                button:focus { outline: none }
             }   
         }
-    }
 
-    .footer { margin-top: 20px }
+        .main-content {
+            ngx-datatable {
+                width: 100%; 
+                box-shadow: none;
+
+                .button-actions { margin-top: -5px }
+
+                .button-actions:focus { outline: none }
+
+                .tipo-movimentacao {
+                    color: #fff;
+                    border-radius: 15px;
+                    padding: 5px;
+                    text-align: center;
+                }   
+            }
+        }
+    }
 }
 
 .modal {

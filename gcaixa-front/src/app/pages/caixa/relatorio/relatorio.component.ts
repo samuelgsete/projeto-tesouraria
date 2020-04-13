@@ -41,12 +41,10 @@ export class RelatorioComponent implements OnInit {
   public yearSelected = 2020;
 
   constructor(
-        private servico: RelatorioService,
-        private router: Router,
-        private toastr: ToastrService
-  ) {
-    this.loadReport();
-  }
+          private servico: RelatorioService,
+          private router: Router,
+          private toastr: ToastrService
+  ) { this.loadReport() }
 
   loadReport(){
     let id = this.router.url.split('/')[2]; 
@@ -54,14 +52,15 @@ export class RelatorioComponent implements OnInit {
     this.servico.findByDate(parseInt(id), monthIndex, this.yearSelected).subscribe( res => {
       this.report = res.body;
     }, e => {
-      if(e.status == 401) {
-        this.router.navigateByUrl('/login');
-        this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
-        localStorage.removeItem('id_token');
-      }
-      else {
-        this.toastr.error(e.message, 'ERRO', { progressBar: true });
-      }
+        if(e.status == 401) {
+          this.router.navigateByUrl('/login');
+          this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+          localStorage.removeItem('id_token');
+        }
+        else {
+          this.toastr.error(e.error.detalhes, 'ERRO', { progressBar: true });
+          this.router.navigateByUrl('/home');
+        }
     });
   }
 

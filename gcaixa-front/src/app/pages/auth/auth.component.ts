@@ -20,17 +20,25 @@ export class AuthComponent implements OnInit {
         private router: Router,  
         private servico: UsuarioService, 
         private toastr: ToastrService
-  ) {
-   }
+  ) { }
   
   public fazerLogin(usuario: Usuario) {
     this.servico.login(usuario).subscribe( res => {
       localStorage.setItem("id_token", res.access_token);
       this.router.navigateByUrl('/home');
     }, err => {
-      this.toastr.info('Login ou senha inválidos', 'ERRO', { progressBar: true });
+      this.messageError(err);
       this.f.reset();
     });
+  }
+
+  public messageError(erro: any) {
+    if(erro.status == 0) {
+      this.toastr.error('Tente mais tarde', 'Servidor indisponível', { progressBar: true });
+    }
+    if(erro.status == 401) {
+      this.toastr.info('Login ou senha inválidos', 'ERRO', { progressBar: true });
+    }
   }
 
   public fazerLogout() {

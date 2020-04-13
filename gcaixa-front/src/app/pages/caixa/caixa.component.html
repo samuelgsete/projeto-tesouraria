@@ -1,62 +1,70 @@
-<div class="box">
-
-    <div class="header">
+<app-menu></app-menu>
+<div class="body">
+    <div class="hero">
         <div class="row">
-            <div class="col">
-                <mat-form-field class="input-width" appearance="fill">
-                    <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
-                    <button mat-icon-button matSuffix>
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
+            <div class="col-10">
+                <a type="button" routerLink="/home" class="nav-link waves-light" mdbWavesEffect>
+                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
+                </a>
+            </div>
+            <div class="col-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
             </div>
         </div>
     </div>
-    
-    <div class="main-content">
-        <p *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
-        <div class="row">
-            <div class="col-4" *ngFor="let c of caixas">
-                <mdb-card>
-                    <mdb-card-body>
-                        <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
-                            <mat-icon>more_horiz</mat-icon>
-                        </button>
-                        <mat-menu #actions="matMenu">
-                            <button mat-menu-item (click)="emitirRelatorio(c.id)">Relatório</button>
-                            <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
-                        </mat-menu>  
-
-                        <mdb-card-title>
-                            <h4>{{ c.nome }}</h4>
-                        </mdb-card-title>
-                
-                        <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
-                    
-                        <button type="button" mdbBtn color="indigo" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
-                        <button type="button" mdbBtn color="amber" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
+    <div class="box z-depth-1-half">
+        <div class="header">
+            <mat-form-field class="input-width" appearance="fill">
+                <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
+                <button mat-icon-button matSuffix>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
         </div>
-            
-        <div class="main-footer">
+        
+        <div class="main-content">
+            <p *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
             <div class="row">
-                <div class="col-2">
-                    <button mdbBtn type="button" block="true" color="primary" class="z-depth-0" mdbWavesEffect (click)="modalCadastro.show()" >NOVO</button>
-                </div>
-                <div class="col-6"></div>
-                <div class="col-2">
-                    <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
-                </div>
-                <div class="col-2">
-                    <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                <div class="col-4" *ngFor="let c of caixas">
+                    <mdb-card>
+                        <mdb-card-body>
+                            <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #actions="matMenu">
+                                <button mat-menu-item (click)="emitirRelatorio(c.id)">Relatório</button>
+                                <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
+                            </mat-menu>  
+    
+                            <mdb-card-title>
+                                <h4>{{ c.nome }}</h4>
+                            </mdb-card-title>
+                    
+                            <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                        
+                            <button type="button" mdbBtn color="indigo" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
+                            <button type="button" mdbBtn color="amber" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
+                        </mdb-card-body>
+                    </mdb-card>
                 </div>
             </div>
-        </div>
-
-    </div>    
+                
+            <div class="main-footer">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-6"></div>
+                    <div class="col-2">
+                        <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
+                    </div>
+                    <div class="col-2">
+                        <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
 </div>
+<app-footer></app-footer>
 
 <div mdbModal #modalCadastro="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">

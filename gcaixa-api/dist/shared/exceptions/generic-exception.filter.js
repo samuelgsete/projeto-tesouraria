@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const insufficient_funds_exception_1 = require("./modelos/insufficient-funds.exception");
+const Id_invalid_exception_1 = require("./modelos/Id-invalid.exception");
 let GenericaExceptionsFilter = class GenericaExceptionsFilter {
     catch(ex, host) {
         const ctx = host.switchToHttp();
@@ -22,7 +23,7 @@ let GenericaExceptionsFilter = class GenericaExceptionsFilter {
     }
 };
 GenericaExceptionsFilter = __decorate([
-    common_1.Catch(insufficient_funds_exception_1.InsufficientFunds)
+    common_1.Catch(insufficient_funds_exception_1.InsufficientFunds, Id_invalid_exception_1.IdInvalidException)
 ], GenericaExceptionsFilter);
 exports.GenericaExceptionsFilter = GenericaExceptionsFilter;
 //# sourceMappingURL=generic-exception.filter.js.map

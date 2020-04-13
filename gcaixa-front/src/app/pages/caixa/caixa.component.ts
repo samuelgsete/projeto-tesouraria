@@ -49,7 +49,7 @@ export class CaixaComponent implements OnInit {
       localStorage.removeItem('id_token');
     }
     else {
-      this.toastr.error(err.message, 'ERRO', { progressBar: true });
+      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
     }
   }
 
@@ -60,7 +60,6 @@ export class CaixaComponent implements OnInit {
     else {
       this.paginacao.previousPage();
     }
-    console.log(this.paginacao);
     this.load(this.paginacao);
   }
 

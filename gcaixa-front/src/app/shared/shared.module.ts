@@ -3,22 +3,24 @@ import { CommonModule } from '@angular/common';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
 import { NgxCurrencyModule } from "ngx-currency";
 import { ToastrModule } from 'ngx-toastr';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import {MatMenuModule} from '@angular/material/menu';
 import { TextMaskModule } from 'angular2-text-mask';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import {MatExpansionModule } from '@angular/material/expansion';
+
 import { DateFormatPipe } from './pipes/date-format.pipe';
-import {MatSelectModule} from '@angular/material/select';
-import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
-    DateFormatPipe
+    DateFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatMenuModule,
     TextMaskModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -49,7 +51,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     TextMaskModule,
     DateFormatPipe,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
 })
 export class SharedModule { }
