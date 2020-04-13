@@ -1,53 +1,81 @@
-* {
-    font-family: 'Times New Roman';
-    font-size: 18px;
-}
 
-.report {
-    height: 100%;
-    margin: 1% 12% 1% 12%;
+.body {
+    padding-bottom: 8%;
+    background-color: #d3e0e2;
 
-    .header {
-        text-align: center;
+    .hero {
+        height: 150px;
+        padding: 25px 4%;
+        background-color: #00b8d4;
+        
+        a:first-child {
+            color: #fff;
+            margin-left: -10px;
+        }
+        a, mdb-icon { color: #fff; }
 
-        .logo { margin-bottom: 15px }
+        mat-form-field {
+            float: right;
+            width: 100%;
 
-        h4 { font-weight: bold }
-
-        p { text-decoration: underline } 
+            mat-label {
+                color: #fff;
+            }
+        }
     }
 
-    .form-filter {
-        .input-width { width: 100% }
-        
-    }
-
-    .report-header {
-        p.saldo-atual { font-weight: bold }
-        
-        .nome-caixa {
-            font-weight: bold; 
-            font-size: 23px;
+    .report {
+        font-family: 'Times New Roman';
+        font-size: 18px;
+        overflow-y: auto;
+        height: 720px;
+        margin: -4% 4%;
+        padding: 30px 35px;
+        background-color: #fff;
+        border-radius: 6px;
+       
+        .header {
             text-align: center;
-            text-transform: uppercase;
-        }
-    }
 
-    .main-content {
-        p { text-align: center }
-        
-        table, th, tr, td {
-            border: 1px solid black;
-            border-collapse: collapse;  
-        }
-        table { 
-            width: 100%; 
-            tr.saldo-mensal { text-align: center }
-            tr td {
-                line-height: 18px; 
-                padding: 8px;
+            .logo { margin-bottom: 15px }
 
-                .box-moviment { margin-bottom: 15px }
+            h4 { font-weight: bold }
+
+            p { text-decoration: underline } 
+        }
+
+        .form-filter {
+            .input-width { width: 100% }
+            
+        }
+
+        .report-header {
+            p.saldo-atual { font-weight: bold }
+            
+            .nome-caixa {
+                font-weight: bold; 
+                font-size: 23px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+
+        .main-content {
+            p { text-align: center }
+            
+            table, th, tr, td {
+                border: 1px solid black;
+                border-collapse: collapse;  
+            }
+            table { 
+                width: 100%; 
+                tr.saldo-mensal { text-align: center }
+                tr td {
+                    line-height: 18px; 
+                    padding: 8px;
+
+                    .box-moviment { margin-bottom: 15px }
+                }
             }
         }
     }

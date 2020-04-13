@@ -1,39 +1,28 @@
 <div class="login">
-    <div class="content">
+    <div class="content z-depth-2">
         <div class="header">
             <img src="/assets/img/logotipo.png" alt="logotipo" width="84px" height="84px">
-            <h6>INFORME SEUS DADOS</h6>
+            <h6>GSETE</h6>
+            <p>INFORME SEUS DADOS</p>
         </div>
         <div class="body">
             <form [formGroup]="f">
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field class="input-width" appearance="fill">
-                            <input formControlName="username" matInput placeholder="usuario">
-                            <button mat-icon-button matSuffix>
-                                <mat-icon>person</mat-icon>
-                            </button>
-                            <mat-error>preencha essa campo corretamente</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row senha">
-                    <div class="col">
-                        <mat-form-field class="input-width" appearance="fill">
-                            <input type="password" formControlName="password" matInput placeholder="senha">
-                            <button mat-icon-button matSuffix>
-                                <mat-icon>lock</mat-icon>
-                            </button>
-                            <mat-error>preencha esse campo corretamente</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row entrar">
-                    <div class="col">
-                        <button type="button" class="z-depth-0" block="true" mdbBtn color="info" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
-                    </div>
-                </div>
-            </form>
+                <mat-form-field class="input-width" appearance="fill">
+                    <input formControlName="username" matInput placeholder="usuario">
+                    <button mat-icon-button matSuffix>
+                        <mat-icon>person</mat-icon>
+                    </button>
+                    <mat-error>preencha essa campo corretamente</mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-width" appearance="fill">
+                    <input type="password" formControlName="password" matInput placeholder="senha">
+                    <button mat-icon-button matSuffix>
+                        <mat-icon>lock</mat-icon>
+                    </button>
+                    <mat-error>preencha esse campo corretamente</mat-error>
+                </mat-form-field>
+                <button type="button" class="z-depth-0" block="true" mdbBtn color="info" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
+            </form> 
         </div>
     </div>
 </div>

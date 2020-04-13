@@ -44,7 +44,7 @@ export class MovimentacoesComponent implements OnInit {
       }
       else {
         this.router.navigateByUrl('/home');
-        this.toastr.error('Nenhum caixa encontrada', 'Erro', {progressBar: true});
+        this.toastr.error('Nenhum caixa encontrado', 'Erro', {progressBar: true});
       } 
     }, e => {
       this.errorMessage(e);
@@ -58,7 +58,8 @@ export class MovimentacoesComponent implements OnInit {
       localStorage.removeItem('id_token');
     }
     else {
-      this.toastr.error(err.message, 'ERRO', { progressBar: true });
+      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -135,7 +136,6 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   salvarOuAtualizarSaida(s: Saida, modal: any) {
-    console.log(s);
     let saida: Saida = new Saida({
       id: s.id,
       data: s.registro,

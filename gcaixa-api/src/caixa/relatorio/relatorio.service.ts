@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Caixa } from 'src/shared/models/caixa.entity';
 import { IdInvalidException } from 'src/shared/exceptions/modelos/Id-invalid.exception';
 import { Relatorio } from './relatorio.entity';
+import { throws } from 'assert';
 
 @Injectable()
 export class RelatorioService {
@@ -20,6 +21,10 @@ export class RelatorioService {
 
     public async findReportByDate(id: number, month: number, year: number): Promise<any> {
         let caixa = await this.findById(id);
+
+        if(caixa == null) {
+            throw new IdInvalidException('O id informado não está cadastrado');
+        }
 
         let _entradas = caixa.entradas.filter( e => {
             return e.registro.getMonth() == month && e.registro.getFullYear() == year;

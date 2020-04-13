@@ -1,84 +1,93 @@
-<div class="moviment">
-    <div class="header">
+<app-menu></app-menu>
+<div class="body">
+    <div class="hero">
         <div class="row">
-            <div class="col-8"></div>
-            <div class="col-4">
-                <h6>Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
+            <div class="col-8">
+                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
+                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
+                </a>
+                <mdb-icon fas icon="chevron-right"></mdb-icon> 
+                <a type="button" class="nav-link waves-light">
+                    <mdb-icon fas icon="folder-open"></mdb-icon> Movimentações<span class="caret"></span>
+                </a>
             </div>
-        </div>
-        <div class="all-delete">
-            <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
-                {{ movimentacoesSelecionadas.length }} selecionado(s) ...
-                <button (click)="deletarMovimentacoesSelecionadas()" mat-icon-button>
-                    <mat-icon>delete</mat-icon>
-                </button>
+            <div class="col-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
+            </div>
+            <div class="col-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA SAIDA</button>
             </div>
         </div>
     </div>
-    <div class="main-content">
-        <ngx-datatable
-            [rows]="rows"
-            class="material"
-            [loadingIndicator]="indicadorDeCarregamento"
-            [columnMode]="'force'"
-            [headerHeight]="50"
-            [footerHeight]="50"
-            [rowHeight]="'auto'"
-            [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
-            [selectionType]="'checkbox'"
-            (select)="aoSelecionar($event)"
-            [selected]="movimentacoesSelecionadas"
-            [limit]="5"
-        >
-        <ngx-datatable-column
-            [width]="60"
-            [sortable]="false"
-            [canAutoResize]="false"
-            [draggable]="false"
-            [resizeable]="false"
-            [headerCheckboxable]="true"
-            [checkboxable]="true">
-        </ngx-datatable-column>
-            <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
-            <ngx-datatable-column name="Descrição" [width]="300" prop="descricao"></ngx-datatable-column>
-            <ngx-datatable-column name="Valor" [width]="150">
-                <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.valor | currency:'BRL' }}</ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Tipo" [width]="200">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
-                <div class="tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'ENTRADA', 'danger-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Ações" [width]="100">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
-                    <button class="button-actions" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)" mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button class="button-actions" (click)="deletarMovimentacao(row) "mat-icon-button>
+    <div class="moviment z-depth-1-half">
+        <div class="header">
+            <div class="row">
+                <div class="col-8">
+                    <h4>{{ caixa.nome }}</h4>
+                </div>
+                <div class="col-4">
+                    <h6>Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
+                </div>
+            </div>
+            <div class="all-delete">
+                <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
+                    {{ movimentacoesSelecionadas.length }} selecionado(s) ...
+                    <button (click)="deletarMovimentacoesSelecionadas()" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
-    </div>
-   
-    <div class="footer">
-        <div class="row">
-            <div class="col-8"></div>
-            <div class="col-2">
-                <button  type="button" block="true" mdbBtn color="light" class="z-depth-0" (click)="router.navigateByUrl('home')" mdbWavesEffect>FECHAR</button>
-            </div>
-            <div class="col-2"> 
-                <button class="z-depth-0" type="button" block="true" mdbBtn color="indigo" mdbWavesEffect [matMenuTriggerFor]="novaMovimentacao">NOVO</button> 
-                <mat-menu #novaMovimentacao="matMenu">
-                    <button mat-menu-item (click)="mostrarModalEntrada(modalEntrada)">Entrada</button>
-                    <button mat-menu-item (click)="mostrarModalSaida(modalSaida)">Saida</button>
-                </mat-menu>  
+                </div>
             </div>
         </div>
+        <div class="main-content">
+            <ngx-datatable
+                [rows]="rows"
+                class="material"
+                [loadingIndicator]="indicadorDeCarregamento"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
+                [selectionType]="'checkbox'"
+                (select)="aoSelecionar($event)"
+                [selected]="movimentacoesSelecionadas"
+                [limit]="5"
+            >
+            <ngx-datatable-column
+                [width]="60"
+                [sortable]="false"
+                [canAutoResize]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [headerCheckboxable]="true"
+                [checkboxable]="true">
+            </ngx-datatable-column>
+                <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Descrição" [width]="300" prop="descricao"></ngx-datatable-column>
+                <ngx-datatable-column name="Valor" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.valor | currency:'BRL' }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Tipo" [width]="200">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'ENTRADA', 'danger-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Ações" [width]="100">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                        <button class="button-actions" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="button-actions" (click)="deletarMovimentacao(row) "mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
     </div>
-    
 </div>
+<app-footer></app-footer>
+
 <div mdbModal #modalEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">

@@ -1,33 +1,52 @@
-.box {
-    height: 100%;
-    margin: 1% 4% 1% 4%;
-
-    .header {
-        mat-form-field.input-width { width:100% }
+.body {
+    padding-bottom: 8%;
+    background-color: #d3e0e2;
+    .hero {
+        height: 150px;
+        padding: 25px 4%;
+        background-color: #00b8d4;
+        
+        a {
+            color: #fff;
+            margin-left: -10px;
+        }
     }
 
-    .main-content {
-        p { text-align: center }
+    .box {
+        height: 710px;
+        margin: -4% 4%;
+        padding: 30px 35px;
+        background-color: #fff;
+        border-radius: 6px;
+        
+        .header {
+            mat-form-field.input-width { width:100% }
+        }
 
-        mdb-card { 
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 40px;
+        .main-content {
+            
+            p { text-align: center }
 
-            mdb-card-body {
-                .icon-more-actions {
-                    float: right;
-                    margin: -20px;
-                }
-                
-                .icon-more-actions:focus {
-                    outline: none;
-                }
+            mdb-card { 
+                padding: 10px;
+                text-align: center;
+                margin-bottom: 40px;
 
-                mdb-card-title {
-                    h4 { margin-top: 20px }
-                }
-            }       
+                mdb-card-body {
+                    .icon-more-actions {
+                        float: right;
+                        margin: -20px;
+                    }
+                    
+                    .icon-more-actions:focus {
+                        outline: none;
+                    }
+
+                    mdb-card-title {
+                        h4 { margin-top: 20px }
+                    }
+                }       
+            }
         }
     }
 }

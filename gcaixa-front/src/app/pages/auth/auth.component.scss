@@ -6,27 +6,36 @@
 .login {
     padding-top: 3%;
     padding-bottom: 3%;
-    background-color: #1C2331;
+    display: flex;
+    justify-content: center;
+    background-color: #ffbb33;
     .content {
-        margin: 0 auto;
-        background-color: #dce7f5;
+        height: 650px;
+        background-color: #fff;
         padding: 3%;
-
+        display: flex;
+        flex-direction: column;
         .header {
             text-align: center;
+            margin: 5% 0%;
             h6 {
-                margin-top: 30px;
+                font-size: 17px;
+                font-weight: bold;
+                letter-spacing: 5px;
+            }
+            P {
+                margin: 5% 0%;
                 font-size: 20px;
             }
         }
-
+        
         .body {
-            margin-top: 40px;
-            line-height: 20px;
             form {
                 .input-width { width: 100% }
 
-                .senha, .entrar { margin-top: 25px }
+                mat-form-field, button {
+                    margin-top: 5%;
+                }
 
                 mat-form-field {
                     button:focus { outline: none }
@@ -43,7 +52,6 @@
     .login {
         .content {
             width: 30%;
-            height: 600px;
         }
     }
 }
@@ -54,7 +62,6 @@
     .login {
         .content {
             width: 50%;
-            height: 600px;
         }
     }
 }
@@ -63,8 +70,7 @@
 @media (max-width: 767px) { 
     .login {
         .content {
-            width: 60%;
-            height: 600px;
+            width: 55%;
         }
     }
 }
@@ -73,7 +79,6 @@
     .login {
         .content {
             width: 90%;
-            height: 600px;
         }
     }
 }

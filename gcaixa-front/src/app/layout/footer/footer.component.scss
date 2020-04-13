@@ -1,0 +1,26 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1C2331;
+    padding: 40px 0;
+
+    ul {
+        display: flex;
+        margin-bottom: 25px;
+        li {
+            list-style: none;
+            margin-right: 15px;
+            a { 
+                color: #FF8800;
+                font-size: 25px;
+            }
+        }
+
+        li:last-child { margin-right: 0 }
+    }
+    
+    p {
+        color: #FF8800;
+    }
+}
