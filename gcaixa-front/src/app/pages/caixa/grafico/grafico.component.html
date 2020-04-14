@@ -1,0 +1,48 @@
+<app-menu></app-menu>
+<div class="body">
+    <div class="hero">
+        <div class="row">
+            <div class="col-10">
+                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
+                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
+                </a>
+                <mdb-icon fas icon="chevron-right"></mdb-icon> 
+                <a type="button" class="nav-link waves-light">
+                    <mdb-icon fas icon="cogs"></mdb-icon> Grafico<span class="caret"></span>
+                </a>
+            </div>
+            <div class="col-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="update()" mdbWavesEffect>ATUALIZAR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="graphic z-depth-1-half">
+        <div class="row">
+            <div class="col-6">
+                <h4>{{ this.caixa.nome }}</h4>
+            </div>
+            <div class="col-6">
+                <p>Total em caixa: {{ this.caixa.saldoAtual | currency:'BRL' }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h5>Histórico de movimentações de {{ now }}</h5>
+            </div>
+        </div>
+        <div style="display: block;">
+            <canvas mdbChart
+                [chartType]="chartType"
+                [(datasets)]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+            >
+            </canvas>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

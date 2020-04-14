@@ -14009,7 +14009,6 @@
       "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
       "../src/caixa/caixa.controller.ts",
-      "../src/caixa/relatorio/relatorio.entity.ts",
       "../src/caixa/relatorio/relatorio.controller.ts",
       "../src/caixa/caixa.module.ts",
       "../src/users/users.module.ts",
@@ -14090,6 +14089,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
+      "../src/caixa/relatorio/relatorio.entity.ts",
       "../src/caixa/relatorio/relatorio.service.ts"
     ]
   },
