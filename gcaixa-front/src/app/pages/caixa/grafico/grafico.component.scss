@@ -1,0 +1,27 @@
+.body {
+    padding-bottom: 8%;
+    background-color: #d3e0e2;
+    .hero {
+        height: 150px;
+        padding: 25px 60px;
+        background-color: #00b8d4;
+        
+        a:first-child {
+            color: #fff;
+            margin-left: -10px;
+        }
+        a, mdb-icon { color: #fff; }
+    }
+
+    .graphic {
+        height: 768px;
+        margin: -60px 60px;
+        padding: 30px 50px;
+        background-color: #fff;
+        border-radius: 6px;
+
+        p { text-align: right }
+
+        h5 { text-align: center;}
+    }
+}
