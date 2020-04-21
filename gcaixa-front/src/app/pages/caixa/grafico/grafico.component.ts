@@ -14,11 +14,17 @@ import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 export class GraficoComponent implements OnInit {
 
   public chartType: string = 'bar';
-  public chartDatasets = [
+  public chartDatasets1 = [
     { data: [120.35, 144.60, 160.35, 175.65, 135, 195.85, 210.05, 201.45, 111.25, 140.8, 128.4, 131.1], label: 'ENTRADAS' },
     { data: [50, 20, 15, 80, 90, 10, 15, 220, 220, 130, 5, 180], label: 'SAIDAS' },
     { data: [30, 29, 22, 45, 16, 19, 10, 20, 22, 30, 50, 80], label: 'FIADOS' },
   ];
+
+  public chartDatasets2 = [
+    { data: [120.35, 144.60, 160.35, 175.65, 135, 195.85, 210.05, 201.45, 111.25, 140.8, 128.4, 131.1], label: 'SALDO REAL' },
+    { data: [50, 20, 15, 80, 90, 10, 15, 220, 220, 130, 5, 180], label: 'SALDO ATUAL' },
+  ];
+
   public chartLabels = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -53,6 +59,7 @@ export class GraficoComponent implements OnInit {
           private servico: CaixaService, 
           private toastr: ToastrService
   ) { 
+
     this.load();
   }
 
@@ -62,6 +69,8 @@ export class GraficoComponent implements OnInit {
       let c: Caixa = resp
       if(c != null) {
         this.caixa = c;
+        this.plotarGraficoMovimentacoes();
+        this.plotarGraficoContagens();
       }
       else {
         this.router.navigateByUrl('/home');
@@ -72,8 +81,8 @@ export class GraficoComponent implements OnInit {
     });
   }
 
-  update(){   
-    this.chartDatasets = [
+  plotarGraficoMovimentacoes(){   
+    this.chartDatasets1 = [
       { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'ENTRADAS' },
       { data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SAIDAS' },
       { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'FIADOS' }
@@ -106,7 +115,7 @@ export class GraficoComponent implements OnInit {
           valorEntradas += e.valor;
         }
       });
-      this.chartDatasets[0].data[index] = valorEntradas;
+      this.chartDatasets1[0].data[index] = valorEntradas;
       valorEntradas = 0;
     });
 
@@ -117,7 +126,7 @@ export class GraficoComponent implements OnInit {
           valorSaidas += s.valor;
         }
       });
-      this.chartDatasets[1].data[index] = valorSaidas;
+      this.chartDatasets1[1].data[index] = valorSaidas;
       valorSaidas = 0;
     });
 
@@ -129,18 +138,62 @@ export class GraficoComponent implements OnInit {
           valorFiados+= f.valor;
         }
       });
-      this.chartDatasets[2].data[index] = valorFiados;
+      this.chartDatasets1[2].data[index] = valorFiados;
       valorFiados= 0;
     });
   }
 
   /* Verifica se a movimentação (entrada/saida) pertence ao mês corrente */
-  isCurrent(index, date) {
+  isCurrent(index: number, date: any) {
     let mes = parseInt(date.split('-')[1]);
     if(index + 1 == mes) {
       return true;
     }
     return false;
+  }
+
+  plotarGraficoContagens() {
+    this.chartDatasets2 = [
+      { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SALDO REAL' },
+      { data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SALDO VIRTUAL' },
+    ];
+    /* Filtra as contagens do ano atual */
+    let contagens = this.caixa.contagens.filter( c => {
+      return this.dateFormat.transform(c.registro).indexOf(this.now) != -1;
+    });
+    
+    this.chartLabels.forEach( (item, index) => {
+      contagens.forEach( c => {
+        let mes = parseInt(this.dateFormat.transform(c.registro).split('/')[1]);
+        if(mes == index+1) {
+          this.chartDatasets2[0].data[index] = c.saldoReal;
+          this.chartDatasets2[1].data[index] = this.calcularSaldoAteOmesCorrente(this.caixa, mes, this.now);
+        }
+      });  
+    });
+  }
+
+  calcularSaldoAteOmesCorrente(caixa: Caixa, mes: number, ano: number) {
+    let saldo = caixa.saldoInicial;
+
+    let _entradas = this.caixa.entradas.filter( e => {
+      const [d, m, a] = this.dateFormat.transform(e.registro).split('/');
+      return parseInt(m) <= mes  && ano == parseInt(a);
+    });
+    
+    let _saidas = this.caixa.saidas.filter( s => {
+      const [d, m, a] = this.dateFormat.transform(s.registro).split('/');
+      return parseInt(m) <= mes  && ano == parseInt(a);
+    });
+
+    _entradas.forEach( e => {
+      saldo +=e.valor;
+    });
+
+    _saidas.forEach( s => {
+      saldo -=s.valor;
+    });
+    return saldo;
   }
 
   errorMessage(err: any) {

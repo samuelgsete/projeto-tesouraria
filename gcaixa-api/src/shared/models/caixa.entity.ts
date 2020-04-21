@@ -4,6 +4,7 @@ import { Saida } from "./saida.entity";
 import { Entrada } from "./entrada.entity";
 import { EntidadeBase } from "./entidade-base";
 import { InsufficientFunds } from "../exceptions/modelos/insufficient-funds.exception";
+import { Contagem } from "./contagem.entity";
 
 @Entity()
 export class Caixa extends EntidadeBase {
@@ -22,6 +23,9 @@ export class Caixa extends EntidadeBase {
 
     @OneToMany(type => Entrada, entrada => entrada.caixa, { cascade: true })
     public entradas: Entrada[];
+
+    @OneToMany(type => Contagem, contagem => contagem.caixa, { cascade: true })
+    public contagens: Contagem[];
 
     @Column({ length: 255, unique: false, nullable: true })
     public observacoes: string;

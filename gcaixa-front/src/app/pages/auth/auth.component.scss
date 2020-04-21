@@ -1,30 +1,31 @@
 * {
     margin: 0;
-    padding: 0;;
+    padding: 0;
 }
   
 .login {
-    padding-top: 3%;
-    padding-bottom: 3%;
+    background-color: #fff;
+    height: 100vh;
     display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
-    background-color: #ffbb33;
+    align-items: center;
     .content {
-        height: 650px;
-        background-color: #fff;
-        padding: 3%;
-        display: flex;
-        flex-direction: column;
+        height: 640px;
+        width: 500px;
+        background-color: #ffffff;
+        border: 3px solid #d5e1e2;
+        border-radius: 10px;
+        padding: 40px; 
         .header {
             text-align: center;
-            margin: 5% 0%;
             h6 {
                 font-size: 17px;
                 font-weight: bold;
                 letter-spacing: 5px;
             }
             P {
-                margin: 5% 0%;
+                margin-top: 5%;
                 font-size: 20px;
             }
         }
@@ -44,41 +45,12 @@
                 mat-error { margin-left: -12px }
             }    
         }
-    }
-}
 
-/* Desktop grande */
-@media (min-width: 1200px) { 
-    .login {
-        .content {
-            width: 30%;
-        }
-    }
-}
-
-
-/* Tablet em retrato a paisagem e desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-    .login {
-        .content {
-            width: 50%;
-        }
-    }
-}
-
-/*Telefones em paisagem a tablet em retrato */
-@media (max-width: 767px) { 
-    .login {
-        .content {
-            width: 55%;
-        }
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .login {
-        .content {
-            width: 90%;
+        .footer {
+            p {
+                text-align: center;
+                margin-top: 40px;
+            }
         }
     }
 }

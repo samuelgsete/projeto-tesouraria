@@ -11,6 +11,14 @@
                     <mdb-icon fas icon="folder-open"></mdb-icon> Movimentações<span class="caret"></span>
                 </a>
             </div>
+            <div class="col-4">
+                <h5>Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h5>
+            </div>
+        </div>
+        <div class="row info-page">
+            <div class="col-8">
+                <h3>TODAS AS MOVIMENTAÇÕES</h3>
+            </div>
             <div class="col-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
             </div>
@@ -23,11 +31,8 @@
         <div class="header">
             <div class="row">
                 <div class="col-8">
-                    <h4>{{ caixa.nome }}</h4>
                 </div>
-                <div class="col-4">
-                    <h6>Saldo Atual: {{ caixa.saldoAtual | currency:'BRL' }}</h6>
-                </div>
+                
             </div>
             <div class="all-delete">
                 <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
@@ -51,7 +56,7 @@
                 [selectionType]="'checkbox'"
                 (select)="aoSelecionar($event)"
                 [selected]="movimentacoesSelecionadas"
-                [limit]="5"
+                [limit]="6"
             >
             <ngx-datatable-column
                 [width]="60"

@@ -17,6 +17,7 @@ const entrada_entity_1 = require("./shared/models/entrada.entity");
 const credito_entity_1 = require("./shared/models/credito.entity");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
+const contagem_entity_1 = require("./shared/models/contagem.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -33,13 +34,14 @@ AppModule = __decorate([
                     caixa_entity_1.Caixa,
                     saida_entity_1.Saida,
                     entrada_entity_1.Entrada,
-                    credito_entity_1.Credito
+                    credito_entity_1.Credito,
+                    contagem_entity_1.Contagem
                 ],
                 synchronize: true,
             }),
             caixa_module_1.CaixaModule,
             auth_module_1.AuthModule,
-            users_module_1.UsersModule,
+            users_module_1.UsersModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

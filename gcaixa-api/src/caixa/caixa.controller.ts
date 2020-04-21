@@ -13,7 +13,7 @@ export class CaixaController {
     constructor(private service: CaixaService) { }
 
     @Get()
-    public findPaginete(@Query('filtro') filtro, @Query('page') page): Promise<Caixa[]> {
+    public findPaginete(@Query('filtro') filtro, @Query('page') page): Promise<any[]> {
         return this.service.findAll(new FiltroBusca(filtro, page));
     }
 

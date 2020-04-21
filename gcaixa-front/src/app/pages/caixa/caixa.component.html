@@ -3,9 +3,14 @@
     <div class="hero">
         <div class="row">
             <div class="col-10">
-                <a type="button" routerLink="/home" class="nav-link waves-light" mdbWavesEffect>
+                <a type="button" routerLink="/home" class="nav-link waves-light">
                     <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
                 </a>
+            </div>
+        </div>
+        <div class="row info-page">
+            <div class="col-10">
+                <h3>TODOS OS CAIXAS</h3>
             </div>
             <div class="col-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
@@ -28,13 +33,14 @@
                 <div class="col-4" *ngFor="let c of caixas">
                     <mdb-card>
                         <mdb-card-body>
-                            <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button aria-label="Example icon-button with a heart icon">
+                            
+                            <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button>
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button mat-menu-item (click)="emitirRelatorio(c.id)">Relatório</button>
-                                <button mat-menu-item (click)="exibirGrafico(c.id)">Grafico</button>
-                                <button mat-menu-item (click)="deletarCaixa(c)">Remover</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Relatório</button>
+                                <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Grafico</button>
+                                <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Contagem</button>
                             </mat-menu>  
     
                             <mdb-card-title>
@@ -43,8 +49,15 @@
                     
                             <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
                         
-                            <button type="button" mdbBtn color="indigo" class="z-depth-0" mdbWavesEffect (click)="abirCaixa(c.id)" >ABIR</button>
-                            <button type="button" mdbBtn color="amber" class="z-depth-0" mdbWavesEffect (click)="abirModalEditar(c)">EDITAR</button>
+                            <button mat-fab class="btn-add z-depth-0" (click)="abirCaixa(c.id)">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(c)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-fab class="btn-delete z-depth-0" (click)="deletarCaixa(c)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </mdb-card-body>
                     </mdb-card>
                 </div>

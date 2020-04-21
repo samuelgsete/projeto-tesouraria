@@ -1,9 +1,10 @@
 <div class="login">
-    <div class="content z-depth-2">
+    <div class="content">
         <div class="header">
             <img src="/assets/img/logotipo.png" alt="logotipo" width="84px" height="84px">
             <h6>GSETE</h6>
-            <p>INFORME SEUS DADOS</p>
+            <p>Login</p>
+            <span>Informe seus dados</span>
         </div>
         <div class="body">
             <form [formGroup]="f">
@@ -21,8 +22,11 @@
                     </button>
                     <mat-error>preencha esse campo corretamente</mat-error>
                 </mat-form-field>
-                <button type="button" class="z-depth-0" block="true" mdbBtn color="info" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
+                <button type="button" class="z-depth-0" block="true" mdbBtn color="indigo" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
             </form> 
+        </div>
+        <div class="footer">
+            <p>© 2020 Todos os direitos autorais estão reservados.</p>
         </div>
     </div>
 </div>

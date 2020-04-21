@@ -2,7 +2,7 @@
 <div class="body">
     <div class="hero">
         <div class="row">
-            <div class="col-10">
+            <div class="col">
                 <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
                     <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
                 </a>
@@ -11,36 +11,54 @@
                     <mdb-icon fas icon="cogs"></mdb-icon> Grafico<span class="caret"></span>
                 </a>
             </div>
-            <div class="col-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="update()" mdbWavesEffect>ATUALIZAR</button>
+        </div>
+        <div class="row info-page">
+            <div class="col-6">
+                <h3>{{ this.caixa.nome }}</h3>
+            </div>
+            <div class="col-6">
+                <h5>Total em caixa: {{ this.caixa.saldoAtual | currency:'BRL' }}</h5>
             </div>
         </div>
     </div>
 
     <div class="graphic z-depth-1-half">
         <div class="row">
-            <div class="col-6">
-                <h4>{{ this.caixa.nome }}</h4>
-            </div>
-            <div class="col-6">
-                <p>Total em caixa: {{ this.caixa.saldoAtual | currency:'BRL' }}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <h5>Histórico de movimentações de {{ now }}</h5>
             </div>
+            <div class="col-12">
+                <div>
+                    <canvas mdbChart
+                        [chartType]="chartType"
+                        [(datasets)]="chartDatasets1"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                    >
+                    </canvas>
+                </div>
+            </div>
         </div>
-        <div style="display: block;">
-            <canvas mdbChart
-                [chartType]="chartType"
-                [(datasets)]="chartDatasets"
-                [labels]="chartLabels"
-                [colors]="chartColors"
-                [options]="chartOptions"
-                [legend]="true"
-            >
-            </canvas>
+        <div class="row"><br><br></div>
+        <div class="row">
+            <div class="col-12">
+                <h5>Histórico de contagens de {{ now }}</h5>
+            </div>
+            <div class="col-12">
+                <div>
+                    <canvas mdbChart
+                        [chartType]="chartType"
+                        [(datasets)]="chartDatasets2"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions"
+                        [legend]="true"
+                    >
+                    </canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>

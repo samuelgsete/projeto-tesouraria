@@ -14,6 +14,7 @@ const saida_entity_1 = require("./saida.entity");
 const entrada_entity_1 = require("./entrada.entity");
 const entidade_base_1 = require("./entidade-base");
 const insufficient_funds_exception_1 = require("../exceptions/modelos/insufficient-funds.exception");
+const contagem_entity_1 = require("./contagem.entity");
 let Caixa = class Caixa extends entidade_base_1.EntidadeBase {
     constructor(values = {}) {
         super();
@@ -62,6 +63,10 @@ __decorate([
     typeorm_1.OneToMany(type => entrada_entity_1.Entrada, entrada => entrada.caixa, { cascade: true }),
     __metadata("design:type", Array)
 ], Caixa.prototype, "entradas", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => contagem_entity_1.Contagem, contagem => contagem.caixa, { cascade: true }),
+    __metadata("design:type", Array)
+], Caixa.prototype, "contagens", void 0);
 __decorate([
     typeorm_1.Column({ length: 255, unique: false, nullable: true }),
     __metadata("design:type", String)

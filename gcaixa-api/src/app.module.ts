@@ -10,6 +10,7 @@ import { Entrada } from './shared/models/entrada.entity';
 import { Credito } from './shared/models/credito.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { Contagem } from './shared/models/contagem.entity';
 
 @Module({
   imports: [
@@ -24,13 +25,14 @@ import { UsersModule } from './users/users.module';
         Caixa, 
         Saida,
         Entrada,
-        Credito
+        Credito,
+        Contagem
       ],
       synchronize: true,
     }),
     CaixaModule,
     AuthModule,
-    UsersModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
