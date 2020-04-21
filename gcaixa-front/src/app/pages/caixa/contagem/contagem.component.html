@@ -1,0 +1,167 @@
+<app-menu></app-menu>
+<div class="body">
+    <div class="hero">
+        <div class="row">
+            <div class="col">
+                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
+                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
+                </a>
+                <mdb-icon fas icon="chevron-right"></mdb-icon> 
+                <a type="button" class="nav-link waves-light">
+                    <mdb-icon fas icon="coins"></mdb-icon> Contagem<span class="caret"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row info-page">
+            <div class="col-10">
+                <h3>TODAS AS CONTAGENS</h3>
+            </div>
+            <div class="col-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVO CONTAGEM</button>
+            </div>
+        </div>
+    </div>
+    <div class="score  z-depth-1-half">
+        <div class="header">
+            <div class="all-delete">
+                <div class="alert alert-warning" role="alert" *ngIf="contagensSelecionadas.length > 1">
+                    {{ contagensSelecionadas.length }} selecionado(s) ...
+                    <button (click)="deletarContagensSelecionadas()" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <ngx-datatable
+                [rows]="rows"
+                class="material"
+                [loadingIndicator]="indicadorDeCarregamento"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [messages]="{emptyMessage: '<center>Nenhuma contagem cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
+                [selectionType]="'checkbox'"
+                (select)="aoSelecionar($event)"
+                [selected]="contagensSelecionadas"
+                [limit]="6"
+            >
+            <ngx-datatable-column
+                [width]="60"
+                [sortable]="false"
+                [canAutoResize]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [headerCheckboxable]="true"
+                [checkboxable]="true">
+            </ngx-datatable-column>
+                <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Nome do caixa" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.nome }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Saldo virtual" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.saldoAtual | currency:'BRL' }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Saldo real" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.saldoReal | currency:'BRL' }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Registrado em" [width]="150">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="registro">{{ row.registro | dateFormat }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Ações" [width]="100">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                        <button class="button-actions" (click)="abirModalEditar(row, modalEditar)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="button-actions" (click)="deletarContagem(row) "mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+
+<div mdbModal #modalCriar="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalCriar.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">NOVA CONTAGEM</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="f">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                            </mat-form-field> 
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalCriar)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalEditar="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalEditar.hide()">
+                <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">EDITAR CONTAGEM</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="f">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                            </mat-form-field> 
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalEditar)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+

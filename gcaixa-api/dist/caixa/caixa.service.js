@@ -24,7 +24,7 @@ let CaixaService = class CaixaService {
     }
     async findAll(filtro) {
         const [result, total] = await this.repositoryCaixa.findAndCount({
-            relations: ["saidas", "entradas", "entradas.creditos"],
+            relations: ["saidas", "entradas", "contagens", "entradas.creditos"],
             where: { nome: typeorm_2.Like(filtro.palavra) },
             order: { nome: "ASC" },
             take: 6,
@@ -39,7 +39,7 @@ let CaixaService = class CaixaService {
         if (id <= 0) {
             throw new Id_invalid_exception_1.IdInvalidException("O id informado é invalído");
         }
-        return this.repositoryCaixa.findOne(id, { relations: ["saidas", "entradas", "entradas.creditos"] });
+        return this.repositoryCaixa.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
     }
     async save(caixa) {
         caixa.saldoAtual = caixa.saldoInicial;

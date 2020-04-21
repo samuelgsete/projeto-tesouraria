@@ -32,7 +32,6 @@ export class Entrada extends EntidadeBase {
     @Column({ length: 255, unique: false, nullable: true })
     public observacoes: string;
 
-
     @ManyToOne(type => Caixa, caixa => caixa.entradas, { onDelete: "CASCADE" })
     public caixa: Caixa;
 

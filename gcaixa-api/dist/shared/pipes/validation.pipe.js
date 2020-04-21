@@ -10,6 +10,7 @@ const common_1 = require("@nestjs/common");
 const caixa_entity_1 = require("../models/caixa.entity");
 const saida_entity_1 = require("../models/saida.entity");
 const entrada_entity_1 = require("../models/entrada.entity");
+const contagem_entity_1 = require("../models/contagem.entity");
 let ValidationPipe = class ValidationPipe {
     transform(value, metadata) {
         if (metadata.type === 'body') {
@@ -37,6 +38,14 @@ let ValidationPipe = class ValidationPipe {
                     creditos: e.creditos
                 }));
             });
+            let _contagens = [];
+            value.contagens.forEach(c => {
+                _contagens.push(new contagem_entity_1.Contagem({
+                    id: c.id,
+                    saldoReal: c.saldoReal,
+                    registro: c.registro
+                }));
+            });
             let _caixa = new caixa_entity_1.Caixa({
                 id: value.id,
                 nome: value.nome,
@@ -44,6 +53,7 @@ let ValidationPipe = class ValidationPipe {
                 saldoAtual: value.saldoAtual,
                 saidas: _saidas,
                 entradas: _entradas,
+                contagens: _contagens,
                 observacoes: value.observacoes,
             });
             return _caixa;

@@ -2,8 +2,8 @@
     padding-bottom: 8%;
     background-color: #d3e0e2;
     .hero {
-        height: 150px;
-        padding: 25px 60px;
+        height: 210px;
+        padding: 10px 60px;
         background-color: #00b8d4;
         
         a:first-child {
@@ -11,16 +11,27 @@
             margin-left: -10px;
         }
         a, mdb-icon { color: #fff; }
+
+        .info-page {
+            margin-top: 45px;
+            h5 { 
+                text-align: right;
+                color: #fff;
+            }
+
+            h3 {
+                color: #fff; 
+                text-transform: uppercase;
+            }
+        }
     }
 
     .graphic {
-        height: 768px;
+        height: 1500px;
         margin: -60px 60px;
-        padding: 30px 50px;
+        padding: 40px 50px;
         background-color: #fff;
         border-radius: 6px;
-
-        p { text-align: right }
 
         h5 { text-align: center;}
     }

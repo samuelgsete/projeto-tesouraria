@@ -9,13 +9,15 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from 'src/app/shared/services/relatorio.service';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { GraficoComponent } from './grafico/grafico.component';
+import { ContagemComponent } from './contagem/contagem.component';
 
 @NgModule({
   declarations: [
     CaixaComponent,
     MovimentacoesComponent,
     RelatorioComponent,
-    GraficoComponent
+    GraficoComponent,
+    ContagemComponent
   ],
   imports: [
     CommonModule,

@@ -14,7 +14,7 @@ export class CaixaService {
     public async findAll(filtro: FiltroBusca): Promise<any> {
         const [result, total] = await this.repositoryCaixa.findAndCount(
             {
-                relations: ["saidas", "entradas", "entradas.creditos"],
+                relations: ["saidas", "entradas", "contagens", "entradas.creditos"],
                 where: { nome: Like(filtro.palavra) },
                 order: { nome: "ASC" },
                 take: 6,
@@ -31,7 +31,7 @@ export class CaixaService {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
-        return this.repositoryCaixa.findOne(id, { relations: ["saidas", "entradas", "entradas.creditos"] })
+        return this.repositoryCaixa.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] })
     }
 
     public async save(caixa: Caixa) {

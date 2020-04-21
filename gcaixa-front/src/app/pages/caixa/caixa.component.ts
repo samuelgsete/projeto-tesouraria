@@ -150,6 +150,8 @@ export class CaixaComponent implements OnInit {
     this.router.navigateByUrl(`grafico/${id}`);
   }
 
+  efetuarContagem(id: number) { this.router.navigateByUrl(`contagem/${id}`) }
+
   ngOnInit() {
     this.f = this._fb.group({
       id: [null],

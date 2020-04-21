@@ -3,27 +3,41 @@
     background-color: #d3e0e2;
 
     .hero {
-        height: 150px;
-        padding: 25px 4%;
+        height: 210px;
+        padding: 10px 60px;
         background-color: #00b8d4;
         
         a:first-child {
             color: #fff;
             margin-left: -10px;
         }
-        a, mdb-icon { color: #fff; }
+        a, h5, mdb-icon { color: #fff; }
+
+        h5 { 
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .info-page {
+            margin-top: 33px;
+            h3 {
+                color: #fff; 
+                text-transform: uppercase;
+            }
+            button {
+                margin-top: -10px;
+            }
+        }
     }
 
     .moviment {
         height: 600px;
-        margin: -4% 4%;
+        margin: -60px 60px;
         padding: 15px 35px;
         background-color: #fff;
         border-radius: 6px;
 
         .header {
-            h6 { text-align: right }
-
             .all-delete { 
                 height: 53px;
                 button { 

@@ -1,0 +1,78 @@
+.body {
+    padding-bottom: 8%;
+    background-color: #d3e0e2;
+    .hero {
+        height: 210px;
+        padding: 10px 60px;
+        background-color: #00b8d4;
+        
+        a:first-child {
+            color: #fff;
+            margin-left: -10px;
+        }
+        a, mdb-icon { color: #fff; }
+
+        .info-page {
+            margin-top: 45px;
+            h3 {
+                color: #fff; 
+                text-transform: uppercase;
+            }
+            button {
+                margin-top: -10px;
+            }
+        }
+    }
+
+    .score {
+        height: 610px;
+        margin: -60px 60px;
+        padding: 20px 50px;
+        background-color: #fff;
+        border-radius: 6px;
+
+        .header {
+            .all-delete { 
+                height: 53px;
+                button { 
+                    float: right;
+                    margin-top:-8px;
+                }
+
+                button:focus { outline: none }
+            } 
+        }
+
+        .main {
+            ngx-datatable {
+                width: 100%; 
+                box-shadow: none;
+
+                .button-actions { margin-top: -5px }
+
+                .button-actions:focus { outline: none }
+
+                .tipo-movimentacao {
+                    color: #fff;
+                    border-radius: 15px;
+                    padding: 5px;
+                    text-align: center;
+                }   
+            }
+        }
+    }
+}
+
+.modal {
+   .modal-header {
+        h4 { text-align: center }
+    }
+
+    .modal-body {
+        form {
+            .input-width {
+               width: 100%
+            }
+        }
+    }
+}

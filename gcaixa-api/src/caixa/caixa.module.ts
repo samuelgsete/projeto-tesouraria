@@ -9,6 +9,7 @@ import { Entrada } from 'src/shared/models/entrada.entity';
 import { Credito } from 'src/shared/models/credito.entity';
 import { RelatorioController } from './relatorio/relatorio.controller';
 import { RelatorioService } from './relatorio/relatorio.service';
+import { Contagem } from 'src/shared/models/contagem.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -16,6 +17,7 @@ import { RelatorioService } from './relatorio/relatorio.service';
     Saida,
     Entrada,
     Credito,
+    Contagem
   ])],
   controllers: [CaixaController, RelatorioController],
   providers: [CaixaService, RelatorioService]
