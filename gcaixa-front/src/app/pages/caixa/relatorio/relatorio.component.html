@@ -1,49 +1,46 @@
 <app-menu></app-menu>
 <div class="body">
     <div class="hero">
-        <div class="row">
-            <div class="col-8">
-                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
-                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
-                </a>
-                <mdb-icon fas icon="chevron-right"></mdb-icon> 
-                <a type="button" class="nav-link waves-light">
-                    <mdb-icon fas icon="file-alt"></mdb-icon> Relatório<span class="caret"></span>
-                </a>
+        <div class="row header-page">
+            <div class="col-sm-6 col-md-8 col-lg-10 col-xl-10">
+                <mat-icon>description</mat-icon>
+                <h3>Relatorio</h3>
             </div>
-        </div>
-        <div class="row info-page">
-            <div class="col-10">
-                <h3>{{ report.nomeCaixa }}</h3>
-            </div>
-            <div class="col-2">
+            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0"  mdbWavesEffect>IMPRIMIR</button>
             </div>
         </div>
     </div>
     <div class="report z-depth-1-half">
-        <div class="row">
-            <div class="col-6">
-                <mat-form-field>
-                    <mat-label>Escolha um mês de referência</mat-label>
-                    <mat-select [(value)]="monthSelected" (selectionChange)="loadReport()">
-                        <mat-option *ngFor="let month of months; let i = index" [value]="month">{{ month }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field>
-                    <mat-label>Escolha um ano de referência</mat-label>
-                    <mat-select [(value)]="yearSelected" (selectionChange)="loadReport()">
-                        <mat-option *ngFor="let year of years; let i = index" [value]="year">{{ year }}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-description>Escolha um período de referência</mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <mat-label>Escolha um mês de referência</mat-label>
+                            <mat-select [(value)]="monthSelected" (selectionChange)="loadReport()">
+                                <mat-option *ngFor="let month of months; let i = index" [value]="month">{{ month }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <mat-label>Escolha um ano de referência</mat-label>
+                            <mat-select [(value)]="yearSelected" (selectionChange)="loadReport()">
+                                <mat-option *ngFor="let year of years; let i = index" [value]="year">{{ year }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
         <div class="report-header">
             <div class="row">
                 <div class="col">
-                    <h3>RELATÓRIO</h3>
+                    <h3>{{ report.nomeCaixa }}</h3>
                 </div>
             </div>
             <div class="row">
@@ -114,5 +111,118 @@
             </div>
         </div>
     </div>
-</div>  
+</div> 
+
+<div class="mobile">
+    <div class="hero">
+        <div class="header-page">
+            <div class="name-page">
+                <mat-icon>description</mat-icon>
+                <h3>Relatório</h3>
+            </div>
+            <button type="button" mdbBtn color="light" class="z-depth-0" mdbWavesEffect>IMPRIMIR</button>
+        </div>
+    </div>
+    <div class="report z-depth-0">
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>Escolha um mês de referência</mat-label>
+                    <mat-select [(value)]="monthSelected" (selectionChange)="loadReport()">
+                        <mat-option *ngFor="let month of months; let i = index" [value]="month">{{ month }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>Escolha um ano de referência</mat-label>
+                    <mat-select [(value)]="yearSelected" (selectionChange)="loadReport()">
+                        <mat-option *ngFor="let year of years; let i = index" [value]="year">{{ year }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="report-header">
+            <div class="row">
+                <div class="col">
+                    <h3>{{ report.nomeCaixa }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">Saldo inicial {{ report. saldoInicial | currency:'BRL' }}</div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="saldo-atual">Total em caixa {{ report. saldoAtual | currency:'BRL' }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="row">
+                <div class="col">
+                    <p *ngIf="report.entradas[0] == null && report.saidas[0] == null">Nenhuma movimentação encontrada no período solicitado</p>
+                </div>
+            </div>
+            <div *ngIf="report.entradas[0] != null || report.saidas[0] != null">
+                <div class="row"><div class="col">Mês/ano: {{ monthSelected }} de {{ yearSelected }}</div></div>
+                <table>
+                    <tr>
+                        <th>Entradas</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="box-moviment" *ngFor="let e of report.entradas">
+                                <div class="row">
+                                    <div class="col">Data: {{ e.registro | dateFormat }}</div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col">Descrição: {{ e.descricao }}</div>
+                                </div>
+                                <div class="row" *ngIf="e.ofertante != null"> 
+                                    <div class="col">Ofertante: {{ e.ofertante }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">valor: {{ e.valor | currency:'BRL' }}</div>
+                                </div>
+                                <div class="row" *ngIf="e.observacoes != null">
+                                    <div class="col">Observações: {{ e.observacoes }}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total de entradas: {{ report.totalEntradas | currency:'BRL' }}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <th>Saidas</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="box-moviment" *ngFor="let s of report.saidas">
+                                <div class="row">
+                                    <div class="col">Data: {{ s.registro | dateFormat}}</div>
+                                </div>
+                                <div class="row"> 
+                                    <div class="col">Descrição: {{ s.descricao }}</div>
+                                </div>
+                                <div class="row">
+                                <div class="col">valor: {{ s.valor | currency:'BRL' }}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total de saidas: {{ report.totalSaidas | currency:'BRL' }}</td>
+                    </tr>
+                    <tr class="saldo-mensal">
+                        <td colspan="2">Saldo do mês: {{ report.saldoMensal | currency:'BRL'}}</td>    
+                    </tr>
+                </table>         
+            </div>
+        </div>
+    </div>
+</div>
 <app-footer></app-footer>  

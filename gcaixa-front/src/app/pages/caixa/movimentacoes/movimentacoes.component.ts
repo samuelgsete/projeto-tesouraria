@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -33,6 +33,11 @@ export class MovimentacoesComponent implements OnInit {
   
   constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: CaixaService) { }
 
+  toggleExpandRow(row, table) {
+    console.log('Toggled Expand Row!', row);
+    table.rowDetail.toggleExpandRow(row);
+  }
+  
   load() {
     let id = this.router.url.split('/')[2];
     this.servico.findById(id).subscribe( resp => {

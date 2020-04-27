@@ -1,10 +1,10 @@
 .body {
-    padding-bottom: 8%;
     background-color: #d3e0e2;
+    padding-bottom: 110px;
 
     .hero {
-        height: 210px;
-        padding: 10px 60px;
+        height: 220px;
+        padding: 60px 35px;
         background-color: #00b8d4;
         
         a {
@@ -12,23 +12,27 @@
             margin-left: -10px;
         }
 
-        .info-page {
-            margin-top: 45px;
-
-            h3 {
-                color: #fff; 
-                text-transform: uppercase;
-            }
-            button { margin-top: -10px }
+      
+        h2 {
+            color: #fff;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
         }
+
+        mat-icon { 
+            margin-right: 30px;
+            font-size: 32px;
+            color: #fff;
+        }
+        
+        button { margin-top: -10px }
+        
     }
 
     .box {
-        height: 710px;
-        margin: -60px 60px;
-        padding: 30px 35px;
-        background-color: #fff;
+        margin: -70px 35px;
+        padding: 30px 35px 40px 35px;
         border-radius: 6px;
+        background-color: #fff;
         
         .header {
             mat-form-field.input-width { width:100% }
@@ -38,10 +42,13 @@
             
             p { text-align: center }
 
+            .fix-height { height: 710px; }
+
             mdb-card { 
                 padding: 10px;
                 text-align: center;
                 margin-bottom: 40px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
                 mdb-card-body {
 
@@ -83,5 +90,89 @@
                 }
             }
         }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .body { display: none }
+
+    .mobile {
+        background-color: #d3e0e2;
+        padding-bottom: 20px;
+        
+        .hero {
+            height: 240px;
+            padding: 60px;
+            background-color: #00b8d4;
+            
+            .header-page {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;    
+
+                h2 {
+                    text-align: center;
+                    float: left;
+                    color: #fff; 
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                }
+
+                mat-icon { 
+                    margin-right: 20px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
+
+                button { width: 260px }
+            }  
+        }
+
+        .box {
+            padding: 15px;
+            
+            .input-width { 
+                width: 100%;
+            }
+            mdb-card { 
+                padding: 10px;
+                text-align: center;
+                margin-bottom: 15px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+                mdb-card-body {
+
+                    button:focus { outline: none }
+
+                    .btn-add { background-color: #ffc107 }
+
+                    .btn-edit { background-color: #3f51b5 }
+
+                    .btn-delete { background-color: #ff4444 }
+
+                    .btn-add, .btn-edit { margin-right: 5px }
+
+                    .icon-more-actions {
+                        float: right;
+                        margin: -20px;
+                    }
+                    
+                    .icon-more-actions:focus { outline: none }
+
+                    mdb-card-title {
+                        h4 { margin-top: 20px }
+                    }
+                }       
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .mobile {
+        display: none;
     }
 }
