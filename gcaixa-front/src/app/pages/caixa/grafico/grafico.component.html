@@ -1,23 +1,13 @@
 <app-menu></app-menu>
 <div class="body">
     <div class="hero">
-        <div class="row">
-            <div class="col">
-                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
-                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
-                </a>
-                <mdb-icon fas icon="chevron-right"></mdb-icon> 
-                <a type="button" class="nav-link waves-light">
-                    <mdb-icon fas icon="cogs"></mdb-icon> Grafico<span class="caret"></span>
-                </a>
+        <div class="row header-page">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <mat-icon>equalizer</mat-icon>
+                <h2>Histórico</h2>
             </div>
-        </div>
-        <div class="row info-page">
-            <div class="col-6">
-                <h3>{{ this.caixa.nome }}</h3>
-            </div>
-            <div class="col-6">
-                <h5>Total em caixa: {{ this.caixa.saldoAtual | currency:'BRL' }}</h5>
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <h5>Saldo: {{ this.caixa.saldoAtual | currency:'BRL' }}</h5>
             </div>
         </div>
     </div>
@@ -62,5 +52,45 @@
         </div>
     </div>
 </div>
-
+<div class="mobile">
+    <div class="hero">
+        <div class="header-page">
+            <div class="name-page">
+                <mat-icon>equalizer</mat-icon>
+                <h2>Histórico</h2>
+            </div>
+            <h4>Saldo: {{ this.caixa.saldoAtual | currency:'BRL' }}</h4>
+        </div>
+    </div>
+    <br>
+    <div class="main">
+        <p class="text-center">Histórico de movimentações de {{ now }}</p>
+        <div>
+            <canvas mdbChart
+                [chartType]="chartType"
+                [(datasets)]="chartDatasets1"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+            >
+            </canvas>
+        </div> 
+        <br><br>
+        <p class="text-center">Histórico de contagens de {{ now }}</p>  
+        <div>
+            
+            <canvas mdbChart
+                [chartType]="chartType"
+                [(datasets)]="chartDatasets2"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+            >
+            </canvas>
+        </div>   
+    </div>
+    <br><br>
+</div>
 <app-footer></app-footer>

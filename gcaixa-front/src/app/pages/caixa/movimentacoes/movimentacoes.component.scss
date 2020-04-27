@@ -1,29 +1,27 @@
  .body {
-    padding-bottom: 8%;
+    padding-bottom: 115px;
     background-color: #d3e0e2;
 
     .hero {
-        height: 210px;
-        padding: 10px 60px;
+        height: 220px;
+        padding: 10px 35px;
         background-color: #00b8d4;
         
-        a:first-child {
-            color: #fff;
-            margin-left: -10px;
-        }
-        a, h5, mdb-icon { color: #fff; }
-
-        h5 { 
-            text-align: right;
-            margin-top: 20px;
-        }
-
         .info-page {
-            margin-top: 33px;
+            margin-top: 50px;
             h3 {
+                float: left;
                 color: #fff; 
-                text-transform: uppercase;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
             }
+
+            mat-icon { 
+                margin-right: 30px;
+                font-size: 32px;
+                color: #fff;
+                float: left;
+            }
+
             button {
                 margin-top: -10px;
             }
@@ -31,9 +29,8 @@
     }
 
     .moviment {
-        height: 600px;
-        margin: -60px 60px;
-        padding: 15px 35px;
+        margin: -70px 35px;
+        padding: 30px 35px 40px 35px;
         background-color: #fff;
         border-radius: 6px;
 
@@ -83,20 +80,19 @@
                          mat-accordion {
                             margin-bottom: 5px;
 
-                            .credit-header { font-weight: bold }
-
-                            .titular-credito {
-                                margin-top: 10px;
-                                
-                                button { margin-top: -10px }
-
-                                .credito-ativo { color:#ff0000 }
-                                .credito-ativo:focus { outline: none }
-
-                                .credito-quitado { color:#33b5e5 }
-                                .credito-quitado:focus { outline: none }
+                            .credit-header { 
+                                font-weight: bold;
+                                text-align: right;
                             }
+                                
+                            button { margin-top: -10px }
 
+                            .credito-ativo { color:#ff0000 }
+                            .credito-ativo:focus { outline: none }
+
+                            .credito-quitado { color:#33b5e5 }
+                            .credito-quitado:focus { outline: none }
+                            
                             .info-credit {
                                 margin-top: 8px;
                                 font-size: 12px;
@@ -108,10 +104,68 @@
                             }
                         }
 
-                        .button-add-credit { margin-top: 10px }
+                        .button-add-credit { margin: 10px 0 }
                     }
                 }
             }
         }
     }
+}
+
+@media (max-width: 824px) {
+
+    .body { display: none }
+
+    .mobile {
+        .hero {
+            height: 240px;
+            padding: 30px 35px;
+            background-color: #00b8d4;
+            
+            .header-page {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-between;
+                align-items: center;       
+
+                h4 {
+                    text-align: center;
+                    float: left;
+                    color: #fff; 
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                }
+
+                mat-icon { 
+                    margin-right: 20px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
+
+                button { width: 260px }
+            }
+        }
+
+        .movment {
+            padding: 40px 1px;
+            ngx-datatable {
+                width: 100%;
+
+                .btn-more { margin-top: -10px }
+
+                .btn-more:focus { outline: none }
+            }
+        }
+    }
+}
+
+@media (min-width: 824px) {
+    .mobile { display: none }
+}
+
+
+@media (max-width: 480px) {
+
+    .mobile-hidden { display: none }
 }

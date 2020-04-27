@@ -1,23 +1,13 @@
 <app-menu></app-menu>
 <div class="body">
     <div class="hero">
-        <div class="row">
-            <div class="col">
-                <a type="button" (click)="router.navigateByUrl('/home')" class="nav-link waves-light">
-                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
-                </a>
-                <mdb-icon fas icon="chevron-right"></mdb-icon> 
-                <a type="button" class="nav-link waves-light">
-                    <mdb-icon fas icon="coins"></mdb-icon> Contagem<span class="caret"></span>
-                </a>
+        <div class="row header-page">
+            <div class="col-sm-6 col-md-8 col-lg-9 col-xl-9">
+                <mat-icon>whatshot</mat-icon>
+                <h3>Contagens</h3>
             </div>
-        </div>
-        <div class="row info-page">
-            <div class="col-10">
-                <h3>TODAS AS CONTAGENS</h3>
-            </div>
-            <div class="col-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVO CONTAGEM</button>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
             </div>
         </div>
     </div>
@@ -57,16 +47,13 @@
                 [checkboxable]="true">
             </ngx-datatable-column>
                 <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
-                <ngx-datatable-column name="Nome do caixa" [width]="150">
+                <ngx-datatable-column name="Nome do caixa" [width]="250">
                     <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.nome }}</ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Saldo virtual" [width]="150">
-                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.saldoAtual | currency:'BRL' }}</ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Saldo real" [width]="150">
+                <ngx-datatable-column name="Saldo real" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.saldoReal | currency:'BRL' }}</ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Registrado em" [width]="150">
+                <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template let-row="registro">{{ row.registro | dateFormat }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
@@ -74,13 +61,65 @@
                         <button class="button-actions" (click)="abirModalEditar(row, modalEditar)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="button-actions" (click)="deletarContagem(row) "mat-icon-button>
+                        <button class="button-actions" (click)="deletarContagem(row)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                     </ng-template>
                 </ngx-datatable-column>
             </ngx-datatable>
         </div>
+    </div>
+</div>
+<div class="mobile">
+    <div class="hero">
+        <div class="header-page">
+            <div class="name-page">
+                <mat-icon>account_tree</mat-icon>
+                <h3>Contagens</h3>
+            </div>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
+        </div>
+    </div>
+    <div class="score">
+        <ngx-datatable
+            [rows]="rows"
+            class="material z-depth-0"
+            [loadingIndicator]="indicadorDeCarregamento"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="50"
+            [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>' }"
+            [limit]="6"
+        >
+            <ngx-datatable-column name="ID" [width]="100" prop="id"></ngx-datatable-column>
+            <ngx-datatable-column name="Nome do caixa" [width]="200">
+                <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.nome }}</ng-template>
+            </ngx-datatable-column>  
+            <ngx-datatable-column name="Saldo real" [width]="100">
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                    <span class="mobile-hidden">{{ column.name }}</span>
+                  </ng-template>
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <span class="mobile-hidden">{{ value | currency:'BRL' }}</span>
+                  </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Ações" [width]="100">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                    <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #actions="matMenu">
+                        <button style="outline: none;" mat-menu-item (click)="abirModalEditar(row, modalEditar)">
+                            <mat-icon>edit</mat-icon>Editar
+                        </button>
+                        <button mat-menu-item (click)="deletarContagem(row)">
+                            <mat-icon>delete</mat-icon>Deletar
+                        </button>
+                    </mat-menu> 
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
     </div>
 </div>
 <app-footer></app-footer>

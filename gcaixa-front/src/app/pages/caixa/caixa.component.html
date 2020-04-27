@@ -2,17 +2,11 @@
 <div class="body">
     <div class="hero">
         <div class="row">
-            <div class="col-10">
-                <a type="button" routerLink="/home" class="nav-link waves-light">
-                    <mdb-icon fas icon="home"></mdb-icon> Inicio<span class="caret"></span>
-                </a>
+            <div class="col-xl-10 col-lg-8 col-md-8 col-sm-6">
+                <mat-icon style="float: left;">how_to_vote</mat-icon>
+                <h2>Caixas</h2>
             </div>
-        </div>
-        <div class="row info-page">
-            <div class="col-10">
-                <h3>TODOS OS CAIXAS</h3>
-            </div>
-            <div class="col-2">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
             </div>
         </div>
@@ -29,8 +23,9 @@
         
         <div class="main-content">
             <p *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
+            <div *ngIf="this.caixas.length == 0" class="fix-height"></div>
             <div class="row">
-                <div class="col-4" *ngFor="let c of caixas">
+                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let c of caixas">
                     <mdb-card>
                         <mdb-card-body>
                             
@@ -38,9 +33,9 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Relatório</button>
-                                <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Grafico</button>
-                                <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Contagem</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
+                                <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
+                                <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
                             </mat-menu>  
     
                             <mdb-card-title>
@@ -65,12 +60,10 @@
                 
             <div class="main-footer">
                 <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-6"></div>
-                    <div class="col-2">
+                    <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
                         <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
                     </div>
-                    <div class="col-2">
+                    <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
                         <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
                     </div>
                 </div>
@@ -78,9 +71,77 @@
         </div> 
     </div>
 </div>
+<div class="mobile">
+    <div class="hero">
+        <div class="header-page">
+            <div class="name-page">
+                <mat-icon>how_to_vote</mat-icon>
+                <h2>Caixas</h2>
+            </div>
+            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
+        </div>
+    </div>
+    <div class="box">
+        <mat-form-field class="input-width" appearance="fill">
+            <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
+            <button mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div class="row">
+            <div class="col">
+                <p class="text-center" *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12" *ngFor="let c of caixas">
+                <mdb-card class="z-depth-0">
+                    <mdb-card-body>
+                        
+                        <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button>
+                            <mat-icon>more_horiz</mat-icon>
+                        </button>
+                        <mat-menu #actions="matMenu">
+                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
+                            <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
+                            <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
+                        </mat-menu>  
+
+                        <mdb-card-title>
+                            <h4>{{ c.nome }}</h4>
+                        </mdb-card-title>
+                
+                        <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                    
+                        <button mat-fab class="btn-add z-depth-0" (click)="abirCaixa(c.id)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(c)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-fab class="btn-delete z-depth-0" (click)="deletarCaixa(c)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12" style="margin-top: 10px;">
+                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
+            </div>
+            <div class="col-12" style="margin-top: 5px;">
+                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+            </div>
+        </div>       
+    </div>
+</div>
 <app-footer></app-footer>
 
-<div mdbModal #modalCadastro="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalCadastro="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -123,7 +184,7 @@
       </div>
     </div>
 </div>
-<div mdbModal #modalEditar="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalEditar="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">

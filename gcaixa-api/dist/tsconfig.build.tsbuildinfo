@@ -2354,7 +2354,7 @@
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
       "../src/app.module.ts": {
-        "version": "b6bbc537196ebde50e3b84bcb7f611308239590477a14b163837c0d80cd55dab",
+        "version": "549d0325e2e05356b227d3b5d67969a3a7c8df96a791c965f3d154429137dc91",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -14029,6 +14029,7 @@
       "../src/shared/models/filtro-busca.ts",
       "../src/shared/exceptions/modelos/id-invalid.exception.ts",
       "../src/caixa/caixa.service.ts",
+      "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
       "../src/caixa/caixa.controller.ts",
       "../src/caixa/relatorio/relatorio.entity.ts",
@@ -14083,7 +14084,6 @@
       "../src/shared/exceptions/http-exception.filter.ts",
       "../src/shared/exceptions/persistense-exception.filter.ts",
       "../src/shared/exceptions/generic-exception.filter.ts",
-      "../src/main.ts",
       "../node_modules/@types/anymatch/index.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
       "../node_modules/@types/babel__generator/index.d.ts",
@@ -14113,7 +14113,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/pipes/validation.pipe.ts"
+      "../src/main.ts"
     ]
   },
   "version": "3.8.3"
