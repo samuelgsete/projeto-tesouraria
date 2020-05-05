@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Column, CreateDateColumn, OneToMany } from "typeorm";
 
-import { Caixa } from "./caixa.entity";
+import { Tesouraria } from "./tesouraria.entity";
 import { Credito } from "./credito.entity";
 import { EntidadeBase } from "./entidade-base";
 
@@ -10,7 +10,7 @@ export class Entrada extends EntidadeBase {
     @Column({ length: 120, unique: false, nullable: false })
     public descricao: string;
 
-    @Column({type: 'float', unique: false, nullable: false })
+    @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
     @Column({ length: 120, unique: false, nullable: true })
@@ -30,10 +30,10 @@ export class Entrada extends EntidadeBase {
     public creditos: Credito[];
     
     @Column({ length: 255, unique: false, nullable: true })
-    public observacoes: string;
+    public detalhes: string;
 
-    @ManyToOne(type => Caixa, caixa => caixa.entradas, { onDelete: "CASCADE" })
-    public caixa: Caixa;
+    @ManyToOne(type => Tesouraria, tesouraria => tesouraria.entradas, { onDelete: "CASCADE" })
+    public tesouraria: Tesouraria;
 
     public constructor(values: Object = {}) {
         super();

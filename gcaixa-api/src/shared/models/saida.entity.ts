@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, CreateDateColumn } from "typeorm";
 
-import { Caixa } from "./caixa.entity";
+import { Tesouraria } from "./tesouraria.entity";
 import { EntidadeBase } from "./entidade-base";
 
 @Entity()
@@ -16,7 +16,7 @@ export class Saida extends EntidadeBase {
     public registro: Date;
 
     @Column({ length: 255, unique:false, nullable: true })
-    public motivo: string;
+    public detalhes: string;
 
     @Column({ 
         type: "enum", 
@@ -25,8 +25,8 @@ export class Saida extends EntidadeBase {
     })
     public tipo: TipoMovimentacao = "SAIDA";
 
-    @ManyToOne(type => Caixa, caixa => caixa.saidas, { onDelete: 'CASCADE' })
-    public caixa: Caixa;
+    @ManyToOne(type => Tesouraria, tesouraria => tesouraria.saidas, { onDelete: 'CASCADE' })
+    public tesouraria: Tesouraria;
 
     constructor(values: Object = {}) {
         super();

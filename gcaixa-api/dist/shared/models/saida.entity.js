@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const caixa_entity_1 = require("./caixa.entity");
+const tesouraria_entity_1 = require("./tesouraria.entity");
 const entidade_base_1 = require("./entidade-base");
 let Saida = class Saida extends entidade_base_1.EntidadeBase {
     constructor(values = {}) {
@@ -34,7 +34,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ length: 255, unique: false, nullable: true }),
     __metadata("design:type", String)
-], Saida.prototype, "motivo", void 0);
+], Saida.prototype, "detalhes", void 0);
 __decorate([
     typeorm_1.Column({
         type: "enum",
@@ -44,9 +44,9 @@ __decorate([
     __metadata("design:type", String)
 ], Saida.prototype, "tipo", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => caixa_entity_1.Caixa, caixa => caixa.saidas, { onDelete: 'CASCADE' }),
-    __metadata("design:type", caixa_entity_1.Caixa)
-], Saida.prototype, "caixa", void 0);
+    typeorm_1.ManyToOne(type => tesouraria_entity_1.Tesouraria, tesouraria => tesouraria.saidas, { onDelete: 'CASCADE' }),
+    __metadata("design:type", tesouraria_entity_1.Tesouraria)
+], Saida.prototype, "tesouraria", void 0);
 Saida = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [Object])

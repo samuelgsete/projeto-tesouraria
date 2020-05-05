@@ -1,4 +1,4 @@
-import { Caixa } from "./caixa.entity";
+import { Tesouraria } from "./tesouraria.entity";
 import { Credito } from "./credito.entity";
 import { EntidadeBase } from "./entidade-base";
 export declare class Entrada extends EntidadeBase {
@@ -8,8 +8,8 @@ export declare class Entrada extends EntidadeBase {
     registro: Date;
     tipo: TipoMovimentacao;
     creditos: Credito[];
-    observacoes: string;
-    caixa: Caixa;
+    detalhes: string;
+    tesouraria: Tesouraria;
     constructor(values?: Object);
     atualizarEntrada(): void;
 }

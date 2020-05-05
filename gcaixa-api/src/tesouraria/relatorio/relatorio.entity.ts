@@ -3,7 +3,7 @@ import { Saida } from "src/shared/models/saida.entity";
 
 export class Relatorio {
 
-    public nomeCaixa: string;
+    public nomeTesouraria: string;
     public saldoInicial = 0;
     public saldoAtual = 0;
     public saldoMensal = 0;

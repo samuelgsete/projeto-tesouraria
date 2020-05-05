@@ -5,7 +5,7 @@ export class Saida {
     public valor: number;
     public registro: Date;
     public tipo: string;
-    public motivo: string;
+    public detalhes: string;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

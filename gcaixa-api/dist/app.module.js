@@ -10,8 +10,8 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const caixa_module_1 = require("./caixa/caixa.module");
-const caixa_entity_1 = require("./shared/models/caixa.entity");
+const tesouraria_module_1 = require("./tesouraria/tesouraria.module");
+const tesouraria_entity_1 = require("./shared/models/tesouraria.entity");
 const saida_entity_1 = require("./shared/models/saida.entity");
 const entrada_entity_1 = require("./shared/models/entrada.entity");
 const credito_entity_1 = require("./shared/models/credito.entity");
@@ -29,9 +29,9 @@ AppModule = __decorate([
                 port: 5432,
                 username: 'postgres',
                 password: 'postgres',
-                database: 'gcaixadb',
+                database: 'tesourariadb',
                 entities: [
-                    caixa_entity_1.Caixa,
+                    tesouraria_entity_1.Tesouraria,
                     saida_entity_1.Saida,
                     entrada_entity_1.Entrada,
                     credito_entity_1.Credito,
@@ -39,7 +39,7 @@ AppModule = __decorate([
                 ],
                 synchronize: true,
             }),
-            caixa_module_1.CaixaModule,
+            tesouraria_module_1.TesourariaModule,
             auth_module_1.AuthModule,
             users_module_1.UsersModule
         ],

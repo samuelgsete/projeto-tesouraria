@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CaixaComponent } from './caixa.component';
+import { TesourariaComponent } from './tesouraria.component';
 import { MovimentacoesComponent } from './movimentacoes/movimentacoes.component';
-import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from 'src/app/shared/services/relatorio.service';
 import { LayoutModule } from 'src/app/layout/layout.module';
-import { GraficoComponent } from './grafico/grafico.component';
+import { HistoricoComponent } from './historico/historico.component';
 import { ContagemComponent } from './contagem/contagem.component';
 
 @NgModule({
   declarations: [
-    CaixaComponent,
+    TesourariaComponent,
     MovimentacoesComponent,
     RelatorioComponent,
-    GraficoComponent,
+    HistoricoComponent,
     ContagemComponent
   ],
   imports: [
@@ -25,11 +25,11 @@ import { ContagemComponent } from './contagem/contagem.component';
     LayoutModule
   ],
   exports: [
-    CaixaComponent
+    TesourariaComponent
   ],
   providers: [
-    CaixaService,
+    TesourariaService,
     RelatorioService
   ]
 })
-export class CaixaModule { }
+export class TesourariaModule { }

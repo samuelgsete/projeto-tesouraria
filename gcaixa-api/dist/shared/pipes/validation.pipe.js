@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const caixa_entity_1 = require("../models/caixa.entity");
+const tesouraria_entity_1 = require("../models/tesouraria.entity");
 const saida_entity_1 = require("../models/saida.entity");
 const entrada_entity_1 = require("../models/entrada.entity");
 const contagem_entity_1 = require("../models/contagem.entity");
@@ -46,7 +46,7 @@ let ValidationPipe = class ValidationPipe {
                     registro: c.registro
                 }));
             });
-            let _caixa = new caixa_entity_1.Caixa({
+            let _tesouraria = new tesouraria_entity_1.Tesouraria({
                 id: value.id,
                 nome: value.nome,
                 saldoInicial: value.saldoInicial,
@@ -56,7 +56,7 @@ let ValidationPipe = class ValidationPipe {
                 contagens: _contagens,
                 observacoes: value.observacoes,
             });
-            return _caixa;
+            return _tesouraria;
         }
         return value;
     }

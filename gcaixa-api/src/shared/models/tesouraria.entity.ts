@@ -7,7 +7,7 @@ import { InsufficientFunds } from "../exceptions/modelos/insufficient-funds.exce
 import { Contagem } from "./contagem.entity";
 
 @Entity()
-export class Caixa extends EntidadeBase {
+export class Tesouraria extends EntidadeBase {
    
     @Column({ length: 120, unique: true, nullable: false })
     public nome: string;
@@ -18,17 +18,17 @@ export class Caixa extends EntidadeBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public saldoAtual: number;
 
-    @OneToMany(type => Saida, saida => saida.caixa, { cascade: true })
+    @OneToMany(type => Saida, saida => saida.tesouraria, { cascade: true })
     public saidas: Saida[];
 
-    @OneToMany(type => Entrada, entrada => entrada.caixa, { cascade: true })
+    @OneToMany(type => Entrada, entrada => entrada.tesouraria, { cascade: true })
     public entradas: Entrada[];
 
-    @OneToMany(type => Contagem, contagem => contagem.caixa, { cascade: true })
+    @OneToMany(type => Contagem, contagem => contagem.tesouraria, { cascade: true })
     public contagens: Contagem[];
 
     @Column({ length: 255, unique: false, nullable: true })
-    public observacoes: string;
+    public detalhes: string;
 
     public constructor(values: Object = {}) {
         super();
@@ -43,21 +43,13 @@ export class Caixa extends EntidadeBase {
         });
 
         this.saidas.forEach( s => {
-            if(this.ePossivelRetirar(s.valor)) {
-                _saldo -= s.valor;
-            }
-            else {
-                throw new InsufficientFunds('Saldo insuficiente para realizar a retirada')
-            }
+            _saldo -= s.valor;
         });
 
         this.saldoAtual = this.saldoInicial + _saldo;
-    }
 
-    public ePossivelRetirar(valor: number): boolean {
-        if(valor > this.saldoAtual) {
-            return false;
+        if(this.saldoAtual < 0) {
+            throw new InsufficientFunds('Saldo insuficiente para a retirada');
         }
-        return true;
     }
 }

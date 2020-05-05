@@ -47,8 +47,8 @@
                 [checkboxable]="true">
             </ngx-datatable-column>
                 <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
-                <ngx-datatable-column name="Nome do caixa" [width]="250">
-                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.nome }}</ng-template>
+                <ngx-datatable-column name="Tesouraria" [width]="250">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ tesouraria.nome }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Saldo real" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.saldoReal | currency:'BRL' }}</ng-template>
@@ -74,7 +74,7 @@
     <div class="hero">
         <div class="header-page">
             <div class="name-page">
-                <mat-icon>account_tree</mat-icon>
+                <mat-icon>whatshot</mat-icon>
                 <h3>Contagens</h3>
             </div>
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
@@ -93,8 +93,8 @@
             [limit]="6"
         >
             <ngx-datatable-column name="ID" [width]="100" prop="id"></ngx-datatable-column>
-            <ngx-datatable-column name="Nome do caixa" [width]="200">
-                <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ caixa.nome }}</ng-template>
+            <ngx-datatable-column name="Tesouraria" [width]="200">
+                <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ tesouraria.nome }}</ng-template>
             </ngx-datatable-column>  
             <ngx-datatable-column name="Saldo real" [width]="100">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -128,7 +128,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalCriar.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCriar.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA CONTAGEM</h4>
@@ -168,7 +168,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalEditar.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalEditar.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">EDITAR CONTAGEM</h4>

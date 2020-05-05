@@ -16,6 +16,49 @@
     </div>
     <div class="moviment z-depth-1-half">
         <div class="header">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-inicial" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo inicial</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-atual" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo atual</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-real" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo real</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
+                                <h4 *ngIf="tesouraria.contagens[0] == null">R$ 0,00</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
+
             <div class="all-delete">
                 <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
                     {{ movimentacoesSelecionadas.length }} selecionado(s) ...
@@ -24,6 +67,7 @@
                     </button>
                 </div>
             </div>
+            
         </div>
         <div class="main-content">
             <ngx-datatable
@@ -89,6 +133,48 @@
         </div>
     </div>
     <div class="movment">
+        <div class="row">
+            <div class="col-12">
+                <mdb-card class="saldo-inicial" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo inicial</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-atual" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-real" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo real</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
+                            <h4 *ngIf="tesouraria.contagens[0] == null">R$ 0,00</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
         <ngx-datatable
             [rows]="rows"
             class="material z-depth-0"
@@ -134,7 +220,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA ENTRADA</h4>
@@ -214,9 +300,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #input matInput placeholder="observacões" maxlength="200" formControlName="observacoes"></textarea>
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>    
@@ -234,7 +320,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">ATUALIZAR ENTRADA</h4>
@@ -338,9 +424,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #input matInput placeholder="observacões" maxlength="200" formControlName="observacoes"></textarea>
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>       
@@ -357,7 +443,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalSaida.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalSaida.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA SAIDA</h4>
@@ -383,9 +469,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <textarea #motivo matInput placeholder="Motivo" maxlength="200" formControlName="motivo"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{ input.value?.length || 0 }}/200</mat-hint>
+                                <mat-hint>{{ motivo.value?.length || 0 }}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -402,7 +488,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">EDITAR SAIDA</h4>
@@ -454,7 +540,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalCredito.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCredito.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVO CRÉDITO</h4>
