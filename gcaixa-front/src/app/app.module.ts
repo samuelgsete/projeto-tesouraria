@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
-import { CaixaModule } from './pages/caixa/caixa.module';
+import { TesourariaModule } from './pages/tesouraria/tesouraria.module';
 import { routing } from './app.routing';
 import { AuthModule } from './pages/auth/auth.module';
 import { UsuarioService } from './shared/services/usuario.service';
@@ -24,7 +24,7 @@ import { AuthInterceptor } from './pages/auth/auth.interceptor';
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
-    CaixaModule,
+    TesourariaModule,
     AuthModule,
     routing,
   ],

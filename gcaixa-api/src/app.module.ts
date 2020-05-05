@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CaixaModule } from './caixa/caixa.module';
-import { Caixa } from './shared/models/caixa.entity';
+import { TesourariaModule } from './tesouraria/tesouraria.module';
+import { Tesouraria } from './shared/models/tesouraria.entity';
 import { Saida } from './shared/models/saida.entity';
 import { Entrada } from './shared/models/entrada.entity';
 import { Credito } from './shared/models/credito.entity';
@@ -20,9 +20,9 @@ import { Contagem } from './shared/models/contagem.entity';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'gcaixadb',
+      database: 'tesourariadb',
       entities: [
-        Caixa, 
+        Tesouraria, 
         Saida,
         Entrada,
         Credito,
@@ -30,7 +30,7 @@ import { Contagem } from './shared/models/contagem.entity';
       ],
       synchronize: true,
     }),
-    CaixaModule,
+    TesourariaModule,
     AuthModule,
     UsersModule
   ],

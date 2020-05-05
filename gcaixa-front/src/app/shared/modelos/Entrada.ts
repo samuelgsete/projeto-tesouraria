@@ -9,7 +9,7 @@ export class Entrada {
     public registro: Date;
     public creditos: Credito[] = [];
     public tipo: string;
-    public observacoes: string;
+    public detalhes: string;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

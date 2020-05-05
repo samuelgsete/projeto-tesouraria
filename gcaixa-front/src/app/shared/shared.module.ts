@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { DateFormatPipe } from './pipes/date-format.pipe';
 
@@ -36,6 +37,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     TextMaskModule,
     MatSelectModule,
     MatExpansionModule,
+    MatProgressBarModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -52,6 +54,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     DateFormatPipe,
     MatSelectModule,
     MatExpansionModule,
+    MatProgressBarModule
   ],
 })
 export class SharedModule { }

@@ -23,7 +23,7 @@ __decorate([
     __metadata("design:type", String)
 ], Credito.prototype, "titular", void 0);
 __decorate([
-    typeorm_1.Column({ unique: false, nullable: false }),
+    typeorm_1.Column({ type: 'float', unique: false, nullable: false }),
     __metadata("design:type", Number)
 ], Credito.prototype, "valor", void 0);
 __decorate([

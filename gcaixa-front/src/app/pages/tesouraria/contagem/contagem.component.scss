@@ -47,6 +47,7 @@
 
         .main {
             ngx-datatable {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 width: 100%; 
                 box-shadow: none;
 
@@ -119,6 +120,7 @@
 
     .score {
         padding: 40px 1px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         ngx-datatable {
             width: 100%;
 

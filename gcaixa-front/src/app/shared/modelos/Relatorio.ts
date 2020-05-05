@@ -3,7 +3,7 @@ import { Saida } from './Saida';
 
 export class Relatorio {
 
-    public nomeCaixa: string;
+    public nomeTesouraria: string;
     public saldoAtual: number = 0;
     public saldoInicial: number = 0;
     public saldoMensal: number = 0;

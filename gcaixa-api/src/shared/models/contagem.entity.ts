@@ -1,7 +1,7 @@
 import { Entity, Column, CreateDateColumn, ManyToOne } from "typeorm";
 
 import { EntidadeBase } from "./entidade-base";
-import { Caixa } from "./caixa.entity";
+import { Tesouraria } from "./tesouraria.entity";
 
 @Entity()
 export class Contagem extends EntidadeBase {
@@ -12,8 +12,8 @@ export class Contagem extends EntidadeBase {
     @CreateDateColumn()
     public registro: Date;
 
-    @ManyToOne(type => Caixa, caixa => caixa.contagens, { onDelete: "CASCADE" })
-    public caixa: Caixa;
+    @ManyToOne(type => Tesouraria, tesouraria => tesouraria.contagens, { onDelete: "CASCADE" })
+    public tesouraria: Tesouraria;
 
     public constructor(values: Object = {}) {
         super();

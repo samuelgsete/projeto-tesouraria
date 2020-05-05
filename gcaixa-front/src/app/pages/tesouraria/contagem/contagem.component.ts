@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Contagem } from 'src/app/shared/modelos/Contagem';
-import { Caixa } from 'src/app/shared/modelos/Caixa';
+import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ export class ContagemComponent implements OnInit {
   public f: FormGroup;
 
   public rows: Contagem[] = [];
-  public caixa: Caixa;
+  public tesouraria: Tesouraria;
 
   public indicadorDeCarregamento: boolean = true;
   public contagensSelecionadas: any = [];
@@ -27,7 +27,7 @@ export class ContagemComponent implements OnInit {
               private router: Router, 
               private _fb: FormBuilder, 
               private toastr: ToastrService,
-              private service: CaixaService
+              private service: TesourariaService
             ) 
   {
     this.load();
@@ -38,9 +38,8 @@ export class ContagemComponent implements OnInit {
   load() {
     let id = this.router.url.split('/')[2];
     this.service.findById(id).subscribe( res => {
-      this.caixa = res;
-      console.log(res);
-      this.rows = this.caixa.contagens;
+      this.tesouraria = res;
+      this.rows = this.tesouraria.contagens;
       this.indicadorDeCarregamento = false;
     }, e => {
       this.errorMessage(e);
@@ -61,8 +60,8 @@ export class ContagemComponent implements OnInit {
   salvarOuAtualizarContagem(contagem: Contagem, modal: any) {
     modal.hide();
     if(contagem.id == null) {
-      this.caixa.contagens.push(contagem);
-      this.service.update(this.caixa).subscribe( res => {
+      this.tesouraria.contagens.push(contagem);
+      this.service.update(this.tesouraria).subscribe( res => {
         this.toastr.success('Cadastrado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
       }, e => {
@@ -71,13 +70,13 @@ export class ContagemComponent implements OnInit {
     }
     else {
       let i = 0;
-      this.caixa.entradas.forEach((item, index) => {
+      this.tesouraria.entradas.forEach((item, index) => {
         if(item.id === contagem.id) {
           i = index;
         }
       });
-      this.caixa.contagens[i] = contagem;
-      this.service.update(this.caixa).subscribe( res => {
+      this.tesouraria.contagens[i] = contagem;
+      this.service.update(this.tesouraria).subscribe( res => {
         this.toastr.success('Atalizado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
       }, e => {
@@ -99,11 +98,11 @@ export class ContagemComponent implements OnInit {
       if (result.value) {
         let index = 0;
         this.contagensSelecionadas.forEach(item => {
-          index = this.caixa.contagens.indexOf(item);
+          index = this.tesouraria.contagens.indexOf(item);
           if (index >= 0) {
-            this.caixa.contagens.splice(index,1);
+            this.tesouraria.contagens.splice(index,1);
           } 
-          this.service.update(this.caixa).subscribe(res => {
+          this.service.update(this.tesouraria).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
           }, e => {
@@ -126,11 +125,11 @@ export class ContagemComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.caixa.contagens.indexOf(contagem);
+        index = this.tesouraria.contagens.indexOf(contagem);
         if(index >=0) {
-          this.caixa.contagens.splice(index, 1);
+          this.tesouraria.contagens.splice(index, 1);
         }
-        this.service.update(this.caixa).subscribe( res => {
+        this.service.update(this.tesouraria).subscribe( res => {
           this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
           this.load();
         }, e => {
@@ -146,8 +145,8 @@ export class ContagemComponent implements OnInit {
     this.f.patchValue({
       id: row.id,
       saldoReal: row.saldoReal,
-      saldoAtual: this.caixa.saldoAtual,
-      saldoInicial: this.caixa.saldoInicial,
+      saldoAtual: this.tesouraria.saldoAtual,
+      saldoInicial: this.tesouraria.saldoInicial,
       registro: row.registro,
       caixa: row.caixa
     });
@@ -156,13 +155,11 @@ export class ContagemComponent implements OnInit {
   abrirModalCriar(modal: any) {
     this.f.reset();
     this.f.patchValue({
-      saldoAtual: this.caixa.saldoAtual,
-      saldoInicial: this.caixa.saldoInicial
+      saldoAtual: this.tesouraria.saldoAtual,
+      saldoInicial: this.tesouraria.saldoInicial
     });
     modal.show();
   }
-
-  displayFn(caixa: Caixa): string { return caixa && caixa.nome ? caixa.nome : ''; }
 
   ngOnInit() {
     this.f = this._fb.group({

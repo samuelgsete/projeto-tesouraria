@@ -3,19 +3,19 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 
-import { Caixa } from 'src/app/shared/modelos/Caixa';
+import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { Paginacao } from 'src/app/shared/modelos/paginacao';
 
 
 @Component({
-  selector: 'app-caixa',
-  templateUrl: './caixa.component.html',
-  styleUrls: ['./caixa.component.scss']
+  selector: 'app-tesouraria',
+  templateUrl: './tesouraria.component.html',
+  styleUrls: ['./tesouraria.component.scss']
 })
-export class CaixaComponent implements OnInit {
+export class TesourariaComponent implements OnInit {
 
   public f: FormGroup;
   public pesquisar: FormControl = new FormControl();
@@ -23,10 +23,10 @@ export class CaixaComponent implements OnInit {
   @ViewChild('modalCadastro', null) modalCadastrar: any;
   @ViewChild('modalEditar', null) modalEditar: any;
 
-  public caixas = [];
+  public tesourarias = [];
   public paginacao = new Paginacao();
 
-  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: CaixaService) { 
+  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TesourariaService) { 
     this.load(this.paginacao);
     this.pesquisar.valueChanges.pipe(debounceTime(700)).subscribe(value => {
       this.load(new Paginacao({ filter: value }));
@@ -35,7 +35,7 @@ export class CaixaComponent implements OnInit {
 
   load(paginacao: Paginacao) {
     this.servico.findPaginate(paginacao).subscribe( res => {
-      this.caixas = res.body.data;
+      this.tesourarias = res.body.data;
       paginacao.count = res.body.count;
     }, e => {
       this.errorMessage(e);
@@ -63,38 +63,46 @@ export class CaixaComponent implements OnInit {
     this.load(this.paginacao);
   }
 
-  cadastrarOuAtualizarCaixa(dados: Caixa) {
-    let caixa = new Caixa({
+  cadastrarOuAtualizarTesouraria(dados: Tesouraria) {
+    let tesouraria = new Tesouraria({
       id: dados.id,
       nome: dados.nome, 
       saldoAtual: dados.saldoAtual,
       saldoInicial: dados.saldoInicial,
       entradas: dados.entradas,
       saidas: dados.saidas,
-      observacoes: dados.observacoes
+      contagens: dados.contagens,
+      observacoes: dados.detalhes
     });
-    if(caixa.id == null) {
-      this.servico.save(caixa).subscribe(res => {
+    
+    if(tesouraria.id == null) {
+      this.servico.save(tesouraria).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
-        this.ocultarModalCadastrar();      
+        this.ocultarModalCadastrar();    
+        this.reload();  
       }, e => {
         this.errorMessage(e);
       });
     }
     else {
-      this.servico.update(caixa).subscribe(res => {
+      this.servico.update(tesouraria).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
+        this.ocultarModalEditar();
+        this.reload();
       }, e => {
         this.errorMessage(e);
       });
-      this.ocultarModalEditar();
+      
     }
+  }
+
+  reload() {
     this.paginacao = new Paginacao();
     this.load(this.paginacao); 
     this.f.reset();
   }
 
-  deletarCaixa(c: Caixa) {
+  deletarTesouraria(c: Tesouraria) {
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -125,20 +133,21 @@ export class CaixaComponent implements OnInit {
     this.f.reset();
   }
 
-  abirModalEditar(caixa: Caixa) {
+  abrirModalEditar(tesouraria: Tesouraria) {
     this.f.patchValue({
-      id: caixa.id,
-      nome: caixa.nome,
-      saldoAtual: caixa.saldoAtual,
-      saldoInicial: caixa.saldoInicial,
-      entradas: caixa.entradas,
-      saidas: caixa.saidas,
-      observacoes: caixa.observacoes
-    })
+      id: tesouraria.id,
+      nome: tesouraria.nome,
+      saldoAtual: tesouraria.saldoAtual,
+      saldoInicial: tesouraria.saldoInicial,
+      entradas: tesouraria.entradas,
+      saidas: tesouraria.saidas,
+      contagens: tesouraria.contagens,
+      observacoes: tesouraria.detalhes
+    });
     this.modalEditar.show();
   }
 
-  abirCaixa(id: number) {
+  abrirTesouraria(id: number) {
     this.router.navigateByUrl('movimentacoes/' + id);
   }
 
@@ -146,8 +155,8 @@ export class CaixaComponent implements OnInit {
     this.router.navigateByUrl(`relatorio/${id}`);
   }
 
-  exibirGrafico(id: number) {
-    this.router.navigateByUrl(`grafico/${id}`);
+  exibirHistorico(id: number) {
+    this.router.navigateByUrl(`historico/${id}`);
   }
 
   efetuarContagem(id: number) { this.router.navigateByUrl(`contagem/${id}`) }
@@ -158,8 +167,9 @@ export class CaixaComponent implements OnInit {
       nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       saldoInicial:['', []],
       saldoAtual:['', []],
-      observacoes: [null, [Validators.minLength(4), Validators.maxLength(200)]],
+      detalhes: [null, [Validators.minLength(4), Validators.maxLength(200)]],
       entradas: [[]],
+      contagens: [[]],
       saidas: [[]],
     });
   }

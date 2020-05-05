@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CaixaService } from 'src/app/shared/services/caixa.service';
-import { Caixa } from 'src/app/shared/modelos/Caixa';
+import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { ToastrService } from 'ngx-toastr';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
-  selector: 'app-grafico',
-  templateUrl: './grafico.component.html',
-  styleUrls: ['./grafico.component.scss']
+  selector: 'app-historico',
+  templateUrl: './historico.component.html',
+  styleUrls: ['./historico.component.scss']
 })
-export class GraficoComponent implements OnInit {
+export class HistoricoComponent implements OnInit {
 
   public chartType: string = 'bar';
   public chartDatasets1 = [
@@ -50,13 +50,13 @@ export class GraficoComponent implements OnInit {
     responsive: true
   };
 
-  public caixa = new Caixa();
+  public tesouraria = new Tesouraria();
   public dateFormat = new DateFormatPipe();
   public now = new Date().getFullYear();
 
   constructor(
           private router: Router, 
-          private servico: CaixaService, 
+          private servico: TesourariaService, 
           private toastr: ToastrService
   ) { 
 
@@ -66,9 +66,9 @@ export class GraficoComponent implements OnInit {
   load() {
     let id = this.router.url.split('/')[2];
     this.servico.findById(id).subscribe( resp => {
-      let c: Caixa = resp
+      let c: Tesouraria = resp
       if(c != null) {
-        this.caixa = c;
+        this.tesouraria = c;
         this.plotarGraficoMovimentacoes();
         this.plotarGraficoContagens();
       }
@@ -89,11 +89,11 @@ export class GraficoComponent implements OnInit {
     ];
  
     /* Busca as entradas e saídas do ano corrente */
-    let entradas = this.caixa.entradas.filter( e => {
+    let entradas = this.tesouraria.entradas.filter( e => {
       return this.dateFormat.transform(e.registro).indexOf(this.now) != -1;
     });
 
-    let saidas = this.caixa.saidas.filter( s => {
+    let saidas = this.tesouraria.saidas.filter( s => {
       return this.dateFormat.transform(s.registro).indexOf(this.now) != -1;
     });
 
@@ -158,7 +158,7 @@ export class GraficoComponent implements OnInit {
       { data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SALDO VIRTUAL' },
     ];
     /* Filtra as contagens do ano atual */
-    let contagens = this.caixa.contagens.filter( c => {
+    let contagens = this.tesouraria.contagens.filter( c => {
       return this.dateFormat.transform(c.registro).indexOf(this.now) != -1;
     });
     
@@ -167,21 +167,21 @@ export class GraficoComponent implements OnInit {
         let mes = parseInt(this.dateFormat.transform(c.registro).split('/')[1]);
         if(mes == index+1) {
           this.chartDatasets2[0].data[index] = c.saldoReal;
-          this.chartDatasets2[1].data[index] = this.calcularSaldoAteOmesCorrente(this.caixa, mes, this.now);
+          this.chartDatasets2[1].data[index] = this.calcularSaldoAteOmesCorrente(this.tesouraria, mes, this.now);
         }
       });  
     });
   }
 
-  calcularSaldoAteOmesCorrente(caixa: Caixa, mes: number, ano: number) {
-    let saldo = caixa.saldoInicial;
+  calcularSaldoAteOmesCorrente(tesouraria: Tesouraria, mes: number, ano: number) {
+    let saldo =tesouraria.saldoInicial;
 
-    let _entradas = this.caixa.entradas.filter( e => {
+    let _entradas = this.tesouraria.entradas.filter( e => {
       const [d, m, a] = this.dateFormat.transform(e.registro).split('/');
       return parseInt(m) <= mes  && ano == parseInt(a);
     });
     
-    let _saidas = this.caixa.saidas.filter( s => {
+    let _saidas = this.tesouraria.saidas.filter( s => {
       const [d, m, a] = this.dateFormat.transform(s.registro).split('/');
       return parseInt(m) <= mes  && ano == parseInt(a);
     });

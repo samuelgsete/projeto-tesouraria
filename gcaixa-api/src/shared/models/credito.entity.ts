@@ -9,7 +9,7 @@ export class Credito extends EntidadeBase {
     @Column({ length: 120, unique:false, nullable:false })
     public titular: string;
 
-    @Column({ unique: false, nullable: false})
+    @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
     @Column({ type:'timestamp', unique: false, nullable: true })

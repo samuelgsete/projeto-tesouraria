@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Caixa } from 'src/app/shared/modelos/Caixa';
+import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { Credito } from 'src/app/shared/modelos/Credito';
 import { Saida } from 'src/app/shared/modelos/Saida';
 import { Entrada } from 'src/app/shared/modelos/Entrada';
 import Swal from 'sweetalert2';
-import { CaixaService } from 'src/app/shared/services/caixa.service';
+import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
@@ -22,8 +22,8 @@ export class MovimentacoesComponent implements OnInit {
   public fsaidas: FormGroup;
   public fcreditos: FormGroup;
 
-  public caixa: Caixa = new Caixa();
-  public creditos: Credito[ ]= [];
+  public tesouraria: Tesouraria = new Tesouraria();
+  public creditos: Credito[]= [];
 
   public rows: any = [];
   public indicadorDeCarregamento: boolean = true;
@@ -31,19 +31,14 @@ export class MovimentacoesComponent implements OnInit {
 
   public dateFormat = new DateFormatPipe();
   
-  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: CaixaService) { }
-
-  toggleExpandRow(row, table) {
-    console.log('Toggled Expand Row!', row);
-    table.rowDetail.toggleExpandRow(row);
-  }
+  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
   
   load() {
     let id = this.router.url.split('/')[2];
     this.servico.findById(id).subscribe( resp => {
-      let c: Caixa = resp
+      let c: Tesouraria = resp
       if(c != null) {
-        this.caixa = c;
+        this.tesouraria = c;
         this.rows = [...c.entradas, ...c.saidas];    
         this.indicadorDeCarregamento = false;
       }
@@ -102,19 +97,19 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   salvarOuAtualizarEntrada(e: Entrada, modal: any) {
-    e.creditos = this.creditos;
     let entrada = new Entrada({
       id: e.id,
       descricao: e.descricao,
       valor: e.valor,
       ofertante: e.ofertante,
       tipo: 'ENTRADA',
-      observacoes: e.observacoes,
+      detalhes: e.detalhes,
       creditos: this.creditos
     });
+
     if(entrada.id == null) {
-      this.caixa.entradas.push(entrada);
-      this.servico.update(this.caixa).subscribe(res => {
+      this.tesouraria.entradas.push(entrada);
+      this.servico.update(this.tesouraria).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();      
       }, e => {
@@ -123,13 +118,14 @@ export class MovimentacoesComponent implements OnInit {
     }
     else {
       let i = 0;
-      this.caixa.entradas.forEach((item, index) => {
+      this.tesouraria.entradas.forEach((item, index) => {
         if(item.id === entrada.id) {
           i = index;
         }
       });
-      this.caixa.entradas[i] = entrada;
-      this.servico.update(this.caixa).subscribe(res => {
+      this.tesouraria.entradas[i] = entrada;
+      console.log(this.tesouraria);
+      this.servico.update(this.tesouraria).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
@@ -147,11 +143,12 @@ export class MovimentacoesComponent implements OnInit {
       descricao: s.descricao,
       valor: s.valor,
       tipo: 'SAIDA',
-      motivo: s.motivo
+      motivo: s.detalhes
     });
+
     if(saida.id == null) {
-      this.caixa.saidas.push(saida);
-      this.servico.update(this.caixa).subscribe(res => {
+      this.tesouraria.saidas.push(saida);
+      this.servico.update(this.tesouraria).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();      
       }, e => {
@@ -160,14 +157,14 @@ export class MovimentacoesComponent implements OnInit {
     }
     else {
       let i = 0;
-      this.caixa.saidas.forEach((item, index) => {
+      this.tesouraria.saidas.forEach((item, index) => {
         if(item.id === saida.id) {
           i = index;
         }
       });
-      this.caixa.saidas.splice(i, 1);
-      this.caixa.saidas.push(saida);
-      this.servico.update(this.caixa).subscribe(res => {
+      this.tesouraria.saidas.splice(i, 1);
+      this.tesouraria.saidas.push(saida);
+      this.servico.update(this.tesouraria).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }, e => {
@@ -190,15 +187,15 @@ export class MovimentacoesComponent implements OnInit {
       if (result.value) {
         let index = 0;
         this.movimentacoesSelecionadas.forEach(item => {
-          index = this.caixa.entradas.indexOf(item);
+          index = this.tesouraria.entradas.indexOf(item);
           if (index >= 0) {
-            this.caixa.entradas.splice(index,1);
+            this.tesouraria.entradas.splice(index,1);
           } 
-          index = this.caixa.saidas.indexOf(item);
+          index = this.tesouraria.saidas.indexOf(item);
           if (index >= 0) {
-            this.caixa.saidas.splice(index,1);
+            this.tesouraria.saidas.splice(index,1);
           }
-          this.servico.update(this.caixa).subscribe(res => {
+          this.servico.update(this.tesouraria).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
           }, e => {
@@ -221,15 +218,15 @@ export class MovimentacoesComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.caixa.entradas.indexOf(movimentacao);
+        index = this.tesouraria.entradas.indexOf(movimentacao);
         if(index >=0) {
-          this.caixa.entradas.splice(index, 1);
+          this.tesouraria.entradas.splice(index, 1);
         }
-        index = this.caixa.saidas.indexOf(movimentacao);
+        index = this.tesouraria.saidas.indexOf(movimentacao);
         if(index >=0) {
-          this.caixa.saidas.splice(index, 1);
+          this.tesouraria.saidas.splice(index, 1);
         }
-        this.servico.update(this.caixa).subscribe(res => {
+        this.servico.update(this.tesouraria).subscribe(res => {
           this.load();
           this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
         }, e => {
@@ -278,7 +275,7 @@ export class MovimentacoesComponent implements OnInit {
         valor: row.valor,
         ofertante: row.ofertante,
         registro: this.dateFormat.transform(row.registro),
-        observacoes: row.observacoes
+        detalhes: row.detalhes
       });
       this.creditos = row.creditos;
       modalAtualizarEntrada.show();
@@ -299,7 +296,7 @@ export class MovimentacoesComponent implements OnInit {
       ofertante: ['', [Validators.minLength(4), Validators.maxLength(50)]],
       tipo: [''],
       registro: [''],
-      observacoes: ['', Validators.maxLength(250)],
+      detalhes: [null, Validators.maxLength(250)],
     });
 
     this.fcreditos = this._fb.group({
@@ -315,7 +312,7 @@ export class MovimentacoesComponent implements OnInit {
       valor:[Validators.required],
       tipo: [''],
       registro: [''],
-      motivo: ['', Validators.maxLength(200)]
+      motivo: [null, Validators.maxLength(200)]
     });
   }
 }

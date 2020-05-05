@@ -1,12 +1,12 @@
-import { Caixa } from "./caixa.entity";
+import { Tesouraria } from "./tesouraria.entity";
 import { EntidadeBase } from "./entidade-base";
 export declare class Saida extends EntidadeBase {
     descricao: string;
     valor: number;
     registro: Date;
-    motivo: string;
+    detalhes: string;
     tipo: TipoMovimentacao;
-    caixa: Caixa;
+    tesouraria: Tesouraria;
     constructor(values?: Object);
 }
 export declare type TipoMovimentacao = "ENTRADA" | "SAIDA";

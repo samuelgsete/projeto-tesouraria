@@ -22,3 +22,5 @@ body {
 .cdk-overlay-container {
     z-index: 1060;
 }
+
+.btn-hide-modal:focus { outline: none }

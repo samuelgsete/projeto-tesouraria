@@ -1,5 +1,3 @@
-import { Caixa } from './Caixa';
-
 export class Contagem {
 
     public id: number;

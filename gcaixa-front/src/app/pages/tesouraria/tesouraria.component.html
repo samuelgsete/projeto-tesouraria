@@ -4,17 +4,17 @@
         <div class="row">
             <div class="col-xl-10 col-lg-8 col-md-8 col-sm-6">
                 <mat-icon style="float: left;">how_to_vote</mat-icon>
-                <h2>Caixas</h2>
+                <h2>Tesourarias</h2>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVA TESOURARIA</button>
             </div>
         </div>
     </div>
     <div class="box z-depth-1-half">
         <div class="header">
             <mat-form-field class="input-width" appearance="fill">
-                <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
+                <input [formControl]="pesquisar" matInput placeholder="Qual tesouraria você está procurando?">
                 <button mat-icon-button matSuffix>
                     <mat-icon>search</mat-icon>
                 </button>
@@ -22,10 +22,10 @@
         </div>
         
         <div class="main-content">
-            <p *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
-            <div *ngIf="this.caixas.length == 0" class="fix-height"></div>
+            <p *ngIf="this.tesourarias.length == 0">Nenhuma tesouraria encontrada. Considere letras maiúsculas e tente novamente</p>
+            <div *ngIf="this.tesourarias.length == 0" class="fix-height"></div>
             <div class="row">
-                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let c of caixas">
+                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let t of tesourarias">
                     <mdb-card>
                         <mdb-card-body>
                             
@@ -33,24 +33,24 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
-                                <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
-                                <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
+                                <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
+                                <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
                             </mat-menu>  
     
                             <mdb-card-title>
-                                <h4>{{ c.nome }}</h4>
+                                <h4>{{ t.nome }}</h4>
                             </mdb-card-title>
                     
-                            <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                            <mdb-card-text>Saldo Atual: {{ t.saldoAtual | currency:'BRL' }}</mdb-card-text>
                         
-                            <button mat-fab class="btn-add z-depth-0" (click)="abirCaixa(c.id)">
+                            <button mat-fab class="btn-add z-depth-0" (click)="abrirTesouraria(t.id)">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(c)">
+                            <button mat-fab class="btn-edit z-depth-0" (click)="abrirModalEditar(t)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-fab class="btn-delete z-depth-0" (click)="deletarCaixa(c)">
+                            <button mat-fab class="btn-delete z-depth-0" (click)="deletarTesouraria(t)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </mdb-card-body>
@@ -64,26 +64,27 @@
                         <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
                     </div>
                     <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
-                        <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                        <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.tesourarias.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
                     </div>
                 </div>
             </div>
         </div> 
     </div>
+    
 </div>
 <div class="mobile">
     <div class="hero">
         <div class="header-page">
             <div class="name-page">
                 <mat-icon>how_to_vote</mat-icon>
-                <h2>Caixas</h2>
+                <h2>Tesourarias</h2>
             </div>
-            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVO CAIXA</button>
+            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVA TESOURARIA</button>
         </div>
     </div>
     <div class="box">
         <mat-form-field class="input-width" appearance="fill">
-            <input [formControl]="pesquisar" matInput placeholder="Qual caixa você está procurando?">
+            <input [formControl]="pesquisar" matInput placeholder="Qual tesouraria você está procurando?">
             <button mat-icon-button matSuffix>
                 <mat-icon>search</mat-icon>
             </button>
@@ -91,12 +92,12 @@
 
         <div class="row">
             <div class="col">
-                <p class="text-center" *ngIf="this.caixas.length == 0">Nenhum caixa encontrado. Considere letras maiúsculas e tente novamente</p>
+                <p class="text-center" *ngIf="this.tesourarias.length == 0">Nenhuma tesouraria encontrada. Considere letras maiúsculas e tente novamente</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12" *ngFor="let c of caixas">
+            <div class="col-12" *ngFor="let t of tesourarias">
                 <mdb-card class="z-depth-0">
                     <mdb-card-body>
                         
@@ -104,24 +105,24 @@
                             <mat-icon>more_horiz</mat-icon>
                         </button>
                         <mat-menu #actions="matMenu">
-                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(c.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
-                            <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(c.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
-                            <button mat-menu-item (click)="efetuarContagem(c.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
+                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
+                            <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(t.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
+                            <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
                         </mat-menu>  
 
                         <mdb-card-title>
-                            <h4>{{ c.nome }}</h4>
+                            <h4>{{ t.nome }}</h4>
                         </mdb-card-title>
                 
-                        <mdb-card-text>Saldo Atual: {{ c.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                        <mdb-card-text>Saldo Atual: {{ t.saldoAtual | currency:'BRL' }}</mdb-card-text>
                     
-                        <button mat-fab class="btn-add z-depth-0" (click)="abirCaixa(c.id)">
+                        <button mat-fab class="btn-add z-depth-0" (click)="abirTesouraria(t.id)">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(c)">
+                        <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(t)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-fab class="btn-delete z-depth-0" (click)="deletarCaixa(c)">
+                        <button mat-fab class="btn-delete z-depth-0" (click)="deletarTesouraria(t)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mdb-card-body>
@@ -134,7 +135,7 @@
                 <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
             </div>
             <div class="col-12" style="margin-top: 5px;">
-                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(true)" [disabled]="this.caixas.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(true)" [disabled]="this.tesourarias.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
             </div>
         </div>       
     </div>
@@ -145,10 +146,10 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalCadastrar()">
+          <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalCadastrar()">
             <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title w-100" id="myModalLabel">NOVO CAIXA</h4>
+          <h4 class="modal-title w-100" id="myModalLabel">NOVA TESOURARIA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
@@ -170,7 +171,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="observações" maxlength="200" formControlName="observacoes"></textarea>
+                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                             <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                             <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
                         </mat-form-field>
@@ -179,7 +180,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>CADASTRAR</button>
+          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>CADASTRAR</button>
         </div>
       </div>
     </div>
@@ -188,10 +189,10 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right" aria-label="Close" (click)="ocultarModalEditar()">
+          <button type="button" class="close pull-right  btn-hide-modal" aria-label="Close" (click)="ocultarModalEditar()">
             <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title w-100" id="myModalLabel">EDITAR CAIXA</h4>
+          <h4 class="modal-title w-100" id="myModalLabel">EDITAR TESOURARIA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
@@ -213,7 +214,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="observações" maxlength="200" formControlName="observacoes"></textarea>
+                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                             <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                             <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
                         </mat-form-field>
@@ -222,7 +223,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarCaixa(f.value)" mdbWavesEffect>ATUALIZAR</button>
+          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>ATUALIZAR</button>
         </div>
       </div>
     </div>
