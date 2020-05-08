@@ -2,17 +2,59 @@
 <div class="body">
     <div class="hero">
         <div class="row header-page">
-            <div class="col-sm-6 col-md-8 col-lg-9 col-xl-9">
+            <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10">
                 <mat-icon>whatshot</mat-icon>
                 <h3>Contagens</h3>
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
             </div>
         </div>
     </div>
-    <div class="score  z-depth-1-half">
+    <div class="score z-depth-1-half">
         <div class="header">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo inicial</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo atual</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo real</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[tesouraria.contagens.length - 1].saldoReal | currency:'BRL' }}</h4>
+                                <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
             <div class="all-delete">
                 <div class="alert alert-warning" role="alert" *ngIf="contagensSelecionadas.length > 1">
                     {{ contagensSelecionadas.length }} selecionado(s) ...
@@ -81,6 +123,48 @@
         </div>
     </div>
     <div class="score">
+        <div class="row">
+            <div class="col-12">
+                <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo inicial</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo real</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
+                            <h4 *ngIf="tesouraria.contagens[0] == null">R$ 0,00</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
         <ngx-datatable
             [rows]="rows"
             class="material z-depth-0"
@@ -138,7 +222,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
@@ -146,12 +230,12 @@
                     <div class="row">
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
@@ -178,27 +262,34 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registro" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalEditar)" mdbWavesEffect>SALVAR</button>
+                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalEditar)" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>

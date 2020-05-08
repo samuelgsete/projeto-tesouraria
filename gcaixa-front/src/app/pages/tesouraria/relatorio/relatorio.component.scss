@@ -10,9 +10,8 @@
         .header-page {
             margin-top: 50px;
 
-            h3 {
+            h2 {
                 color: #fff; 
-                text-align: center;
                 float: left;
                 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             }
@@ -24,7 +23,7 @@
                 float: left;
             }
 
-            button { margin-top: -4px }
+            button { margin-top: -10px }
         }
     }
 
@@ -32,7 +31,7 @@
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 18px;
         margin: -70px 35px;
-        padding: 30px 35px 40px 35px;
+        padding: 40px 35px 40px 35px;
         background-color: #fff;
         border-radius: 6px;
 
@@ -45,7 +44,6 @@
         }
        
         .report-header {
-            margin-top: 30px;
 
             mdb-card {
                 cursor: pointer;
@@ -69,7 +67,7 @@
             }
 
             mdb-card.saldo-atual {
-                background-color: #aa66cc;
+                background-color: #ffbb33;
 
                 p, h4, mat-icon {
                     color: #fff;
@@ -151,7 +149,7 @@
                     .box-moviment:last-child {  margin-bottom: 0px; }
 
                     mdb-card.saldo-mensal {
-                        background-color: #aa66cc;
+                        background-color: #0d47a1;
                         
                         p, h4 {
                             color: #fff;
@@ -184,13 +182,12 @@
                 justify-content: space-around;
                 align-items: center;       
 
-                h3 {
-                    text-align: center;
-                    float: left;
+                h2 {
                     color: #fff; 
-                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                    float: left;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 }
-
+    
                 mat-icon { 
                     margin-right: 20px;
                     font-size: 32px;
@@ -245,7 +242,7 @@
                 }
     
                 mdb-card.saldo-atual {
-                    background-color: #aa66cc;
+                    background-color: #ffbb33;
     
                     p, h4, mat-icon {
                         color: #fff;
@@ -323,7 +320,7 @@
                         .box-moviment:last-child {  margin-bottom: 0px; }
     
                         mdb-card.saldo-mensal {
-                            background-color: #aa66cc;
+                            background-color: #0d47a1;
                             
                             p, h4 {
                                 color: #fff;

@@ -22,6 +22,21 @@ export class TesourariaController {
         return this.service.findById(id);
     }
 
+    @Get('relatorio/:id')
+    public obterRelatorioMensal(
+                                    @Param('id') id: number, 
+                                    @Query('ano') ano:number,
+                                    @Query('mes') mes: number, 
+    ): Promise<any[]> 
+    {
+        return this.service.obterRelatorioMensal(id, ano, mes);
+    }
+
+    @Get('historico/:id')
+    public obterReceitas(@Param('id') id: number, @Query('ano') ano: number ): Promise<any[]> {
+        return this.service.obterHistoricoMensal(id, ano);
+    }
+
     @Post()
     public create(@Body() tesouraria: Tesouraria) {
         return this.service.save(tesouraria);

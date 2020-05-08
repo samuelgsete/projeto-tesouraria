@@ -3,7 +3,7 @@
     background-color: #d3e0e2;
 
     .hero {
-       height: 220px;
+        height: 220px;
         padding: 10px 35px;
         background-color: #00b8d4;
         
@@ -22,28 +22,68 @@
                 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             }
 
-            h5 {
-                color: #fff; 
-                float: right;
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            }
-
             mat-icon { 
                 margin-right: 30px;
                 font-size: 32px;
                 color: #fff;
                 float: left;
             }
+
+            button { margin-top: -10px }
         }
     }
 
     .graphic {
         margin: -70px 35px;
-        padding: 30px 35px 40px 35px;
+        padding: 40px 35px 40px 35px;
         background-color: #fff;
         border-radius: 6px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-        h5 { text-align: center;}
+        .loading {
+            height: 100px;
+        }
+
+        mat-form-field { width: 100% }
+
+        h5 { text-align: center }
+
+        mdb-card {
+            cursor: pointer;
+            margin-bottom: 30px;
+
+            h4 { margin-top: -10px }
+
+            mat-icon {
+                font-size: 40px;
+                float: right;
+                margin-top: 10px;
+            }
+        }
+
+        mdb-card.saldo-atual {
+            background-color: #ffbb33;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.rendimento-total-entradas {
+            background-color: #0099CC;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.rendimento-total-saidas {
+            background-color: #ff4444;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
     }
 }
 
@@ -78,6 +118,51 @@
                     font-size: 32px;
                     color: #fff;
                     float: left;
+                }
+            }
+        }
+
+        .main {
+            padding: 10px;
+
+            .loading {
+                height: 100px;
+            }
+            
+            mdb-card {
+                cursor: pointer;
+                margin-bottom: 10px;
+    
+                h4 { margin-top: -10px }
+    
+                mat-icon {
+                    font-size: 40px;
+                    float: right;
+                    margin-top: 10px;
+                }
+            }
+    
+            mdb-card.saldo-atual {
+                background-color: #ffbb33;
+    
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+    
+            mdb-card.rendimento-total-entradas {
+                background-color: #0099CC;
+    
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+    
+            mdb-card.rendimento-total-saidas {
+                background-color: #ff4444;
+    
+                p, h4, mat-icon {
+                    color: #fff;
                 }
             }
         }

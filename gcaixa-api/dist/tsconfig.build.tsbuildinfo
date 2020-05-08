@@ -2278,8 +2278,8 @@
         "signature": "8ce1cfc8c382d37680aa26dd4d03f192ecbd20b1723d11211a36dc1a79cc1f22"
       },
       "../src/shared/models/tesouraria.entity.ts": {
-        "version": "d3e425915d62f098d882e0127e1c30cd6e4945e537c5c8d1ddd7fa1ad3ada541",
-        "signature": "6285921e3d9469003baf2c298b932efce8aac2152bfc9d7108ecfe7edd47a5f2"
+        "version": "c37e60ad2b1877d39df2938a125b3fe48a28d64c94e3e04c89b0ed5cee203905",
+        "signature": "a6c642982a94f1eafb028e38a5df04af29b0d7410fedf642d040de065b1d8dac"
       },
       "../src/shared/models/filtro-busca.ts": {
         "version": "0efba8a4fc278e6268da66f9cf5eab1c438665546e9fd9162e75387674c51bf1",
@@ -2290,8 +2290,8 @@
         "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
       },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "23de544c7c88e485d7c6200372f34b6f9169a6a0da332160af680ef372a2357f",
-        "signature": "828e878376c5cb4eb100c1709a2ceecc5adf00eac710c4607b6c6f3e0d9a7b49"
+        "version": "e7f9721c3c538342aa12a0a61af0124aa0a04222aeccb62634a27bea8d8e9741",
+        "signature": "aa6969f29dfe410eb9273aef51118a76bda0aff7b0198a6dda5cd3fb9bc9fcaf"
       },
       "../src/shared/pipes/validation.pipe.ts": {
         "version": "eff3215a127f880379b1c67a50f5c21e643126161072904e3cd26b5ad156baa6",
@@ -2302,23 +2302,11 @@
         "signature": "baf608b3f1bf90782d8b003287213bceae5e9b31f56c2ce676e223ea85ea10b2"
       },
       "../src/tesouraria/tesouraria.controller.ts": {
-        "version": "de63c6c065aede547099db2beac6fd740d46534124611c1f26fa13ea0643d83f",
-        "signature": "1b471ea8794fce63f39997559d3fea24af93aa99b6ded056e4b6c4ea592c6300"
-      },
-      "../src/tesouraria/relatorio/relatorio.entity.ts": {
-        "version": "3fb65f07070906a54ddea0dd3d1f953348d231ee56589707c7ff4a7a488670ff",
-        "signature": "9f37be201cc4cc4c744d0fd6be8ac7ae08f40c76cecb67ba579851ba36400113"
-      },
-      "../src/tesouraria/relatorio/relatorio.service.ts": {
-        "version": "0b0a86444111cbe64b671ff06f0f78e2ff2d6a19cdd06fde24afca66a33a02fd",
-        "signature": "ff4a81c1c62662bb3fb3cccfb84906b3894ecc65d4e96a2ad92aa160aa1f2bb1"
-      },
-      "../src/tesouraria/relatorio/relatorio.controller.ts": {
-        "version": "5c95fbbd8ae64fce7deedd4868011356d6935ae609a541d30381118ab5b1b8cb",
-        "signature": "a243e2741975278cf1701b8b610f9b82adac8cd295f938b962747d745a9f648c"
+        "version": "dc082f5cb6b913faef9e72fc68de32e60e1f40b4e79ecdacdf075246b87bb63c",
+        "signature": "91ae03157d1e552c527926ad9ad8224208f8ffdcf155350532c8ebbdc3aeec2b"
       },
       "../src/tesouraria/tesouraria.module.ts": {
-        "version": "c93da44ac5ed48da628d341bfbda7e572f9c37644e0cd0d2f9b5d59c27e16ef5",
+        "version": "9c7ad3b062e80d754db3a0cd3f2d95d98a7ccb17d3f6c74954586a780ac786a0",
         "signature": "88b1b7754e26fb5c280fa564333bae8ad595eabbd09f4250365c49a0af2eb65e"
       },
       "../src/users/users.module.ts": {
@@ -7466,36 +7454,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/tesouraria/relatorio/relatorio.entity.ts": [
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/tesouraria/relatorio/relatorio.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/tesouraria.entity.ts",
-        "../src/shared/exceptions/modelos/id-invalid.exception.ts",
-        "../src/tesouraria/relatorio/relatorio.entity.ts",
-        "../node_modules/@types/node/assert.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/tesouraria/relatorio/relatorio.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/tesouraria/relatorio/relatorio.service.ts",
-        "../src/auth/guards/jwt-auth.guard.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../src/tesouraria/tesouraria.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
@@ -7505,8 +7463,6 @@
         "../src/shared/models/saida.entity.ts",
         "../src/shared/models/entrada.entity.ts",
         "../src/shared/models/credito.entity.ts",
-        "../src/tesouraria/relatorio/relatorio.controller.ts",
-        "../src/tesouraria/relatorio/relatorio.service.ts",
         "../src/shared/models/contagem.entity.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -12878,17 +12834,6 @@
         "../src/tesouraria/tesouraria.service.ts",
         "../src/shared/models/tesouraria.entity.ts"
       ],
-      "../src/tesouraria/relatorio/relatorio.entity.ts": [
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts"
-      ],
-      "../src/tesouraria/relatorio/relatorio.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/tesouraria.entity.ts"
-      ],
-      "../src/tesouraria/relatorio/relatorio.controller.ts": [
-        "../src/tesouraria/relatorio/relatorio.service.ts"
-      ],
       "../node_modules/@types/passport-strategy/index.d.ts": [
         "../node_modules/@types/passport/index.d.ts",
         "../node_modules/@types/express/index.d.ts",
@@ -14021,10 +13966,18 @@
       "../node_modules/@nestjs/typeorm/dist/index.d.ts",
       "../node_modules/@nestjs/typeorm/index.d.ts",
       "../src/shared/models/entidade-base.ts",
+      "../src/shared/models/saida.entity.ts",
+      "../src/shared/models/credito.entity.ts",
+      "../src/shared/models/entrada.entity.ts",
       "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
+      "../src/shared/models/contagem.entity.ts",
       "../src/shared/models/filtro-busca.ts",
       "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+      "../src/tesouraria/tesouraria.service.ts",
+      "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
+      "../src/tesouraria/tesouraria.controller.ts",
+      "../src/tesouraria/tesouraria.module.ts",
       "../src/users/users.module.ts",
       "../node_modules/@types/passport-strategy/index.d.ts",
       "../node_modules/@types/passport-local/index.d.ts",
@@ -14033,6 +13986,7 @@
       "../src/auth/constants.ts",
       "../src/auth/strategies/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
+      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/injector/module-token-factory.d.ts",
@@ -14072,6 +14026,7 @@
       "../src/shared/exceptions/http-exception.filter.ts",
       "../src/shared/exceptions/persistense-exception.filter.ts",
       "../src/shared/exceptions/generic-exception.filter.ts",
+      "../src/main.ts",
       "../node_modules/@types/anymatch/index.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
       "../node_modules/@types/babel__generator/index.d.ts",
@@ -14101,20 +14056,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/models/entrada.entity.ts",
-      "../src/shared/models/credito.entity.ts",
-      "../src/shared/models/saida.entity.ts",
-      "../src/shared/models/contagem.entity.ts",
-      "../src/shared/models/tesouraria.entity.ts",
-      "../src/tesouraria/tesouraria.service.ts",
-      "../src/shared/pipes/validation.pipe.ts",
-      "../src/tesouraria/tesouraria.controller.ts",
-      "../src/tesouraria/relatorio/relatorio.entity.ts",
-      "../src/tesouraria/relatorio/relatorio.service.ts",
-      "../src/tesouraria/relatorio/relatorio.controller.ts",
-      "../src/tesouraria/tesouraria.module.ts",
-      "../src/app.module.ts",
-      "../src/main.ts"
+      "../src/shared/models/tesouraria.entity.ts"
     ]
   },
   "version": "3.8.3"

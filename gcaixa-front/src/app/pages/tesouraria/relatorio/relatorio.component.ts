@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Relatorio } from 'src/app/shared/modelos/Relatorio';
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
-import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 
 @Component({
   selector: 'app-relatorio',
@@ -13,12 +11,11 @@ import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 })
 export class RelatorioComponent implements OnInit {
 
-  public tesouraria = new Tesouraria();
-  public resumo = new Resumo();
+  public relatorio = new Relatorio();
 
   public indicadorDeCarregamento = true;
 
-  public months = [
+  public meses = [
     'Janeiro',
     'Fevereiro',
     'Março',
@@ -33,16 +30,10 @@ export class RelatorioComponent implements OnInit {
     'Dezembro'
   ];
 
-  public years = [
-    2018, 
-    2019, 
-    2020, 
-    2021, 
-    2022
-  ];
+  public anos = [ 2020, 2021, 2022 ];
 
-  public monthSelected = 'Janeiro';
-  public yearSelected = 2020;
+  public mesSelecionado = 'Janeiro';
+  public anoSelecionado = 2020;
 
   constructor(
           private service: TesourariaService,
@@ -51,55 +42,36 @@ export class RelatorioComponent implements OnInit {
   ) 
   
   { 
-    this.gerarRelatorio();
+    this.obterRelatorio();
   }
 
-  public gerarRelatorio() {
-    let id = this.router.url.split('/')[2];
+  public obterRelatorio() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    let mes = this.meses.indexOf(this.mesSelecionado) + 1;
 
-    let month = this.months.indexOf(this.monthSelected) + 1;
-
-    this.service.findById(id).subscribe( response => {
-
+    this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
+      this.relatorio = response.body
       this.indicadorDeCarregamento = false;
-      this.tesouraria = response;
-
-      this.tesouraria = new Tesouraria({
-        id: response.id,
-        nome: response.nome,
-        saldoInicial: response.saldoInicial,
-        saldoAtual: response.saldoAtual,
-        entradas: response.entradas,
-        saidas: response.saidas,
-        contagens: response.contagens,
-        detalhes: response.detalhes
-      });
-
-      this.resumo = this.tesouraria.gerarRelatorioPorPeriodo(this.yearSelected, month);
-      
+      console.log(this.relatorio);
     }, error => {
-
-      if(error.status == 401) {
-        this.router.navigateByUrl('/login');
-        this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
-        localStorage.removeItem('id_token');
-      }
-
-      else {
-        this.toastr.error(error.error.detalhes, 'ERRO', { progressBar: true });
-      }
-    });
+      
+    })
   }
 
   ngOnInit() { }
 }
 
-export class Resumo {
-  entradas = []
-  saidas = []
-  rendimentoMensalEntradas: number
-  rendimentoMensalSaidas: number
-  saldoMensal: number
-  rendimentoEntradas: number;
-  rendimentoSaidas: number
+export class Relatorio {
+
+  public saldoInicial = 0;
+  public saldoAtual = 0;
+  public saldoReal = 0;
+  public rendimentoTotalEntradas = 0;
+  public rendimentoTotalSaidas = 0;
+  public entradas = [];
+  public saidas = [];
+  public rendimentoMensalEntradas = 0;
+  public rendimentoMensalSaidas = 0;
+  public saldoMensal = 0;
+
 }
