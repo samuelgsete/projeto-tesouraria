@@ -32,10 +32,10 @@
         padding: 30px 35px 40px 35px;
         background-color: #fff;
         border-radius: 6px;
-
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
         .header {
             .all-delete { 
-                height: 53px;
                 button { 
                     float: right;
                     margin-top:-8px;
@@ -43,6 +43,43 @@
 
                 button:focus { outline: none }
             } 
+
+            mdb-card {
+                cursor: pointer;
+                margin-bottom: 30px;
+
+                h4 { margin-top: -10px }
+
+                mat-icon {
+                    font-size: 40px;
+                    float: right;
+                    margin-top: 10px;
+                }
+            }
+
+            mdb-card.saldo-inicial {
+                background-color: #2BBBAD;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.saldo-atual {
+                background-color: #ffbb33;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.saldo-real {
+                background-color: #ff4444;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
         }
 
         .main {
@@ -119,7 +156,7 @@
     }
 
     .score {
-        padding: 40px 1px;
+        padding: 10px 10px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         ngx-datatable {
             width: 100%;
@@ -127,6 +164,43 @@
             .btn-more { margin-top: -10px }
 
             .btn-more:focus { outline: none }
+        }
+
+        mdb-card {
+            cursor: pointer;
+            margin-bottom: 10px;
+
+            h4 { margin-top: -10px }
+
+            mat-icon {
+                font-size: 40px;
+                float: right;
+                margin-top: 10px;
+            }
+        }
+
+        mdb-card.saldo-inicial {
+            background-color: #2BBBAD;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.saldo-atual {
+            background-color: #4285F4;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.saldo-real {
+            background-color: #ffbb33;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
         }
     }
 }

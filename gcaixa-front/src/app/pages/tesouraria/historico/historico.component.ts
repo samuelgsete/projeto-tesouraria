@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
-import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { ToastrService } from 'ngx-toastr';
-import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-historico',
@@ -13,190 +11,102 @@ import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 })
 export class HistoricoComponent implements OnInit {
 
+  public historico = {};
+  public anoAtual = new Date().getFullYear();
+  public indicadorDeCarregamento = true;
+
   public chartType: string = 'bar';
-  public chartDatasets1 = [
-    { data: [120.35, 144.60, 160.35, 175.65, 135, 195.85, 210.05, 201.45, 111.25, 140.8, 128.4, 131.1], label: 'ENTRADAS' },
-    { data: [50, 20, 15, 80, 90, 10, 15, 220, 220, 130, 5, 180], label: 'SAIDAS' },
-    { data: [30, 29, 22, 45, 16, 19, 10, 20, 22, 30, 50, 80], label: 'FIADOS' },
+ 
+  public rendimentos = [
+    { data: [], label: 'ENTRADAS' },
+    { data: [], label: 'SAIDAS' }
   ];
 
-  public chartDatasets2 = [
-    { data: [120.35, 144.60, 160.35, 175.65, 135, 195.85, 210.05, 201.45, 111.25, 140.8, 128.4, 131.1], label: 'SALDO REAL' },
-    { data: [50, 20, 15, 80, 90, 10, 15, 220, 220, 130, 5, 180], label: 'SALDO ATUAL' },
+  public saldos = [
+    { data: [], label: 'SALDO MENSAL' },
+    { data: [], label: 'SALDO REAL' }
   ];
 
   public chartLabels = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
-  public chartColors = [
+
+  public rendimentosCores = [
     {
-      backgroundColor: 'rgba(0, 137, 132, .2)',
-      borderColor: 'rgba(0, 10, 130, .7)',
-      borderWidth: 2,
+      backgroundColor: '#33b5e5'
     },
     {
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
-      borderWidth: 2,
-    },
-    {
-      backgroundColor: 'rgba(123, 137, 0, .2)',
-      borderColor: 'rgba(123, 137, 0, .7)',
-      borderWidth: 2,
+      backgroundColor: '#ff4444'
     }
   ];
+
+  public receitasCores = [
+    {
+      backgroundColor: '#ffbb33',
+    },
+    {
+      backgroundColor: '#0d47a1',
+    }
+  ];
+
   public chartOptions: any = {
     responsive: true
   };
 
-  public tesouraria = new Tesouraria();
-  public dateFormat = new DateFormatPipe();
-  public now = new Date().getFullYear();
-
-  constructor(
+  public constructor(
           private router: Router, 
           private servico: TesourariaService, 
           private toastr: ToastrService
   ) { 
-
-    this.load();
+    this.alimentarGrafico();
   }
 
-  load() {
+  public alimentarGrafico() {
     let id = this.router.url.split('/')[2];
-    this.servico.findById(id).subscribe( resp => {
-      let c: Tesouraria = resp
-      if(c != null) {
-        this.tesouraria = c;
-        this.plotarGraficoMovimentacoes();
-        this.plotarGraficoContagens();
-      }
-      else {
-        this.router.navigateByUrl('/home');
-        this.toastr.error('Nenhum caixa encontrado', 'Erro', {progressBar: true});
-      } 
-    }, e => {
-      this.errorMessage(e);
-    });
-  }
 
-  plotarGraficoMovimentacoes(){   
-    this.chartDatasets1 = [
-      { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'ENTRADAS' },
-      { data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SAIDAS' },
-      { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'FIADOS' }
+    this.chartLabels = [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
- 
-    /* Busca as entradas e saídas do ano corrente */
-    let entradas = this.tesouraria.entradas.filter( e => {
-      return this.dateFormat.transform(e.registro).indexOf(this.now) != -1;
-    });
 
-    let saidas = this.tesouraria.saidas.filter( s => {
-      return this.dateFormat.transform(s.registro).indexOf(this.now) != -1;
-    });
+    this.servico.obterHistoricoMensal(id, this.anoAtual).subscribe( response => {
+      this.historico = response.body;
+      this.plotar(this.historico);
+      this.indicadorDeCarregamento = false;
 
-    let fiados = [];
-    entradas.forEach( e => {
-      e.creditos.forEach( c => {
-        fiados.push(c);
-      });
-    });
-
-    let valorEntradas = 0;
-    let valorSaidas = 0;
-    let valorFiados = 0;
-
-    /* Calcula o valor total de entradas em cada mês virgente */
-    this.chartLabels.forEach( (item, index) => {
-      entradas.forEach( e => {
-        if(this.isCurrent(index, e.registro)) {
-          valorEntradas += e.valor;
-        }
-      });
-      this.chartDatasets1[0].data[index] = valorEntradas;
-      valorEntradas = 0;
-    });
-
-    /* Calcula o valor total de saidas em cada mês virgente */
-    this.chartLabels.forEach( (item, index) => {
-      saidas.forEach( s => {
-        if(this.isCurrent(index, s.registro)) {
-          valorSaidas += s.valor;
-        }
-      });
-      this.chartDatasets1[1].data[index] = valorSaidas;
-      valorSaidas = 0;
-    });
-
-    /* Calcula o valor total de fiados em cada mês virgente */
-    this.chartLabels.forEach( (item, index) => {
-      fiados.forEach( f => {
-        let mes = parseInt(f.abertura.split('-')[1]);
-        if(mes == index+1) {
-          valorFiados+= f.valor;
-        }
-      });
-      this.chartDatasets1[2].data[index] = valorFiados;
-      valorFiados= 0;
+    }, error => {
+      this.errorMessage(error);
     });
   }
 
-  /* Verifica se a movimentação (entrada/saida) pertence ao mês corrente */
-  isCurrent(index: number, date: any) {
-    let mes = parseInt(date.split('-')[1]);
-    if(index + 1 == mes) {
-      return true;
-    }
-    return false;
-  }
-
-  plotarGraficoContagens() {
-    this.chartDatasets2 = [
-      { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SALDO REAL' },
-      { data:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'SALDO VIRTUAL' },
+  private plotar(body: any) {
+    this.rendimentos = [
+      { data: [], label: 'ENTRADAS' },
+      { data: [], label: 'SAIDAS' }
     ];
-    /* Filtra as contagens do ano atual */
-    let contagens = this.tesouraria.contagens.filter( c => {
-      return this.dateFormat.transform(c.registro).indexOf(this.now) != -1;
+
+    this.saldos = [
+      { data: [], label: 'SALDO MENSAL' },
+      { data: [], label: 'SALDO REAL' }
+    ];
+
+    let rendimentos = body.rendimentosMensais;
+  
+    rendimentos.forEach(rendimento => {
+      this.rendimentos[0].data.push(rendimento.rendimentoEntradas);
+      this.rendimentos[1].data.push(rendimento.rendimentoSaidas);
     });
-    
-    this.chartLabels.forEach( (item, index) => {
-      contagens.forEach( c => {
-        let mes = parseInt(this.dateFormat.transform(c.registro).split('/')[1]);
-        if(mes == index+1) {
-          this.chartDatasets2[0].data[index] = c.saldoReal;
-          this.chartDatasets2[1].data[index] = this.calcularSaldoAteOmesCorrente(this.tesouraria, mes, this.now);
-        }
-      });  
+
+    let receitas = body.receitasMensais;
+
+    receitas.forEach(receita => {
+      this.saldos[0].data.push(receita.saldoMensal);
+      this.saldos[1].data.push(receita.saldoReal);
     });
   }
 
-  calcularSaldoAteOmesCorrente(tesouraria: Tesouraria, mes: number, ano: number) {
-    let saldo =tesouraria.saldoInicial;
-
-    let _entradas = this.tesouraria.entradas.filter( e => {
-      const [d, m, a] = this.dateFormat.transform(e.registro).split('/');
-      return parseInt(m) <= mes  && ano == parseInt(a);
-    });
-    
-    let _saidas = this.tesouraria.saidas.filter( s => {
-      const [d, m, a] = this.dateFormat.transform(s.registro).split('/');
-      return parseInt(m) <= mes  && ano == parseInt(a);
-    });
-
-    _entradas.forEach( e => {
-      saldo +=e.valor;
-    });
-
-    _saidas.forEach( s => {
-      saldo -=s.valor;
-    });
-    return saldo;
-  }
-
-  errorMessage(err: any) {
+  private errorMessage(err: any) {
     if(err.status == 401) {
       this.router.navigateByUrl('/login');
       this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
@@ -207,6 +117,6 @@ export class HistoricoComponent implements OnInit {
       this.router.navigateByUrl('/home');
     }
   }
-
+                  
   ngOnInit() {}
 }

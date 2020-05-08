@@ -25,6 +25,7 @@ export class TesourariaComponent implements OnInit {
 
   public tesourarias = [];
   public paginacao = new Paginacao();
+  public indicadorDeCarregamento = true;
 
   constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TesourariaService) { 
     this.load(this.paginacao);
@@ -35,6 +36,7 @@ export class TesourariaComponent implements OnInit {
 
   load(paginacao: Paginacao) {
     this.servico.findPaginate(paginacao).subscribe( res => {
+      this.indicadorDeCarregamento = false;
       this.tesourarias = res.body.data;
       paginacao.count = res.body.count;
     }, e => {

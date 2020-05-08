@@ -15,7 +15,7 @@ export class Tesouraria {
 
     public constructor(values: Object = {}) { Object.assign(this, values) }
 
-    public obterMovimentacoesPorPederiodo(ano: number, mes: number) {
+    public obterMovimentacoesPorPeriodo(ano: number, mes: number) {
 
         let entradas = this.entradas.filter( entrada => {
             return this.obterAnoDeUmaData(entrada.registro) == ano && this.obterMesDeUmaData(entrada.registro) == mes;
@@ -41,7 +41,7 @@ export class Tesouraria {
         return parseInt(mes);
     }
 
-    public obterValorPorMovimentacoes(entradas: Entrada[], saidas: Saida[]){
+    public obterRendimentoPorMovimentacoes(entradas: Entrada[], saidas: Saida[]){
 
         let rendimentoEntradas = 0
 
@@ -60,15 +60,15 @@ export class Tesouraria {
 
     public gerarRelatorioPorPeriodo(ano: number, mes: number) {
 
-        const { entradas, saidas } = this.obterMovimentacoesPorPederiodo(ano, mes);
+        const { entradas, saidas } = this.obterMovimentacoesPorPeriodo(ano, mes);
 
-        let rendimento = this.obterValorPorMovimentacoes(entradas, saidas);
+        let rendimento = this.obterRendimentoPorMovimentacoes(entradas, saidas);
 
         let rendimentoMensalEntradas = rendimento.rendimentoEntradas;
 
         let rendimentoMensalSaidas = rendimento.rendimentoSaidas;
 
-        const { rendimentoEntradas, rendimentoSaidas } = this.obterValorPorMovimentacoes(this.entradas, this.saidas);
+        const { rendimentoEntradas, rendimentoSaidas } = this.obterRendimentoPorMovimentacoes(this.entradas, this.saidas);
 
         let saldoMensal = rendimentoMensalEntradas - rendimentoMensalSaidas;
 
@@ -81,5 +81,37 @@ export class Tesouraria {
             rendimentoEntradas,
             rendimentoSaidas
         }
+    }
+
+    public obterSaldoAteUmPeriodo(ano: number, mes: number) {
+        let entradas = this.entradas.filter( entrada => {
+            return this.obterAnoDeUmaData(entrada.registro) == ano && this.obterMesDeUmaData(entrada.registro) <= mes;
+        });
+
+        let saidas = this.saidas.filter( saida => {
+            return this.obterAnoDeUmaData(saida.registro) == ano && this.obterMesDeUmaData(saida.registro) <= mes;
+        });
+
+        let { rendimentoEntradas, rendimentoSaidas } = this.obterRendimentoPorMovimentacoes(entradas, saidas);
+
+        if(rendimentoEntradas == 0 && rendimentoSaidas == 0) {
+            return 0;
+        }
+
+        let saldo = this.saldoInicial + (rendimentoEntradas - rendimentoSaidas);
+
+        return saldo;
+    }
+
+    public obterSaldoRealPorPeriodo(ano: number, mes: number) {
+        let contagem = this.contagens.filter( contagem => {
+            return this.obterAnoDeUmaData(contagem.registro) == ano && this.obterMesDeUmaData(contagem.registro) == mes;
+        })[0];
+
+        if(contagem == null) {
+            return 0;
+        }
+
+        return contagem.saldoReal;
     }
 }

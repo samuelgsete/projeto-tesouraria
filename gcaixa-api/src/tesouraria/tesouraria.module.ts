@@ -7,8 +7,6 @@ import { Tesouraria } from 'src/shared/models/tesouraria.entity';
 import { Saida } from 'src/shared/models/saida.entity';
 import { Entrada } from 'src/shared/models/entrada.entity';
 import { Credito } from 'src/shared/models/credito.entity';
-import { RelatorioController } from './relatorio/relatorio.controller';
-import { RelatorioService } from './relatorio/relatorio.service';
 import { Contagem } from 'src/shared/models/contagem.entity';
 
 @Module({
@@ -19,7 +17,7 @@ import { Contagem } from 'src/shared/models/contagem.entity';
     Credito,
     Contagem
   ])],
-  controllers: [TesourariaController, RelatorioController],
-  providers: [TesourariaService, RelatorioService]
+  controllers: [ TesourariaController ],
+  providers: [ TesourariaService ]
 })
 export class TesourariaModule {}

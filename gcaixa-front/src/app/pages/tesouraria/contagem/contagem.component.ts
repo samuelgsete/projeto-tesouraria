@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import Swal from 'sweetalert2';
+import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-contagem',
@@ -18,10 +19,11 @@ export class ContagemComponent implements OnInit {
   public f: FormGroup;
 
   public rows: Contagem[] = [];
-  public tesouraria: Tesouraria;
+  public tesouraria: Tesouraria = new Tesouraria();
 
   public indicadorDeCarregamento: boolean = true;
   public contagensSelecionadas: any = [];
+  public dateFormat = new DateFormatPipe();
 
   constructor(
               private router: Router, 
@@ -70,7 +72,7 @@ export class ContagemComponent implements OnInit {
     }
     else {
       let i = 0;
-      this.tesouraria.entradas.forEach((item, index) => {
+      this.tesouraria.contagens.forEach((item, index) => {
         if(item.id === contagem.id) {
           i = index;
         }
@@ -147,7 +149,7 @@ export class ContagemComponent implements OnInit {
       saldoReal: row.saldoReal,
       saldoAtual: this.tesouraria.saldoAtual,
       saldoInicial: this.tesouraria.saldoInicial,
-      registro: row.registro,
+      registro: this.dateFormat.transform(row.registro),
       caixa: row.caixa
     });
   }

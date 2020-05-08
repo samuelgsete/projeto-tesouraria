@@ -37,7 +37,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     TextMaskModule,
     MatSelectModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   exports: [
     ReactiveFormsModule,
@@ -54,7 +54,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     DateFormatPipe,
     MatSelectModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
 })
 export class SharedModule { }

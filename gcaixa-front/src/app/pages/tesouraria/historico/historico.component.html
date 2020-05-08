@@ -2,28 +2,72 @@
 <div class="body">
     <div class="hero">
         <div class="row header-page">
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10">
                 <mat-icon>equalizer</mat-icon>
                 <h2>Histórico</h2>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <h5>Saldo: {{ this.tesouraria.saldoAtual | currency:'BRL' }}</h5>
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" mdbWavesEffect (click)="alimentarGrafico()">ATUALIZAR</button>
             </div>
         </div>
     </div>
 
     <div class="graphic z-depth-1-half">
+        <div class="loading" *ngIf="indicadorDeCarregamento">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ historico.saldoAtual | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="rendimento-total-entradas z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Rendimento de entradas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4>{{ historico.rendimentoTotalEntradas| currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="rendimento-total-saidas z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Rendimento de saidas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4>{{ historico.rendimentoTotalSaidas | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
-                <h5>Histórico de movimentações de {{ now }}</h5>
+                <h5>Histórico de rendimentos de {{ anoAtual }}</h5>
             </div>
             <div class="col-12">
-                <div>
+                <div mdbWavesEffect>
                     <canvas mdbChart
                         [chartType]="chartType"
-                        [(datasets)]="chartDatasets1"
+                        [(datasets)]="rendimentos"
                         [labels]="chartLabels"
-                        [colors]="chartColors"
+                        [colors]="rendimentosCores"
                         [options]="chartOptions"
                         [legend]="true"
                     >
@@ -34,15 +78,15 @@
         <div class="row"><br><br></div>
         <div class="row">
             <div class="col-12">
-                <h5>Histórico de contagens de {{ now }}</h5>
+                <h5>Histórico de saldo de {{ anoAtual }}</h5>
             </div>
             <div class="col-12">
-                <div>
+                <div mdbWavesEffect>
                     <canvas mdbChart
                         [chartType]="chartType"
-                        [(datasets)]="chartDatasets2"
+                        [(datasets)]="saldos"
                         [labels]="chartLabels"
-                        [colors]="chartColors"
+                        [colors]="receitasCores"
                         [options]="chartOptions"
                         [legend]="true"
                     >
@@ -59,32 +103,76 @@
                 <mat-icon>equalizer</mat-icon>
                 <h2>Histórico</h2>
             </div>
-            <h4>Saldo: {{ this.tesouraria.saldoAtual | currency:'BRL' }}</h4>
+            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" mdbWavesEffect (click)="alimentarGrafico()">ATUALIZAR</button>
         </div>
     </div>
     <br>
     <div class="main">
-        <p class="text-center">Histórico de movimentações de {{ now }}</p>
-        <div>
+        <div class="loading" *ngIf="indicadorDeCarregamento">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ historico.saldoAtual | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="rendimento-total-entradas z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Rendimento de entradas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4>{{ historico.rendimentoTotalEntradas| currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <mdb-card class="rendimento-total-saidas z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Rendimento de saidas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4>{{ historico.rendimentoTotalSaidas | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+        <p class="text-center">Histórico de rendimentos de {{ anoAtual }}</p>
+        <div mdbWavesEffect>
             <canvas mdbChart
                 [chartType]="chartType"
-                [(datasets)]="chartDatasets1"
+                [(datasets)]="rendimentos"
                 [labels]="chartLabels"
-                [colors]="chartColors"
+                [colors]="rendimentosCores"
                 [options]="chartOptions"
                 [legend]="true"
             >
             </canvas>
         </div> 
         <br><br>
-        <p class="text-center">Histórico de contagens de {{ now }}</p>  
+        <p class="text-center">Histórico de contagens de {{ anoAtual }}</p>  
         <div>
             
             <canvas mdbChart
                 [chartType]="chartType"
-                [(datasets)]="chartDatasets2"
+                [(datasets)]="saldos"
                 [labels]="chartLabels"
-                [colors]="chartColors"
+                [colors]="receitasCores"
                 [options]="chartOptions"
                 [legend]="true"
             >

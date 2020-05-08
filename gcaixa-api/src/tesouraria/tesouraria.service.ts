@@ -31,7 +31,29 @@ export class TesourariaService {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
-        return this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] })
+        return this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+    }
+
+    public async obterRelatorioMensal(id: number, ano: number, mes: number): Promise<any> {
+        if(id <= 0) {
+            throw new IdInvalidException("O id informado é invalído");
+        }
+
+        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        let relatorios = tesouraria.obterRelatorioDeReceitas(ano, mes);
+        
+        return relatorios;
+    }
+
+    public async obterHistoricoMensal(id: number, ano:number): Promise<any> {
+        if(id <= 0) {
+            throw new IdInvalidException("O id informado é invalído");
+        }
+
+        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        let receitas = tesouraria.obterHistoricoMensalDeReceitas(ano);
+        
+        return receitas;
     }
 
     public async save(tesouraria: Tesouraria) {

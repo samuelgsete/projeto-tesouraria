@@ -13,7 +13,7 @@ export class TesourariaService {
     constructor(private http: HttpClient){ }
 
     public findPaginate(paginacao: Paginacao):Observable<any> {
-        const _params = new HttpParams().set('page', '' + paginacao.page).set('filtro', '' + paginacao.filter)
+        const _params = new HttpParams().set('page', '' + paginacao.page).set('filtro', '' + paginacao.filter);
         return this.http
             .get<any>(this.urlBase, { 
                 observe: 'response', params: _params
@@ -22,6 +22,18 @@ export class TesourariaService {
 
     public findById(id: string): Observable<Tesouraria> {
         return this.http.get<Tesouraria>(this.urlBase.concat('/' + id));
+    }
+
+    public obterHistoricoMensal(id: string, ano: number) {
+        const _params = new HttpParams().set('ano', `${ano}`);
+
+        return this.http.get<any>(this.urlBase.concat(`/historico/${id}`), { observe: 'response', params: _params });
+    }
+
+    public obterRelatorioMensal(id: number, ano: number, mes: number) {
+        const _params = new HttpParams().set('ano', `${ano}`).set('mes', `${mes}`);
+
+        return this.http.get<any>(this.urlBase.concat(`/relatorio/${id}`), { observe: 'response', params: _params });
     }
 
     public remove(id: string): Observable<Tesouraria> {

@@ -67,7 +67,7 @@
             }
 
             mdb-card.saldo-atual {
-                background-color: #4285F4;
+                background-color: #ffbb33;
 
                 p, h4, mat-icon {
                     color: #fff;
@@ -75,7 +75,7 @@
             }
 
             mdb-card.saldo-real {
-                background-color: #3F729B;
+                background-color: #ff4444;
 
                 p, h4, mat-icon {
                     color: #fff;
@@ -200,29 +200,6 @@
                 }
             }
 
-            mdb-card.saldo-inicial {
-                background-color: #2BBBAD;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-atual {
-                background-color: #4285F4;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-real {
-                background-color: #3F729B;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
             mdb-card {
                 cursor: pointer;
                 margin-bottom: 10px;
@@ -245,7 +222,7 @@
             }
 
             mdb-card.saldo-atual {
-                background-color: #4285F4;
+                background-color: #ffbb33;
 
                 p, h4, mat-icon {
                     color: #fff;
@@ -253,8 +230,8 @@
             }
 
             mdb-card.saldo-real {
-                background-color: #3F729B;
-
+                background-color: #ff4444;
+                
                 p, h4, mat-icon {
                     color: #fff;
                 }

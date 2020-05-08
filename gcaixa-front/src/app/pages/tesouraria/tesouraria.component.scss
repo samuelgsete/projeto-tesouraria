@@ -33,6 +33,10 @@
         padding: 30px 35px 40px 35px;
         border-radius: 6px;
         background-color: #fff;
+
+        .loading {
+            height: 50px;
+        }
         
         .header {
             mat-form-field.input-width { width:100% }
@@ -48,6 +52,7 @@
                 padding: 10px;
                 text-align: center;
                 margin-bottom: 40px;
+                cursor: pointer;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
                 mdb-card-body {
@@ -133,6 +138,10 @@
 
         .box {
             padding: 15px;
+
+            .loading {
+                height: 50px;
+            }
             
             .input-width { 
                 width: 100%;
@@ -141,6 +150,7 @@
                 padding: 10px;
                 text-align: center;
                 margin-bottom: 15px;
+                cursor: pointer;
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
                 mdb-card-body {
