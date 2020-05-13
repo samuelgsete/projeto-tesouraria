@@ -3,8 +3,10 @@
     <div class="hero">
         <div class="row">
             <div class="col-xl-10 col-lg-8 col-md-8 col-sm-6">
-                <mat-icon style="float: left;">how_to_vote</mat-icon>
-                <h2>Tesourarias</h2>
+                <div class="name-page">
+                    <mat-icon>how_to_vote</mat-icon>
+                    <h2 >Tesourarias</h2>
+                </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVA TESOURARIA</button>
@@ -36,9 +38,9 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
-                                <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
-                                <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Ver relatório</button>
+                                <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>graphic_eq</mat-icon>Ver histórico</button>
+                                <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Fazer contagem</button>
                             </mat-menu>  
     
                             <mdb-card-title>
@@ -63,14 +65,11 @@
                 
             <div class="main-footer">
                 <div class="row">
-                    <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
-                        <button mdbBtn type="button" block="true" color="light" class="z-depth-0" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
-                    </div>
-                    <div class="col-xl-2 col-lg-6 col-md-6 col-sm-6">
-                        <button mdbBtn type="button" block="true"color="light" class="z-depth-0" (click)="trocarPagina(true)" [disabled]="this.tesourarias.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
+                    <div class="col">
+                        <app-pagination #pagination (click)="changePage(pagination)"></app-pagination>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div> 
     </div>
     
@@ -104,16 +103,16 @@
 
         <div class="row">
             <div class="col-12" *ngFor="let t of tesourarias">
-                <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card mdbWavesEffect>
                     <mdb-card-body>
                         
                         <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button>
                             <mat-icon>more_horiz</mat-icon>
                         </button>
                         <mat-menu #actions="matMenu">
-                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Emitir relatório</button>
-                            <button class="btn-grafico" mat-menu-item (click)="exibirGrafico(t.id)"><mat-icon>graphic_eq</mat-icon>Exibir histórico</button>
-                            <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Realizar contagem</button>
+                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>report</mat-icon>Ver relatório</button>
+                            <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>graphic_eq</mat-icon>Ver histórico</button>
+                            <button mat-menu-item (click)="efetuarContagem(t.id)"><mat-icon>account_balance</mat-icon>Fazer contagem</button>
                         </mat-menu>  
 
                         <mdb-card-title>
@@ -122,10 +121,10 @@
                 
                         <mdb-card-text>Saldo Atual: {{ t.saldoAtual | currency:'BRL' }}</mdb-card-text>
                     
-                        <button mat-fab class="btn-add z-depth-0" (click)="abirTesouraria(t.id)">
+                        <button mat-fab class="btn-add z-depth-0" (click)="abrirTesouraria(t.id)">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-fab class="btn-edit z-depth-0" (click)="abirModalEditar(t)">
+                        <button mat-fab class="btn-edit z-depth-0" (click)="abrirModalEditar(t)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-fab class="btn-delete z-depth-0" (click)="deletarTesouraria(t)">
@@ -135,15 +134,13 @@
                 </mdb-card>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-12" style="margin-top: 10px;">
-                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(false)" [disabled]="this.paginacao.page == 1" mdbWavesEffect>Anterior</button>
+        <div class="main-footer">
+            <div class="row">
+                <div class="col">
+                    <app-pagination #paginationMobile (click)="changePage(paginationMobile)"></app-pagination>
+                </div>
             </div>
-            <div class="col-12" style="margin-top: 5px;">
-                <button mdbBtn type="button" block="true" class="z-depth-0 white" (click)="trocarPagina(true)" [disabled]="this.tesourarias.length < 6 || this.paginacao.page*6 == this.paginacao.count" mdbWavesEffect>Proxima</button>
-            </div>
-        </div>       
+        </div> 
     </div>
 </div>
 <app-footer></app-footer>
@@ -186,7 +183,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>CADASTRAR</button>
+          <button type="button" block="true" mdbBtn color="info" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>CADASTRAR</button>
         </div>
       </div>
     </div>
@@ -229,7 +226,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>ATUALIZAR</button>
+          <button type="button" block="true" mdbBtn color="indigo" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>ATUALIZAR</button>
         </div>
       </div>
     </div>

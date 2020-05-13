@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-relatorio',
@@ -12,7 +13,6 @@ import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 export class RelatorioComponent implements OnInit {
 
   public relatorio = new Relatorio();
-
   public indicadorDeCarregamento = true;
 
   public meses = [
@@ -31,31 +31,103 @@ export class RelatorioComponent implements OnInit {
   ];
 
   public anos = [ 2020, 2021, 2022 ];
-
   public mesSelecionado = 'Janeiro';
   public anoSelecionado = 2020;
+  public dateFormat = new DateFormatPipe();
+
+  public chartType: string = 'bar';
+
+  public entradas = [
+    { data: [], label: 'Rendimento de entradas' }
+    
+  ];
+
+  public saidas = [
+    { data: [], label: 'Rendimento de saídas' }
+  ]
+
+  public rotulosEntradas = [];
+  public rotulosSaidas = [];
+
+  public coresEntradas = [
+    {
+      backgroundColor: '#1e88e5'
+    }
+  ];
+
+  public coresSaidas = [
+    {
+      backgroundColor: '#ef5350'
+    }
+  ]
+
+  public chartOptions: any = {
+    responsive: true
+  };
 
   constructor(
           private service: TesourariaService,
           private router: Router,
           private toastr: ToastrService
   ) 
-  
   { 
     this.obterRelatorio();
   }
 
   public obterRelatorio() {
     let id = parseInt(this.router.url.split('/')[2]);
-    let mes = this.meses.indexOf(this.mesSelecionado) + 1;
+    let mes = this.meses.indexOf(this.mesSelecionado);
 
     this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
       this.relatorio = response.body
       this.indicadorDeCarregamento = false;
       console.log(this.relatorio);
+      this.alimentarGrafico();
     }, error => {
+      this.errorMessage(error);
+    });
+  }
+
+  private errorMessage(err: any) {
+    if(err.status == 401) {
+      this.router.navigateByUrl('/login');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      localStorage.removeItem('id_token');
+    }
+    else {
+      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
+    }
+  }
+
+  private alimentarGrafico() {
+    this.entradas = [
+      { data: [], label: 'Rendimento de entradas' }
       
-    })
+    ];
+
+    this.saidas = [
+      { data: [], label: 'Rendimento de saidas' }
+    ]
+
+    this.rotulosEntradas = [];
+    this.rotulosSaidas = [];
+
+    this.relatorio.entradas.forEach( entrada => {
+      this.entradas[0].data.push(entrada.valor);
+      this.rotulosEntradas.push(this.dateFormat.transform(entrada.registro));
+    });
+
+    this.relatorio.saidas.forEach( saida => {
+      this.saidas[0].data.push(saida.valor);
+      this.rotulosSaidas.push(this.dateFormat.transform(saida.registro));
+    });
+
+    this.saidas[0].data.push(0);
+    this.rotulosSaidas.push('');
+
+    this.entradas[0].data.push(0);
+    this.rotulosEntradas.push('');
   }
 
   ngOnInit() { }

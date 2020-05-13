@@ -18,6 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { PaginationModule } from './pagination/pagination.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,
+    PaginationModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -55,6 +57,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,
-  ],
+    PaginationModule
+  ]
 })
 export class SharedModule { }

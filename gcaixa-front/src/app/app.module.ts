@@ -13,6 +13,7 @@ import { AuthModule } from './pages/auth/auth.module';
 import { UsuarioService } from './shared/services/usuario.service';
 import { AuthGuard } from './pages/auth/auth.guard';
 import { AuthInterceptor } from './pages/auth/auth.interceptor';
+import { PaginationService } from './shared/pagination/pagination.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthInterceptor } from './pages/auth/auth.interceptor';
   providers: [
     AuthGuard, 
     UsuarioService,
+    PaginationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -16,17 +16,22 @@
         .header-page {
             margin-top: 50px;
 
-            h2 {
-                color: #fff; 
-                float: left;
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            }
+            .name-page {
+                h2 {
+                    text-align: center;
+                    float: left;
+                    color: #fff; 
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                }
 
-            mat-icon { 
-                margin-right: 30px;
-                font-size: 32px;
-                color: #fff;
-                float: left;
+                mat-icon { 
+                    margin-right: 20px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
+
+                h2, mat-icon { cursor: pointer; }
             }
 
             button { margin-top: -10px }
@@ -106,19 +111,26 @@
                 justify-content: space-around;
                 align-items: center;       
                 padding: 60px;
-                h2, h4 {
-                    text-align: center;
-                    float: left;
-                    color: #fff; 
-                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+
+                .name-page {
+                    h2 {
+                        text-align: center;
+                        float: left;
+                        color: #fff; 
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                    }
+    
+                    mat-icon { 
+                        margin-right: 20px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
+
+                    h2, mat-icon { cursor: pointer; }
                 }
 
-                mat-icon { 
-                    margin-right: 20px;
-                    font-size: 32px;
-                    color: #fff;
-                    float: left;
-                }
+                button { width: 290px }
             }
         }
 

@@ -3,8 +3,8 @@
     <div class="hero">
         <div class="row info-page">
             <div class="col-md-6 col-lg-6 col-xl-8">
-                <mat-icon>dashboard</mat-icon>
-                <h3>Movimentações</h3>
+                <mat-icon>layers</mat-icon>
+                <h2>Movimentações</h2>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
@@ -51,8 +51,8 @@
                                 <p>Saldo real</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
-                                <h4 *ngIf="tesouraria.contagens[0] == null">R$ 0,00</h4>
+                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL'  }}</h4>
+                                <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -125,8 +125,8 @@
     <div class="hero">
         <div class="header-page">
             <div class="name-page">
-                <mat-icon>dashboard</mat-icon>
-                <h4>Movimentações</h4>
+                <mat-icon>layers</mat-icon>
+                <h2>Movimentações</h2>
             </div>
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA SAIDA</button>
@@ -179,6 +179,7 @@
             [rows]="rows"
             class="material z-depth-0"
             [loadingIndicator]="indicadorDeCarregamento"
+            [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
             [columnMode]="'force'"
             [headerHeight]="50"
             [footerHeight]="50"
@@ -262,38 +263,30 @@
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let c of creditos; let i = index">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>Titular</mat-panel-title>
                                     <mat-panel-description style="text-align: center;">{{ c.titular }}</mat-panel-description>
                                 </mat-expansion-panel-header>
-                          
-                                <div class="row">
-                                    <div class="col credit-header">Débito</div>
-                                    <div class="col">{{ c.valor | currency:'BRL' }}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col credit-header">Situação</div>
-                                    <div class="col">{{ c.situacao }}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col credit-header">Ativo em</div>
-                                    <div class="col"> {{ c.abertura | dateFormat }} </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
+                                <mdb-card class="z-depth-0 card-credit danger-color" mdbWavesEffect>
+                                    <mdb-card-body>
+                                        <mdb-card-text>
+                                            <p>{{ c.situacao }}</p>
+                                        </mdb-card-text>             
+                                        <mdb-card-title>
+                                            <h4>{{ c.valor | currency:'BRL' }}</h4>
+                                        </mdb-card-title>  
+                                        <mdb-card-text>
+                                            <p>{{ c.abertura | dateFormat }}</p>
+                                        </mdb-card-text>   
                                         <button (click)="removerCredito(i, c)" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </div>
-                                </div>
+                                        </button>                              
+                                    </mdb-card-body>                              
+                                </mdb-card>
                             </mat-expansion-panel>
                         </mat-accordion>
                         <div class="row">
                             <div class="col-md-8 col-lg-9"></div>
                             <div class="col-sm-12 col-md-4 col-lg-3">
-                                <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="amber" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                                <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
                             </div>
                         </div>
                     </div>
@@ -367,45 +360,31 @@
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let c of creditos; let i = index">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>Titular</mat-panel-title>
                                     <mat-panel-description>{{ c.titular }}</mat-panel-description>
                                 </mat-expansion-panel-header>
                           
-                                <div class="row">
-                                    <div class="col credit-header">Débito</div>
-                                    <div class="col">{{ c.valor | currency:'BRL' }}</div>
-                                </div>
+                                <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': c.situacao == 'ABERTO', 'info-color': c.situacao == 'QUITADO', 'default-color': c.situacao == 'ENCERRADO' }" mdbWavesEffect>
+                                    <mdb-card-body (click)="quitarCredito(c)">
+                                        <mdb-card-text>
+                                            <p>{{ c.situacao }}</p>
+                                        </mdb-card-text>             
+                                        <mdb-card-title>
+                                            <h4>{{ c.valor | currency:'BRL' }}</h4>
+                                        </mdb-card-title>  
+                                        <mdb-card-text>
+                                            <p *ngIf="c.situacao != 'ENCERRADO'">Ativo em {{ c.abertura | dateFormat }}</p>
+                                            <p *ngIf="c.situacao == 'ENCERRADO'">Encerrado em {{ c.encerramento | dateFormat }}</p>
+                                        </mdb-card-text>   
 
-                                <div class="row">
-                                    <div class="col credit-header">Situação</div>
-                                    <div class="col">{{ c.situacao }}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col credit-header" *ngIf="c.situacao == 'ENCERRADO'">Encerrado em</div>
-                                    <div class="col" *ngIf="c.situacao == 'ENCERRADO'">{{ c.encerramento | dateFormat }}</div>
-
-                                    <div class="col credit-header" *ngIf="c.situacao != 'ENCERRADO'">Ativo em</div>
-                                    <div class="col" *ngIf="c.situacao != 'ENCERRADO'">{{ c.abertura | dateFormat }}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
                                         <button (click)="removerCredito(i, c)" *ngIf="c.situacao != 'ENCERRADO'" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
-                                        </button>
-                                        <button class="credito-ativo" *ngIf="c.situacao == 'ABERTO'" (click)="quitarCredito(c)" mat-icon-button>
-                                            <mat-icon>thumb_down</mat-icon>
-                                        </button>
-                                        <button class="credito-quitado" *ngIf="c.situacao == 'QUITADO'" (click)="quitarCredito(c)" mat-icon-button>
-                                            <mat-icon>thumb_up</mat-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                                
+                                        </button>                         
+                                    </mdb-card-body>                              
+                                </mdb-card>
+
                                 <div class="row info-credit" *ngIf="c.situacao != 'ENCERRADO'">
                                     <div class="col">
-                                        <span>Observações:&nbsp;</span><p>precione o botão vermelho para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
+                                        <mat-icon>info</mat-icon><p>Click no card para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
                                     </div>
                                 </div>
                             </mat-expansion-panel>
@@ -417,7 +396,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-9"></div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="amber" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                                <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
                             </div>
                         </div>
                     </div>

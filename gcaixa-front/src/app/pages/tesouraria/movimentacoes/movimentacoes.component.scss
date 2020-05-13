@@ -9,7 +9,7 @@
         
         .info-page {
             margin-top: 50px;
-            h3 {
+            h2 {
                 float: left;
                 color: #fff; 
                 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
@@ -36,6 +36,12 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
         .header {
+
+            .input-width { 
+                width: 100%;
+                button:focus { outline: none } 
+            }
+
             .all-delete { 
                 button { 
                     float: right;
@@ -106,7 +112,9 @@
 .modal {
     .modal-dialog {
         .modal-content {
-            .modal-header { h4 { text-align: center } }
+            .modal-header { 
+                h4 { text-align: center } 
+            }
 
             .modal-body {
                 form {
@@ -114,6 +122,18 @@
                     
                     .creditos-content {
                         p { text-align: center }
+
+                        .card-credit {
+                            cursor: pointer;
+                            text-align: center;
+                            color: #ffff;
+                            p {
+                                color: #ffff; 
+                            }
+
+                            button:focus { outline: none;}
+                        }
+
                          mat-accordion {
                             margin-bottom: 5px;
 
@@ -133,11 +153,12 @@
                             .info-credit {
                                 margin-top: 8px;
                                 font-size: 12px;
-                                span {
-                                    float: left;
-                                    font-style: italic;
+                                text-align: center;
+                        
+                                mat-icon {
+                                    color: #4285F4;
                                 }
-                                p { text-align: justify }
+                                
                             }
                         }
 
@@ -166,7 +187,7 @@
                 justify-content: space-between;
                 align-items: center;       
 
-                h4 {
+                h2 {
                     text-align: center;
                     float: left;
                     color: #fff; 
@@ -180,7 +201,7 @@
                     float: left;
                 }
 
-                button { width: 260px }
+                button { width: 290px }
             }
         }
 

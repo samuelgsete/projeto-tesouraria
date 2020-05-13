@@ -2290,11 +2290,11 @@
         "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
       },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "e7f9721c3c538342aa12a0a61af0124aa0a04222aeccb62634a27bea8d8e9741",
+        "version": "d4ecbb8a52cca5480183da443de329a54b4eeaa94b0f3503f9a2f8c8b41712c1",
         "signature": "aa6969f29dfe410eb9273aef51118a76bda0aff7b0198a6dda5cd3fb9bc9fcaf"
       },
       "../src/shared/pipes/validation.pipe.ts": {
-        "version": "eff3215a127f880379b1c67a50f5c21e643126161072904e3cd26b5ad156baa6",
+        "version": "4a1f931b80ee9cc2be6c91fcb5e15e430800b24adf81e1841c8307db9ee9e924",
         "signature": "03d97b84bdbfdda29fb0b4bc5eb1dd6b16b2ed6d7d34a8713e9f3c960e0cd225"
       },
       "../src/auth/guards/jwt-auth.guard.ts": {
@@ -13971,9 +13971,9 @@
       "../src/shared/models/entrada.entity.ts",
       "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
       "../src/shared/models/contagem.entity.ts",
+      "../src/shared/models/tesouraria.entity.ts",
       "../src/shared/models/filtro-busca.ts",
       "../src/shared/exceptions/modelos/id-invalid.exception.ts",
-      "../src/tesouraria/tesouraria.service.ts",
       "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
       "../src/tesouraria/tesouraria.controller.ts",
@@ -14056,7 +14056,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/models/tesouraria.entity.ts"
+      "../src/tesouraria/tesouraria.service.ts"
     ]
   },
   "version": "3.8.3"
