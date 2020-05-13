@@ -62,29 +62,10 @@ export class ValidationPipe implements PipeTransform {
                           entradas: _entradas,
                           contagens: _contagens,
                           observacoes: value.observacoes,
-                        });   
+                        }); 
           return _tesouraria;
       }
 
     return value;
   }
-
-  /*public gerarArrayCreditos(arr: any[]): Credito[] {
-    let creditos: Credito[] = [];
-
-    arr.forEach( item => {
-      creditos.push(
-        new Credito({
-          id: item.id,
-          titular: item.titular,
-          valor: item.valor,
-          abertura: item.abertura,
-          encerramento: item.encerramento,
-          situacao: item.situacao
-        })
-      )
-    });
-
-    return creditos;
-  }*/
 }

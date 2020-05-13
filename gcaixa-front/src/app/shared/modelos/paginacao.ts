@@ -1,18 +1,10 @@
 export class Paginacao {
 
-    public page: number = 1;
+    public pageCurrent: number = 1;
     public filter: string = '';
-    public count: number = 0;
+    public count: number;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
-    }
-
-    public nextPage() {
-        this.page++;
-    }
-
-    public previousPage() {
-        this.page--; 
     }
 }

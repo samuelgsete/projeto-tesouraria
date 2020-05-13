@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { Paginacao } from 'src/app/shared/modelos/paginacao';
+import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 
 
 @Component({
@@ -22,23 +23,18 @@ export class TesourariaComponent implements OnInit {
 
   @ViewChild('modalCadastro', null) modalCadastrar: any;
   @ViewChild('modalEditar', null) modalEditar: any;
-
   public tesourarias = [];
   public paginacao = new Paginacao();
   public indicadorDeCarregamento = true;
 
-  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TesourariaService) { 
-    this.load(this.paginacao);
-    this.pesquisar.valueChanges.pipe(debounceTime(700)).subscribe(value => {
-      this.load(new Paginacao({ filter: value }));
-    });
+  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TesourariaService, private paginationService: PaginationService) { 
   }
 
   load(paginacao: Paginacao) {
     this.servico.findPaginate(paginacao).subscribe( res => {
-      this.indicadorDeCarregamento = false;
       this.tesourarias = res.body.data;
-      paginacao.count = res.body.count;
+      this.paginationService.loader(res.body.count, paginacao.pageCurrent);
+      this.indicadorDeCarregamento = false;
     }, e => {
       this.errorMessage(e);
     });
@@ -55,13 +51,8 @@ export class TesourariaComponent implements OnInit {
     }
   }
 
-  trocarPagina(sentido: boolean) {
-    if(sentido){
-      this.paginacao.nextPage();
-    }
-    else {
-      this.paginacao.previousPage();
-    }
+  changePage(pagination: any) {
+    this.paginacao.pageCurrent = pagination.pageCurrent.label;
     this.load(this.paginacao);
   }
 
@@ -164,10 +155,16 @@ export class TesourariaComponent implements OnInit {
   efetuarContagem(id: number) { this.router.navigateByUrl(`contagem/${id}`) }
 
   ngOnInit() {
+    this.load(this.paginacao);
+    this.pesquisar.valueChanges.pipe(debounceTime(700)).subscribe(value => {
+      this.paginacao.filter = value;
+      this.load(this.paginacao);
+    });
+
     this.f = this._fb.group({
       id: [null],
       nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      saldoInicial:['', []],
+      saldoInicial:['', [Validators.required]],
       saldoAtual:['', []],
       detalhes: [null, [Validators.minLength(4), Validators.maxLength(200)]],
       entradas: [[]],

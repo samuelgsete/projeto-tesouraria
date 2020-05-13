@@ -25,7 +25,7 @@ export class MovimentacoesComponent implements OnInit {
   public tesouraria: Tesouraria = new Tesouraria();
   public creditos: Credito[]= [];
 
-  public rows: any = [];
+  public rows: any[] = [];
   public indicadorDeCarregamento: boolean = true;
   public movimentacoesSelecionadas: any = [];
 
@@ -46,8 +46,8 @@ export class MovimentacoesComponent implements OnInit {
         this.router.navigateByUrl('/home');
         this.toastr.error('Nenhum caixa encontrado', 'Erro', {progressBar: true});
       } 
-    }, e => {
-      this.errorMessage(e);
+    }, erro => {
+      this.errorMessage(erro);
     });
   }
 
@@ -59,7 +59,6 @@ export class MovimentacoesComponent implements OnInit {
     }
     else {
       this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
     }
   }
 
@@ -97,7 +96,7 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   salvarOuAtualizarEntrada(e: Entrada, modal: any) {
-    let entrada = new Entrada({
+    let novaEntrada = new Entrada({
       id: e.id,
       descricao: e.descricao,
       valor: e.valor,
@@ -107,29 +106,35 @@ export class MovimentacoesComponent implements OnInit {
       creditos: this.creditos
     });
 
-    if(entrada.id == null) {
-      this.tesouraria.entradas.push(entrada);
+    console.log(novaEntrada);
+    if(novaEntrada.id == null) {
+      this.tesouraria.entradas.push(novaEntrada);
       this.servico.update(this.tesouraria).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
-        this.load();      
-      }, e => {
-        this.errorMessage(e);
+        this.load(); 
+      }
+      , erro => {
+        let index = this.tesouraria.entradas.indexOf(novaEntrada);
+        this.tesouraria.entradas.splice(index,1);
+        this.errorMessage(erro);
       });
     }
     else {
-      let i = 0;
-      this.tesouraria.entradas.forEach((item, index) => {
-        if(item.id === entrada.id) {
-          i = index;
-        }
-      });
-      this.tesouraria.entradas[i] = entrada;
-      console.log(this.tesouraria);
+      let entradaAtual = this.tesouraria.entradas.filter( entrada => {
+        return entrada.id == novaEntrada.id;
+      })[0];
+
+      let indice = this.tesouraria.entradas.indexOf(entradaAtual);
+      this.tesouraria.entradas[indice] = novaEntrada;
+
       this.servico.update(this.tesouraria).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
-      }, e => {
-        this.errorMessage(e);
+      }
+      , erro => {
+        let index = this.tesouraria.entradas.indexOf(novaEntrada);
+        this.tesouraria.entradas.splice(index,1);
+        this.errorMessage(erro);
       });
     }
     modal.hide();
@@ -137,7 +142,7 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   salvarOuAtualizarSaida(s: Saida, modal: any) {
-    let saida: Saida = new Saida({
+    let novaSaida: Saida = new Saida({
       id: s.id,
       data: s.registro,
       descricao: s.descricao,
@@ -146,29 +151,34 @@ export class MovimentacoesComponent implements OnInit {
       motivo: s.detalhes
     });
 
-    if(saida.id == null) {
-      this.tesouraria.saidas.push(saida);
+    if(novaSaida.id == null) {
+      this.tesouraria.saidas.push(novaSaida);
       this.servico.update(this.tesouraria).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
-        this.load();      
-      }, e => {
-        this.errorMessage(e);
+        this.load();  
+      }
+      , erro => {
+        let index = this.tesouraria.saidas.indexOf(novaSaida);
+        this.tesouraria.saidas.splice(index,1);
+        this.errorMessage(erro);
       });
     }
     else {
-      let i = 0;
-      this.tesouraria.saidas.forEach((item, index) => {
-        if(item.id === saida.id) {
-          i = index;
-        }
-      });
-      this.tesouraria.saidas.splice(i, 1);
-      this.tesouraria.saidas.push(saida);
+      let saidaAtual = this.tesouraria.saidas.filter( saida => {
+        return saida.id == novaSaida.id;
+      })[0];
+
+      let index = this.tesouraria.saidas.indexOf(saidaAtual);
+      this.tesouraria.saidas[index] = novaSaida;
+
       this.servico.update(this.tesouraria).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
-      }, e => {
-        this.errorMessage(e);
+      }
+      , erro => {
+        let index = this.tesouraria.saidas.indexOf(novaSaida);
+        this.tesouraria.saidas.splice(index,1);
+        this.errorMessage(erro);
       });
     }
     modal.hide();
@@ -198,8 +208,9 @@ export class MovimentacoesComponent implements OnInit {
           this.servico.update(this.tesouraria).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
-          }, e => {
-            this.errorMessage(e);
+          }
+          , erro => {
+            this.errorMessage(erro);
           }); 
         });
         this.movimentacoesSelecionadas = [];
@@ -229,8 +240,9 @@ export class MovimentacoesComponent implements OnInit {
         this.servico.update(this.tesouraria).subscribe(res => {
           this.load();
           this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
-        }, e => {
-          this.errorMessage(e);
+        }
+        , erro => {
+          this.errorMessage(erro);
         });
       } 
     });
@@ -238,11 +250,10 @@ export class MovimentacoesComponent implements OnInit {
 
   addCredito(form: any, modal: any){
     modal.hide();
-    let data = form.value
+    let credito = form.value
     this.creditos.push(new Credito({
-      id: data.id,
-      titular: data.titular,
-      valor: data.valor,
+      titular: credito.titular,
+      valor: credito.valor,
       abertura: new Date().toISOString(),
       situacao: 'ABERTO'
     }));
@@ -254,7 +265,9 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   quitarCredito(c: Credito) {
-    c.situacao = c.situacao === 'ABERTO' ? 'QUITADO' : 'ABERTO';
+    if(c.situacao  != 'ENCERRADO') {
+      c.situacao = c.situacao === 'ABERTO' ? 'QUITADO' : 'ABERTO';
+    }
   }
 
   setFormEntradaOuSaida(row: any, modalAtualizarEntrada: any, modalAtualizarSaida: any) {

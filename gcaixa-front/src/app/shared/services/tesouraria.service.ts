@@ -13,7 +13,7 @@ export class TesourariaService {
     constructor(private http: HttpClient){ }
 
     public findPaginate(paginacao: Paginacao):Observable<any> {
-        const _params = new HttpParams().set('page', '' + paginacao.page).set('filtro', '' + paginacao.filter);
+        const _params = new HttpParams().set('page', '' + paginacao.pageCurrent).set('filtro', '' + paginacao.filter);
         return this.http
             .get<any>(this.urlBase, { 
                 observe: 'response', params: _params

@@ -3,8 +3,10 @@
     <div class="hero">
         <div class="row header-page">
             <div class="col-sm-6 col-md-8 col-lg-10 col-xl-10">
-                <mat-icon>description</mat-icon>
-                <h2>Relatorio</h2>
+                <div class="name-page">
+                    <mat-icon>description</mat-icon>
+                    <h2>Relatorio</h2>
+                </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0"  mdbWavesEffect>IMPRIMIR</button>
@@ -117,7 +119,43 @@
                 </div>
             </div>
             <div *ngIf="relatorio.entradas[0] != null || relatorio.saidas[0] != null">
-                <div class="row"><div class="col" >Mês/ano: {{ mesSelecionado }} de {{ anoSelecionado }}</div></div>
+                <div class="row">
+                    <div class="col">
+                        <p>Rendimentos de {{ mesSelecionado }} de {{ anoSelecionado }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <mdb-card mdbWavesEffect>
+                            <mdb-card-body>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="entradas"
+                                    [labels]="rotulosEntradas"
+                                    [colors]="coresEntradas"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                                </canvas>
+                            </mdb-card-body> 
+                        </mdb-card>
+                    </div>
+                    <div class="col-6">
+                        <mdb-card mdbWavesEffect>
+                            <mdb-card-body>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="saidas"
+                                    [labels]="rotulosSaidas"
+                                    [colors]="coresSaidas"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                                </canvas>
+                            </mdb-card-body> 
+                        </mdb-card>
+                    </div>
+                </div>
                 <table>
                     <tr>
                         <th class="entradas">ENTRADAS</th>
@@ -306,7 +344,43 @@
                 </div>
             </div>
             <div *ngIf="relatorio.entradas[0] != null || relatorio.saidas[0] != null">
-                <div class="row"><div class="col">Mês/ano: {{ mesSelecionado}} de {{ anoSelecionado }}</div></div>
+                <div class="row">
+                    <div class="col">
+                        <p>Rendimentos {{ mesSelecionado}} de {{ anoSelecionado }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <mdb-card mdbWavesEffect>
+                            <mdb-card-body>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="entradas"
+                                    [labels]="rotulosEntradas"
+                                    [colors]="coresEntradas"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                                </canvas>
+                            </mdb-card-body> 
+                        </mdb-card>
+                    </div>
+                    <div class="col-12">
+                        <mdb-card mdbWavesEffect>
+                            <mdb-card-body>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="saidas"
+                                    [labels]="rotulosSaidas"
+                                    [colors]="coresSaidas"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                                </canvas>
+                            </mdb-card-body> 
+                        </mdb-card>
+                    </div>
+                </div>
                 <table>
                     <tr>
                         <th class="entradas">ENTRADAS</th>

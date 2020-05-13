@@ -67,7 +67,7 @@ export class TesourariaService {
             });     
     }   
 
-    public async update(tesouraria: Tesouraria) {
+    public async update(tesouraria: Tesouraria) {  
         tesouraria.atualizarSaldo();
         if(tesouraria.id == null || tesouraria.id <= 0) {
             throw new IdInvalidException("O id informado é invalído");

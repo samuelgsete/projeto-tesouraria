@@ -10,18 +10,23 @@
         .header-page {
             margin-top: 50px;
 
-            h2 {
-                color: #fff; 
-                float: left;
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            }
+            .name-page {
+                h2 {
+                    color: #fff; 
+                    float: left;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                }
+    
+                mat-icon { 
+                    margin-right: 30px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
 
-            mat-icon { 
-                margin-right: 30px;
-                font-size: 32px;
-                color: #fff;
-                float: left;
+                h2, mat-icon { cursor: pointer; }
             }
+            
 
             button { margin-top: -10px }
         }
@@ -92,6 +97,10 @@
         }
 
         .main-content {
+            mdb-card {
+                cursor: pointer;
+            }
+
             mdb-card.aviso {
                 text-align: center;
                 mat-icon {
@@ -99,7 +108,12 @@
                 }
             }
 
-            p { text-align: center }
+            p {
+                text-align: center;
+                font-size: 20px;
+                font-weight: normal;
+                color: #3a5266;
+            }
             
             table, th, tr, td {
                 border: 1px solid #cbd5da;
@@ -108,6 +122,7 @@
 
             table { 
                 width: 100%; 
+                margin-top: 20px;
 
                 th {
                     text-align: center;
@@ -134,8 +149,6 @@
                         margin-bottom: 20px;
                        
                         mdb-card {
-                            cursor: pointer;
-
                             h4.valor-entrada {
                                color: #2374df; 
                             }
@@ -174,7 +187,6 @@
             padding: 60px;
             background-color: #00b8d4;
             
-
             .header-page {
                 height: 100%;
                 display: flex;
@@ -182,17 +194,21 @@
                 justify-content: space-around;
                 align-items: center;       
 
-                h2 {
-                    color: #fff; 
-                    float: left;
-                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                }
+                .name-page {
+                    h2 {
+                        color: #fff; 
+                        float: left;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    }
+        
+                    mat-icon { 
+                        margin-right: 30px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
     
-                mat-icon { 
-                    margin-right: 20px;
-                    font-size: 32px;
-                    color: #fff;
-                    float: left;
+                    h2, mat-icon { cursor: pointer; }
                 }
 
                 button { width: 260px }
@@ -208,17 +224,12 @@
                 height: 100px;
             }
  
-            .btn-print {
-                margin: -28px 5px 5px;
-                float: left;
-            }
-
             mat-form-field {
                 width: 100%;
             }
 
             .report-header {
-                margin-top: 30px;
+                margin-top: 10px;
 
                 mdb-card {
                     cursor: pointer;
@@ -267,9 +278,19 @@
             }
 
             .main-content {
+                mdb-card {
+                    cursor: pointer;
+                }
 
                 mdb-card.aviso {
                     text-align: center;
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: normal;
+                    color: #3a5266;
                 }
                 
                 table, th, tr, td {
@@ -279,6 +300,7 @@
     
                 table { 
                     width: 100%; 
+                    margin-top: 20px;
     
                     th {
                         text-align: center;
@@ -304,9 +326,7 @@
                         .box-moviment { 
                             margin-bottom: 20px;
                            
-                            mdb-card {
-                                cursor: pointer;
-    
+                            mdb-card {    
                                 h4.valor-entrada {
                                    color: #2374df; 
                                 }

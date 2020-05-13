@@ -109,7 +109,7 @@ export class HistoricoComponent implements OnInit {
   private errorMessage(err: any) {
     if(err.status == 401) {
       this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
       localStorage.removeItem('id_token');
     }
     else {
