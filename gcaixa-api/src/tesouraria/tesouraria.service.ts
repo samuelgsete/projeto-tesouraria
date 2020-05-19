@@ -9,7 +9,7 @@ import { IdInvalidException } from 'src/shared/exceptions/modelos/Id-invalid.exc
 @Injectable()
 export class TesourariaService {
 
-    constructor(@InjectRepository(Tesouraria) private repositoryTesouraria: Repository<Tesouraria>) {}
+    public constructor(@InjectRepository(Tesouraria) private repositoryTesouraria: Repository<Tesouraria>) {}
 
     public async findAll(filtro: FiltroBusca): Promise<any> {
         const [result, total] = await this.repositoryTesouraria.findAndCount(
@@ -34,7 +34,7 @@ export class TesourariaService {
         return this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
     }
 
-    public async obterRelatorioMensal(id: number, ano: number, mes: number): Promise<any> {
+    public async getReport(id: number, ano: number, mes: number): Promise<any> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
@@ -45,7 +45,7 @@ export class TesourariaService {
         return relatorios;
     }
 
-    public async obterHistoricoMensal(id: number, ano:number): Promise<any> {
+    public async getHistory(id: number, ano:number): Promise<any> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
@@ -54,6 +54,16 @@ export class TesourariaService {
         let receitas = tesouraria.obterHistoricoMensalDeReceitas(ano);
         
         return receitas;
+    }
+
+    public async getRecipes(id: number): Promise<any> {
+        if(id <= 0) {
+            throw new IdInvalidException("O id informado é invalído");
+        }
+
+        let tesouraria = await this.findById(id);
+        let recipes = tesouraria.obeterReceitas();
+        return recipes;
     }
 
     public async save(tesouraria: Tesouraria) {

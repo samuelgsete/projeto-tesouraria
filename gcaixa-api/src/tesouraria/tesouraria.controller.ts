@@ -10,7 +10,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 @UseGuards(JwtAuthGuard)
 export class TesourariaController {
 
-    constructor(private service: TesourariaService) { }
+    public constructor(private service: TesourariaService) { }
 
     @Get()
     public findPaginete(@Query('filtro') filtro, @Query('page') page): Promise<any[]> {
@@ -23,18 +23,23 @@ export class TesourariaController {
     }
 
     @Get('relatorio/:id')
-    public obterRelatorioMensal(
-                                    @Param('id') id: number, 
-                                    @Query('ano') ano:number,
-                                    @Query('mes') mes: number, 
+    public getReport(
+                        @Param('id') id: number, 
+                        @Query('ano') ano:number,
+                        @Query('mes') mes: number, 
     ): Promise<any[]> 
     {
-        return this.service.obterRelatorioMensal(id, ano, mes);
+        return this.service.getReport(id, ano, mes);
     }
 
     @Get('historico/:id')
-    public obterReceitas(@Param('id') id: number, @Query('ano') ano: number ): Promise<any[]> {
-        return this.service.obterHistoricoMensal(id, ano);
+    public getHistory(@Param('id') id: number, @Query('ano') ano: number ): Promise<any[]> {
+        return this.service.getHistory(id, ano);
+    }
+
+    @Get('receitas/:id')
+    public getRecipes(@Param('id') id: number): Promise<any> {
+        return this.service.getRecipes(id);
     }
 
     @Post()

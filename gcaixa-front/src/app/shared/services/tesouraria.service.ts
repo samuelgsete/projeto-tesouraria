@@ -36,6 +36,10 @@ export class TesourariaService {
         return this.http.get<any>(this.urlBase.concat(`/relatorio/${id}`), { observe: 'response', params: _params });
     }
 
+    public getRecipes(id: number): Observable<any> {
+        return this.http.get<any>(this.urlBase.concat(`/receitas/${id}`));
+    }
+
     public remove(id: string): Observable<Tesouraria> {
         return this.http.delete<Tesouraria>(this.urlBase.concat('/'+id));
     }

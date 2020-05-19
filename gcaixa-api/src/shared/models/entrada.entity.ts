@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, Column, CreateDateColumn, OneToMany } from "typeorm";
+import { Entity, ManyToOne, Column, OneToMany, CreateDateColumn } from "typeorm";
 
 import { Tesouraria } from "./tesouraria.entity";
 import { Credito } from "./credito.entity";
@@ -46,7 +46,6 @@ export class Entrada extends EntidadeBase {
             if(c.situacao === 'QUITADO'){
                 _valor += c.valor;
                 c.situacao = 'ENCERRADO';
-                c.encerramento = new Date();
             }
         });
         this.valor += _valor;

@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne, UpdateDateColumn } from "typeorm";
 
 import { EntidadeBase } from "./entidade-base";
 import { Tesouraria } from "./tesouraria.entity";
@@ -9,7 +9,7 @@ export class Contagem extends EntidadeBase {
     @Column({ name:'saldo_real', type: 'float', unique: false, nullable: false })
     public saldoReal: number;
 
-    @CreateDateColumn()
+    @UpdateDateColumn()
     public registro: Date;
 
     @ManyToOne(type => Tesouraria, tesouraria => tesouraria.contagens, { onDelete: "CASCADE" })

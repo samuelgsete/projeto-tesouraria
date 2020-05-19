@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
+import { Receitas } from 'src/app/shared/modelos/Receitas';
+import { Relatorio } from 'src/app/shared/modelos/Relatorio';
 
 @Component({
   selector: 'app-relatorio',
@@ -13,6 +15,7 @@ import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 export class RelatorioComponent implements OnInit {
 
   public relatorio = new Relatorio();
+  public receitas = new Receitas();
   public indicadorDeCarregamento = true;
 
   public meses = [
@@ -71,6 +74,7 @@ export class RelatorioComponent implements OnInit {
           private toastr: ToastrService
   ) 
   { 
+    this.obterReceitas(); 
     this.obterRelatorio();
   }
 
@@ -81,7 +85,6 @@ export class RelatorioComponent implements OnInit {
     this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
       this.relatorio = response.body
       this.indicadorDeCarregamento = false;
-      console.log(this.relatorio);
       this.alimentarGrafico();
     }, error => {
       this.errorMessage(error);
@@ -130,20 +133,15 @@ export class RelatorioComponent implements OnInit {
     this.rotulosEntradas.push('');
   }
 
+  public obterReceitas() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    this.service.getRecipes(id).subscribe( response => {
+      this.receitas = response;
+    },
+    erro => {
+      this.errorMessage(erro);
+    });
+  }
+
   ngOnInit() { }
-}
-
-export class Relatorio {
-
-  public saldoInicial = 0;
-  public saldoAtual = 0;
-  public saldoReal = 0;
-  public rendimentoTotalEntradas = 0;
-  public rendimentoTotalSaidas = 0;
-  public entradas = [];
-  public saidas = [];
-  public rendimentoMensalEntradas = 0;
-  public rendimentoMensalSaidas = 0;
-  public saldoMensal = 0;
-
 }

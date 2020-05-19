@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
-import { Usuario } from 'src/app/shared/modelos/Usuario';
 
 @Component({
   selector: 'app-menu',
@@ -11,14 +10,15 @@ import { Usuario } from 'src/app/shared/modelos/Usuario';
 })
 export class MenuComponent implements OnInit {
 
-  private usuario = new Usuario({ nome: 'Samuel'});
+  private usuario: string = '';
 
-  constructor(private servico: UsuarioService, private router: Router) { }
+  public constructor(private servico: UsuarioService, private router: Router) { 
+    this.usuario = localStorage.getItem("name_user");
+  }
 
   public logout() {
     this.servico.logout();
   }
 
   ngOnInit() { }
-
 }
