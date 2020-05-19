@@ -3,8 +3,8 @@ import { EntidadeBase } from "./entidade-base";
 export declare class Credito extends EntidadeBase {
     titular: string;
     valor: number;
-    abertura: Date;
-    encerramento: Date;
+    telefone: string;
+    registro: Date;
     situacao: TipoSituacao;
     entrada: Entrada;
     constructor(values?: Object);

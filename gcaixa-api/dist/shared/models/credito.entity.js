@@ -27,13 +27,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Credito.prototype, "valor", void 0);
 __decorate([
-    typeorm_1.Column({ type: 'timestamp', unique: false, nullable: true }),
-    __metadata("design:type", Date)
-], Credito.prototype, "abertura", void 0);
+    typeorm_1.Column({ length: 15, unique: true, nullable: true }),
+    __metadata("design:type", String)
+], Credito.prototype, "telefone", void 0);
 __decorate([
-    typeorm_1.Column({ type: 'timestamp', unique: false, nullable: true }),
+    typeorm_1.UpdateDateColumn(),
     __metadata("design:type", Date)
-], Credito.prototype, "encerramento", void 0);
+], Credito.prototype, "registro", void 0);
 __decorate([
     typeorm_1.Column({
         type: "enum",

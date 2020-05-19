@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { ToastrService } from 'ngx-toastr';
+import { Receitas } from 'src/app/shared/modelos/Receitas';
 
 @Component({
   selector: 'app-historico',
@@ -12,8 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class HistoricoComponent implements OnInit {
 
   public historico = {};
-  public anoAtual = new Date().getFullYear();
+  public receitas = new Receitas();
   public indicadorDeCarregamento = true;
+  public anos = [ 2019, 2020, 2021, 2022 ];
+  public anoSelecionado = new Date().getFullYear();
 
   public chartType: string = 'bar';
  
@@ -59,6 +62,7 @@ export class HistoricoComponent implements OnInit {
           private servico: TesourariaService, 
           private toastr: ToastrService
   ) { 
+    this.obterReceitas();
     this.alimentarGrafico();
   }
 
@@ -70,7 +74,7 @@ export class HistoricoComponent implements OnInit {
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
-    this.servico.obterHistoricoMensal(id, this.anoAtual).subscribe( response => {
+    this.servico.obterHistoricoMensal(id, this.anoSelecionado).subscribe( response => {
       this.historico = response.body;
       this.plotar(this.historico);
       this.indicadorDeCarregamento = false;
@@ -103,6 +107,16 @@ export class HistoricoComponent implements OnInit {
     receitas.forEach(receita => {
       this.saldos[0].data.push(receita.saldoMensal);
       this.saldos[1].data.push(receita.saldoReal);
+    });
+  }
+
+  public obterReceitas() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    this.servico.getRecipes(id).subscribe( response => {
+      this.receitas = response;
+    },
+    erro => {
+      this.errorMessage(erro);
     });
   }
 

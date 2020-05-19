@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne, UpdateDateColumn } from "typeorm";
 
 import { Entrada } from "./entrada.entity";
 import { EntidadeBase } from "./entidade-base";
@@ -12,11 +12,11 @@ export class Credito extends EntidadeBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
-    @Column({ type:'timestamp', unique: false, nullable: true })
-    public abertura: Date;
+    @Column({ length: 15, unique: true, nullable: true })
+    public telefone: string;
 
-    @Column({ type:'timestamp', unique: false, nullable: true })
-    public encerramento: Date;
+    @UpdateDateColumn()
+    public registro: Date;
 
     @Column({ 
         type: "enum", 

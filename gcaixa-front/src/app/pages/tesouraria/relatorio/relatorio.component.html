@@ -28,7 +28,7 @@
                                 <p>Saldo inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ relatorio.saldoInicial | currency:'BRL' }}</h4>
+                                <h4>{{ receitas.saldoInicial | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -41,7 +41,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ relatorio.saldoAtual | currency:'BRL' }}</h4>
+                                <h4 >{{ receitas.saldoAtual | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -54,7 +54,7 @@
                                 <p>Rendimento de entradas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ relatorio.rendimentoTotalEntradas  | currency:'BRL' }}</h4>
+                                <h4 >{{ receitas.rendimentoEntradas  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -67,7 +67,7 @@
                                 <p>Rendimento de saidas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ relatorio.rendimentoTotalSaidas  | currency:'BRL' }}</h4>
+                                <h4 >{{ receitas.rendimentoSaidas  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col-6">
                         <mat-form-field>
-                            <mat-label>Escolha um mês de referência</mat-label>
+                            <mat-label>Mês</mat-label>
                             <mat-select [(value)]="mesSelecionado" (selectionChange)="obterRelatorio()">
                                 <mat-option *ngFor="let mes of meses; let i = index" [value]="mes">{{ mes }}</mat-option>
                             </mat-select>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-6">
                         <mat-form-field>
-                            <mat-label>Escolha um ano de referência</mat-label>
+                            <mat-label>Ano</mat-label>
                             <mat-select [(value)]="anoSelecionado" (selectionChange)="obterRelatorio()">
                                 <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
                             </mat-select>
@@ -241,7 +241,7 @@
                 <mat-icon>description</mat-icon>
                 <h2>Relatório</h2>
             </div>
-            <button type="button" mdbBtn color="light" class="z-depth-0" mdbWavesEffect>IMPRIMIR</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="imprimir()" mdbWavesEffect>IMPRIMIR</button>
         </div>
     </div>
     <div class="report z-depth-0">
@@ -258,7 +258,7 @@
                                 <p>Saldo inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ relatorio.saldoInicial | currency:'BRL' }}</h4>
+                                <h4>{{ receitas.saldoInicial | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -271,7 +271,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ relatorio.saldoAtual | currency:'BRL' }}</h4>
+                                <h4>{{ receitas.saldoAtual | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -284,7 +284,7 @@
                                 <p>Rendimento de entradas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ relatorio.rendimentoTotalEntradas  | currency:'BRL' }}</h4>
+                                <h4>{{ receitas.rendimentoEntradas  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -297,7 +297,7 @@
                                 <p>Rendimento de saidas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ relatorio.rendimentoTotalSaidas  | currency:'BRL' }}</h4>
+                                <h4>{{ receitas.rendimentoSaidas  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -313,7 +313,7 @@
                 <div class="row">
                     <div class="col-12">
                         <mat-form-field>
-                            <mat-label>Escolha um mês de referência</mat-label>
+                            <mat-label>Mês</mat-label>
                             <mat-select [(value)]="mesSelecionado" (selectionChange)="obterRelatorio()">
                                 <mat-option *ngFor="let mes of meses; let i = index" [value]="mes">{{ mes }}</mat-option>
                             </mat-select>
@@ -321,7 +321,7 @@
                     </div>
                     <div class="col-12">
                         <mat-form-field>
-                            <mat-label>Escolha um ano de referência</mat-label>
+                            <mat-label>Ano</mat-label>
                             <mat-select [(value)]="anoSelecionado" (selectionChange)="obterRelatorio()">
                                 <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
                             </mat-select>

@@ -3,8 +3,8 @@ export class Credito {
     public id: number;
     public titular: string;
     public valor: number;
-    public abertura: Date;
-    public encerramento: Date;
+    public registro: Date;
+    public telefone: string;
     public situacao: TipoSituacao;
 
     constructor(values: Object = {}) {

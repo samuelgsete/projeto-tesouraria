@@ -25,6 +25,7 @@ export class AuthComponent implements OnInit {
   public fazerLogin(usuario: Usuario) {
     this.servico.login(usuario).subscribe( res => {
       localStorage.setItem("id_token", res.access_token);
+      localStorage.setItem('name_user', res.name_user);
       this.router.navigateByUrl('/home');
     }, err => {
       this.messageError(err);

@@ -136,29 +136,21 @@
 
                          mat-accordion {
                             margin-bottom: 5px;
-
-                            .credit-header { 
-                                font-weight: bold;
-                                text-align: right;
-                            }
                                 
                             button { margin-top: -10px }
 
-                            .credito-ativo { color:#ff0000 }
-                            .credito-ativo:focus { outline: none }
-
-                            .credito-quitado { color:#33b5e5 }
-                            .credito-quitado:focus { outline: none }
+                            mat-expansion-panel-header {
+                                mat-icon { margin-right: 8px }
+                            }
                             
                             .info-credit {
                                 margin-top: 8px;
-                                font-size: 12px;
+                                font-size: 13px;
                                 text-align: center;
                         
                                 mat-icon {
                                     color: #4285F4;
-                                }
-                                
+                                }  
                             }
                         }
 

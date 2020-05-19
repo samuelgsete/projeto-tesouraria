@@ -3,7 +3,6 @@ import { Entity, Column, OneToMany } from "typeorm";
 import { Saida } from "./saida.entity";
 import { Entrada } from "./entrada.entity";
 import { EntidadeBase } from "./entidade-base";
-import { InsufficientFunds } from "../exceptions/modelos/insufficient-funds.exception";
 import { Contagem } from "./contagem.entity";
 
 @Entity()
@@ -47,10 +46,6 @@ export class Tesouraria extends EntidadeBase {
         });
 
         this.saldoAtual = this.saldoInicial + _saldo;
-
-        if(this.saldoAtual < 0) {
-            throw new InsufficientFunds('Saldo insuficiente para a retirada');
-        }
     }
 
     private obterMovimentacoesPorMes(ano: number, mes: number) {
@@ -104,16 +99,7 @@ export class Tesouraria extends EntidadeBase {
             });
         }
 
-        let saldoAtual = this.saldoAtual;
-
-        let rendimentoTotal = this.obterRendimento(this.entradas, this.saidas);
-        let rendimentoTotalEntradas = rendimentoTotal.rendimentoEntradas;
-        let rendimentoTotalSaidas = rendimentoTotal.rendimentoSaidas;
-
         return { 
-            saldoAtual,
-            rendimentoTotalEntradas,
-            rendimentoTotalSaidas,
             rendimentosMensais,
             receitasMensais
         }
@@ -137,7 +123,8 @@ export class Tesouraria extends EntidadeBase {
         let saldoReal = 0;
 
         let saldoMensal = this.saldoInicial + (rendimentoEntradas - rendimentoSaidas);
-
+        saldoMensal = saldoMensal.toFixed(1) === this.saldoAtual.toFixed(1) ? 0: saldoMensal;
+        
         if(contagens.length != 0) {
             saldoReal = contagens[0].saldoReal
         }
@@ -146,14 +133,6 @@ export class Tesouraria extends EntidadeBase {
     }
 
     public obterRelatorioDeReceitas(ano: number, mes: number) {
-
-        let saldoInicial = this.saldoInicial;
-        let saldoAtual = this.saldoAtual;
-
-        let saldoReal = 0
-        if(this.contagens.length != 0) {
-            saldoReal = this.contagens[this.contagens.length - 1].saldoReal;
-        }
 
         let { entradas, saidas } = this.obterMovimentacoesPorMes(ano, mes);
 
@@ -164,21 +143,26 @@ export class Tesouraria extends EntidadeBase {
 
         let saldoMensal = rendimentoMensalEntradas - rendimentoMensalSaidas;
 
-        let rendimentoTotal = this.obterRendimento(this.entradas, this.saidas);
-        let rendimentoTotalEntradas = rendimentoTotal.rendimentoEntradas;
-        let rendimentoTotalSaidas = rendimentoTotal.rendimentoSaidas;
-
         return {
-            saldoInicial,
-            saldoAtual,
-            saldoReal,
-            rendimentoTotalEntradas,
-            rendimentoTotalSaidas,
             entradas, 
             saidas,
             rendimentoMensalEntradas,
             rendimentoMensalSaidas,
             saldoMensal 
+        }
+    }
+
+    public obeterReceitas() {
+        let saldoInicial = this.saldoInicial;
+        let saldoAtual = this.saldoAtual;
+
+        let { rendimentoEntradas, rendimentoSaidas } = this.obterRendimento(this.entradas, this.saidas);
+       
+        return {
+            saldoInicial,
+            saldoAtual,
+            rendimentoEntradas,
+            rendimentoSaidas 
         }
     }
 }

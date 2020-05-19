@@ -16,17 +16,26 @@ let UsersService = class UsersService {
             {
                 userId: 1,
                 username: 'danilo',
+                name: 'Danilo',
                 password: 'oficinag3',
             },
             {
                 userId: 2,
                 username: 'samuel',
+                name: 'Samuel',
                 password: 'gsete',
             },
             {
                 userId: 3,
+                name: 'Layla',
                 username: 'layla',
                 password: '1234',
+            },
+            {
+                userId: 4,
+                name: 'Sharles',
+                username: 'sharles',
+                password: 'apaixonado',
             },
         ];
     }

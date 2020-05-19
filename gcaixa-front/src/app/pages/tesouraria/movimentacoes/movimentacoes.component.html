@@ -77,7 +77,7 @@
                 [columnMode]="'force'"
                 [headerHeight]="50"
                 [footerHeight]="50"
-                [rowHeight]="50"
+                [rowHeight]="'auto'"
                 [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
                 [selectionType]="'checkbox'"
                 (select)="aoSelecionar($event)"
@@ -269,12 +269,15 @@
                                     <mdb-card-body>
                                         <mdb-card-text>
                                             <p>{{ c.situacao }}</p>
-                                        </mdb-card-text>             
+                                        </mdb-card-text>  
+                                        <mdb-card-text>
+                                            <p>{{ c.telefone }}</p>
+                                        </mdb-card-text>            
                                         <mdb-card-title>
                                             <h4>{{ c.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>  
                                         <mdb-card-text>
-                                            <p>{{ c.abertura | dateFormat }}</p>
+                                            <p>{{ c.registro | dateFormat }}</p>
                                         </mdb-card-text>   
                                         <button (click)="removerCredito(i, c)" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
@@ -360,7 +363,14 @@
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let c of creditos; let i = index">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-description>{{ c.titular }}</mat-panel-description>
+                                    <mat-panel-description>
+                                        <mat-icon>person</mat-icon>
+                                        {{ c.titular }}
+                                    </mat-panel-description>
+                                    <mat-panel-description>
+                                        <mat-icon>phone</mat-icon>
+                                        {{ c.telefone }}
+                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                           
                                 <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': c.situacao == 'ABERTO', 'info-color': c.situacao == 'QUITADO', 'default-color': c.situacao == 'ENCERRADO' }" mdbWavesEffect>
@@ -370,10 +380,9 @@
                                         </mdb-card-text>             
                                         <mdb-card-title>
                                             <h4>{{ c.valor | currency:'BRL' }}</h4>
-                                        </mdb-card-title>  
-                                        <mdb-card-text>
-                                            <p *ngIf="c.situacao != 'ENCERRADO'">Ativo em {{ c.abertura | dateFormat }}</p>
-                                            <p *ngIf="c.situacao == 'ENCERRADO'">Encerrado em {{ c.encerramento | dateFormat }}</p>
+                                        </mdb-card-title>                                        
+                                        <mdb-card-text>                                        
+                                            <p>{{ c.registro | dateFormat }}</p>
                                         </mdb-card-text>   
 
                                         <button (click)="removerCredito(i, c)" *ngIf="c.situacao != 'ENCERRADO'" mat-icon-button>
@@ -539,6 +548,14 @@
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Valor" formControlName="valor" [(ngModel)]="valorCredito" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>O valor é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Telefone" formControlName="telefone" [textMask]="{mask: phoneMask}" [(ngModel)]="myModel">
+                                <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000 </mat-error>
                             </mat-form-field>
                         </div>
                     </div><br>

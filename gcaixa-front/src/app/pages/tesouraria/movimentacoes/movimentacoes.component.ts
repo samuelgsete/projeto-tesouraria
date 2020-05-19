@@ -30,6 +30,7 @@ export class MovimentacoesComponent implements OnInit {
   public movimentacoesSelecionadas: any = [];
 
   public dateFormat = new DateFormatPipe();
+  public phoneMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   
   constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
   
@@ -250,11 +251,12 @@ export class MovimentacoesComponent implements OnInit {
 
   addCredito(form: any, modal: any){
     modal.hide();
-    let credito = form.value
+    let credito = form.value;
     this.creditos.push(new Credito({
       titular: credito.titular,
       valor: credito.valor,
-      abertura: new Date().toISOString(),
+      telefone: credito.telefone,
+      registro: new Date().toISOString(),
       situacao: 'ABERTO'
     }));
     form.reset();
@@ -292,6 +294,7 @@ export class MovimentacoesComponent implements OnInit {
       });
       this.creditos = row.creditos;
       modalAtualizarEntrada.show();
+      console.log(row);
     }
   }
 
@@ -309,13 +312,15 @@ export class MovimentacoesComponent implements OnInit {
       ofertante: ['', [Validators.minLength(4), Validators.maxLength(50)]],
       tipo: [''],
       registro: [''],
-      detalhes: [null, Validators.maxLength(250)],
+      detalhes: ['', Validators.maxLength(250)],
     });
 
     this.fcreditos = this._fb.group({
       id: [null],
       titular: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       valor:['', Validators.required],
+      registro: [''],
+      telefone: ['', [Validators.minLength(10), Validators.maxLength(15)]],
       situacao: ['']
     });
 
@@ -325,7 +330,7 @@ export class MovimentacoesComponent implements OnInit {
       valor:[Validators.required],
       tipo: [''],
       registro: [''],
-      motivo: [null, Validators.maxLength(200)]
+      motivo: ['', Validators.maxLength(200)]
     });
   }
 }
