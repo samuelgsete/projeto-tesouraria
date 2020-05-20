@@ -1,5 +1,5 @@
 <div class="login">
-    <div class="content">
+    <div class="content" mdbWavesEffect>
         <div class="header">
             <img src="/assets/img/logotipo.png" alt="logotipo" width="84px" height="84px">
             <h6>GSETE</h6>
@@ -23,6 +23,8 @@
                     <mat-error>preencha esse campo corretamente</mat-error>
                 </mat-form-field>
                 <button type="button" class="z-depth-0" block="true" mdbBtn color="indigo" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
+                <br>
+                <a routerLink="/user/create">Criar conta</a>
             </form> 
         </div>
         <div class="footer">

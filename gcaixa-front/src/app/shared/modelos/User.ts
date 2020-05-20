@@ -1,11 +1,11 @@
-export class Usuario {
+export class User {
 
+    public id: number;
     public username: string;
     public password: string;
-    public nome: string;
-    public sobrenome: string;
+    public name: string;
+    public surname: string;
     public email: string;
-    public whatzapp: number;
 
     public constructor(values: Object = {}) { Object.assign(this, values) }
 }
