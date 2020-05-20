@@ -8,44 +8,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../shared/models/user.entity");
+const typeorm_2 = require("typeorm");
+const Id_invalid_exception_1 = require("../shared/exceptions/modelos/Id-invalid.exception");
 let UsersService = class UsersService {
-    constructor() {
-        this.users = [
-            {
-                userId: 1,
-                username: 'danilo',
-                name: 'Danilo',
-                password: 'oficinag3',
-            },
-            {
-                userId: 2,
-                username: 'samuel',
-                name: 'Samuel',
-                password: 'gsete',
-            },
-            {
-                userId: 3,
-                name: 'Layla',
-                username: 'layla',
-                password: '1234',
-            },
-            {
-                userId: 4,
-                name: 'Sharles',
-                username: 'sharles',
-                password: 'apaixonado',
-            },
-        ];
+    constructor(repository) {
+        this.repository = repository;
     }
     async findOne(username) {
-        return this.users.find(user => user.username === username);
+        let result = await this.repository.find({ where: { username: username } });
+        let user = result[0];
+        return user;
+    }
+    async save(user) {
+        return this.repository.save(user);
+    }
+    async update(user) {
+        if (user.id == null || user.id <= 0) {
+            throw new Id_invalid_exception_1.IdInvalidException("O id informado é invalído");
+        }
+        return this.repository
+            .save(user)
+            .then(e => {
+            return {
+                mensagem: 'Atualizado com sucesso'
+            };
+        });
     }
 };
 UsersService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __param(0, typeorm_1.InjectRepository(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

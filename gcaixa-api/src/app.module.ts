@@ -9,8 +9,9 @@ import { Saida } from './shared/models/saida.entity';
 import { Entrada } from './shared/models/entrada.entity';
 import { Credito } from './shared/models/credito.entity';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './users/user.module';
 import { Contagem } from './shared/models/contagem.entity';
+import { User } from './shared/models/user.entity';
 
 @Module({
   imports: [
@@ -26,13 +27,14 @@ import { Contagem } from './shared/models/contagem.entity';
         Saida,
         Entrada,
         Credito,
-        Contagem
+        Contagem,
+        User
       ],
       synchronize: true,
     }),
     TesourariaModule,
     AuthModule,
-    UsersModule
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

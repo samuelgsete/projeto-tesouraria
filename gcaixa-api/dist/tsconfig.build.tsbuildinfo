@@ -1205,22 +1205,6 @@
         "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f"
       },
-      "../src/users/users.service.ts": {
-        "version": "2ce9d453f62dc060b877c04134a24b74989b1d774ed0cf65d96b5f44c8694d47",
-        "signature": "6de062e7c8976c2173021480e3a6be62971a556d19b27fc03ec324866d27d648"
-      },
-      "../src/auth/auth.service.ts": {
-        "version": "0342d09984ba7f669a6b73f192a644ba7cc3ceb119c0fd1121ff91a89b724a5c",
-        "signature": "65deb4642893be678ea5f3f5c90cce2dbcaafcd23bd90eb135474ff1782ef2f1"
-      },
-      "../src/app.controller.ts": {
-        "version": "08dd0b7b5da54480c17770c2d1afba54bbf23fcb61b602422041f5430488ea23",
-        "signature": "e037e3bfde2fb06b1d2aad498c01aeca090e7c36b0b83af0dbdbf368cd798d68"
-      },
-      "../src/app.service.ts": {
-        "version": "eaf8514ce110fa428a93a27408df4d06d133dbd9ed0a775c315ddfdd507853a9",
-        "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97"
-      },
       "../node_modules/typeorm/schema-builder/options/tablecolumnoptions.d.ts": {
         "version": "222ebf19b1260582fd2023a65c5b7da77f730021f05afb9c4ead4b0b339a8c98",
         "signature": "222ebf19b1260582fd2023a65c5b7da77f730021f05afb9c4ead4b0b339a8c98"
@@ -2257,6 +2241,30 @@
         "version": "1d776ba701a073618529852b2f2478694f3a81691264c3c1fccb5c2983ba1622",
         "signature": "b3951a2e1aafb61b0403d7527a648221f2f6d6d6227223417cca71927d5d0b41"
       },
+      "../src/shared/models/user.entity.ts": {
+        "version": "fac8271a9e18a02592608671cc873588c3e0bede14f8f2ce81e99110372cb5a2",
+        "signature": "9eaab96b9e86117cf141c47119a7ec6604c42ff65dcf914cef04e09797f37d47"
+      },
+      "../src/shared/exceptions/modelos/id-invalid.exception.ts": {
+        "version": "b1374076757e284fb44a056a2faaea3bc4b46265f03609e0948d272b3a491588",
+        "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
+      },
+      "../src/users/user.service.ts": {
+        "version": "988023f0d3447fb0dedcb46111aeb6f7ff84e937ca60c795cbacf81727ebbc03",
+        "signature": "4d015f107a9120c0bbd1ca8c5b629760b0a1a8ee88f086cb958cbc927f8dac22"
+      },
+      "../src/auth/auth.service.ts": {
+        "version": "83582c5d4e5ab209d753c20f067529b1de5937799456585ed4a47a7b01a97f97",
+        "signature": "396b3707e0b40ebd4a7e47d5732ae19dc72b6f750e1c9b63f6383f833029c337"
+      },
+      "../src/app.controller.ts": {
+        "version": "08dd0b7b5da54480c17770c2d1afba54bbf23fcb61b602422041f5430488ea23",
+        "signature": "e037e3bfde2fb06b1d2aad498c01aeca090e7c36b0b83af0dbdbf368cd798d68"
+      },
+      "../src/app.service.ts": {
+        "version": "eaf8514ce110fa428a93a27408df4d06d133dbd9ed0a775c315ddfdd507853a9",
+        "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97"
+      },
       "../src/shared/models/saida.entity.ts": {
         "version": "549bfbe67fccffd1b98cbd1de514734811e8dded4ed000f9376b301481c10dd2",
         "signature": "cc1e1012b5512921cfef7a6c76f7ac512ecf72dae54412e77b3daa9016920e6a"
@@ -2281,10 +2289,6 @@
         "version": "0efba8a4fc278e6268da66f9cf5eab1c438665546e9fd9162e75387674c51bf1",
         "signature": "1f92ba1f9d66f630b102a648abda19c67b2d0071a041e905007701d121741a95"
       },
-      "../src/shared/exceptions/modelos/id-invalid.exception.ts": {
-        "version": "b1374076757e284fb44a056a2faaea3bc4b46265f03609e0948d272b3a491588",
-        "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823"
-      },
       "../src/tesouraria/tesouraria.service.ts": {
         "version": "baab23610f50f13bd32f601c077ffb848a1f744be39d0764184c5f613f534a47",
         "signature": "6649c7b49bf9a9c519b762e3f485574797ad62e457fab7647437a9f517ee97c4"
@@ -2305,9 +2309,13 @@
         "version": "9c7ad3b062e80d754db3a0cd3f2d95d98a7ccb17d3f6c74954586a780ac786a0",
         "signature": "88b1b7754e26fb5c280fa564333bae8ad595eabbd09f4250365c49a0af2eb65e"
       },
-      "../src/users/users.module.ts": {
-        "version": "52ea337f68575d83af0c963c095b8632533c2d3d8e823db1d7d1d1c014d81b9a",
-        "signature": "12dec6c99bd8d11167fa91a31e737abbbf8c9cc789c151a25a9a1d13f328175c"
+      "../src/users/user.controller.ts": {
+        "version": "ea3a7eb72e41de1634e698e124eef81351ef7e7204982cf0fb80fd85d0b37abb",
+        "signature": "37c8d47057299032ae4d3bcd6fe6401d2fb1c69a483d25685de4d9520a1a926f"
+      },
+      "../src/users/user.module.ts": {
+        "version": "72b305cc3d3bb015a79b4129b8ee95d34030d64403c6a316f15e4ec5e6efab8b",
+        "signature": "9e36626cb39f17790cf2403e2e54d8a74542da63e2a49aba7061133a1af26dcd"
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
         "version": "29d59e921bc723594bbfc98230d24f38f0d5a669f28fcf989b7468f4f95b7c52",
@@ -2334,11 +2342,11 @@
         "signature": "056039d196bfd8a686b09d51785a638f89b8c048757e4bd020230353a78c82af"
       },
       "../src/auth/auth.module.ts": {
-        "version": "294e339616d00bee5516287128d4cc3a0fa6e82e80bf4537975858405e5a4b28",
+        "version": "0e9bb2df60d4162ebafda7db29eb826a38df1420e463efa594f10eb8679172b8",
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
       "../src/app.module.ts": {
-        "version": "cbf32a6cc62aec17d7aa1d9d751c2d537c49f7e972e38d3cdc0dc59fcc6aa6c9",
+        "version": "ad167af4ea787653568c5813aaebfd349709b6e33da7845f405d2b912615bc06",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -5014,38 +5022,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/users/users.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/auth/auth.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/jwt/index.d.ts",
-        "../src/users/users.service.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/app.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/auth/guards/local-auth.guard.ts",
-        "../src/auth/auth.service.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/app.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../node_modules/typeorm/schema-builder/options/tablecolumnoptions.d.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -7343,6 +7319,56 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/shared/models/user.entity.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/entidade-base.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/exceptions/modelos/id-invalid.exception.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/users/user.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/shared/models/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/auth/auth.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/jwt/index.d.ts",
+        "../src/users/user.service.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/app.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/auth/guards/local-auth.guard.ts",
+        "../src/auth/auth.service.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/app.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/shared/models/saida.entity.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/shared/models/tesouraria.entity.ts",
@@ -7392,12 +7418,6 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/shared/models/filtro-busca.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/shared/exceptions/modelos/id-invalid.exception.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7462,9 +7482,21 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/users/users.module.ts": [
+      "../src/users/user.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
-        "../src/users/users.service.ts",
+        "../src/users/user.service.ts",
+        "../src/shared/models/user.entity.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/users/user.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/users/user.service.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/shared/models/user.entity.ts",
+        "../src/users/user.controller.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7527,7 +7559,7 @@
         "../node_modules/@nestjs/passport/index.d.ts",
         "../node_modules/@nestjs/jwt/index.d.ts",
         "../src/auth/auth.service.ts",
-        "../src/users/users.module.ts",
+        "../src/users/user.module.ts",
         "../src/auth/strategies/local.strategy.ts",
         "../src/auth/strategies/jwt.strategy.ts",
         "../src/auth/constants.ts",
@@ -7547,8 +7579,9 @@
         "../src/shared/models/entrada.entity.ts",
         "../src/shared/models/credito.entity.ts",
         "../src/auth/auth.module.ts",
-        "../src/users/users.module.ts",
+        "../src/users/user.module.ts",
         "../src/shared/models/contagem.entity.ts",
+        "../src/shared/models/user.entity.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -10498,13 +10531,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/auth/auth.service.ts": [
-        "../src/users/users.service.ts",
-        "../node_modules/@nestjs/jwt/index.d.ts"
-      ],
-      "../src/app.controller.ts": [
-        "../src/auth/auth.service.ts"
-      ],
       "../node_modules/typeorm/schema-builder/options/tablecolumnoptions.d.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -12795,6 +12821,20 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/shared/models/user.entity.ts": [
+        "../src/shared/models/entidade-base.ts"
+      ],
+      "../src/users/user.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/user.entity.ts"
+      ],
+      "../src/auth/auth.service.ts": [
+        "../src/users/user.service.ts",
+        "../node_modules/@nestjs/jwt/index.d.ts"
+      ],
+      "../src/app.controller.ts": [
+        "../src/auth/auth.service.ts"
+      ],
       "../src/shared/models/saida.entity.ts": [
         "../src/shared/models/tesouraria.entity.ts",
         "../src/shared/models/entidade-base.ts"
@@ -12832,6 +12872,10 @@
       "../src/tesouraria/tesouraria.controller.ts": [
         "../src/tesouraria/tesouraria.service.ts",
         "../src/shared/models/tesouraria.entity.ts"
+      ],
+      "../src/users/user.controller.ts": [
+        "../src/users/user.service.ts",
+        "../src/shared/models/user.entity.ts"
       ],
       "../node_modules/@types/passport-strategy/index.d.ts": [
         "../node_modules/@types/passport/index.d.ts",
@@ -13702,9 +13746,6 @@
       "../node_modules/@nestjs/jwt/dist/jwt.service.d.ts",
       "../node_modules/@nestjs/jwt/dist/index.d.ts",
       "../node_modules/@nestjs/jwt/index.d.ts",
-      "../src/auth/auth.service.ts",
-      "../src/app.controller.ts",
-      "../src/app.service.ts",
       "../node_modules/typeorm/schema-builder/options/tablecolumnoptions.d.ts",
       "../node_modules/typeorm/schema-builder/table/tablecolumn.d.ts",
       "../node_modules/typeorm/common/objectliteral.d.ts",
@@ -13964,19 +14005,25 @@
       "../node_modules/@nestjs/typeorm/dist/index.d.ts",
       "../node_modules/@nestjs/typeorm/index.d.ts",
       "../src/shared/models/entidade-base.ts",
+      "../src/shared/models/user.entity.ts",
+      "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+      "../src/users/user.service.ts",
+      "../src/auth/auth.service.ts",
+      "../src/app.controller.ts",
+      "../src/app.service.ts",
       "../src/shared/models/saida.entity.ts",
       "../src/shared/models/credito.entity.ts",
       "../src/shared/models/entrada.entity.ts",
       "../src/shared/models/contagem.entity.ts",
       "../src/shared/models/tesouraria.entity.ts",
       "../src/shared/models/filtro-busca.ts",
-      "../src/shared/exceptions/modelos/id-invalid.exception.ts",
       "../src/tesouraria/tesouraria.service.ts",
       "../src/shared/pipes/validation.pipe.ts",
       "../src/auth/guards/jwt-auth.guard.ts",
       "../src/tesouraria/tesouraria.controller.ts",
       "../src/tesouraria/tesouraria.module.ts",
-      "../src/users/users.module.ts",
+      "../src/users/user.controller.ts",
+      "../src/users/user.module.ts",
       "../node_modules/@types/passport-strategy/index.d.ts",
       "../node_modules/@types/passport-local/index.d.ts",
       "../src/auth/strategies/local.strategy.ts",
@@ -13984,7 +14031,6 @@
       "../src/auth/constants.ts",
       "../src/auth/strategies/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
-      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/injector/module-token-factory.d.ts",
@@ -14055,7 +14101,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/users/users.service.ts"
+      "../src/app.module.ts"
     ]
   },
   "version": "3.8.3"

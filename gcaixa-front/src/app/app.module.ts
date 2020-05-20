@@ -10,10 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { TesourariaModule } from './pages/tesouraria/tesouraria.module';
 import { routing } from './app.routing';
 import { AuthModule } from './pages/auth/auth.module';
-import { UsuarioService } from './shared/services/usuario.service';
+import { AuthService } from './shared/services/auth.service';
 import { AuthGuard } from './pages/auth/auth.guard';
 import { AuthInterceptor } from './pages/auth/auth.interceptor';
 import { PaginationService } from './shared/pagination/pagination.service';
+import { UserModule } from './pages/user/user.module';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,13 @@ import { PaginationService } from './shared/pagination/pagination.service';
     MDBBootstrapModule.forRoot(),
     FormsModule,
     TesourariaModule,
+    UserModule,
     AuthModule,
     routing,
   ],
   providers: [
     AuthGuard, 
-    UsuarioService,
+    AuthService,
     PaginationService,
     {
       provide: HTTP_INTERCEPTORS,

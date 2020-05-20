@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Usuario } from 'src/app/shared/modelos/Usuario';
-import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import { User } from 'src/app/shared/modelos/User';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -16,14 +16,14 @@ export class AuthComponent implements OnInit {
   public f: FormGroup;
 
   constructor( 
-        private _fb: FormBuilder, 
-        private router: Router,  
-        private servico: UsuarioService, 
-        private toastr: ToastrService
+                private _fb: FormBuilder, 
+                private router: Router,  
+                private servico: AuthService, 
+                private toastr: ToastrService
   ) { }
   
-  public fazerLogin(usuario: Usuario) {
-    this.servico.login(usuario).subscribe( res => {
+  public fazerLogin(user: User) {
+    this.servico.login(user).subscribe( res => {
       localStorage.setItem("id_token", res.access_token);
       localStorage.setItem('name_user', res.name_user);
       this.router.navigateByUrl('/home');
@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
       this.toastr.error('Tente mais tarde', 'Servidor indisponível', { progressBar: true });
     }
     if(erro.status == 401) {
-      this.toastr.info('Login ou senha inválidos', 'ERRO', { progressBar: true });
+      this.toastr.error('Login ou senha inválidos', 'ERRO', { progressBar: true });
     }
   }
 
