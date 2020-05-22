@@ -12,6 +12,7 @@ export class Tesouraria {
     public saidas: Array<Saida> = [];
     public contagens: Array<Contagem> = [];
     public detalhes: string;
+    public userId: number;
 
     public constructor(values: Object = {}) { Object.assign(this, values) }
 

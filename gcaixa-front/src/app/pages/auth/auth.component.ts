@@ -26,6 +26,7 @@ export class AuthComponent implements OnInit {
     this.servico.login(user).subscribe( res => {
       localStorage.setItem("id_token", res.access_token);
       localStorage.setItem('name_user', res.name_user);
+      localStorage.setItem('user_id', res.user_id);
       this.router.navigateByUrl('/home');
     }, err => {
       this.messageError(err);

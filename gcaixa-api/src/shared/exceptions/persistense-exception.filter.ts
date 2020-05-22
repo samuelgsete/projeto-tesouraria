@@ -2,9 +2,8 @@ import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus } from "@nestjs/commo
 import { QueryFailedError } from "typeorm";
 import { Response } from 'express';
 
-import { InsufficientFunds } from "./modelos/insufficient-funds.exception";
 
-@Catch(QueryFailedError, InsufficientFunds)
+@Catch(QueryFailedError)
 export class PersistenceExceptionFilter implements ExceptionFilter {
     catch(ex: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();

@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable(
-)
+@Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(private router: Router, private servico: AuthService, private toastr: ToastrService) { 
@@ -21,7 +20,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.toastr.info('Você não está autenticado', 'ERRO', { progressBar: true });
+    this.toastr.error('Você não está autenticado', 'ERRO', { progressBar: true });
     this.router.navigateByUrl('/login');
     
     return false;

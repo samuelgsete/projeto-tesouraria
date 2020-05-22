@@ -111,7 +111,7 @@ export class HistoricoComponent implements OnInit {
   }
 
   public obterReceitas() {
-    let id = parseInt(this.router.url.split('/')[2]);
+    let id = this.router.url.split('/')[2];
     this.servico.getRecipes(id).subscribe( response => {
       this.receitas = response;
     },

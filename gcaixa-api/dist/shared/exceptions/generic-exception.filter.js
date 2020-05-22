@@ -7,8 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const insufficient_funds_exception_1 = require("./modelos/insufficient-funds.exception");
 const Id_invalid_exception_1 = require("./modelos/Id-invalid.exception");
+const user_not_found_exception_1 = require("./modelos/user-not-found.exception");
+const permission_denied_excepton_1 = require("./modelos/permission-denied.excepton");
+const treasury_not_foud_exception_1 = require("./modelos/treasury-not-foud.exception");
 let GenericaExceptionsFilter = class GenericaExceptionsFilter {
     catch(ex, host) {
         const ctx = host.switchToHttp();
@@ -23,7 +25,7 @@ let GenericaExceptionsFilter = class GenericaExceptionsFilter {
     }
 };
 GenericaExceptionsFilter = __decorate([
-    common_1.Catch(insufficient_funds_exception_1.InsufficientFunds, Id_invalid_exception_1.IdInvalidException)
+    common_1.Catch(Id_invalid_exception_1.IdInvalidException, user_not_found_exception_1.UserNotFoundException, permission_denied_excepton_1.PermissionDeniedException, treasury_not_foud_exception_1.TreasuryNotFoundException)
 ], GenericaExceptionsFilter);
 exports.GenericaExceptionsFilter = GenericaExceptionsFilter;
 //# sourceMappingURL=generic-exception.filter.js.map

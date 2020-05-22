@@ -57,6 +57,7 @@ export class TesourariaComponent implements OnInit {
   }
 
   cadastrarOuAtualizarTesouraria(dados: Tesouraria) {
+    let userId = localStorage.getItem('user_id');
     let tesouraria = new Tesouraria({
       id: dados.id,
       nome: dados.nome, 
@@ -65,7 +66,8 @@ export class TesourariaComponent implements OnInit {
       entradas: dados.entradas,
       saidas: dados.saidas,
       contagens: dados.contagens,
-      observacoes: dados.detalhes
+      observacoes: dados.detalhes,
+      userId: userId
     });
     
     if(tesouraria.id == null) {
@@ -135,7 +137,8 @@ export class TesourariaComponent implements OnInit {
       entradas: tesouraria.entradas,
       saidas: tesouraria.saidas,
       contagens: tesouraria.contagens,
-      observacoes: tesouraria.detalhes
+      observacoes: tesouraria.detalhes,
+      userId: tesouraria.userId
     });
     this.modalEditar.show();
   }
@@ -170,6 +173,7 @@ export class TesourariaComponent implements OnInit {
       entradas: [[]],
       contagens: [[]],
       saidas: [[]],
+      userId:[]
     });
   }
 }

@@ -2253,17 +2253,25 @@
         "version": "988023f0d3447fb0dedcb46111aeb6f7ff84e937ca60c795cbacf81727ebbc03",
         "signature": "4d015f107a9120c0bbd1ca8c5b629760b0a1a8ee88f086cb958cbc927f8dac22"
       },
+      "../src/shared/exceptions/modelos/user-not-found.exception.ts": {
+        "version": "e127d6800d1aaea164379819eb36adc51f9efcfa578b95ff3c570c1368907b50",
+        "signature": "f0fccee92ce61c00208bc17ee5f0fcdd522b130e19fbf096edb35ad0fba29275"
+      },
       "../src/auth/auth.service.ts": {
-        "version": "83582c5d4e5ab209d753c20f067529b1de5937799456585ed4a47a7b01a97f97",
-        "signature": "396b3707e0b40ebd4a7e47d5732ae19dc72b6f750e1c9b63f6383f833029c337"
+        "version": "d881dbbb85f9ae104a1afe9f407ca106837548769988dfb913767c37a26cb81a",
+        "signature": "e03d2a7425712697d7f206283729105ef8de5b9dabff8e12dd93928ce8910b4f"
       },
       "../src/app.controller.ts": {
         "version": "08dd0b7b5da54480c17770c2d1afba54bbf23fcb61b602422041f5430488ea23",
-        "signature": "e037e3bfde2fb06b1d2aad498c01aeca090e7c36b0b83af0dbdbf368cd798d68"
+        "signature": "fcdeabca597866f9c0c8f082b8398bb49db7e23523e42a1a8d016396f0214b6d"
       },
       "../src/app.service.ts": {
         "version": "eaf8514ce110fa428a93a27408df4d06d133dbd9ed0a775c315ddfdd507853a9",
         "signature": "d8f4cb0109c1b399d657807fd6af504d74a9300325e0fc915abdbf658b464a97"
+      },
+      "../src/auth/guards/jwt-auth.guard.ts": {
+        "version": "4f7bb9cf6d3bf4753ba881d4cad54186d2eb5aab8b6de20109d1c4a40bc87557",
+        "signature": "baf608b3f1bf90782d8b003287213bceae5e9b31f56c2ce676e223ea85ea10b2"
       },
       "../src/shared/models/saida.entity.ts": {
         "version": "549bfbe67fccffd1b98cbd1de514734811e8dded4ed000f9376b301481c10dd2",
@@ -2282,28 +2290,32 @@
         "signature": "8ce1cfc8c382d37680aa26dd4d03f192ecbd20b1723d11211a36dc1a79cc1f22"
       },
       "../src/shared/models/tesouraria.entity.ts": {
-        "version": "bcc519e8665b656242c6fc47f49410e1518671bc9d9bee74ba956ad232b41d13",
-        "signature": "612495efccad145f23bc1636f2c36abb7626aae462567355b14f60d46203d9cc"
+        "version": "ad19e1cd558e5f04bd31fce4debe009381619c64774c211f1805f91c726ba41b",
+        "signature": "3ffb8e0e25f70046af75e9ed031e5f7eea3fc474baba967c1b091287f011a7a5"
       },
       "../src/shared/models/filtro-busca.ts": {
         "version": "0efba8a4fc278e6268da66f9cf5eab1c438665546e9fd9162e75387674c51bf1",
         "signature": "1f92ba1f9d66f630b102a648abda19c67b2d0071a041e905007701d121741a95"
       },
+      "../src/shared/exceptions/modelos/permission-denied.excepton.ts": {
+        "version": "c21d946b143c6d98f1027a76ed6dd1539ee8279cf19c1b4fd8e883f824d4d272",
+        "signature": "ea81acfaa64c09715aa4ac55d35cf571d796df7ff3c383c3772ba751b930c30c"
+      },
+      "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts": {
+        "version": "37fddb16f666564bbe51caff5a3bb77edb926ffaf8712f864c581e954463a53f",
+        "signature": "80e6236a45a927fb3d2143acf92077ba1417118f8ed4def214f3a3f6f9604bc3"
+      },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "baab23610f50f13bd32f601c077ffb848a1f744be39d0764184c5f613f534a47",
-        "signature": "6649c7b49bf9a9c519b762e3f485574797ad62e457fab7647437a9f517ee97c4"
+        "version": "bd5f12a440b739fd2a838faa1edfa84ce59da116f6f51a1747d7b7f9a2f5980f",
+        "signature": "1e226a437871c427503c6bdca102d6c42b47503f20f509e2b24decd62170f76b"
       },
       "../src/shared/pipes/validation.pipe.ts": {
         "version": "4a1f931b80ee9cc2be6c91fcb5e15e430800b24adf81e1841c8307db9ee9e924",
         "signature": "03d97b84bdbfdda29fb0b4bc5eb1dd6b16b2ed6d7d34a8713e9f3c960e0cd225"
       },
-      "../src/auth/guards/jwt-auth.guard.ts": {
-        "version": "4f7bb9cf6d3bf4753ba881d4cad54186d2eb5aab8b6de20109d1c4a40bc87557",
-        "signature": "baf608b3f1bf90782d8b003287213bceae5e9b31f56c2ce676e223ea85ea10b2"
-      },
       "../src/tesouraria/tesouraria.controller.ts": {
-        "version": "4488baaa3567e3b97063006ee27437ed651c8220879692b0927a6eca36ef8509",
-        "signature": "d11942e62f35786badacc5e37c6d4582d9da540a5981bfe3f59bbe1618b79603"
+        "version": "63973e49067cbbe01138135e66df5af852eacf2d6e4407b2d694058cad684079",
+        "signature": "59d327b73c7e4a7dee13a9e44c82c98af18db88cfb567228efb05cb81a22c8fc"
       },
       "../src/tesouraria/tesouraria.module.ts": {
         "version": "9c7ad3b062e80d754db3a0cd3f2d95d98a7ccb17d3f6c74954586a780ac786a0",
@@ -2314,7 +2326,7 @@
         "signature": "37c8d47057299032ae4d3bcd6fe6401d2fb1c69a483d25685de4d9520a1a926f"
       },
       "../src/users/user.module.ts": {
-        "version": "72b305cc3d3bb015a79b4129b8ee95d34030d64403c6a316f15e4ec5e6efab8b",
+        "version": "6327a7ffa963397f0d74fc3526a21765da1e21fe8fe51f7f67e7b65cfa1a530e",
         "signature": "9e36626cb39f17790cf2403e2e54d8a74542da63e2a49aba7061133a1af26dcd"
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -2326,7 +2338,7 @@
         "signature": "e50f9ae34bb92232533e3a32848970dd04f874a8f64d3ae48980e062b6489f26"
       },
       "../src/auth/strategies/local.strategy.ts": {
-        "version": "72a51b0f607852c5e32123c230da1b85bf8b69f6372c0c1bad448f79ab56c8ad",
+        "version": "e84d33648f27b64009886e7382b3d6b7e46200423ab1c329dc9fe9dec07e1bb6",
         "signature": "b06e702146e4f163227753eaa07c40d95b94a25bcb10588fc3ac4c935ce86317"
       },
       "../node_modules/@types/passport-jwt/index.d.ts": {
@@ -2497,16 +2509,12 @@
         "version": "16d047521141dbbe9934d2de6798adc6252a6b91ae28202b453967da9906f229",
         "signature": "da61730d8851a03c7eaf5123068677f64255a4cb919a6f33e4ff56f42412e08d"
       },
-      "../src/shared/exceptions/modelos/insufficient-funds.exception.ts": {
-        "version": "6198c5013db62d5df28d750bf9c87e8d739a258f7428f7f62fa09980396bd63b",
-        "signature": "616ad0546fe57bae9dcb5e40c5eb5e714e261771fbfe5aa859b00dd6b042d5a3"
-      },
       "../src/shared/exceptions/persistense-exception.filter.ts": {
-        "version": "e320962372adc967042e6dff2338649a021b37a360109ffe4aeabaa0de53f6df",
+        "version": "049ef6834b920b7b75c683ef246d7919a735f5e08c48f61b018f743a5fec244e",
         "signature": "e3177e41443816726f8e8b3dd04d8c32d72039cea0dbc6d48f19ebfc81dfe9ea"
       },
       "../src/shared/exceptions/generic-exception.filter.ts": {
-        "version": "dbf71158a231fe507fefea90857186a669f334289fa0d7f6ee85d812bc5366c1",
+        "version": "0d9693af2bbaaa26f9b551cbf4f753a49180b1d0511ee20378f1e75ace816a1d",
         "signature": "c6c3b87f81dd9a849efc7e3ffb2f97ebed6e356d26a9d4d7001ed5b49ed29473"
       },
       "../src/main.ts": {
@@ -7344,10 +7352,18 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/shared/exceptions/modelos/user-not-found.exception.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/auth/auth.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/jwt/index.d.ts",
         "../src/users/user.service.ts",
+        "../src/shared/models/user.entity.ts",
+        "../src/shared/exceptions/modelos/user-not-found.exception.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7364,6 +7380,14 @@
       ],
       "../src/app.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/auth/guards/jwt-auth.guard.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7412,12 +7436,25 @@
         "../src/shared/models/entrada.entity.ts",
         "../src/shared/models/entidade-base.ts",
         "../src/shared/models/contagem.entity.ts",
+        "../src/shared/models/user.entity.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/shared/models/filtro-busca.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/exceptions/modelos/permission-denied.excepton.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7430,6 +7467,8 @@
         "../src/shared/models/tesouraria.entity.ts",
         "../src/shared/models/filtro-busca.ts",
         "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+        "../src/shared/exceptions/modelos/permission-denied.excepton.ts",
+        "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7447,21 +7486,14 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/auth/guards/jwt-auth.guard.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/passport/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../src/tesouraria/tesouraria.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../src/auth/guards/jwt-auth.guard.ts",
+        "../node_modules/@types/express/index.d.ts",
         "../src/tesouraria/tesouraria.service.ts",
         "../src/shared/models/tesouraria.entity.ts",
         "../src/shared/models/filtro-busca.ts",
         "../src/shared/pipes/validation.pipe.ts",
-        "../src/auth/guards/jwt-auth.guard.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7913,17 +7945,10 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/shared/exceptions/modelos/insufficient-funds.exception.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../src/shared/exceptions/persistense-exception.filter.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../node_modules/@types/express/index.d.ts",
-        "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -7932,8 +7957,10 @@
       "../src/shared/exceptions/generic-exception.filter.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@types/express/index.d.ts",
-        "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
         "../src/shared/exceptions/modelos/id-invalid.exception.ts",
+        "../src/shared/exceptions/modelos/user-not-found.exception.ts",
+        "../src/shared/exceptions/modelos/permission-denied.excepton.ts",
+        "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -12829,11 +12856,15 @@
         "../src/shared/models/user.entity.ts"
       ],
       "../src/auth/auth.service.ts": [
+        "../src/shared/models/user.entity.ts",
         "../src/users/user.service.ts",
         "../node_modules/@nestjs/jwt/index.d.ts"
       ],
       "../src/app.controller.ts": [
         "../src/auth/auth.service.ts"
+      ],
+      "../src/auth/guards/jwt-auth.guard.ts": [
+        "../node_modules/@nestjs/passport/index.d.ts"
       ],
       "../src/shared/models/saida.entity.ts": [
         "../src/shared/models/tesouraria.entity.ts",
@@ -12866,11 +12897,9 @@
       "../src/shared/pipes/validation.pipe.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
       ],
-      "../src/auth/guards/jwt-auth.guard.ts": [
-        "../node_modules/@nestjs/passport/index.d.ts"
-      ],
       "../src/tesouraria/tesouraria.controller.ts": [
         "../src/tesouraria/tesouraria.service.ts",
+        "../node_modules/@types/express/index.d.ts",
         "../src/shared/models/tesouraria.entity.ts"
       ],
       "../src/users/user.controller.ts": [
@@ -14008,18 +14037,21 @@
       "../src/shared/models/user.entity.ts",
       "../src/shared/exceptions/modelos/id-invalid.exception.ts",
       "../src/users/user.service.ts",
+      "../src/shared/exceptions/modelos/user-not-found.exception.ts",
       "../src/auth/auth.service.ts",
       "../src/app.controller.ts",
       "../src/app.service.ts",
+      "../src/auth/guards/jwt-auth.guard.ts",
       "../src/shared/models/saida.entity.ts",
       "../src/shared/models/credito.entity.ts",
       "../src/shared/models/entrada.entity.ts",
       "../src/shared/models/contagem.entity.ts",
       "../src/shared/models/tesouraria.entity.ts",
       "../src/shared/models/filtro-busca.ts",
+      "../src/shared/exceptions/modelos/permission-denied.excepton.ts",
+      "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts",
       "../src/tesouraria/tesouraria.service.ts",
       "../src/shared/pipes/validation.pipe.ts",
-      "../src/auth/guards/jwt-auth.guard.ts",
       "../src/tesouraria/tesouraria.controller.ts",
       "../src/tesouraria/tesouraria.module.ts",
       "../src/users/user.controller.ts",
@@ -14031,6 +14063,7 @@
       "../src/auth/constants.ts",
       "../src/auth/strategies/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
+      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/injector/module-token-factory.d.ts",
@@ -14068,8 +14101,6 @@
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
       "../src/shared/exceptions/http-exception.filter.ts",
-      "../src/shared/exceptions/modelos/insufficient-funds.exception.ts",
-      "../src/shared/exceptions/persistense-exception.filter.ts",
       "../src/shared/exceptions/generic-exception.filter.ts",
       "../src/main.ts",
       "../node_modules/@types/anymatch/index.d.ts",
@@ -14101,7 +14132,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/app.module.ts"
+      "../src/shared/exceptions/persistense-exception.filter.ts"
     ]
   },
   "version": "3.8.3"
