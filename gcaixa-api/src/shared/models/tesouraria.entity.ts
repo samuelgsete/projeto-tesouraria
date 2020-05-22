@@ -1,9 +1,10 @@
-import { Entity, Column, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany, ManyToOne } from "typeorm";
 
 import { Saida } from "./saida.entity";
 import { Entrada } from "./entrada.entity";
 import { EntidadeBase } from "./entidade-base";
 import { Contagem } from "./contagem.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Tesouraria extends EntidadeBase {
@@ -28,6 +29,9 @@ export class Tesouraria extends EntidadeBase {
 
     @Column({ length: 255, unique: false, nullable: true })
     public detalhes: string;
+
+    @Column({ unique: false, nullable: false })
+    public userId: number;
 
     public constructor(values: Object = {}) {
         super();

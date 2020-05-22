@@ -58,8 +58,9 @@ export class MovimentacoesComponent implements OnInit {
       this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
       localStorage.removeItem('id_token');
     }
-    else {
+    if(err.status == 500) {
       this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -106,8 +107,7 @@ export class MovimentacoesComponent implements OnInit {
       detalhes: e.detalhes,
       creditos: this.creditos
     });
-
-    console.log(novaEntrada);
+    
     if(novaEntrada.id == null) {
       this.tesouraria.entradas.push(novaEntrada);
       this.servico.update(this.tesouraria).subscribe(res => {

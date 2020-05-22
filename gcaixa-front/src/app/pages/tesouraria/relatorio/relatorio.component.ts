@@ -79,7 +79,7 @@ export class RelatorioComponent implements OnInit {
   }
 
   public obterRelatorio() {
-    let id = parseInt(this.router.url.split('/')[2]);
+    let id = this.router.url.split('/')[2];
     let mes = this.meses.indexOf(this.mesSelecionado);
 
     this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
@@ -134,7 +134,7 @@ export class RelatorioComponent implements OnInit {
   }
 
   public obterReceitas() {
-    let id = parseInt(this.router.url.split('/')[2]);
+    let id = this.router.url.split('/')[2];
     this.service.getRecipes(id).subscribe( response => {
       this.receitas = response;
     },

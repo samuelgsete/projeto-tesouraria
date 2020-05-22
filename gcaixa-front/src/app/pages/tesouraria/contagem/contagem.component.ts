@@ -54,8 +54,9 @@ export class ContagemComponent implements OnInit {
       this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
       localStorage.removeItem('id_token');
     }
-    else {
+    if(err.status == 500) {
       this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
     }
   }
 

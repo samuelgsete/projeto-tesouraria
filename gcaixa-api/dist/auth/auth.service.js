@@ -12,14 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const user_service_1 = require("../users/user.service");
+const user_entity_1 = require("../shared/models/user.entity");
+const user_not_found_exception_1 = require("../shared/exceptions/modelos/user-not-found.exception");
 let AuthService = class AuthService {
     constructor(usersService, jwtService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
-        this.user = {};
+        this.user = new user_entity_1.User();
     }
     async validateUser(username, pass) {
         const user = await this.usersService.findOne(username);
+        if (!user) {
+            throw new user_not_found_exception_1.UserNotFoundException('Usuario inexistente');
+        }
         if (user && user.password === pass) {
             this.user = user;
             return user;
@@ -27,10 +32,11 @@ let AuthService = class AuthService {
         return null;
     }
     async login(user) {
-        const payload = { username: user.username, sub: user.userId };
+        const payload = { username: user.username, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
-            name_user: user.name
+            name_user: user.name,
+            user_id: user.id
         };
     }
 };

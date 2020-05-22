@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
-const insufficient_funds_exception_1 = require("./modelos/insufficient-funds.exception");
 let PersistenceExceptionFilter = class PersistenceExceptionFilter {
     catch(ex, host) {
         const ctx = host.switchToHttp();
@@ -41,7 +40,7 @@ let PersistenceExceptionFilter = class PersistenceExceptionFilter {
     }
 };
 PersistenceExceptionFilter = __decorate([
-    common_1.Catch(typeorm_1.QueryFailedError, insufficient_funds_exception_1.InsufficientFunds)
+    common_1.Catch(typeorm_1.QueryFailedError)
 ], PersistenceExceptionFilter);
 exports.PersistenceExceptionFilter = PersistenceExceptionFilter;
 var TypeError;

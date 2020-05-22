@@ -10,7 +10,7 @@ export class AuthService  {
 
   private urlBase: string = 'http://localhost:3000/auth/login';
 
-  public constructor(private http: HttpClient,private router: Router ) {}
+  public constructor(private http: HttpClient,private router: Router) {}
 
   public login(user: User): Observable<any> {
     return this.http.post<any>(this.urlBase, user);
@@ -18,6 +18,7 @@ export class AuthService  {
 
   public logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('user_id');
     localStorage.removeItem('name_user');
     this.router.navigateByUrl('/login');
   }
