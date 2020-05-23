@@ -66,7 +66,7 @@ export class TesourariaComponent implements OnInit {
       entradas: dados.entradas,
       saidas: dados.saidas,
       contagens: dados.contagens,
-      observacoes: dados.detalhes,
+      detalhes: dados.detalhes,
       userId: userId
     });
     
@@ -137,7 +137,7 @@ export class TesourariaComponent implements OnInit {
       entradas: tesouraria.entradas,
       saidas: tesouraria.saidas,
       contagens: tesouraria.contagens,
-      observacoes: tesouraria.detalhes,
+      detalhes: tesouraria.detalhes,
       userId: tesouraria.userId
     });
     this.modalEditar.show();
@@ -169,7 +169,7 @@ export class TesourariaComponent implements OnInit {
       nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       saldoInicial:['', [Validators.required]],
       saldoAtual:['', []],
-      detalhes: [null, [Validators.minLength(4), Validators.maxLength(200)]],
+      detalhes: ['', [Validators.minLength(4), Validators.maxLength(200)]],
       entradas: [[]],
       contagens: [[]],
       saidas: [[]],

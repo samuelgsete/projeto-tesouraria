@@ -76,6 +76,7 @@ export class HistoricoComponent implements OnInit {
 
     this.servico.obterHistoricoMensal(id, this.anoSelecionado).subscribe( response => {
       this.historico = response.body;
+      console.log(this.historico);
       this.plotar(this.historico);
       this.indicadorDeCarregamento = false;
 

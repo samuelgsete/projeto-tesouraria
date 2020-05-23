@@ -84,6 +84,7 @@ export class TesourariaController {
                     @Req() request: Request
                  ) 
     {
+        console.log(tesouraria);
         let userId = parseInt(request.headers.userid[0]);
         return this.service.update(userId, tesouraria);
     }

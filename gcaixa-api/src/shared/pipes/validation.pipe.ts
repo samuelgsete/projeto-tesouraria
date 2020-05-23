@@ -4,7 +4,6 @@ import { Tesouraria } from '../models/tesouraria.entity';
 import { Saida } from '../models/saida.entity';
 import { Entrada } from '../models/entrada.entity';
 import { Contagem } from '../models/contagem.entity';
-import { Credito } from '../models/credito.entity';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform {
@@ -19,7 +18,7 @@ export class ValidationPipe implements PipeTransform {
                     registro: s.registro,
                     valor: s.valor,
                     tipo: s.tipo,
-                    motivo: s.motivo
+                    detalhes: s.detalhes
                 })
               );
           });
@@ -35,7 +34,7 @@ export class ValidationPipe implements PipeTransform {
                     ofertante: e.ofertante,
                     registro: e.registro,
                     tipo: e.tipo,
-                    observacoes: e.observacoes,
+                    detalhes: e.detalhes,
                     creditos: e.creditos
                 })
             );
@@ -61,11 +60,11 @@ export class ValidationPipe implements PipeTransform {
                           saidas: _saidas,
                           entradas: _entradas,
                           contagens: _contagens,
-                          observacoes: value.observacoes,
+                          detalhes: value.detalhes,
+                          userId: value.userId
                         }); 
           return _tesouraria;
       }
-
     return value;
   }
 }

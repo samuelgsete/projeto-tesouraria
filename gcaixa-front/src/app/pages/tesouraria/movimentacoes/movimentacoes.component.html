@@ -3,8 +3,10 @@
     <div class="hero">
         <div class="row info-page">
             <div class="col-md-6 col-lg-6 col-xl-8">
-                <mat-icon>layers</mat-icon>
-                <h2>Movimentações</h2>
+                <div class="name-page">
+                    <mat-icon>layers</mat-icon>
+                    <h2>Movimentações</h2>
+                </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
                 <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
@@ -94,11 +96,15 @@
                 [checkboxable]="true">
     
             </ngx-datatable-column>
-                <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
                 <ngx-datatable-column name="Descrição" [width]="250" prop="descricao"></ngx-datatable-column>
                 <ngx-datatable-column name="Valor" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template let-row="row">
                         <div >{{ row.valor | currency:'BRL' }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Registrado em" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">
+                        <div >{{ row.registro | dateFormat }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Tipo" [width]="150">
@@ -186,7 +192,6 @@
             [rowHeight]="50"
             [limit]="6"
         >
-            <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
             <ngx-datatable-column name="Descrição" [width]="250" prop="descricao"></ngx-datatable-column>
             <ngx-datatable-column name="Valor" [width]="100">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -262,8 +267,15 @@
             
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let c of creditos; let i = index">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-description style="text-align: center;">{{ c.titular }}</mat-panel-description>
+                                <mat-expansion-panel-header mdbWavesEffect>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>face</mat-icon>
+                                        {{ c.titular }}
+                                    </mat-panel-description>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>phone</mat-icon>
+                                        {{ c.telefone }}
+                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <mdb-card class="z-depth-0 card-credit danger-color" mdbWavesEffect>
                                     <mdb-card-body>
@@ -286,7 +298,7 @@
                                 </mdb-card>
                             </mat-expansion-panel>
                         </mat-accordion>
-                        <div class="row">
+                        <div class="row" style="margin-top: 15px;">
                             <div class="col-md-8 col-lg-9"></div>
                             <div class="col-sm-12 col-md-4 col-lg-3">
                                 <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
@@ -362,12 +374,12 @@
                        
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let c of creditos; let i = index">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-description>
-                                        <mat-icon>person</mat-icon>
+                                <mat-expansion-panel-header mdbWavesEffect>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>face</mat-icon>
                                         {{ c.titular }}
                                     </mat-panel-description>
-                                    <mat-panel-description>
+                                    <mat-panel-description style="width: 50%;">
                                         <mat-icon>phone</mat-icon>
                                         {{ c.telefone }}
                                     </mat-panel-description>
@@ -398,11 +410,7 @@
                                 </div>
                             </mat-expansion-panel>
                         </mat-accordion>
-
-                        <div class="row">
-                            <div class="col"><br></div>
-                        </div>
-                        <div class="row">
+                        <div class="row" style="margin-top: 20px;">
                             <div class="col-sm-6 col-md-6 col-lg-9"></div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
                                 <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
@@ -457,9 +465,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #motivo matInput placeholder="Motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <textarea #detalhes matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{ motivo.value?.length || 0 }}/200</mat-hint>
+                                <mat-hint>{{ detalhes.value?.length || 0 }}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -509,7 +517,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #input matInput placeholder="motivo" maxlength="200" formControlName="motivo"></textarea>
+                                <textarea #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                                 <mat-hint>{{ input.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
@@ -538,8 +546,8 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Titular" formControlName="titular" required >
-                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                                <input matInput placeholder="Titular" formControlName="titular" maxlength="200" required>
+                                <mat-error>Informe no mínimo 4  e no máximo 20 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -554,7 +562,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Telefone" formControlName="telefone" [textMask]="{mask: phoneMask}" [(ngModel)]="myModel">
+                                <input matInput placeholder="Telefone" formControlName="telefone" mask="(00) 00000-0000" required>
                                 <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000 </mat-error>
                             </mat-form-field>
                         </div>

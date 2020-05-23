@@ -45,10 +45,6 @@
         border-radius: 6px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-        .loading {
-            height: 100px;
-        }
-
         mat-form-field { width: 100% }
 
         h5 { text-align: center }
@@ -87,6 +83,20 @@
 
             p, h4, mat-icon {
                 color: #fff;
+            }
+        }
+
+        .empty-data {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+            padding: 40px;
+            margin-top: 20px;
+            h5 { margin-top: 15px }
+        }
+
+        .main-content {
+            .rendimentos, .receitas {
+                margin-top: 50px;
             }
         }
     }
@@ -134,15 +144,9 @@
             }
         }
 
-        .main {
+        .history {
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             padding: 10px;
-
-            .loading {
-                height: 100px;
-            }
-
-            mat-form-field { width: 100% }
             
             mdb-card {
                 cursor: pointer;
@@ -178,6 +182,22 @@
     
                 p, h4, mat-icon {
                     color: #fff;
+                }
+            }
+
+            .empty-data {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                text-align: center;
+                padding: 40px;
+                margin-top: 20px;
+                h5 { margin-top: 15px }
+            }
+
+            .main-content {
+                mat-form-field { width: 100% }
+
+                .rendimentos, .receitas {
+                    margin-top: 30px;
                 }
             }
         }

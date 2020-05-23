@@ -4,15 +4,14 @@
 
     .hero {
         height: 220px;
-        padding: 10px 35px;
+        padding: 60px 35px;
         background-color: #00b8d4;
-        
-        .info-page {
-            margin-top: 50px;
+
+        .name-page {
             h2 {
-                float: left;
                 color: #fff; 
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                float: left;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             }
 
             mat-icon { 
@@ -22,9 +21,11 @@
                 float: left;
             }
 
-            button {
-                margin-top: -10px;
-            }
+            h2, mat-icon { cursor: pointer; }
+        }
+    
+        button {
+            margin-top: -10px;
         }
     }
 
@@ -179,18 +180,22 @@
                 justify-content: space-between;
                 align-items: center;       
 
-                h2 {
-                    text-align: center;
-                    float: left;
-                    color: #fff; 
-                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-                }
+                .name-page {
+                    h2 {
+                        text-align: center;
+                        float: left;
+                        color: #fff; 
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                    }
+    
+                    mat-icon { 
+                        margin-right: 20px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
 
-                mat-icon { 
-                    margin-right: 20px;
-                    font-size: 32px;
-                    color: #fff;
-                    float: left;
+                    h2, mat-icon { cursor: pointer; }
                 }
 
                 button { width: 290px }

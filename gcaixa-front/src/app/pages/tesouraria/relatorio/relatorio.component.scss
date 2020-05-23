@@ -40,10 +40,6 @@
         background-color: #fff;
         border-radius: 6px;
 
-        .loading {
-            height: 200px;
-        }
-
         mat-form-field {
             width: 100%;
         }
@@ -101,11 +97,11 @@
                 cursor: pointer;
             }
 
-            mdb-card.aviso {
+            .empty-data {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 text-align: center;
-                mat-icon {
-                    font-size: 50px;
-                }
+                padding: 40px;
+                h5 { margin-top: 15px }
             }
 
             p {
@@ -219,10 +215,6 @@
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 18px;
             padding: 10px 10px;
-
-            .loading {
-                height: 100px;
-            }
  
             mat-form-field {
                 width: 100%;
@@ -282,8 +274,11 @@
                     cursor: pointer;
                 }
 
-                mdb-card.aviso {
+                .empty-data {
+                    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     text-align: center;
+                    padding: 40px;
+                    h5 { margin-top: 15px }
                 }
 
                 p {

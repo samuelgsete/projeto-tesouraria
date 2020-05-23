@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { Credito } from 'src/app/shared/modelos/Credito';
 import { Saida } from 'src/app/shared/modelos/Saida';
 import { Entrada } from 'src/app/shared/modelos/Entrada';
-import Swal from 'sweetalert2';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 
@@ -28,9 +28,7 @@ export class MovimentacoesComponent implements OnInit {
   public rows: any[] = [];
   public indicadorDeCarregamento: boolean = true;
   public movimentacoesSelecionadas: any = [];
-
   public dateFormat = new DateFormatPipe();
-  public phoneMask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   
   constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
   
@@ -149,7 +147,7 @@ export class MovimentacoesComponent implements OnInit {
       descricao: s.descricao,
       valor: s.valor,
       tipo: 'SAIDA',
-      motivo: s.detalhes
+      detalhes: s.detalhes
     });
 
     if(novaSaida.id == null) {
@@ -279,7 +277,7 @@ export class MovimentacoesComponent implements OnInit {
         descricao: row.descricao,
         valor: row.valor,
         registro: this.dateFormat.transform(row.registro),
-        motivo: row.motivo,
+        detalhes: row.detalhes,
       });
       modalAtualizarSaida.show();
     }
@@ -317,10 +315,10 @@ export class MovimentacoesComponent implements OnInit {
 
     this.fcreditos = this._fb.group({
       id: [null],
-      titular: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      titular: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       valor:['', Validators.required],
       registro: [''],
-      telefone: ['', [Validators.minLength(10), Validators.maxLength(15)]],
+      telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
       situacao: ['']
     });
 
@@ -330,7 +328,7 @@ export class MovimentacoesComponent implements OnInit {
       valor:[Validators.required],
       tipo: [''],
       registro: [''],
-      motivo: ['', Validators.maxLength(200)]
+      detalhes: ['', Validators.maxLength(200)]
     });
   }
 }

@@ -40,7 +40,7 @@
                             <p>Rendimento de entradas</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4>{{ receitas.rendimentoEntradas| currency:'BRL' }}</h4>
+                            <h4>{{ receitas.rendimentoEntradas | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -59,62 +59,69 @@
                 </mdb-card>
             </div>
         </div>
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-description>Escolha um ano de referência</mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="row">
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label>Ano</mat-label>
-                            <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
-                                <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-        <div class="row"><div class="col"><br><br></div></div>
-        <div class="row">
-            <div class="col-12">
-                <h5>Histórico de rendimentos de {{ anoSelecionado }}</h5>
-            </div>
-            <div class="col-12">
-                <div mdbWavesEffect>
-                    <canvas mdbChart
-                        [chartType]="chartType"
-                        [(datasets)]="rendimentos"
-                        [labels]="chartLabels"
-                        [colors]="rendimentosCores"
-                        [options]="chartOptions"
-                        [legend]="true"
-                    >
-                    </canvas>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col">
-                <br><br>
+                <mdb-card class="empty-data" *ngIf="receitas.rendimentoEntradas == 0 && receitas.rendimentoSaidas == 0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
+                        <h4>Nenhuma registro encontrado</h4>
+                        <h5>Verifique o periodo solicitado</h5>      
+                    </mdb-card-body>
+                </mdb-card>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h5>Comportamento geral de receitas de {{ anoSelecionado }}</h5>
+        <div class="main-content" *ngIf="receitas.rendimentoEntradas != 0 && receitas.rendimentoSaidas != 0">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-description>Escolha um ano de referência</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <mat-label>Ano</mat-label>
+                                <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
+                                    <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <div class="row rendimentos">
+                <div class="col-12">
+                    <h5>Histórico de rendimentos de {{ anoSelecionado }}</h5>
+                </div>
+                <div class="col-12">
+                    <div mdbWavesEffect>
+                        <canvas mdbChart
+                            [chartType]="chartType"
+                            [(datasets)]="rendimentos"
+                            [labels]="chartLabels"
+                            [colors]="rendimentosCores"
+                            [options]="chartOptions"
+                            [legend]="true"
+                        >
+                        </canvas>
+                    </div>
+                </div>
             </div>
-            <div class="col-12">
-                <div mdbWavesEffect>
-                    <canvas mdbChart
-                        [chartType]="chartType"
-                        [(datasets)]="saldos"
-                        [labels]="chartLabels"
-                        [colors]="receitasCores"
-                        [options]="chartOptions"
-                        [legend]="true"
-                    >
-                    </canvas>
+            <div class="row receitas">
+                <div class="col-12">
+                    <h5>Comportamento geral de receitas de {{ anoSelecionado }}</h5>
+                </div>
+                <div class="col-12">
+                    <div mdbWavesEffect>
+                        <canvas mdbChart
+                            [chartType]="chartType"
+                            [(datasets)]="saldos"
+                            [labels]="chartLabels"
+                            [colors]="receitasCores"
+                            [options]="chartOptions"
+                            [legend]="true"
+                        >
+                        </canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -131,7 +138,7 @@
         </div>
     </div>
     <br>
-    <div class="main">
+    <div class="history">
         <div class="loading" *ngIf="indicadorDeCarregamento">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
@@ -176,56 +183,82 @@
                 </mdb-card>
             </div>
         </div>
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-description>Escolha um ano de referência</mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="row">
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label>Ano</mat-label>
-                            <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
-                                <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
+        <div class="row">
+            <div class="col">
+                <mdb-card class="empty-data" *ngIf="receitas.rendimentoEntradas == 0 && receitas.rendimentoSaidas == 0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
+                        <h4>Nenhuma registro encontrado</h4>
+                        <h5>Verifique o periodo solicitado</h5>      
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+        <div class="main-content" *ngIf="receitas.rendimentoEntradas != 0 || receitas.rendimentoSaidas != 0" >
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-description>Escolha um ano de referência</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field>
+                                <mat-label>Ano</mat-label>
+                                <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
+                                    <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="row rendimentos">
+                <div class="col-12">
+                    <p class="text-center">Histórico de rendimentos de {{ anoSelecionado }}</p>
                 </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-        <div class="row"><div class="col"><br></div></div>
-        <p class="text-center">Histórico de rendimentos de {{ anoSelecionado }}</p>
-        <mdb-card mdbWavesEffect>
-            <mdb-card-body>
-                <div>
-                    <canvas mdbChart
-                        [chartType]="chartType"
-                        [(datasets)]="rendimentos"
-                        [labels]="chartLabels"
-                        [colors]="rendimentosCores"
-                        [options]="chartOptions"
-                        [legend]="true"
-                    >
-                    </canvas>
-                </div>     
-            </mdb-card-body>
-        </mdb-card> 
-        <p class="text-center">Histórico de geral de receitas de {{ anoSelecionado }}</p>  
-        <mdb-card mdbWavesEffect>
-            <mdb-card-body>
-                <div>
-                    <canvas mdbChart
-                        [chartType]="chartType"
-                        [(datasets)]="saldos"
-                        [labels]="chartLabels"
-                        [colors]="receitasCores"
-                        [options]="chartOptions"
-                        [legend]="true"
-                    >
-            </canvas>
-                </div>     
-            </mdb-card-body>
-        </mdb-card>   
+                <div class="col-12">
+                    <mdb-card mdbWavesEffect>
+                        <mdb-card-body>
+                            <div>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="rendimentos"
+                                    [labels]="chartLabels"
+                                    [colors]="rendimentosCores"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                                </canvas>
+                            </div>     
+                        </mdb-card-body>
+                    </mdb-card> 
+                </div>
+            </div>
+        
+            <div class="row receitas">
+                <div class="col-12">
+                    <p class="text-center">Histórico de geral de receitas de {{ anoSelecionado }}</p>  
+                </div>
+                <div class="col-12">
+                    <mdb-card mdbWavesEffect>
+                        <mdb-card-body>
+                            <div>
+                                <canvas mdbChart
+                                    [chartType]="chartType"
+                                    [(datasets)]="saldos"
+                                    [labels]="chartLabels"
+                                    [colors]="receitasCores"
+                                    [options]="chartOptions"
+                                    [legend]="true"
+                                >
+                        </canvas>
+                            </div>     
+                        </mdb-card-body>
+                    </mdb-card>   
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <app-footer></app-footer>
