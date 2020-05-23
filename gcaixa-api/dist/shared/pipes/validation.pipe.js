@@ -22,7 +22,7 @@ let ValidationPipe = class ValidationPipe {
                     registro: s.registro,
                     valor: s.valor,
                     tipo: s.tipo,
-                    motivo: s.motivo
+                    detalhes: s.detalhes
                 }));
             });
             let _entradas = [];
@@ -34,7 +34,7 @@ let ValidationPipe = class ValidationPipe {
                     ofertante: e.ofertante,
                     registro: e.registro,
                     tipo: e.tipo,
-                    observacoes: e.observacoes,
+                    detalhes: e.detalhes,
                     creditos: e.creditos
                 }));
             });
@@ -54,7 +54,8 @@ let ValidationPipe = class ValidationPipe {
                 saidas: _saidas,
                 entradas: _entradas,
                 contagens: _contagens,
-                observacoes: value.observacoes,
+                detalhes: value.detalhes,
+                userId: value.userId
             });
             return _tesouraria;
         }

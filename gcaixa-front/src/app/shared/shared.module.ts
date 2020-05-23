@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCurrencyModule } from "ngx-currency";
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { PaginationModule } from './pagination/pagination.module';
 
+
 @NgModule({
   declarations: [
     DateFormatPipe,
@@ -32,10 +33,10 @@ import { PaginationModule } from './pagination/pagination.module';
     MatFormFieldModule,
     MatInputModule,
     ToastrModule.forRoot(),
+    NgxMaskModule.forRoot(),
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    TextMaskModule,
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,
@@ -49,10 +50,10 @@ import { PaginationModule } from './pagination/pagination.module';
     MatInputModule,
     NgxCurrencyModule,
     ToastrModule,
+    NgxMaskModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    TextMaskModule,
     DateFormatPipe,
     MatSelectModule,
     MatExpansionModule,

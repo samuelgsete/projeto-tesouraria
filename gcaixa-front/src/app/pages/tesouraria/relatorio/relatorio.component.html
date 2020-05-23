@@ -104,16 +104,11 @@
         <div class="main-content">
             <div class="row">
                 <div class="col">
-                    <mdb-card class="aviso" *ngIf="relatorio.entradas.length == 0 && relatorio.saidas.length == 0" mdbWavesEffect>
+                    <mdb-card class="empty-data" *ngIf="relatorio.entradas.length == 0 && relatorio.saidas.length == 0" mdbWavesEffect>
                         <mdb-card-body>
-                            <mdb-card-title>
-                                <h4>
-                                    <mat-icon>warning</mat-icon>
-                                </h4>
-                            </mdb-card-title>
-                            <mdb-card-text>
-                                <p>Nenhuma movimentação encontrada no período solicitado</p>
-                            </mdb-card-text>         
+                            <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
+                            <h4>Nenhuma registro encontrado</h4>
+                            <h5>Verifique o periodo solicitado</h5>      
                         </mdb-card-body>
                     </mdb-card>
                 </div>
@@ -334,11 +329,11 @@
         <div class="main-content">
             <div class="row">
                 <div class="col">
-                    <mdb-card class="aviso" *ngIf="relatorio.entradas[0] == null && relatorio.saidas[0] == null" mdbWavesEffect>
+                    <mdb-card class="empty-data" *ngIf="relatorio.entradas.length == 0 && relatorio.saidas.length == 0" mdbWavesEffect>
                         <mdb-card-body>
-                            <mdb-card-text>
-                                <p>Nenhuma movimentação encontrada no período solicitado</p>
-                            </mdb-card-text>       
+                            <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
+                            <h4>Nenhuma registro encontrado</h4>
+                            <h5>Verifique o periodo solicitado</h5>      
                         </mdb-card-body>
                     </mdb-card>
                 </div>

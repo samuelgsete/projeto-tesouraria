@@ -1,17 +1,17 @@
 .login {
     height: 100vh;
+    overflow-y: auto;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    background-color: #2BBBAD;
     
     .content {
-        height: 650px;
         width: 500px;
         background-color: #ffffff;
-        border: 3px solid #c5cbee;
-        border-radius: 12px;
-        padding: 40px; 
+        overflow-y: auto;
+        padding: 30px 40px 20px; 
 
         .header {
             text-align: center;

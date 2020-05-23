@@ -2310,11 +2310,11 @@
         "signature": "1e226a437871c427503c6bdca102d6c42b47503f20f509e2b24decd62170f76b"
       },
       "../src/shared/pipes/validation.pipe.ts": {
-        "version": "4a1f931b80ee9cc2be6c91fcb5e15e430800b24adf81e1841c8307db9ee9e924",
+        "version": "e144c0bbba62293f75f32f5cb04e06b04f5ffb84d2690d1726c9c868ff7bb55f",
         "signature": "03d97b84bdbfdda29fb0b4bc5eb1dd6b16b2ed6d7d34a8713e9f3c960e0cd225"
       },
       "../src/tesouraria/tesouraria.controller.ts": {
-        "version": "63973e49067cbbe01138135e66df5af852eacf2d6e4407b2d694058cad684079",
+        "version": "82d0a71b35ec7933c5d4486acd6b0731318c11f6e53348c8f6a41afeabb13a76",
         "signature": "59d327b73c7e4a7dee13a9e44c82c98af18db88cfb567228efb05cb81a22c8fc"
       },
       "../src/tesouraria/tesouraria.module.ts": {
@@ -7480,7 +7480,6 @@
         "../src/shared/models/saida.entity.ts",
         "../src/shared/models/entrada.entity.ts",
         "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/credito.entity.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/util.d.ts",
@@ -14051,7 +14050,6 @@
       "../src/shared/exceptions/modelos/permission-denied.excepton.ts",
       "../src/shared/exceptions/modelos/treasury-not-foud.exception.ts",
       "../src/tesouraria/tesouraria.service.ts",
-      "../src/shared/pipes/validation.pipe.ts",
       "../src/tesouraria/tesouraria.controller.ts",
       "../src/tesouraria/tesouraria.module.ts",
       "../src/users/user.controller.ts",
@@ -14101,6 +14099,7 @@
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
       "../src/shared/exceptions/http-exception.filter.ts",
+      "../src/shared/exceptions/persistense-exception.filter.ts",
       "../src/shared/exceptions/generic-exception.filter.ts",
       "../src/main.ts",
       "../node_modules/@types/anymatch/index.d.ts",
@@ -14132,7 +14131,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/shared/exceptions/persistense-exception.filter.ts"
+      "../src/shared/pipes/validation.pipe.ts"
     ]
   },
   "version": "3.8.3"
