@@ -70,7 +70,7 @@
                 </mdb-card>
             </div>
         </div>
-        <div class="main-content" *ngIf="receitas.rendimentoEntradas != 0 && receitas.rendimentoSaidas != 0">
+        <div class="main-content" *ngIf="receitas.rendimentoEntradas != 0 || receitas.rendimentoSaidas != 0">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>

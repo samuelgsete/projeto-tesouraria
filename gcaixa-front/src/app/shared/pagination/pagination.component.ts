@@ -8,11 +8,11 @@ import { PaginationService } from './pagination.service';
 })
 export class PaginationComponent implements OnInit {
 
-  private next = { label: 'Próxima', disabled: false };
-  private previous = { label: 'Anterior', disabled: true };
-  private pageCurrent = { label: 1, isActive: true };
-  private pages: any[] = [];
-  private isVisible: boolean = true;
+  public next = { label: 'Próxima', disabled: false };
+  public previous = { label: 'Anterior', disabled: true };
+  public pageCurrent = { label: 1, isActive: true };
+  public pages: any[] = [];
+  public isVisible: boolean = true;
 
   public constructor(private paginationService: PaginationService) { 
     this.paginationService.emitirTamanho.subscribe(value => {
@@ -26,7 +26,7 @@ export class PaginationComponent implements OnInit {
     });
   }
 
-  private generatePages(size: number, indexPage:number) {
+  public generatePages(size: number, indexPage:number) {
     this.pages = [];
     let n = this.getLength(size, 6);
     for(let i = 1; i <= n; i++) {
@@ -41,7 +41,7 @@ export class PaginationComponent implements OnInit {
     this.pageCurrent.isActive = true;
   }
 
-  private getLength(size: number, count: number) {
+  public getLength(size: number, count: number) {
     let n = size/count;
     let x = parseInt(n.toFixed());
     if(x < n) {
@@ -51,13 +51,13 @@ export class PaginationComponent implements OnInit {
     return x;
   }
 
-  private exchangePage(index: number) {
+  public exchangePage(index: number) {
     this.pageCurrent.isActive = false;
     this.pages[index].isActive = true;
     this.pageCurrent = this.pages[index];
   }
 
-  private nextPage() {
+  public nextPage() {
     let index = this.getIndex(this.pageCurrent);
     this.pageCurrent.isActive = false;
     let page = this.pages[index + 1];
@@ -66,7 +66,7 @@ export class PaginationComponent implements OnInit {
        
   }
 
-  private previousPage() {
+  public previousPage() {
     let index = this.getIndex(this.pageCurrent);
     this.pageCurrent.isActive = false;
     let page = this.pages[index - 1];
@@ -74,11 +74,11 @@ export class PaginationComponent implements OnInit {
     this.pageCurrent = page;
   }
 
-  private getIndex(page: any) {
+  public getIndex(page: any) {
     return this.pages.indexOf(page);
   }
 
-  private eventChange() {
+  public eventChange() {
     let index = this.getIndex(this.pageCurrent);
     
     if(index == 0) {
