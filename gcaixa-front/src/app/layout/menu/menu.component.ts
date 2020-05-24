@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  private usuario: string = '';
+  public usuario: string = '';
 
   public constructor(private service: AuthService, private router: Router) { 
     this.usuario = localStorage.getItem("name_user");

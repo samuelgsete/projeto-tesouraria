@@ -92,16 +92,16 @@
             </ngx-datatable-column>
                 <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
                 <ngx-datatable-column name="Tesouraria" [width]="250">
-                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ tesouraria.nome }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ tesouraria.nome }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Saldo real" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ row.saldoReal | currency:'BRL' }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.saldoReal | currency:'BRL' }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template let-row="registro">{{ row.registro | dateFormat }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.registro | dateFormat }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
-                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                         <button class="button-actions" (click)="abirModalEditar(row, modalEditar)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
@@ -182,7 +182,7 @@
         >
             <ngx-datatable-column name="ID" [width]="100" prop="id"></ngx-datatable-column>
             <ngx-datatable-column name="Tesouraria" [width]="200">
-                <ng-template let-row="row" ngx-datatable-cell-template let-row="row">{{ tesouraria.nome }}</ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ tesouraria.nome }}</ng-template>
             </ngx-datatable-column>  
             <ngx-datatable-column name="Saldo real" [width]="100">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -193,7 +193,7 @@
                   </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Ações" [width]="100">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template let-row="row">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
                         <mat-icon>more_vert</mat-icon>
                     </button>
@@ -226,7 +226,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Saldo real" formControlName="saldoReal" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
@@ -234,12 +234,12 @@
                     <div class="row">
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
@@ -266,7 +266,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo real" formControlName="saldoReal" [(ngModel)]="value3" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Saldo real" formControlName="saldoReal" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
@@ -281,12 +281,12 @@
                     <div class="row">
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" [(ngModel)]="value1" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                         <div class="col-6">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" [(ngModel)]="value2" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                                <input matInput placeholder="Saldo inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>

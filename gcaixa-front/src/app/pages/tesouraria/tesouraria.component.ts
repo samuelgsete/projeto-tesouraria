@@ -21,8 +21,8 @@ export class TesourariaComponent implements OnInit {
   public f: FormGroup;
   public pesquisar: FormControl = new FormControl();
 
-  @ViewChild('modalCadastro', null) modalCadastrar: any;
-  @ViewChild('modalEditar', null) modalEditar: any;
+  @ViewChild('modalCadastro', { static: false }) modalCadastrar: any;
+  @ViewChild('modalEditar', { static: false }) modalEditar: any;
   public tesourarias = [];
   public paginacao = new Paginacao();
   public indicadorDeCarregamento = true;
