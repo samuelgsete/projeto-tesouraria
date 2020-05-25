@@ -1,29 +1,25 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../users/user.service';
 import { User } from 'src/shared/models/user.entity';
-import { UserNotFoundException } from 'src/shared/exceptions/modelos/user-not-found.exception';
 
 @Injectable()
 export class AuthService {
 
-  public user = new User();
-
-  constructor (
-                private usersService: UserService,
+  public constructor (
+                private userService: UserService,
                 private jwtService: JwtService
               ) 
   { }
 
   public  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+    const user = await this.userService.findOne(username);
     if(!user) {
-      throw new UserNotFoundException('Usuario inexistente');
+      throw new UnauthorizedException('Usuario não encontrado');
     }
 
     if (user && user.password === pass) {
-      this.user = user;
       return user;
     }
     return null;

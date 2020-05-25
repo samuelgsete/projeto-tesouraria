@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { User } from 'src/shared/models/user.entity';
 import { Repository } from 'typeorm';
 import { IdInvalidException } from 'src/shared/exceptions/modelos/Id-invalid.exception';
@@ -16,7 +17,13 @@ export class UserService {
     }
 
     public async save(user: User) {
-        return this.repository.save(user);  
+        return this.repository
+                    .save(user)
+                    .then( e => {
+                        return {
+                            mensagem: 'Criado com sucesso'
+                        };
+                    }) 
     }
 
     public async update(user: User) {

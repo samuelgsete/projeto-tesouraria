@@ -4,7 +4,7 @@
     .hero {
         height: 220px;
         padding: 10px 35px;
-        background-color: #00b8d4;
+        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
         
         .header-page {
             margin-top: 50px;
@@ -130,7 +130,7 @@
 
         .hero {
             height: 240px;
-            background-color: #00b8d4;
+            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
             padding: 60px;
 
             .header-page {

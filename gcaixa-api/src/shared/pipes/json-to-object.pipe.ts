@@ -6,7 +6,7 @@ import { Entrada } from '../models/entrada.entity';
 import { Contagem } from '../models/contagem.entity';
 
 @Injectable()
-export class ValidationPipe implements PipeTransform {
+export class JsonToObjectPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
       if(metadata.type === 'body'){
           let _saidas = [];

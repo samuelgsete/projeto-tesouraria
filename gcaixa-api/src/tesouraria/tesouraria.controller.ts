@@ -5,8 +5,7 @@ import { Request } from 'express';
 import { TesourariaService } from './tesouraria.service';
 import { Tesouraria } from 'src/shared/models/tesouraria.entity';
 import { FiltroBusca } from 'src/shared/models/filtro-busca';
-import { ValidationPipe } from 'src/shared/pipes/validation.pipe';
-
+import { JsonToObjectPipe } from 'src/shared/pipes/json-to-object.pipe';
 
 @Controller('tesouraria')
 @UseGuards(JwtAuthGuard)
@@ -80,11 +79,10 @@ export class TesourariaController {
 
     @Put()
     public update(
-                    @Body(new ValidationPipe) tesouraria: Tesouraria,
+                    @Body(new JsonToObjectPipe) tesouraria: Tesouraria,
                     @Req() request: Request
                  ) 
     {
-        console.log(tesouraria);
         let userId = parseInt(request.headers.userid[0]);
         return this.service.update(userId, tesouraria);
     }

@@ -6,11 +6,11 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    background-color: #2BBBAD;
+    background: linear-gradient(to bottom, #2BBBAD, #35998f);
 
     .content {
         background-color: #ffffff;
-        padding: 30px 30px 50px; 
+        padding: 35px 30px 50px; 
         overflow-y: auto;
         .header {
             text-align: center;

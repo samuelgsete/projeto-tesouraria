@@ -2,17 +2,15 @@ import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from "@nestjs/commo
 import { Response } from 'express';
 
 import { IdInvalidException } from "./modelos/Id-invalid.exception";
-import { UserNotFoundException } from "./modelos/user-not-found.exception";
 import { PermissionDeniedException } from "./modelos/permission-denied.excepton";
 import { TreasuryNotFoundException } from "./modelos/treasury-not-foud.exception";
 
 @Catch(
         IdInvalidException, 
-        UserNotFoundException, 
         PermissionDeniedException, 
         TreasuryNotFoundException
 )
-export class GenericaExceptionsFilter implements ExceptionFilter {
+export class GenericExceptionFilter implements ExceptionFilter {
     catch(ex: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();

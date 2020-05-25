@@ -9,47 +9,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Credito = void 0;
 const typeorm_1 = require("typeorm");
 const entrada_entity_1 = require("./entrada.entity");
 const entidade_base_1 = require("./entidade-base");
-let Credito = class Credito extends entidade_base_1.EntidadeBase {
-    constructor(values = {}) {
-        super();
-        Object.assign(this, values);
-    }
-};
-__decorate([
-    typeorm_1.Column({ length: 120, unique: false, nullable: false }),
-    __metadata("design:type", String)
-], Credito.prototype, "titular", void 0);
-__decorate([
-    typeorm_1.Column({ type: 'float', unique: false, nullable: false }),
-    __metadata("design:type", Number)
-], Credito.prototype, "valor", void 0);
-__decorate([
-    typeorm_1.Column({ length: 15, unique: true, nullable: true }),
-    __metadata("design:type", String)
-], Credito.prototype, "telefone", void 0);
-__decorate([
-    typeorm_1.UpdateDateColumn(),
-    __metadata("design:type", Date)
-], Credito.prototype, "registro", void 0);
-__decorate([
-    typeorm_1.Column({
-        type: "enum",
-        enum: ["QUITADO", "ABERTO", "ENCERRADO"],
-        default: "ABERTO",
-        unique: false, nullable: true
-    }),
-    __metadata("design:type", String)
-], Credito.prototype, "situacao", void 0);
-__decorate([
-    typeorm_1.ManyToOne(type => entrada_entity_1.Entrada, entrada => entrada.creditos, { onDelete: "CASCADE" }),
-    __metadata("design:type", entrada_entity_1.Entrada)
-], Credito.prototype, "entrada", void 0);
-Credito = __decorate([
-    typeorm_1.Entity(),
-    __metadata("design:paramtypes", [Object])
-], Credito);
+let Credito = (() => {
+    let Credito = class Credito extends entidade_base_1.EntidadeBase {
+        constructor(values = {}) {
+            super();
+            Object.assign(this, values);
+        }
+    };
+    __decorate([
+        typeorm_1.Column({ length: 120, unique: false, nullable: false }),
+        __metadata("design:type", String)
+    ], Credito.prototype, "titular", void 0);
+    __decorate([
+        typeorm_1.Column({ type: 'float', unique: false, nullable: false }),
+        __metadata("design:type", Number)
+    ], Credito.prototype, "valor", void 0);
+    __decorate([
+        typeorm_1.Column({ length: 15, unique: true, nullable: true }),
+        __metadata("design:type", String)
+    ], Credito.prototype, "telefone", void 0);
+    __decorate([
+        typeorm_1.UpdateDateColumn(),
+        __metadata("design:type", Date)
+    ], Credito.prototype, "registro", void 0);
+    __decorate([
+        typeorm_1.Column({
+            type: "enum",
+            enum: ["QUITADO", "ABERTO", "ENCERRADO"],
+            default: "ABERTO",
+            unique: false, nullable: true
+        }),
+        __metadata("design:type", String)
+    ], Credito.prototype, "situacao", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(type => entrada_entity_1.Entrada, entrada => entrada.creditos, { onDelete: "CASCADE" }),
+        __metadata("design:type", entrada_entity_1.Entrada)
+    ], Credito.prototype, "entrada", void 0);
+    Credito = __decorate([
+        typeorm_1.Entity(),
+        __metadata("design:paramtypes", [Object])
+    ], Credito);
+    return Credito;
+})();
 exports.Credito = Credito;
 //# sourceMappingURL=credito.entity.js.map

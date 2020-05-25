@@ -7,7 +7,7 @@ const persistense_exception_filter_1 = require("./shared/exceptions/persistense-
 const generic_exception_filter_1 = require("./shared/exceptions/generic-exception.filter");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, { cors: true });
-    app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter(), new persistense_exception_filter_1.PersistenceExceptionFilter(), new generic_exception_filter_1.GenericaExceptionsFilter());
+    app.useGlobalFilters(new generic_exception_filter_1.GenericExceptionFilter(), new http_exception_filter_1.HttpExceptionFilter(), new persistense_exception_filter_1.PersistenceExceptionFilter());
     await app.listen(3000);
 }
 bootstrap();
