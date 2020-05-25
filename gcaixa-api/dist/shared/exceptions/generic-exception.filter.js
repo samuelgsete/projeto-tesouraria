@@ -6,26 +6,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GenericExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
 const Id_invalid_exception_1 = require("./modelos/Id-invalid.exception");
-const user_not_found_exception_1 = require("./modelos/user-not-found.exception");
 const permission_denied_excepton_1 = require("./modelos/permission-denied.excepton");
 const treasury_not_foud_exception_1 = require("./modelos/treasury-not-foud.exception");
-let GenericaExceptionsFilter = class GenericaExceptionsFilter {
-    catch(ex, host) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse();
-        response
-            .status(common_1.HttpStatus.INTERNAL_SERVER_ERROR)
-            .json({
-            codigo: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
-            tipo: ex.name,
-            detalhes: ex.message
-        });
-    }
-};
-GenericaExceptionsFilter = __decorate([
-    common_1.Catch(Id_invalid_exception_1.IdInvalidException, user_not_found_exception_1.UserNotFoundException, permission_denied_excepton_1.PermissionDeniedException, treasury_not_foud_exception_1.TreasuryNotFoundException)
-], GenericaExceptionsFilter);
-exports.GenericaExceptionsFilter = GenericaExceptionsFilter;
+let GenericExceptionFilter = (() => {
+    let GenericExceptionFilter = class GenericExceptionFilter {
+        catch(ex, host) {
+            const ctx = host.switchToHttp();
+            const response = ctx.getResponse();
+            response
+                .status(common_1.HttpStatus.INTERNAL_SERVER_ERROR)
+                .json({
+                codigo: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                tipo: ex.name,
+                detalhes: ex.message
+            });
+        }
+    };
+    GenericExceptionFilter = __decorate([
+        common_1.Catch(Id_invalid_exception_1.IdInvalidException, permission_denied_excepton_1.PermissionDeniedException, treasury_not_foud_exception_1.TreasuryNotFoundException)
+    ], GenericExceptionFilter);
+    return GenericExceptionFilter;
+})();
+exports.GenericExceptionFilter = GenericExceptionFilter;
 //# sourceMappingURL=generic-exception.filter.js.map

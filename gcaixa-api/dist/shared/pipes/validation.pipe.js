@@ -6,64 +6,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ValidationPipe = void 0;
 const common_1 = require("@nestjs/common");
-const tesouraria_entity_1 = require("../models/tesouraria.entity");
-const saida_entity_1 = require("../models/saida.entity");
-const entrada_entity_1 = require("../models/entrada.entity");
-const contagem_entity_1 = require("../models/contagem.entity");
-let ValidationPipe = class ValidationPipe {
-    transform(value, metadata) {
-        if (metadata.type === 'body') {
-            let _saidas = [];
-            value.saidas.forEach(s => {
-                _saidas.push(new saida_entity_1.Saida({
-                    id: s.id,
-                    descricao: s.descricao,
-                    registro: s.registro,
-                    valor: s.valor,
-                    tipo: s.tipo,
-                    detalhes: s.detalhes
-                }));
-            });
-            let _entradas = [];
-            value.entradas.forEach(e => {
-                _entradas.push(new entrada_entity_1.Entrada({
-                    id: e.id,
-                    descricao: e.descricao,
-                    valor: e.valor,
-                    ofertante: e.ofertante,
-                    registro: e.registro,
-                    tipo: e.tipo,
-                    detalhes: e.detalhes,
-                    creditos: e.creditos
-                }));
-            });
-            let _contagens = [];
-            value.contagens.forEach(c => {
-                _contagens.push(new contagem_entity_1.Contagem({
-                    id: c.id,
-                    saldoReal: c.saldoReal,
-                    registro: c.registro
-                }));
-            });
-            let _tesouraria = new tesouraria_entity_1.Tesouraria({
-                id: value.id,
-                nome: value.nome,
-                saldoInicial: value.saldoInicial,
-                saldoAtual: value.saldoAtual,
-                saidas: _saidas,
-                entradas: _entradas,
-                contagens: _contagens,
-                detalhes: value.detalhes,
-                userId: value.userId
-            });
-            return _tesouraria;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+let ValidationPipe = (() => {
+    let ValidationPipe = class ValidationPipe {
+        async transform(value, { metatype }) {
+            if (!metatype || !this.toValidate(metatype)) {
+                return value;
+            }
+            const object = class_transformer_1.plainToClass(metatype, value);
+            const errors = await class_validator_1.validate(object);
+            if (errors.length > 0) {
+                throw new common_1.BadRequestException('Validation failed');
+            }
+            return value;
         }
-        return value;
-    }
-};
-ValidationPipe = __decorate([
-    common_1.Injectable()
-], ValidationPipe);
+        toValidate(metatype) {
+            const types = [String, Boolean, Number, Array, Object];
+            return !types.includes(metatype);
+        }
+    };
+    ValidationPipe = __decorate([
+        common_1.Injectable()
+    ], ValidationPipe);
+    return ValidationPipe;
+})();
 exports.ValidationPipe = ValidationPipe;
 //# sourceMappingURL=validation.pipe.js.map

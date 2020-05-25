@@ -5,7 +5,7 @@
     .hero {
         height: 220px;
         padding: 10px 35px;
-        background-color: #00b8d4;
+        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
         
         a:first-child {
             color: #fff;
@@ -112,7 +112,7 @@
 
         .hero {
             height: 240px;
-            background-color: #00b8d4;
+            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
       
             .header-page {
                 height: 100%;

@@ -114,10 +114,10 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                        <button class="button-actions" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)" mat-icon-button>
+                        <button style="color: #4285F4" class="button-actions" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="button-actions" (click)="deletarMovimentacao(row)" mat-icon-button>
+                        <button style="color: #ff4444" class="button-actions " (click)="deletarMovimentacao(row)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                     </ng-template>

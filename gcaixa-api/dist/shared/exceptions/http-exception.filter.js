@@ -6,26 +6,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HttpExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
-let HttpExceptionFilter = class HttpExceptionFilter {
-    catch(ex, host) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse();
-        const status = ex.getStatus();
-        const request = ctx.getRequest();
-        console.log(ex);
-        response
-            .status(status)
-            .json({
-            codigo: status,
-            tipo: ex.message.error,
-            detalhes: ex.message.message,
-            caminho: request.url
-        });
-    }
-};
-HttpExceptionFilter = __decorate([
-    common_1.Catch(common_1.BadRequestException, common_1.NotFoundException, common_1.InternalServerErrorException, common_1.UnauthorizedException)
-], HttpExceptionFilter);
+let HttpExceptionFilter = (() => {
+    let HttpExceptionFilter = class HttpExceptionFilter {
+        catch(ex, host) {
+            const ctx = host.switchToHttp();
+            const response = ctx.getResponse();
+            const status = ex.getStatus();
+            const request = ctx.getRequest();
+            let message = ex.message.message;
+            console.log(ex.message.message[0].constraints);
+            if (typeof ex.message.message == 'object') {
+                message = ex.message.message[0].constraints.length;
+                console.log(ex.message.message[0].constraints.isDefined);
+            }
+            response
+                .status(status)
+                .json({
+                codigo: status,
+                tipo: ex.message.error,
+                detalhes: message,
+                caminho: request.url
+            });
+        }
+    };
+    HttpExceptionFilter = __decorate([
+        common_1.Catch(common_1.BadRequestException, common_1.NotFoundException, common_1.InternalServerErrorException, common_1.ForbiddenException, common_1.UnauthorizedException)
+    ], HttpExceptionFilter);
+    return HttpExceptionFilter;
+})();
 exports.HttpExceptionFilter = HttpExceptionFilter;
 //# sourceMappingURL=http-exception.filter.js.map

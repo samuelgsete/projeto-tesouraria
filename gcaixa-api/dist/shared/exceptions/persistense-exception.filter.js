@@ -6,42 +6,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TypeError = exports.PersistenceExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
-let PersistenceExceptionFilter = class PersistenceExceptionFilter {
-    catch(ex, host) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse();
-        const detalhes = this.generateMessageError(ex);
-        console.log(ex);
-        response
-            .status(common_1.HttpStatus.INTERNAL_SERVER_ERROR)
-            .json({
-            codigo: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
-            tipo: ex.name,
-            detalhes: detalhes
-        });
-    }
-    generateMessageError(ex) {
-        let message = '';
-        if (ex.code == TypeError.NOT_NULL) {
-            message += "A propriedade '" + ex.column + "' não pode ser nula";
+let PersistenceExceptionFilter = (() => {
+    let PersistenceExceptionFilter = class PersistenceExceptionFilter {
+        catch(ex, host) {
+            const ctx = host.switchToHttp();
+            const response = ctx.getResponse();
+            const detalhes = this.generateMessageError(ex);
+            console.log(ex);
+            response
+                .status(common_1.HttpStatus.INTERNAL_SERVER_ERROR)
+                .json({
+                codigo: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+                tipo: ex.name,
+                detalhes: detalhes
+            });
         }
-        else if (ex.code == TypeError.UNIQUE) {
-            message += "O valor já foi cadastrada";
+        generateMessageError(ex) {
+            let message = '';
+            if (ex.code == TypeError.NOT_NULL) {
+                message += `A propriedade ${ex.column} não pode ser nula`;
+            }
+            else if (ex.code == TypeError.UNIQUE) {
+                message += "O valor já foi cadastrada";
+            }
+            else if (ex.code == TypeError.LONG_VALUE) {
+                message += "O valor contém uma cadeia de caractares muito longa";
+            }
+            else if (ex.code == TypeError.NOT_INTEGER) {
+                message += "O valor precisa ser numérico";
+            }
+            return message;
         }
-        else if (ex.code == TypeError.LONG_VALUE) {
-            message += "O valor contém uma cadeia de caractares muito longa";
-        }
-        else if (ex.code == TypeError.NOT_INTEGER) {
-            message += "O valor precisa ser numérico";
-        }
-        return message;
-    }
-};
-PersistenceExceptionFilter = __decorate([
-    common_1.Catch(typeorm_1.QueryFailedError)
-], PersistenceExceptionFilter);
+    };
+    PersistenceExceptionFilter = __decorate([
+        common_1.Catch(typeorm_1.QueryFailedError)
+    ], PersistenceExceptionFilter);
+    return PersistenceExceptionFilter;
+})();
 exports.PersistenceExceptionFilter = PersistenceExceptionFilter;
 var TypeError;
 (function (TypeError) {

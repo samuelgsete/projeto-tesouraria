@@ -30,16 +30,17 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/home');
     }, err => {
       this.messageError(err);
-      this.f.reset();
+      //this.f.reset();
     });
   }
 
-  public messageError(erro: any) {
-    if(erro.status == 0) {
-      this.toastr.error('Tente mais tarde', 'Servidor indisponível', { progressBar: true });
+  public messageError(response: any) {
+    if(response.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
-    if(erro.status == 401) {
-      this.toastr.error('Login ou senha inválidos', 'ERRO', { progressBar: true });
+    if(response.status == 401) {
+      this.toastr.error(response.error.detalhes, 'ERRO', { progressBar: true });
+      console.log(response);
     }
   }
 

@@ -19,6 +19,9 @@ export class User extends EntidadeBase {
     @Column({ length: 20, unique: false, nullable: false })
     public password: string;
 
+    @Column({ default: true })
+    public isActive: boolean;
+
     public constructor(values: Object = {}) {
         super();
         Object.assign(this, values);

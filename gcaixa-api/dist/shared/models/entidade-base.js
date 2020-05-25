@@ -9,13 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EntidadeBase = void 0;
 const typeorm_1 = require("typeorm");
-class EntidadeBase {
-    constructor(values = {}) { Object.assign(this, values); }
-}
-__decorate([
-    typeorm_1.PrimaryGeneratedColumn({ type: 'int' }),
-    __metadata("design:type", Number)
-], EntidadeBase.prototype, "id", void 0);
+let EntidadeBase = (() => {
+    class EntidadeBase {
+        constructor(values = {}) { Object.assign(this, values); }
+    }
+    __decorate([
+        typeorm_1.PrimaryGeneratedColumn({ type: 'int' }),
+        __metadata("design:type", Number)
+    ], EntidadeBase.prototype, "id", void 0);
+    return EntidadeBase;
+})();
 exports.EntidadeBase = EntidadeBase;
 //# sourceMappingURL=entidade-base.js.map
