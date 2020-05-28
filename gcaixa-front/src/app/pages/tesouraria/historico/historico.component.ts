@@ -76,7 +76,6 @@ export class HistoricoComponent implements OnInit {
 
     this.servico.obterHistoricoMensal(id, this.anoSelecionado).subscribe( response => {
       this.historico = response.body;
-      console.log(this.historico);
       this.plotar(this.historico);
       this.indicadorDeCarregamento = false;
 
@@ -122,10 +121,15 @@ export class HistoricoComponent implements OnInit {
   }
 
   private errorMessage(err: any) {
-    if(err.status == 401) {
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
+    }
+
+    else if(err.status == 401) {
       this.router.navigateByUrl('/login');
-      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      this.toastr.error('Necessário autenticação', 'ERRO', { progressBar: true });
       localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
     }
     else {
       this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });

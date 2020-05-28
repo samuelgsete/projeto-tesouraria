@@ -1,12 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like} from 'typeorm';
 
 import { Tesouraria } from 'src/shared/models/tesouraria.entity';
 import { FiltroBusca } from 'src/shared/models/filtro-busca';
-import { IdInvalidException } from 'src/shared/exceptions/modelos/Id-invalid.exception';
-import { PermissionDeniedException } from 'src/shared/exceptions/modelos/permission-denied.excepton';
-import { TreasuryNotFoundException } from 'src/shared/exceptions/modelos/treasury-not-foud.exception';
+import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
+import { PermissionDeniedException } from 'src/shared/exceptions/models/permission-denied.excepton';
+import { TreasuryNotFoundException } from 'src/shared/exceptions/models/treasury-not-foud.exception';
+import { IsCreatedEception } from 'src/shared/exceptions/models/is-created.exception';
 
 @Injectable()
 export class TesourariaService {
@@ -47,6 +48,12 @@ export class TesourariaService {
         }
 
         return tesouraria;
+    }
+
+    public async finByName(name: string) {
+        const result = await this.repositoryTesouraria.find({ where: { nome: name }});
+        const treasury = result[0];
+        return treasury;
     }
 
     public async getReport(id: number, userId: number, ano: number, mes: number): Promise<any> {
@@ -117,6 +124,12 @@ export class TesourariaService {
 
         tesouraria.saldoAtual = tesouraria.saldoInicial;
 
+        const result = await this.finByName(tesouraria.nome);
+
+        if(result) {
+            throw new IsCreatedEception('O nome da tesouraria já está sendo utilizado', HttpStatus.BAD_REQUEST);
+        }
+
         return this.repositoryTesouraria
             .save(tesouraria)
             .then( e => {
@@ -137,11 +150,11 @@ export class TesourariaService {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        tesouraria.atualizarSaldo();
-
         if(tesouraria.id == null || tesouraria.id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
+
+        tesouraria.atualizarSaldo();
 
         return this.repositoryTesouraria
             .save(tesouraria)

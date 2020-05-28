@@ -21,7 +21,7 @@ let AuthService = (() => {
             this.jwtService = jwtService;
         }
         async validateUser(username, pass) {
-            const user = await this.userService.findOne(username);
+            const user = await this.userService.findByUserName(username);
             if (!user) {
                 throw new common_1.UnauthorizedException('Usuario não encontrado');
             }

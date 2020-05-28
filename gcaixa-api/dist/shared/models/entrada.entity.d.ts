@@ -6,7 +6,7 @@ export declare class Entrada extends EntidadeBase {
     valor: number;
     ofertante: string;
     registro: Date;
-    tipo: TipoMovimentacao;
+    readonly tipo: TipoMovimentacao;
     creditos: Credito[];
     detalhes: string;
     tesouraria: Tesouraria;
