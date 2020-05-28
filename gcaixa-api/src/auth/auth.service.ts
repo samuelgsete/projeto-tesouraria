@@ -14,7 +14,7 @@ export class AuthService {
   { }
 
   public  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userService.findOne(username);
+    const user = await this.userService.findByUserName(username);
     if(!user) {
       throw new UnauthorizedException('Usuario não encontrado');
     }

@@ -6,6 +6,7 @@ import { TesourariaService } from './tesouraria.service';
 import { Tesouraria } from 'src/shared/models/tesouraria.entity';
 import { FiltroBusca } from 'src/shared/models/filtro-busca';
 import { JsonToObjectPipe } from 'src/shared/pipes/json-to-object.pipe';
+import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
 
 @Controller('tesouraria')
 @UseGuards(JwtAuthGuard)
@@ -20,6 +21,10 @@ export class TesourariaController {
                             @Req() request: Request
                        ): Promise<any[]> 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.findAll(userId, new FiltroBusca(filtro, page));
     }
@@ -30,6 +35,10 @@ export class TesourariaController {
                         @Req() request: Request
                    ): Promise<Tesouraria> 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.findById(id, userId);
     }
@@ -42,6 +51,10 @@ export class TesourariaController {
                         @Req() request: Request
                     ): Promise<any[]> 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.getReport(id, userId, ano, mes);
     }
@@ -53,6 +66,10 @@ export class TesourariaController {
                         @Req() request: Request 
                      ): Promise<any[]> 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.getHistory(userId, id, ano);
     }
@@ -63,6 +80,10 @@ export class TesourariaController {
                         @Req() request: Request
                      ): Promise<any> 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.getRecipes(id, userId);
     }
@@ -83,6 +104,10 @@ export class TesourariaController {
                     @Req() request: Request
                  ) 
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.update(userId, tesouraria);
     }
@@ -93,6 +118,10 @@ export class TesourariaController {
                     @Req() request: Request
                  )
     {
+        if(!request.headers.userid){
+            throw new IdInvalidException('O ID do usuário está ausente');
+        }
+
         let userId = parseInt(request.headers.userid[0]);
         return this.service.delete(id, userId);
     }

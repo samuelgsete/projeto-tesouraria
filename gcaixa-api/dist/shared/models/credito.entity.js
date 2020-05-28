@@ -13,6 +13,8 @@ exports.Credito = void 0;
 const typeorm_1 = require("typeorm");
 const entrada_entity_1 = require("./entrada.entity");
 const entidade_base_1 = require("./entidade-base");
+const class_validator_1 = require("class-validator");
+const credits_messages_1 = require("../validation/credits.messages");
 let Credito = (() => {
     let Credito = class Credito extends entidade_base_1.EntidadeBase {
         constructor(values = {}) {
@@ -21,15 +23,23 @@ let Credito = (() => {
         }
     };
     __decorate([
-        typeorm_1.Column({ length: 120, unique: false, nullable: false }),
+        class_validator_1.IsNotEmpty({ message: `${credits_messages_1.credits.holderNotNul}` }),
+        class_validator_1.Length(2, 60, { message: `${credits_messages_1.credits.holderLength}` }),
+        class_validator_1.IsString({ message: `${credits_messages_1.credits.holderValid}` }),
+        typeorm_1.Column({ length: 60, unique: false, nullable: false }),
         __metadata("design:type", String)
     ], Credito.prototype, "titular", void 0);
     __decorate([
+        class_validator_1.IsNotEmpty({ message: `${credits_messages_1.credits.valueNotNull}` }),
+        class_validator_1.IsNumber({}, { message: `${credits_messages_1.credits.valueValid}` }),
         typeorm_1.Column({ type: 'float', unique: false, nullable: false }),
         __metadata("design:type", Number)
     ], Credito.prototype, "valor", void 0);
     __decorate([
-        typeorm_1.Column({ length: 15, unique: true, nullable: true }),
+        class_validator_1.IsNotEmpty({ message: `${credits_messages_1.credits.phoneNotNul}` }),
+        class_validator_1.Length(10, 15, { message: `${credits_messages_1.credits.phoneLength}` }),
+        class_validator_1.IsString({ message: `${credits_messages_1.credits.phoneValid}` }),
+        typeorm_1.Column({ length: 15, unique: false, nullable: true }),
         __metadata("design:type", String)
     ], Credito.prototype, "telefone", void 0);
     __decorate([

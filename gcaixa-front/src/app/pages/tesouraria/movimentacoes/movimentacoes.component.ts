@@ -51,14 +51,19 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   errorMessage(err: any) {
-    if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
-      localStorage.removeItem('id_token');
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
-    if(err.status == 500) {
-      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
+
+    else if(err.status == 401) {
+      this.router.navigateByUrl('/login');
+      this.toastr.info('Necessário autenticação', 'ERRO', { progressBar: true });
+      localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
+    }
+
+    else {
+      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
     }
   }
 
@@ -292,7 +297,6 @@ export class MovimentacoesComponent implements OnInit {
       });
       this.creditos = row.creditos;
       modalAtualizarEntrada.show();
-      console.log(row);
     }
   }
 
@@ -305,17 +309,17 @@ export class MovimentacoesComponent implements OnInit {
     this.load();
     this.f = this._fb.group({
       id: [null],
-      descricao:['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
       valor:[Validators.required],
-      ofertante: ['', [Validators.minLength(4), Validators.maxLength(50)]],
+      ofertante: ['', [Validators.minLength(2), Validators.maxLength(60)]],
       tipo: [''],
       registro: [''],
-      detalhes: ['', Validators.maxLength(250)],
+      detalhes: ['', Validators.maxLength(255)],
     });
 
     this.fcreditos = this._fb.group({
       id: [null],
-      titular: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      titular: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
       valor:['', Validators.required],
       registro: [''],
       telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
@@ -324,11 +328,11 @@ export class MovimentacoesComponent implements OnInit {
 
     this.fsaidas = this._fb.group({
       id: [null],
-      descricao:['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
       valor:[Validators.required],
       tipo: [''],
       registro: [''],
-      detalhes: ['', Validators.maxLength(200)]
+      detalhes: ['', Validators.maxLength(255)]
     });
   }
 }

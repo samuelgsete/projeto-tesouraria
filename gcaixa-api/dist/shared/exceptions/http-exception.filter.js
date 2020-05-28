@@ -14,25 +14,18 @@ let HttpExceptionFilter = (() => {
             const ctx = host.switchToHttp();
             const response = ctx.getResponse();
             const status = ex.getStatus();
-            const request = ctx.getRequest();
             let message = ex.message.message;
-            console.log(ex.message.message[0].constraints);
-            if (typeof ex.message.message == 'object') {
-                message = ex.message.message[0].constraints.length;
-                console.log(ex.message.message[0].constraints.isDefined);
-            }
             response
                 .status(status)
                 .json({
-                codigo: status,
-                tipo: ex.message.error,
-                detalhes: message,
-                caminho: request.url
+                status: status,
+                details: message,
+                redirect: true,
             });
         }
     };
     HttpExceptionFilter = __decorate([
-        common_1.Catch(common_1.BadRequestException, common_1.NotFoundException, common_1.InternalServerErrorException, common_1.ForbiddenException, common_1.UnauthorizedException)
+        common_1.Catch(common_1.BadRequestException, common_1.NotFoundException, common_1.InternalServerErrorException, common_1.UnauthorizedException)
     ], HttpExceptionFilter);
     return HttpExceptionFilter;
 })();

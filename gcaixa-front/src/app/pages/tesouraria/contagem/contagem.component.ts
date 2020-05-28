@@ -49,14 +49,19 @@ export class ContagemComponent implements OnInit {
   }
 
   errorMessage(err: any) {
-    if(err.status == 401) {
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
+    }
+
+    else if(err.status == 401) {
       this.router.navigateByUrl('/login');
       this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
       localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
     }
-    if(err.status == 500) {
+
+    else {
       this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
     }
   }
 

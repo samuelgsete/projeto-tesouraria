@@ -2,17 +2,27 @@ import { Entity, Column, ManyToOne, UpdateDateColumn } from "typeorm";
 
 import { Entrada } from "./entrada.entity";
 import { EntidadeBase } from "./entidade-base";
+import { IsNotEmpty, Length, IsString, IsNumber } from "class-validator";
+import { credits } from "../validation/credits.messages";
 
 @Entity()
 export class Credito extends EntidadeBase {
 
-    @Column({ length: 120, unique:false, nullable:false })
+    @IsNotEmpty({ message: `${credits.holderNotNul}` })
+    @Length(2, 60, { message: `${credits.holderLength}` })
+    @IsString({ message: `${credits.holderValid}` })
+    @Column({ length: 60, unique:false, nullable:false })
     public titular: string;
 
+    @IsNotEmpty({ message: `${credits.valueNotNull}` })
+    @IsNumber({}, { message: `${credits.valueValid}` })
     @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
-    @Column({ length: 15, unique: true, nullable: true })
+    @IsNotEmpty({ message: `${credits.phoneNotNul}` })
+    @Length(10, 15, { message: `${credits.phoneLength}` })
+    @IsString({ message: `${credits.phoneValid}` })
+    @Column({ length: 15, unique: false, nullable: true })
     public telefone: string;
 
     @UpdateDateColumn()

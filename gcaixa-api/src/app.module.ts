@@ -34,7 +34,7 @@ import { User } from './shared/models/user.entity';
     }),
     TesourariaModule,
     AuthModule,
-    UserModule
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

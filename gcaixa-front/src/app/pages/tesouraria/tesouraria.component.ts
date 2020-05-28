@@ -41,13 +41,18 @@ export class TesourariaComponent implements OnInit {
   }
 
   errorMessage(err: any) {
-    if(err.status == 401) {
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
+    }
+
+    else if(err.status == 401) {
       this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      this.toastr.info('Necessário autenticação', 'ERRO', { progressBar: true });
       localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
     }
     else {
-      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
     }
   }
 
@@ -169,7 +174,7 @@ export class TesourariaComponent implements OnInit {
       nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       saldoInicial:['', [Validators.required]],
       saldoAtual:['', []],
-      detalhes: ['', [Validators.minLength(4), Validators.maxLength(200)]],
+      detalhes: ['', [Validators.minLength(3), Validators.maxLength(255)]],
       entradas: [[]],
       contagens: [[]],
       saidas: [[]],

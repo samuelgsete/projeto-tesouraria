@@ -30,7 +30,6 @@ export class AuthComponent implements OnInit {
       this.router.navigateByUrl('/home');
     }, err => {
       this.messageError(err);
-      //this.f.reset();
     });
   }
 
@@ -39,8 +38,7 @@ export class AuthComponent implements OnInit {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
     if(response.status == 401) {
-      this.toastr.error(response.error.detalhes, 'ERRO', { progressBar: true });
-      console.log(response);
+      this.toastr.error(response.error.details, 'ERRO', { progressBar: true });
     }
   }
 

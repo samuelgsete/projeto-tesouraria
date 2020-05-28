@@ -3,17 +3,28 @@ import { Entity, ManyToOne, Column, OneToMany, CreateDateColumn } from "typeorm"
 import { Tesouraria } from "./tesouraria.entity";
 import { Credito } from "./credito.entity";
 import { EntidadeBase } from "./entidade-base";
+import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, ValidateNested } from "class-validator";
+import { recipes } from "../validation/recipes.messages";
+import { Type } from "class-transformer";
 
 @Entity()
 export class Entrada extends EntidadeBase {
 
-    @Column({ length: 120, unique: false, nullable: false })
+    @IsNotEmpty({ message: `${recipes.descriptionNotNul}` })
+    @Length(3, 60, { message: `${recipes.descriptionLength}` })
+    @IsString({message: `${recipes.descriptionValid}` })
+    @Column({ length: 60, unique: false, nullable: false })
     public descricao: string;
 
+    @IsNotEmpty({ message: `${recipes.valueNotNull}`})
+    @IsNumber({}, { message: `${recipes.valueValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
-    @Column({ length: 120, unique: false, nullable: true })
+    @IsOptional()
+    @IsString({ message: `${recipes.offererValid}` })
+    @Length(3, 60, { message: `${recipes.offererLength}` })
+    @Column({ length: 60, unique: false, nullable: true })
     public ofertante: string;
 
     @CreateDateColumn()
@@ -24,11 +35,16 @@ export class Entrada extends EntidadeBase {
         enum: ["ENTRADA", "SAIDA"], 
         unique: false, nullable: false
     })
-    public tipo: TipoMovimentacao = "ENTRADA";
+    public readonly tipo: TipoMovimentacao = "ENTRADA";
 
+    @ValidateNested()
+    @Type(() => Credito)
     @OneToMany(type => Credito, credito => credito.entrada, { cascade: true })
     public creditos: Credito[];
     
+    @IsOptional()
+    @Length(3, 255, {message: `${recipes.detailsLength}`})
+    @IsString({ message:`${recipes.detailsValid}`})
     @Column({ length: 255, unique: false, nullable: true })
     public detalhes: string;
 

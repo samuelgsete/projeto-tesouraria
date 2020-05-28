@@ -5,7 +5,7 @@ export declare class Saida extends EntidadeBase {
     valor: number;
     registro: Date;
     detalhes: string;
-    tipo: TipoMovimentacao;
+    readonly tipo: TipoMovimentacao;
     tesouraria: Tesouraria;
     constructor(values?: Object);
 }

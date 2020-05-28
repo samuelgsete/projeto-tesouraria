@@ -92,13 +92,18 @@ export class RelatorioComponent implements OnInit {
   }
 
   private errorMessage(err: any) {
-    if(err.status == 401) {
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
+    }
+    
+    else if(err.status == 401) {
       this.router.navigateByUrl('/login');
       this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
       localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
     }
     else {
-      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
       this.router.navigateByUrl('/home');
     }
   }

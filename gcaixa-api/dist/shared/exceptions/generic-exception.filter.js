@@ -8,20 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
-const Id_invalid_exception_1 = require("./modelos/Id-invalid.exception");
-const permission_denied_excepton_1 = require("./modelos/permission-denied.excepton");
-const treasury_not_foud_exception_1 = require("./modelos/treasury-not-foud.exception");
+const Id_invalid_exception_1 = require("./models/Id-invalid.exception");
+const permission_denied_excepton_1 = require("./models/permission-denied.excepton");
+const treasury_not_foud_exception_1 = require("./models/treasury-not-foud.exception");
 let GenericExceptionFilter = (() => {
     let GenericExceptionFilter = class GenericExceptionFilter {
         catch(ex, host) {
             const ctx = host.switchToHttp();
             const response = ctx.getResponse();
+            let httpStatus = 0;
+            if (ex instanceof Id_invalid_exception_1.IdInvalidException) {
+                httpStatus = common_1.HttpStatus.BAD_REQUEST;
+            }
+            else if (ex instanceof permission_denied_excepton_1.PermissionDeniedException) {
+                httpStatus = common_1.HttpStatus.FORBIDDEN;
+            }
+            else if (ex instanceof treasury_not_foud_exception_1.TreasuryNotFoundException) {
+                httpStatus = common_1.HttpStatus.NOT_FOUND;
+            }
+            else {
+                httpStatus = common_1.HttpStatus.INTERNAL_SERVER_ERROR;
+            }
             response
-                .status(common_1.HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(httpStatus)
                 .json({
-                codigo: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
-                tipo: ex.name,
-                detalhes: ex.message
+                status: httpStatus,
+                detail: ex.message,
+                redirect: true,
             });
         }
     };
