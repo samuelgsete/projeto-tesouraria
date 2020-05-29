@@ -21,13 +21,12 @@ export class HistoricoComponent implements OnInit {
   public chartType: string = 'bar';
  
   public rendimentos = [
-    { data: [], label: 'ENTRADAS' },
-    { data: [], label: 'SAIDAS' }
+    { data: [], label: 'RECEITAS' },
+    { data: [], label: 'DESPESAS' }
   ];
 
-  public saldos = [
-    { data: [], label: 'SALDO MENSAL' },
-    { data: [], label: 'SALDO REAL' }
+  public faturamento = [
+    { data: [], label: 'FATURAMENTO' },
   ];
 
   public chartLabels = [
@@ -44,10 +43,7 @@ export class HistoricoComponent implements OnInit {
     }
   ];
 
-  public receitasCores = [
-    {
-      backgroundColor: '#ffbb33',
-    },
+  public faturamentoCor = [
     {
       backgroundColor: '#0d47a1',
     }
@@ -86,27 +82,25 @@ export class HistoricoComponent implements OnInit {
 
   private plotar(body: any) {
     this.rendimentos = [
-      { data: [], label: 'ENTRADAS' },
-      { data: [], label: 'SAIDAS' }
+      { data: [], label: 'RECEITAS' },
+      { data: [], label: 'DESPESAS' }
     ];
 
-    this.saldos = [
-      { data: [], label: 'SALDO MENSAL' },
-      { data: [], label: 'SALDO REAL' }
+    this.faturamento = [
+      { data: [], label: 'FATURAMENTO' }
     ];
 
-    let rendimentos = body.rendimentosMensais;
+    const incomes = body.incomeYearly;
   
-    rendimentos.forEach(rendimento => {
-      this.rendimentos[0].data.push(rendimento.rendimentoEntradas);
-      this.rendimentos[1].data.push(rendimento.rendimentoSaidas);
+    incomes.forEach(income => {
+      this.rendimentos[0].data.push(income.incomeRecipes);
+      this.rendimentos[1].data.push(income.incomeExpenses);
     });
 
-    let receitas = body.receitasMensais;
+    const history = body.historyYearly;
 
-    receitas.forEach(receita => {
-      this.saldos[0].data.push(receita.saldoMensal);
-      this.saldos[1].data.push(receita.saldoReal);
+    history.forEach(balanceMonthly => {
+      this.faturamento[0].data.push(balanceMonthly);
     });
   }
 

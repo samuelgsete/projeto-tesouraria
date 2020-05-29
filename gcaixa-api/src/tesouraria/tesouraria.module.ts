@@ -8,6 +8,7 @@ import { Saida } from 'src/shared/models/saida.entity';
 import { Entrada } from 'src/shared/models/entrada.entity';
 import { Credito } from 'src/shared/models/credito.entity';
 import { Contagem } from 'src/shared/models/contagem.entity';
+import { TransactionsService } from './transactions.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -18,6 +19,6 @@ import { Contagem } from 'src/shared/models/contagem.entity';
     Contagem
   ])],
   controllers: [ TesourariaController ],
-  providers: [ TesourariaService ]
+  providers: [ TesourariaService, TransactionsService ]
 })
 export class TesourariaModule {}

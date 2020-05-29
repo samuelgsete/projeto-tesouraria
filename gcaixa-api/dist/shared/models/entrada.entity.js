@@ -24,16 +24,6 @@ let Entrada = (() => {
             this.tipo = "ENTRADA";
             Object.assign(this, values);
         }
-        atualizarEntrada() {
-            let _valor = 0;
-            this.creditos.forEach(c => {
-                if (c.situacao === 'QUITADO') {
-                    _valor += c.valor;
-                    c.situacao = 'ENCERRADO';
-                }
-            });
-            this.valor += _valor;
-        }
     };
     __decorate([
         class_validator_1.IsNotEmpty({ message: `${recipes_messages_1.recipes.descriptionNotNul}` }),

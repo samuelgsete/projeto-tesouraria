@@ -11,6 +11,5 @@ export declare class Entrada extends EntidadeBase {
     detalhes: string;
     tesouraria: Tesouraria;
     constructor(values?: Object);
-    atualizarEntrada(): void;
 }
 export declare type TipoMovimentacao = "ENTRADA" | "SAIDA";

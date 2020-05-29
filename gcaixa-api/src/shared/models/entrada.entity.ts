@@ -55,17 +55,6 @@ export class Entrada extends EntidadeBase {
         super();
         Object.assign(this, values);
     }
-
-    public atualizarEntrada() {
-        let _valor = 0; 
-        this.creditos.forEach( c => {
-            if(c.situacao === 'QUITADO'){
-                _valor += c.valor;
-                c.situacao = 'ENCERRADO';
-            }
-        });
-        this.valor += _valor;
-    }
 }
 
 export type TipoMovimentacao = "ENTRADA" | "SAIDA";

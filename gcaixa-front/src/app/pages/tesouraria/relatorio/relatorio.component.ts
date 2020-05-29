@@ -41,12 +41,11 @@ export class RelatorioComponent implements OnInit {
   public chartType: string = 'bar';
 
   public entradas = [
-    { data: [], label: 'Rendimento de entradas' }
-    
+    { data: [], label: 'Receitas' }
   ];
 
   public saidas = [
-    { data: [], label: 'Rendimento de saídas' }
+    { data: [], label: 'Despesas' }
   ]
 
   public rotulosEntradas = [];
@@ -91,42 +90,25 @@ export class RelatorioComponent implements OnInit {
     });
   }
 
-  private errorMessage(err: any) {
-    if(err.status == 0) {
-      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
-    }
-    
-    else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('user_id');
-    }
-    else {
-      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
-    }
-  }
-
   private alimentarGrafico() {
     this.entradas = [
-      { data: [], label: 'Rendimento de entradas' }
+      { data: [], label: 'Receitas' }
       
     ];
 
     this.saidas = [
-      { data: [], label: 'Rendimento de saidas' }
+      { data: [], label: 'Despesas' }
     ]
 
     this.rotulosEntradas = [];
     this.rotulosSaidas = [];
 
-    this.relatorio.entradas.forEach( entrada => {
+    this.relatorio.recipes.forEach( entrada => {
       this.entradas[0].data.push(entrada.valor);
       this.rotulosEntradas.push(this.dateFormat.transform(entrada.registro));
     });
 
-    this.relatorio.saidas.forEach( saida => {
+    this.relatorio.expenses.forEach( saida => {
       this.saidas[0].data.push(saida.valor);
       this.rotulosSaidas.push(this.dateFormat.transform(saida.registro));
     });
@@ -146,6 +128,24 @@ export class RelatorioComponent implements OnInit {
     erro => {
       this.errorMessage(erro);
     });
+  }
+
+  
+  private errorMessage(err: any) {
+    if(err.status == 0) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
+    }
+    
+    else if(err.status == 401) {
+      this.router.navigateByUrl('/login');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      localStorage.removeItem('id_token');
+      localStorage.removeItem('user_id');
+    }
+    else {
+      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
+    }
   }
 
   ngOnInit() { }
