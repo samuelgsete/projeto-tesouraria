@@ -3522,8 +3522,8 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/entrada.entity.ts": {
-        "version": "dbbb302043484894c18060f6b76315039431b1478874a94dd90ad0d8852ccce2",
-        "signature": "f47095b653ea95d2989b93ace66ce1a485d28b84898bcd717872a7dc3cc8a6a4",
+        "version": "8d28d5dabc13e572862dc296a4d9588f62625a53347063e50adea22679660006",
+        "signature": "ba2757fc7b444bc55c3bc8c74ea6b6305255312625231b9f7dff64357cbfa483",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/counts.messages.ts": {
@@ -3537,13 +3537,13 @@
         "affectsGlobalScope": false
       },
       "../src/shared/validation/treasuries.messages.ts": {
-        "version": "ab0524bb02b495cb71ae1092ffa45a4570321d136fe4fcbb1bc092208f74c8d3",
+        "version": "03f43b92108442d46690d347b779c4fa70e112ffe43f69c187883dee84f4b632",
         "signature": "081825c47807d0d2af1fddb37fac909d65da982d03bbd3d234c47714119e1a18",
         "affectsGlobalScope": false
       },
       "../src/shared/models/tesouraria.entity.ts": {
-        "version": "74a32494966b55c128481f16747527341ee16672f028594f427cca6694ce2ca8",
-        "signature": "4727dc2f73db31904acc4ff3553c8efa79f7834db71d6b2b32cb2d91bba2c753",
+        "version": "254375b3253edcdeabcb5153df351b228bf3c773ff4e18d29a9f1df67bb8af13",
+        "signature": "2ef19c36bc618faeffe39445ca6b22229b5fb662bf0c33f72ff65d1dd6ce34aa",
         "affectsGlobalScope": false
       },
       "../src/shared/models/filtro-busca.ts": {
@@ -3561,9 +3561,14 @@
         "signature": "80e6236a45a927fb3d2143acf92077ba1417118f8ed4def214f3a3f6f9604bc3",
         "affectsGlobalScope": false
       },
+      "../src/tesouraria/transactions.service.ts": {
+        "version": "8b991d0cc66f890b9e32f3822221388a1e2b1ba3147c03f685611a3821cc7145",
+        "signature": "a889e29653634b2221fb6803dc0138b85a0bff14365a5bc45e528d3a5297015c",
+        "affectsGlobalScope": false
+      },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "cf92b476a208b7b3753a3cc2b208292f66a61aa27fb05ae8840e31699ece4cca",
-        "signature": "294a3a2a9c9d5a9100e683772a51c44b43c464cefc951f80f1d81c3b3ac40e5e",
+        "version": "f4c6e41a1a53bad8bd4e13c8da6979a0b5cc9cbdff68fa96cfc6814cd3c3edb8",
+        "signature": "10606668d6271c5203f9a769f790b0a6c0c5df6cc2a50f66f799dfb4ea975f90",
         "affectsGlobalScope": false
       },
       "../src/shared/pipes/json-to-object.pipe.ts": {
@@ -3577,7 +3582,7 @@
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.module.ts": {
-        "version": "9c7ad3b062e80d754db3a0cd3f2d95d98a7ccb17d3f6c74954586a780ac786a0",
+        "version": "683207c6cee8281e8f406d970dd3f377be661728140c405d91d0183a6e87753a",
         "signature": "88b1b7754e26fb5c280fa564333bae8ad595eabbd09f4250365c49a0af2eb65e",
         "affectsGlobalScope": false
       },
@@ -3842,7 +3847,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/pipes/validation-custom.pipe.ts": {
-        "version": "34d89eb1b72b771ecfb216ec1b08949dcbf859feb1653f9aeba5213a28e12acc",
+        "version": "ab94f9e8f2fcc59bfc93708e502e78be0bc38215ed691ff908867a313fe73373",
         "signature": "134c61339c890213ca34c3b6212da9c01cc9ec918c4bef25b60469295a80ca62",
         "affectsGlobalScope": false
       },
@@ -10627,7 +10632,8 @@
         "../src/shared/models/saida.entity.ts",
         "../src/shared/models/tesouraria.entity.ts",
         "../src/tesouraria/tesouraria.controller.ts",
-        "../src/tesouraria/tesouraria.service.ts"
+        "../src/tesouraria/tesouraria.service.ts",
+        "../src/tesouraria/transactions.service.ts"
       ],
       "../src/tesouraria/tesouraria.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -10642,7 +10648,17 @@
         "../src/shared/exceptions/models/permission-denied.excepton.ts",
         "../src/shared/exceptions/models/treasury-not-foud.exception.ts",
         "../src/shared/models/filtro-busca.ts",
-        "../src/shared/models/tesouraria.entity.ts"
+        "../src/shared/models/tesouraria.entity.ts",
+        "../src/tesouraria/transactions.service.ts"
+      ],
+      "../src/tesouraria/transactions.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../src/shared/models/entrada.entity.ts",
+        "../src/shared/models/saida.entity.ts"
       ],
       "../src/users/user.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -17015,7 +17031,12 @@
       "../src/tesouraria/tesouraria.service.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/shared/models/filtro-busca.ts",
-        "../src/shared/models/tesouraria.entity.ts"
+        "../src/shared/models/tesouraria.entity.ts",
+        "../src/tesouraria/transactions.service.ts"
+      ],
+      "../src/tesouraria/transactions.service.ts": [
+        "../src/shared/models/entrada.entity.ts",
+        "../src/shared/models/saida.entity.ts"
       ],
       "../src/users/user.controller.ts": [
         "../src/shared/models/user.entity.ts",
@@ -17823,6 +17844,7 @@
       "../src/tesouraria/tesouraria.controller.ts",
       "../src/tesouraria/tesouraria.module.ts",
       "../src/tesouraria/tesouraria.service.ts",
+      "../src/tesouraria/transactions.service.ts",
       "../src/users/user.controller.ts",
       "../src/users/user.module.ts",
       "../src/users/user.service.ts"

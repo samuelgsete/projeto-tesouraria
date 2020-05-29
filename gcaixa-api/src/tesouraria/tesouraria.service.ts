@@ -8,11 +8,15 @@ import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exce
 import { PermissionDeniedException } from 'src/shared/exceptions/models/permission-denied.excepton';
 import { TreasuryNotFoundException } from 'src/shared/exceptions/models/treasury-not-foud.exception';
 import { IsCreatedEception } from 'src/shared/exceptions/models/is-created.exception';
+import { TransactionsService } from './transactions.service';
 
 @Injectable()
 export class TesourariaService {
 
-    public constructor(@InjectRepository(Tesouraria) private repositoryTesouraria: Repository<Tesouraria>) {}
+    public constructor(
+                        @InjectRepository(Tesouraria) private repositoryTesouraria: Repository<Tesouraria>,
+                        private readonly transactionService: TransactionsService
+    ) {}
 
     public async findAll(userId: number, filtro: FiltroBusca): Promise<any> {
         const [result, total] = await this.repositoryTesouraria.findAndCount(
@@ -61,7 +65,7 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        const tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
 
         if(tesouraria == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
@@ -71,9 +75,9 @@ export class TesourariaService {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        let relatorios = tesouraria.obterRelatorioDeReceitas(ano, mes);
-        
-        return relatorios;
+        const report = this.transactionService.getReportMonthly(ano, mes, tesouraria.entradas, tesouraria.saidas);
+    
+        return report;
     }
 
     public async getHistory(userId: number, id: number, ano:number): Promise<any> {
@@ -81,7 +85,7 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        const tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
         
         if(tesouraria == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
@@ -90,10 +94,11 @@ export class TesourariaService {
         if(tesouraria.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
-        
-        let receitas = tesouraria.obterHistoricoMensalDeReceitas(ano);
-        
-        return receitas;
+
+        const incomeYearly = this.transactionService.getIncomeYearly(ano, tesouraria.entradas, tesouraria.saidas);
+        const historyYearly = this.transactionService.getHistoryYearly(ano, tesouraria.saldoInicial, tesouraria.entradas, tesouraria.saidas);
+       
+        return { incomeYearly, historyYearly }
     }
 
     public async getRecipes(id: number , userId: number): Promise<any> {
@@ -111,7 +116,7 @@ export class TesourariaService {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        let recipes = tesouraria.obeterReceitas();
+        let recipes = this.transactionService.getRecipeGeneral(tesouraria.entradas, tesouraria.saidas, tesouraria.saldoInicial, tesouraria.saldoAtual);
 
         return recipes;
     }
@@ -154,7 +159,7 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        tesouraria.atualizarSaldo();
+        tesouraria.saldoAtual = this.transactionService.updateBalance(tesouraria.entradas, tesouraria.saidas, tesouraria.saldoInicial);
 
         return this.repositoryTesouraria
             .save(tesouraria)
