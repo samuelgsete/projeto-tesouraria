@@ -31,6 +31,7 @@ export class TesourariaComponent implements OnInit {
   }
 
   load(paginacao: Paginacao) {
+    this.indicadorDeCarregamento = true;
     this.servico.findPaginate(paginacao).subscribe( res => {
       this.tesourarias = res.body.data;
       this.paginationService.loader(res.body.count, paginacao.pageCurrent);
@@ -62,11 +63,11 @@ export class TesourariaComponent implements OnInit {
   }
 
   cadastrarOuAtualizarTesouraria(dados: Tesouraria) {
-    let userId = localStorage.getItem('user_id');
+    let userId = parseInt(localStorage.getItem('user_id'));
     let tesouraria = new Tesouraria({
       id: dados.id,
       nome: dados.nome, 
-      saldoAtual: dados.saldoAtual,
+      saldoAtual: 0,
       saldoInicial: dados.saldoInicial,
       entradas: dados.entradas,
       saidas: dados.saidas,
@@ -74,6 +75,8 @@ export class TesourariaComponent implements OnInit {
       detalhes: dados.detalhes,
       userId: userId
     });
+
+    console.log(tesouraria);
     
     if(tesouraria.id == null) {
       this.servico.save(tesouraria).subscribe(res => {
@@ -174,7 +177,7 @@ export class TesourariaComponent implements OnInit {
       nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       saldoInicial:['', [Validators.required]],
       saldoAtual:['', []],
-      detalhes: ['', [Validators.minLength(3), Validators.maxLength(255)]],
+      detalhes: [null, [Validators.minLength(3), Validators.maxLength(255)]],
       entradas: [[]],
       contagens: [[]],
       saidas: [[]],

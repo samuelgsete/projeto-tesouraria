@@ -80,7 +80,7 @@ export class RelatorioComponent implements OnInit {
   public obterRelatorio() {
     let id = this.router.url.split('/')[2];
     let mes = this.meses.indexOf(this.mesSelecionado);
-
+    this.indicadorDeCarregamento = true;
     this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
       this.relatorio = response.body
       this.indicadorDeCarregamento = false;

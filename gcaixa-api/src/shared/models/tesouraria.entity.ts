@@ -18,13 +18,13 @@ export class Tesouraria extends EntidadeBase {
     @Column({ length: 30, unique: false, nullable: false })
     public nome: string;
 
-    @IsNotEmpty({ message: `${treasuries.balanceCurrentNotNull}`})
-    @IsNumber({}, { message: `${treasuries.balanceCurrentValid}`})
+    @IsNotEmpty({ message: `${treasuries.openingBalanceNotNull}`})
+    @IsNumber({}, { message: `${treasuries.openingBalanceValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
     public saldoInicial: number;
 
-    @IsNotEmpty({ message: `${treasuries.openingBalanceNotNull}`})
-    @IsNumber({}, { message: `${treasuries.openingBalanceValid}`})
+    @IsNotEmpty({ message: `${treasuries.balanceCurrentNotNull}`})
+    @IsNumber({}, { message: `${treasuries.balanceCurrentValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
     public saldoAtual: number;
 
@@ -39,16 +39,19 @@ export class Tesouraria extends EntidadeBase {
     @Column({ unique: false, nullable: false })
     public userId: number;
 
+    @IsOptional()
     @Type(() => Saida)
     @ValidateNested()
     @OneToMany(type => Saida, saida => saida.tesouraria, { cascade: true })
     public saidas: Saida[];
 
+    @IsOptional()
     @Type(() => Entrada)
     @ValidateNested()
     @OneToMany(type => Entrada, entrada => entrada.tesouraria, { cascade: true })
     public entradas: Entrada[];
 
+    @IsOptional()
     @Type(() => Contagem)
     @ValidateNested()
     @OneToMany(type => Contagem, contagem => contagem.tesouraria, { cascade: true })

@@ -12,7 +12,7 @@ export class PaginationComponent implements OnInit {
   public previous = { label: 'Anterior', disabled: true };
   public pageCurrent = { label: 1, isActive: true };
   public pages: any[] = [];
-  public isVisible: boolean = true;
+  public isVisible: boolean = false;
 
   public constructor(private paginationService: PaginationService) { 
     this.paginationService.emitirTamanho.subscribe(value => {

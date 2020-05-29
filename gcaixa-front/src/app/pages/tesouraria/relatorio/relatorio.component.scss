@@ -145,6 +145,7 @@
                         margin-bottom: 20px;
                        
                         mdb-card {
+                            transition: background-color 0.7s;
                             h4.valor-entrada {
                                color: #2374df; 
                             }
@@ -153,6 +154,10 @@
                                 color: #d82424; 
                             }
                         }
+                        mdb-card:hover {
+                            background-color: #eef0f7;
+                        }
+
                     }
 
                     .box-moviment:last-child {  margin-bottom: 0px; }
