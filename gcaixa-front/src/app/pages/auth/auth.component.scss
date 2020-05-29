@@ -45,7 +45,12 @@
                 a {
                     margin-top: 50px;
                     color: #182c9b;
+                    transition: color 1s;
                     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                }
+
+                a:hover {
+                    color: #3e53ca;
                 }
             }    
         }

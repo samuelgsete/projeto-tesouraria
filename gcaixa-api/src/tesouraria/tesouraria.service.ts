@@ -121,12 +121,7 @@ export class TesourariaService {
         return recipes;
     }
 
-    public async save(userId: number, tesouraria: Tesouraria) {
-
-        if(tesouraria.userId != userId) {
-            throw new PermissionDeniedException('Permissão negada')
-        }
-
+    public async save(tesouraria: Tesouraria) {
         tesouraria.saldoAtual = tesouraria.saldoInicial;
 
         const result = await this.finByName(tesouraria.nome);

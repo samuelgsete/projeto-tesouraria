@@ -70,6 +70,7 @@ export class HistoricoComponent implements OnInit {
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
+    this.indicadorDeCarregamento = true;
     this.servico.obterHistoricoMensal(id, this.anoSelecionado).subscribe( response => {
       this.historico = response.body;
       this.plotar(this.historico);

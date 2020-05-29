@@ -3542,7 +3542,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/tesouraria.entity.ts": {
-        "version": "254375b3253edcdeabcb5153df351b228bf3c773ff4e18d29a9f1df67bb8af13",
+        "version": "af31cac71eb539e7ebad18da946fd1c14d3949cfc70cb7546aec73deccb5eed2",
         "signature": "2ef19c36bc618faeffe39445ca6b22229b5fb662bf0c33f72ff65d1dd6ce34aa",
         "affectsGlobalScope": false
       },
@@ -3567,8 +3567,8 @@
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "f4c6e41a1a53bad8bd4e13c8da6979a0b5cc9cbdff68fa96cfc6814cd3c3edb8",
-        "signature": "10606668d6271c5203f9a769f790b0a6c0c5df6cc2a50f66f799dfb4ea975f90",
+        "version": "ec179b29362b5a5d082eb865177dcc0bf0bf0970b74a655143175a8f5704dc84",
+        "signature": "27d280169cdcedd9976032fc6533eac2cad119bce72d63898ad14b7f1d3b792b",
         "affectsGlobalScope": false
       },
       "../src/shared/pipes/json-to-object.pipe.ts": {
@@ -3577,7 +3577,7 @@
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.controller.ts": {
-        "version": "cfe55981a23869ab6ddf7fd127043365f8d915749b8ea3cf033a44deeca5a8c4",
+        "version": "bdac7a084198003e4939c5261d5fc6fc88b872caa5667a33111d98a1c4c1342c",
         "signature": "59d327b73c7e4a7dee13a9e44c82c98af18db88cfb567228efb05cb81a22c8fc",
         "affectsGlobalScope": false
       },

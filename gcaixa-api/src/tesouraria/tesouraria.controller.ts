@@ -95,7 +95,8 @@ export class TesourariaController {
                  ) 
     {
         let userId = parseInt(request.headers.userid[0]);
-        return this.service.save(userId, tesouraria);
+        tesouraria.userId = userId;
+        return this.service.save(tesouraria);
     }
 
     @Put()
