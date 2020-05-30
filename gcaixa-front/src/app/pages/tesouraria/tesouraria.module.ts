@@ -9,6 +9,9 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { HistoricoComponent } from './historico/historico.component';
 import { ContagemComponent } from './contagem/contagem.component';
+import { AccountComponent } from './account/account.component';
+import { UserService } from 'src/app/shared/services/user.service';
+import { UserModule } from '../user/user.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { ContagemComponent } from './contagem/contagem.component';
     MovimentacoesComponent,
     RelatorioComponent,
     HistoricoComponent,
-    ContagemComponent
+    ContagemComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,7 @@ import { ContagemComponent } from './contagem/contagem.component';
     TesourariaComponent
   ],
   providers: [
-    TesourariaService
+    TesourariaService, UserService
   ]
 })
 export class TesourariaModule { }

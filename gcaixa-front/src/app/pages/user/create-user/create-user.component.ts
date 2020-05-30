@@ -28,12 +28,13 @@ export class CreateUserComponent implements OnInit {
       name: data.name,
       surname: data.surname,
       email: data.email,
+      whatzapp: data.whatzapp,
       username: data.username,
       password: data.password
     });
 
     this.service.create(user).subscribe( response => {
-      this.toastr.success('Criado com sucesso', 'Tudo ok', { progressBar: true });
+      this.toastr.success(response.message, 'Tudo ok', { progressBar: true });
       this.router.navigateByUrl('/login');
     },
     erro => {
@@ -55,6 +56,7 @@ export class CreateUserComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       surname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
+      whatzapp: ['', [Validators.required]],
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       password: ['', Validators.required]
     });

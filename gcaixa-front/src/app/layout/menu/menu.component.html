@@ -13,7 +13,7 @@
                         <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon> {{ usuario }}
                     </a>
                     <mat-menu #menuUsuer="matMenu">
-                        <button style="outline: none;" mat-menu-item ><mat-icon>account_circle</mat-icon>Conta</button>
+                        <button style="outline: none;" mat-menu-item (click)="account()"><mat-icon>account_circle</mat-icon>Conta</button>
                         <button style="outline: none;" mat-menu-item (click)="logout()" ><mat-icon>power_settings_new</mat-icon>Sair</button>
                     </mat-menu>  
                   </li>

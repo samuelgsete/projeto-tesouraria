@@ -175,7 +175,7 @@
     }
 }
 
-@media (max-width: 824px) {
+@media only screen and (max-width: 719px) {
     .body {
         display: none;
     }
@@ -353,6 +353,6 @@
     }
 }
 
-@media (min-width: 824px) {
+@media only screen and (min-width: 720px) {
     .mobile { display: none }
 }

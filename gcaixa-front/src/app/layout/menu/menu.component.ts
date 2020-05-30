@@ -20,5 +20,9 @@ export class MenuComponent implements OnInit {
     this.service.logout();
   }
 
+  public account() {
+    this.router.navigateByUrl('/account');
+  }
+
   ngOnInit() { }
 }

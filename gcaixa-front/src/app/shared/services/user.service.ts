@@ -11,7 +11,15 @@ export class UserService {
 
     public constructor(private http: HttpClient) { }
 
+    public findById(id: number): Observable<User> {
+        return this.http.get<User>(this.urlBase.concat(`/${id}`));
+    }
+
     public create(user: User): Observable<any> {
-        return this.http.post<User>(this.urlBase, user);
+        return this.http.post(this.urlBase, user);
+    }
+
+    public update(user: User): Observable<any> {
+        return this.http.put(this.urlBase, user);
     }
 }
