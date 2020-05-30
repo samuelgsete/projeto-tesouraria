@@ -6,6 +6,9 @@ export class User {
     public name: string;
     public surname: string;
     public email: string;
+    public whatzapp: string;
+    public isActive: boolean;
+    public updated: Date = new Date();
 
     public constructor(values: Object = {}) { Object.assign(this, values) }
 }

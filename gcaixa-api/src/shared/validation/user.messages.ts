@@ -21,4 +21,8 @@ export class users {
     public static passwordNotNull = 'A senha não pode ser vázia';
     public static passwordLength = 'A senha deve conter no mínimo 4 e no máximo 15 caractares';
     public static passwordValid = 'A senha deve ser uma cadeia de caracteres';
+
+    public static whatzappNotNull = 'O whatzapp não pode ser vázio';
+    public static whatzappLength = 'O whatzapp deve conter no mínimo 10 caracteres e no máximo 15';
+    public static whatzappValid = 'O whatzapp deve ser válido';
 }

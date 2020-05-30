@@ -1,4 +1,4 @@
-import { Entity,Column } from "typeorm";
+import { Entity,Column, UpdateDateColumn } from "typeorm";
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
 import { EntidadeBase } from "./entidade-base";
@@ -7,15 +7,15 @@ import { users } from "../validation/user.messages";
 @Entity()
 export class User extends EntidadeBase {
 
+    @IsNotEmpty({ message: `${users.nomeNotNull}` })
     @IsString({ message: `${users.nomeValid}` })
     @Length(2, 15, { message: `${users.nomeLength}` })
-    @IsNotEmpty({ message: `${users.nomeNotNull}` })
     @Column({ length: 15, unique: false, nullable: false })
     public name: string;
 
+    @IsNotEmpty({message: `${users.nomeNotNull}`})
     @IsString({ message: `${users.sobrenomeValid}` })
     @Length(2, 15, { message: `${users.sobrenomeLength}` })
-    @IsNotEmpty({message: `${users.nomeNotNull}`})
     @Column({ length: 15, unique: false, nullable: false })
     public surname: string;
 
@@ -25,20 +25,29 @@ export class User extends EntidadeBase {
     @Column({ length: 30, unique: true, nullable: false })
     public email: string;
 
+    @IsNotEmpty({message: `${users.usernameNotNull}`})
     @IsString({ message: `${users.usernameValid}`})
     @Length(4, 15, { message: `${users.usernameLength}`})
-    @IsNotEmpty({message: `${users.usernameNotNull}`})
     @Column({ length: 15, unique: true, nullable: false })
     public username: string;
 
+    @IsNotEmpty({message: `${users.passwordNotNull}`})
     @IsString({ message: `${users.passwordValid}`})
     @Length(4, 15, { message: `${users.passwordLength}`})
-    @IsNotEmpty({message: `${users.passwordNotNull}`})
     @Column({ length: 15, unique: false, nullable: false })
     public password: string;
 
+    @IsNotEmpty({message: `${users.whatzappNotNull}`})
+    @IsString({message: `${users.whatzappValid}`})
+    @Length(10, 15, {message: `${users.whatzappValid}`})
+    @Column({ length: 15, unique: false, nullable: false })
+    public whatzapp: string;
+
     @Column({ default: true })
-    public readonly isActive: boolean;
+    public isActive: boolean;
+
+    @UpdateDateColumn()
+    public updated: Date;
 
     public constructor(values: Object = {}) {
         super();

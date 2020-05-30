@@ -9,6 +9,7 @@ import { AuthGuard } from './pages/auth/auth.guard';
 import { HistoricoComponent } from './pages/tesouraria/historico/historico.component';
 import { ContagemComponent } from './pages/tesouraria/contagem/contagem.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
+import { AccountComponent } from './pages/tesouraria/account/account.component';
 
 const APP_ROUTES: Routes = [
     { path: 'home', component: TesourariaComponent, canActivate: [AuthGuard] },
@@ -16,6 +17,7 @@ const APP_ROUTES: Routes = [
     { path: 'relatorio/:id', component: RelatorioComponent, canActivate: [AuthGuard] },
     { path: 'historico/:id', component: HistoricoComponent, canActivate: [AuthGuard] },
     { path: 'contagem/:id', component: ContagemComponent, canActivate: [AuthGuard] },
+    { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'login', component: AuthComponent },
     { path: 'user/create', component: CreateUserComponent }
 ];

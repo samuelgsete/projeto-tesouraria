@@ -33,7 +33,7 @@ let GenericExceptionFilter = (() => {
                 .status(httpStatus)
                 .json({
                 status: httpStatus,
-                detail: ex.message,
+                details: ex.message,
                 redirect: true,
             });
         }

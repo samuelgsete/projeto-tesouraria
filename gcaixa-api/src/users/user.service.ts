@@ -11,6 +11,14 @@ export class UserService {
 
     public constructor(@InjectRepository(User) private repository: Repository<User>) { }
 
+    public async findById(id: number): Promise<User> {
+        if(id <= 0) {
+            throw new IdInvalidException("O id informado é invalído");
+        }
+
+        return this.repository.findOne(id);
+    }
+
     public async findByUserName(username: string): Promise<User | undefined> {
         let result = await this.repository.find({ where: { username: username }});
         let user = result[0];
@@ -40,7 +48,7 @@ export class UserService {
                     .save(user)
                     .then( e => {
                         return {
-                            mensagem: 'Criado com sucesso'
+                            message: 'Criado com sucesso'
                         };
                     }) 
     }
@@ -53,20 +61,24 @@ export class UserService {
         let result = await this.findByUserName(user.username);
 
         if(result) {
-            throw new IsCreatedEception('O usuário já está sendo utilizado', HttpStatus.BAD_REQUEST);
+            if(result.id != user.id){
+                throw new IsCreatedEception('O usuário já está sendo utilizado', HttpStatus.BAD_REQUEST);
+            } 
         }
 
         result = await this.findByEmail(user.email);
 
         if(result) {
-            throw new IsCreatedEception('O email já está sendo utilizado', HttpStatus.BAD_REQUEST);
+            if(result.id != user.id){
+                throw new IsCreatedEception('O email já está sendo utilizado', HttpStatus.BAD_REQUEST);
+            }
         }
 
         return this.repository
                     .save(user)
                     .then( e => {
                         return {
-                            mensagem: 'Atualizado com sucesso'
+                            message: 'Atualizado com sucesso'
                         };
                     }); 
     }
