@@ -18,15 +18,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { DateFormatPipe } from './pipes/date-format.pipe';
 import { PaginationModule } from './pagination/pagination.module';
 import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
-  declarations: [
-    DateFormatPipe,
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -58,7 +55,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    DateFormatPipe,
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,

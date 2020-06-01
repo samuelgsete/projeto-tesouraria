@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
-import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 import { Receitas } from 'src/app/shared/modelos/Receitas';
 import { Relatorio } from 'src/app/shared/modelos/Relatorio';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-relatorio',
@@ -36,16 +36,15 @@ export class RelatorioComponent implements OnInit {
   public anos = [ 2020, 2021, 2022 ];
   public mesSelecionado = 'Janeiro';
   public anoSelecionado = 2020;
-  public dateFormat = new DateFormatPipe();
 
   public chartType: string = 'bar';
 
   public entradas = [
-    { data: [], label: 'Receitas' }
+    { data: [], label: 'RECEITAS' }
   ];
 
   public saidas = [
-    { data: [], label: 'Despesas' }
+    { data: [], label: 'DESPESAS' }
   ]
 
   public rotulosEntradas = [];
@@ -53,18 +52,29 @@ export class RelatorioComponent implements OnInit {
 
   public coresEntradas = [
     {
-      backgroundColor: '#1e88e5'
+      backgroundColor: '#4285F4'
     }
   ];
 
   public coresSaidas = [
     {
-      backgroundColor: '#ef5350'
+      backgroundColor: '#ff4444'
     }
   ]
 
   public chartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: 
+    { 
+      xAxes: [{}], 
+      yAxes: [{ 
+        ticks: {
+          callback: function(value) {
+              return `R$ ${value}`;
+          }
+        }
+      }] 
+    }
   };
 
   constructor(
@@ -92,12 +102,12 @@ export class RelatorioComponent implements OnInit {
 
   private alimentarGrafico() {
     this.entradas = [
-      { data: [], label: 'Receitas' }
+      { data: [], label: 'RECEITAS' }
       
     ];
 
     this.saidas = [
-      { data: [], label: 'Despesas' }
+      { data: [], label: 'DESPESAS' }
     ]
 
     this.rotulosEntradas = [];
@@ -105,12 +115,12 @@ export class RelatorioComponent implements OnInit {
 
     this.relatorio.recipes.forEach( entrada => {
       this.entradas[0].data.push(entrada.valor);
-      this.rotulosEntradas.push(this.dateFormat.transform(entrada.registradoEm));
+      this.rotulosEntradas.push(moment(entrada.registradoEm).format('DD/MM/YYYY'));
     });
 
     this.relatorio.expenses.forEach( saida => {
       this.saidas[0].data.push(saida.valor);
-      this.rotulosSaidas.push(this.dateFormat.transform(saida.registradoEm));
+      this.rotulosSaidas.push(moment(saida.registradoEm).format('DD/MM/YYYY'));
     });
 
     this.saidas[0].data.push(0);

@@ -26,7 +26,8 @@ export class HistoricoComponent implements OnInit {
   ];
 
   public faturamento = [
-    { data: [], label: 'FATURAMENTO' },
+    { data: [], label: 'FATURAMENTO ACUMULADO' },
+    { data: [], label: 'FATURAMENTO MENSAL' }
   ];
 
   public chartLabels = [
@@ -45,12 +46,35 @@ export class HistoricoComponent implements OnInit {
 
   public faturamentoCor = [
     {
-      backgroundColor: '#0d47a1',
+      backgroundColor: '#2BBBAD',
+    },
+    {
+      backgroundColor: '#ffbb33',
     }
   ];
 
   public chartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: 
+    { 
+      xAxes: [{}], 
+      yAxes: [{ 
+        ticks: {
+          callback: function(value) {
+              return `R$ ${value}`;
+          }
+      }
+    }] 
+  },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        font: {
+          size: 12,
+        }
+      }
+    }
   };
 
   public constructor(
@@ -88,7 +112,8 @@ export class HistoricoComponent implements OnInit {
     ];
 
     this.faturamento = [
-      { data: [], label: 'FATURAMENTO' }
+      { data: [], label: 'FATURAMENTO ACUMULADO' },
+      { data: [], label: 'FATURAMENTO MENSAL' }
     ];
 
     const incomes = body.incomeYearly;
@@ -100,8 +125,9 @@ export class HistoricoComponent implements OnInit {
 
     const history = body.historyYearly;
 
-    history.forEach(balanceMonthly => {
-      this.faturamento[0].data.push(balanceMonthly);
+    history.forEach( item => {
+      this.faturamento[0].data.push(item.cumulativeBilling);
+      this.faturamento[1].data.push(item.monthlyBiiling);
     });
   }
 

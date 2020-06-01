@@ -1,8 +1,8 @@
-import { Entity, Column, ManyToOne, UpdateDateColumn } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
 
 import { EntidadeBase } from "./entidade-base";
 import { Tesouraria } from "./tesouraria.entity";
-import { IsNotEmpty, IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber, IsDateString } from "class-validator";
 import { counts } from "../validation/counts.messages";
 
 @Entity()
@@ -14,6 +14,7 @@ export class Contagem extends EntidadeBase {
     public saldoReal: number;
 
     @IsNotEmpty({message: `${counts.dateNotNul}`})
+    @IsDateString({message: `${counts.dateValid}`})
     @Column({ type:'timestamp', nullable: false, default: new Date()})
     public registradoEm: Date;
 

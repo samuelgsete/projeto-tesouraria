@@ -88,11 +88,9 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
-            <div class="row rendimentos">
+            <div class="row transacoes">
                 <div class="col-12">
-                    <h5>Histórico de rendimentos de {{ anoSelecionado }}</h5>
-                </div>
-                <div class="col-12">
+                    <h5>Histórico de transações de {{ anoSelecionado }}</h5>
                     <div mdbWavesEffect>
                         <canvas mdbChart
                             [chartType]="chartType"
@@ -106,11 +104,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row receitas">
+            <div class="row transacoes">
                 <div class="col-12">
                     <h5>Histórico de faturamento de {{ anoSelecionado }}</h5>
-                </div>
-                <div class="col-12">
                     <div mdbWavesEffect>
                         <canvas mdbChart
                             [chartType]="chartType"

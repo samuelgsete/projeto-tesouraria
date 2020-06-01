@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne } from "typeorm";
-import { IsNotEmpty, Length, IsString, IsNumber, IsOptional } from "class-validator";
+import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, IsDateString } from "class-validator";
 
 import { Tesouraria } from "./tesouraria.entity";
 import { EntidadeBase } from "./entidade-base";
@@ -20,6 +20,7 @@ export class Saida extends EntidadeBase {
     public valor: number;
 
     @IsNotEmpty({message: `${expenses.dateNotNull}`})
+    @IsDateString({message: `${expenses.dateValid}`})
     @Column({ type:'timestamp', nullable: false, default: new Date()})
     public registradoEm: Date;
 

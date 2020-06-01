@@ -3502,7 +3502,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/saida.entity.ts": {
-        "version": "1d24044b7925ec34cd535d6ada65238ea5f4ca3f4bbdbb85b3c763583631e037",
+        "version": "7f4e1ea210ca041eb68ab0bdb85be439c4046ca435d038f2e7aec70955d7c0dd",
         "signature": "452505af58c31217c73985a5cf21e300587a3c34a37bc38cf4b5796affcec79a",
         "affectsGlobalScope": false
       },
@@ -3522,8 +3522,8 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/entrada.entity.ts": {
-        "version": "5fbf2df962cf4312826200a77b996f9f5430b31fee8729c05494bd8497227952",
-        "signature": "ed51db4bad8453d8015877cf7e9615625097cea8d88794fd851e35ac29ea6684",
+        "version": "f3a1254483351937c3e78ed7e13af37c159527baff4204f3965960955290cd59",
+        "signature": "8434fb85cadc2fb925842b2c4123256be653d77632ac78534b5110e9394146e8",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/counts.messages.ts": {
@@ -3532,7 +3532,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/contagem.entity.ts": {
-        "version": "d39919fcc4a72f2b2773371d3bf43192485d027a82218ac1d6bd00b390419520",
+        "version": "a84abef13213831650f29f49f1fbd66d186694594191bfd72cc54661c34f83f2",
         "signature": "e665b015581350f7b4b8949480c12933a8d4bf817990755a87dc1e42df8a8ebb",
         "affectsGlobalScope": false
       },
@@ -3562,7 +3562,7 @@
         "affectsGlobalScope": false
       },
       "../src/tesouraria/transactions.service.ts": {
-        "version": "62c7e09a7a3490f086fbeb5ee1cb371412bac705d98a7acf660333dcdaa3191d",
+        "version": "c689bae2b12dbb4b498630c61fd0805f3fd27cccf394a800c2b8130ee3490e43",
         "signature": "a889e29653634b2221fb6803dc0138b85a0bff14365a5bc45e528d3a5297015c",
         "affectsGlobalScope": false
       },
@@ -3842,7 +3842,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/exceptions/validation-exception.filter.ts": {
-        "version": "bdb47bf4d6ba09ba04fceba4bf1a17a1266795be4f467bb7c9aa617a04898aca",
+        "version": "7f80b452d355860e6de5188782b9b37dea0edc609b1d305fc35978f1c7c2ca29",
         "signature": "5d2e0826ddc1e2e8bba8c06f2a6a0307abf824c3dc9d2df2603d5d95f1758769",
         "affectsGlobalScope": false
       },

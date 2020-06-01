@@ -79,15 +79,21 @@ export class TransactionsService {
     public getHistoryYearly(year: number, openingBalance: number, recipes: Entrada[], expenses: Saida[]): any[] {
         const historyYearly = [];
 
-        let balanceMonthly = openingBalance;
+        let cumulativeBilling = openingBalance;
+        let monthlyBiiling = 0;
 
         for(let month = 0; month < 12; month++) {
             let transactions = this.getTransactionsByMonth(year, month, recipes, expenses);    
             let { incomeRecipes, incomeExpenses } = this.getIncome(transactions.recipes, transactions.expenses);
 
-            balanceMonthly +=  (incomeRecipes - incomeExpenses);
+            cumulativeBilling +=  (incomeRecipes - incomeExpenses);
+            monthlyBiiling = incomeRecipes - incomeExpenses;
+
+            cumulativeBilling = parseInt(cumulativeBilling.toFixed(1));
+            monthlyBiiling  = parseInt(monthlyBiiling.toFixed(1));
+
             historyYearly.push(
-                balanceMonthly.toFixed(2)
+                { cumulativeBilling, monthlyBiiling }
             );
         }
         return historyYearly;

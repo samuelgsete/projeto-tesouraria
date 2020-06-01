@@ -24,7 +24,7 @@
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Saldo inicial</p>
+                                <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
@@ -104,7 +104,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                        <div >{{ row.registradoEm | dateFormat }}</div>
+                        <div >{{ row.registradoEm | date: 'dd/MM/yyyy' }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Tipo" [width]="150">
@@ -145,7 +145,7 @@
                     <mdb-card-body>
                         <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
-                            <p>Saldo inicial</p>
+                            <p>Montante inicial</p>
                         </mdb-card-text>
                         <mdb-card-title>
                             <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
@@ -294,7 +294,7 @@
                                             <h4>{{ c.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>  
                                         <mdb-card-text>
-                                            <p>{{ c.registro | dateFormat }}</p>
+                                            <p>{{ c.registro | date: 'dd/MM/yyyy' }}</p>
                                         </mdb-card-text>   
                                         <button (click)="removerCredito(i, c)" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
@@ -400,7 +400,7 @@
                                             <h4>{{ c.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>                                        
                                         <mdb-card-text>                                        
-                                            <p>{{ c.registro | dateFormat }}</p>
+                                            <p>{{ c.registro | date: 'dd/MM/yyyy' }}</p>
                                         </mdb-card-text>   
 
                                         <button (click)="removerCredito(i, c)" *ngIf="c.situacao != 'ENCERRADO'" mat-icon-button>
