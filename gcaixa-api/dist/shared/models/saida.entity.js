@@ -19,7 +19,6 @@ let Saida = (() => {
     let Saida = class Saida extends entidade_base_1.EntidadeBase {
         constructor(values = {}) {
             super();
-            this.tipo = "SAIDA";
             Object.assign(this, values);
         }
     };
@@ -37,9 +36,10 @@ let Saida = (() => {
         __metadata("design:type", Number)
     ], Saida.prototype, "valor", void 0);
     __decorate([
-        typeorm_1.CreateDateColumn(),
+        class_validator_1.IsNotEmpty({ message: `${expenses_messages_1.expenses.dateNotNull}` }),
+        typeorm_1.Column({ type: 'timestamp', nullable: false, default: new Date() }),
         __metadata("design:type", Date)
-    ], Saida.prototype, "registro", void 0);
+    ], Saida.prototype, "registradoEm", void 0);
     __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.Length(3, 255, { message: `${expenses_messages_1.expenses.detailsLength}` }),
@@ -50,7 +50,7 @@ let Saida = (() => {
     __decorate([
         typeorm_1.Column({
             type: "enum",
-            enum: ["ENTRADA", "SAIDA"],
+            enum: ['RECEITA', 'DESPESA'],
             unique: false, nullable: false
         }),
         __metadata("design:type", String)

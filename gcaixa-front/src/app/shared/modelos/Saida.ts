@@ -3,7 +3,7 @@ export class Saida {
     public id: number;
     public descricao: string;
     public valor: number;
-    public registro: Date;
+    public registradoEm: Date;
     public tipo: string;
     public detalhes: string;
 

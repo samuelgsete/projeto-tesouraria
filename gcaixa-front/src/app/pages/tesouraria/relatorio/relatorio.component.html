@@ -165,7 +165,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registro | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ e.registradoEm | dateFormat }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -180,7 +180,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registro | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ s.registradoEm | dateFormat }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
@@ -374,7 +374,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registro | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ e.registradoEm | dateFormat }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -425,7 +425,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registro | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ s.registradoEm | dateFormat }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>

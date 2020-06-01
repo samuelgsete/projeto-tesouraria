@@ -13,8 +13,9 @@ export class Contagem extends EntidadeBase {
     @Column({ name:'saldo_real', type: 'float', unique: false, nullable: false })
     public saldoReal: number;
 
-    @UpdateDateColumn()
-    public registro: Date;
+    @IsNotEmpty({message: `${counts.dateNotNul}`})
+    @Column({ type:'timestamp', nullable: false, default: new Date()})
+    public registradoEm: Date;
 
     @ManyToOne(type => Tesouraria, tesouraria => tesouraria.contagens, { onDelete: "CASCADE" })
     public tesouraria: Tesouraria;

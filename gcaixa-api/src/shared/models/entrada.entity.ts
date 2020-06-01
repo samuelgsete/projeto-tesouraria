@@ -27,15 +27,12 @@ export class Entrada extends EntidadeBase {
     @Column({ length: 60, unique: false, nullable: true })
     public ofertante: string;
 
-    @CreateDateColumn()
-    public registro: Date;
-
     @Column({ 
-        type: "enum", 
-        enum: ["ENTRADA", "SAIDA"], 
+        type: 'enum', 
+        enum: ['RECEITA', 'DESPESA'], 
         unique: false, nullable: false
     })
-    public readonly tipo: TipoMovimentacao = "ENTRADA";
+    public readonly tipo: TipoMovimentacao;
 
     @ValidateNested()
     @Type(() => Credito)
@@ -48,6 +45,10 @@ export class Entrada extends EntidadeBase {
     @Column({ length: 255, unique: false, nullable: true })
     public detalhes: string;
 
+    @IsNotEmpty({message: `${recipes.dateNotNull}`})
+    @Column({ type:'timestamp', nullable: false, default: new Date()})
+    public registradoEm: Date;
+
     @ManyToOne(type => Tesouraria, tesouraria => tesouraria.entradas, { onDelete: "CASCADE" })
     public tesouraria: Tesouraria;
 
@@ -57,4 +58,4 @@ export class Entrada extends EntidadeBase {
     }
 }
 
-export type TipoMovimentacao = "ENTRADA" | "SAIDA";
+export type TipoMovimentacao = 'RECEITA' | 'DESPESA';

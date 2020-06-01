@@ -22,12 +22,12 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <mdb-card mdbWavesEffect>
                         <mdb-card-body>
-                            <mat-icon>email</mat-icon>
+                            <mat-icon>miscellaneous_services</mat-icon>
                             <mdb-card-title>
-                                <p>Seu email</p>
+                                <p>Situação da conta</p>
                             </mdb-card-title>
                             <mdb-card-title>
-                                <h4>{{ user.email }}</h4>
+                                <h4>{{ user.isActive == true ? 'Ativa' : 'Inativa' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -35,12 +35,12 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <mdb-card mdbWavesEffect>
                         <mdb-card-body>
-                            <mat-icon>miscellaneous_services</mat-icon>
+                            <mat-icon>email</mat-icon>
                             <mdb-card-title>
-                                <p>Situação da conta</p>
+                                <p>Seu email</p>
                             </mdb-card-title>
                             <mdb-card-title>
-                                <h4>{{ user.isActive == true ? 'Ativa' : 'Inativa' }}</h4>
+                                <h4>{{ user.email }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -126,7 +126,7 @@
                     </mdb-card>
                 </div>
                 <div class="col">
-                    <mdb-card mdbWavesEffect>
+                    <mdb-card mdbWavesEffect class="aviso">
                         <mdb-card-body>
                             <mat-icon>info</mat-icon>
                             <mdb-card-title>
@@ -174,12 +174,12 @@
             <div class="col-12">
                 <mdb-card mdbWavesEffect>
                     <mdb-card-body>
-                        <mat-icon>miscellaneous_services</mat-icon>
+                        <mat-icon>email</mat-icon>
                         <mdb-card-title>
-                            <p>Situação da conta</p>
+                            <p>Seu email</p>
                         </mdb-card-title>
                         <mdb-card-title>
-                            <h4>{{ user.isActive == true ? 'Ativa' : 'Inativa' }}</h4>
+                            <h4>{{ user.email }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -263,7 +263,7 @@
                 </mdb-card>
             </div>
             <div class="col-12">
-                <mdb-card mdbWavesEffect>
+                <mdb-card class="aviso" mdbWavesEffect>
                     <mdb-card-body>
                         <mat-icon>info</mat-icon>
                         <mdb-card-title>
