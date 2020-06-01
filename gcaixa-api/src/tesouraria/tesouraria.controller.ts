@@ -101,7 +101,7 @@ export class TesourariaController {
 
     @Put()
     public update(
-                    @Body(new JsonToObjectPipe) tesouraria: Tesouraria,
+                    @Body() tesouraria: Tesouraria,
                     @Req() request: Request
                  ) 
     {

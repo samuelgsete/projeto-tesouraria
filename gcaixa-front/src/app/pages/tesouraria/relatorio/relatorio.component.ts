@@ -105,12 +105,12 @@ export class RelatorioComponent implements OnInit {
 
     this.relatorio.recipes.forEach( entrada => {
       this.entradas[0].data.push(entrada.valor);
-      this.rotulosEntradas.push(this.dateFormat.transform(entrada.registro));
+      this.rotulosEntradas.push(this.dateFormat.transform(entrada.registradoEm));
     });
 
     this.relatorio.expenses.forEach( saida => {
       this.saidas[0].data.push(saida.valor);
-      this.rotulosSaidas.push(this.dateFormat.transform(saida.registro));
+      this.rotulosSaidas.push(this.dateFormat.transform(saida.registradoEm));
     });
 
     this.saidas[0].data.push(0);

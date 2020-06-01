@@ -37,11 +37,11 @@ export class TransactionsService {
 
     public getTransactionsByMonth(year: number, month: number, recipes: Entrada[], expenses: Saida[]): any {
         recipes = recipes.filter( recipe => {
-            return recipe.registro.getFullYear() == year && recipe.registro.getMonth() == month;
+            return recipe.registradoEm.getFullYear() == year && recipe.registradoEm.getMonth() == month;
         });
 
         expenses = expenses.filter( expense => {
-            return expense.registro.getFullYear() == year && expense.registro.getMonth() == month;
+            return expense.registradoEm.getFullYear() == year && expense.registradoEm.getMonth() == month;
         });
 
         return { recipes, expenses }
@@ -79,20 +79,16 @@ export class TransactionsService {
     public getHistoryYearly(year: number, openingBalance: number, recipes: Entrada[], expenses: Saida[]): any[] {
         const historyYearly = [];
 
+        let balanceMonthly = openingBalance;
+
         for(let month = 0; month < 12; month++) {
             let transactions = this.getTransactionsByMonth(year, month, recipes, expenses);    
             let { incomeRecipes, incomeExpenses } = this.getIncome(transactions.recipes, transactions.expenses);
 
-            let balanceMonthly = openingBalance + (incomeRecipes - incomeExpenses);
-            
-            if(balanceMonthly == openingBalance){
-                historyYearly.push(0);
-            }
-            else {
-                historyYearly.push(
-                    balanceMonthly
-                );
-            }
+            balanceMonthly +=  (incomeRecipes - incomeExpenses);
+            historyYearly.push(
+                balanceMonthly.toFixed(2)
+            );
         }
         return historyYearly;
     }

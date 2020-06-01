@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, CreateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { IsNotEmpty, Length, IsString, IsNumber, IsOptional } from "class-validator";
 
 import { Tesouraria } from "./tesouraria.entity";
@@ -19,8 +19,9 @@ export class Saida extends EntidadeBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public valor: number;
 
-    @CreateDateColumn()
-    public registro: Date;
+    @IsNotEmpty({message: `${expenses.dateNotNull}`})
+    @Column({ type:'timestamp', nullable: false, default: new Date()})
+    public registradoEm: Date;
 
     @IsOptional()
     @Length(3, 255, {message: `${expenses.detailsLength}`})
@@ -30,10 +31,10 @@ export class Saida extends EntidadeBase {
 
     @Column({ 
         type: "enum", 
-        enum: ["ENTRADA", "SAIDA"], 
+        enum: ['RECEITA', 'DESPESA'], 
         unique: false, nullable: false
     })
-    public readonly tipo: TipoMovimentacao = "SAIDA";
+    public readonly tipo: TipoMovimentacao;
 
     @ManyToOne(type => Tesouraria, tesouraria => tesouraria.saidas, { onDelete: 'CASCADE' })
     public tesouraria: Tesouraria;
@@ -44,4 +45,4 @@ export class Saida extends EntidadeBase {
     }
 }
 
-export type TipoMovimentacao = "ENTRADA" | "SAIDA";
+export type TipoMovimentacao = 'RECEITA' | 'DESPESA';

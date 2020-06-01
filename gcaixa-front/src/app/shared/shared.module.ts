@@ -16,9 +16,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { PaginationModule } from './pagination/pagination.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { PaginationModule } from './pagination/pagination.module';
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,
+    MatDatepickerModule, 
+    MatNativeDateModule, 
     PaginationModule
   ],
   exports: [
@@ -58,6 +62,8 @@ import { PaginationModule } from './pagination/pagination.module';
     MatSelectModule,
     MatExpansionModule,
     MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule, 
     PaginationModule
   ]
 })

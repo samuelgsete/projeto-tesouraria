@@ -12,6 +12,9 @@ export class recipes {
 
     public static typeNotNull = 'O tipo de transação é obrigatório';
     public static typeValid = 'O tipo de trasação deve ser uma cadeia de caracteres válida';
+    
+    public static dateNotNull = 'A data de registro é obrigatória';
+    public static dateValid = 'A data de registro deve ser válida';
 
     public static detailsValid = 'Os detalhes devem ser uma cadeia de caracteres válida';
     public static detailsLength = 'Os detalhes devem conter no mínimo 3 e no máximo 255 caractares';

@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import Swal from 'sweetalert2';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
+import * as moment from 'moment';
+import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
   selector: 'app-contagem',
@@ -24,6 +26,7 @@ export class ContagemComponent implements OnInit {
   public indicadorDeCarregamento: boolean = true;
   public contagensSelecionadas: any = [];
   public dateFormat = new DateFormatPipe();
+  public dateValidator = new DateValidator();
 
   constructor(
               private router: Router, 
@@ -65,8 +68,13 @@ export class ContagemComponent implements OnInit {
     }
   }
 
-  salvarOuAtualizarContagem(contagem: Contagem, modal: any) {
-    modal.hide();
+  salvarOuAtualizarContagem(c: Contagem, modal: any) {
+    const contagem = new Contagem({
+      id: c.id,
+      saldoReal: c.saldoReal,
+      registradoEm: moment(c.registradoEm, 'DDMMYYYY', true).toDate()
+    });
+
     if(contagem.id == null) {
       this.tesouraria.contagens.push(contagem);
       this.service.update(this.tesouraria).subscribe( res => {
@@ -91,7 +99,7 @@ export class ContagemComponent implements OnInit {
         this.errorMessage(e);
       });
     }
-    this.f.reset();
+    modal.hide();
   }
 
   deletarContagensSelecionadas() {
@@ -155,7 +163,7 @@ export class ContagemComponent implements OnInit {
       saldoReal: row.saldoReal,
       saldoAtual: this.tesouraria.saldoAtual,
       saldoInicial: this.tesouraria.saldoInicial,
-      registro: this.dateFormat.transform(row.registro),
+      registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
       caixa: row.caixa
     });
   }
@@ -163,6 +171,7 @@ export class ContagemComponent implements OnInit {
   abrirModalCriar(modal: any) {
     this.f.reset();
     this.f.patchValue({
+      registradoEm: moment().format('DDMMYYYY'),
       saldoAtual: this.tesouraria.saldoAtual,
       saldoInicial: this.tesouraria.saldoInicial
     });
@@ -173,7 +182,7 @@ export class ContagemComponent implements OnInit {
     this.f = this._fb.group({
       id: [null],
       saldoReal: ['', Validators.required],
-      registro: [''],
+      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
       saldoAtual: [''],
       saldoInicial: ['']
     });

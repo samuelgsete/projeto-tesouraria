@@ -4,12 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from "moment";
 import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
 import { Credito } from 'src/app/shared/modelos/Credito';
 import { Saida } from 'src/app/shared/modelos/Saida';
 import { Entrada } from 'src/app/shared/modelos/Entrada';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
+import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
   selector: 'app-movimentacoes',
@@ -29,6 +31,7 @@ export class MovimentacoesComponent implements OnInit {
   public indicadorDeCarregamento: boolean = true;
   public movimentacoesSelecionadas: any = [];
   public dateFormat = new DateFormatPipe();
+  public dateValidator = new DateValidator();
   
   constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
   
@@ -92,12 +95,25 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   resetarFormulario() {
-    this.f.reset();
+    this.f.patchValue({
+        id: null,
+        descricao: '',
+        valor: '',
+        ofertante: null,
+        registradoEm: moment().format('DDMMYYYY'),
+        detalhes: null
+    })
     this.creditos = [];
   }
 
   resetarFormularioSaidas() {
-    this.fsaidas.reset();
+    this.fsaidas.patchValue({
+      id: null,
+      descricao: '',
+      valor: '',
+      registradoEm: moment().format('DDMMYYYY'),
+      detalhes: null,
+    });
   }
 
   salvarOuAtualizarEntrada(e: Entrada, modal: any) {
@@ -106,8 +122,9 @@ export class MovimentacoesComponent implements OnInit {
       descricao: e.descricao,
       valor: e.valor,
       ofertante: e.ofertante,
-      tipo: 'ENTRADA',
+      tipo: 'RECEITA',
       detalhes: e.detalhes,
+      registradoEm: moment(e.registradoEm, 'DDMMYYYY', true).toDate(),
       creditos: this.creditos
     });
     
@@ -148,11 +165,11 @@ export class MovimentacoesComponent implements OnInit {
   salvarOuAtualizarSaida(s: Saida, modal: any) {
     let novaSaida: Saida = new Saida({
       id: s.id,
-      data: s.registro,
       descricao: s.descricao,
       valor: s.valor,
-      tipo: 'SAIDA',
-      detalhes: s.detalhes
+      tipo: 'DESPESA',
+      detalhes: s.detalhes,
+      registradoEm: moment(s.registradoEm, 'DDMMYYYY', true).toDate()
     });
 
     if(novaSaida.id == null) {
@@ -259,7 +276,6 @@ export class MovimentacoesComponent implements OnInit {
       titular: credito.titular,
       valor: credito.valor,
       telefone: credito.telefone,
-      registro: new Date().toISOString(),
       situacao: 'ABERTO'
     }));
     form.reset();
@@ -276,23 +292,23 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   setFormEntradaOuSaida(row: any, modalAtualizarEntrada: any, modalAtualizarSaida: any) {
-    if(row.tipo === 'SAIDA') {
+    if(row.tipo === 'DESPESA') {
       this.fsaidas.patchValue({
         id: row.id,
         descricao: row.descricao,
         valor: row.valor,
-        registro: this.dateFormat.transform(row.registro),
+        registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
         detalhes: row.detalhes,
       });
       modalAtualizarSaida.show();
     }
-    if(row.tipo === 'ENTRADA') {
+    if(row.tipo === 'RECEITA') {
       this.f.patchValue({
         id: row.id,
         descricao: row.descricao,
         valor: row.valor,
         ofertante: row.ofertante,
-        registro: this.dateFormat.transform(row.registro),
+        registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
         detalhes: row.detalhes
       });
       this.creditos = row.creditos;
@@ -311,10 +327,10 @@ export class MovimentacoesComponent implements OnInit {
       id: [null],
       descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
       valor:[Validators.required],
-      ofertante: ['', [Validators.minLength(2), Validators.maxLength(60)]],
-      tipo: [''],
-      registro: [''],
-      detalhes: ['', Validators.maxLength(255)],
+      ofertante: [null, [Validators.minLength(2), Validators.maxLength(60)]],
+      tipo: ['RECEITA'],
+      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
+      detalhes: [null, Validators.maxLength(255)],
     });
 
     this.fcreditos = this._fb.group({
@@ -329,10 +345,10 @@ export class MovimentacoesComponent implements OnInit {
     this.fsaidas = this._fb.group({
       id: [null],
       descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
-      valor:[Validators.required],
-      tipo: [''],
-      registro: [''],
-      detalhes: ['', Validators.maxLength(255)]
+      valor:['', Validators.required],
+      tipo: ['DESPESA'],
+      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
+      detalhes: [null, Validators.maxLength(255)]
     });
   }
 }

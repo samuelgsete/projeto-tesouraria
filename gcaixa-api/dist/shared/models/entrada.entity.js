@@ -21,7 +21,6 @@ let Entrada = (() => {
     let Entrada = class Entrada extends entidade_base_1.EntidadeBase {
         constructor(values = {}) {
             super();
-            this.tipo = "ENTRADA";
             Object.assign(this, values);
         }
     };
@@ -46,13 +45,9 @@ let Entrada = (() => {
         __metadata("design:type", String)
     ], Entrada.prototype, "ofertante", void 0);
     __decorate([
-        typeorm_1.CreateDateColumn(),
-        __metadata("design:type", Date)
-    ], Entrada.prototype, "registro", void 0);
-    __decorate([
         typeorm_1.Column({
-            type: "enum",
-            enum: ["ENTRADA", "SAIDA"],
+            type: 'enum',
+            enum: ['RECEITA', 'DESPESA'],
             unique: false, nullable: false
         }),
         __metadata("design:type", String)
@@ -70,6 +65,11 @@ let Entrada = (() => {
         typeorm_1.Column({ length: 255, unique: false, nullable: true }),
         __metadata("design:type", String)
     ], Entrada.prototype, "detalhes", void 0);
+    __decorate([
+        class_validator_1.IsNotEmpty({ message: `${recipes_messages_1.recipes.dateNotNull}` }),
+        typeorm_1.Column({ type: 'timestamp', nullable: false, default: new Date() }),
+        __metadata("design:type", Date)
+    ], Entrada.prototype, "registradoEm", void 0);
     __decorate([
         typeorm_1.ManyToOne(type => tesouraria_entity_1.Tesouraria, tesouraria => tesouraria.entradas, { onDelete: "CASCADE" }),
         __metadata("design:type", tesouraria_entity_1.Tesouraria)

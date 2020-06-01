@@ -9,10 +9,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA RECEITA</button>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA SAIDA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA DESPESA</button>
             </div>
         </div>
     </div>
@@ -104,12 +104,12 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                        <div >{{ row.registro | dateFormat }}</div>
+                        <div >{{ row.registradoEm | dateFormat }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Tipo" [width]="150">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'ENTRADA', 'danger-color': row.tipo == 'SAIDA'}" >{{ row.tipo }}</div>
+                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'RECEITA', 'danger-color': row.tipo == 'DESPESA'}" >{{ row.tipo }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
@@ -134,8 +134,8 @@
                 <mat-icon>layers</mat-icon>
                 <h2>Movimentações</h2>
             </div>
-            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA ENTRADA</button>
-            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA SAIDA</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA RECEITA</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA DESPESA</button>
         </div>
     </div>
     <div class="movment">
@@ -175,7 +175,7 @@
                         </mdb-card-text>
                         <mdb-card-title>
                             <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
-                            <h4 *ngIf="tesouraria.contagens[0] == null">R$ 0,00</h4>
+                            <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -219,7 +219,6 @@
         </ngx-datatable>
     </div>
 </div>
-
 <app-footer></app-footer>
 
 <div mdbModal #modalEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
@@ -229,7 +228,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
                 <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVA ENTRADA</h4>
+                <h4 class="modal-title w-100" id="myModalLabel">NOVA RECEITA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">
@@ -248,11 +247,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Ofertante" formControlName="ofertante">
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
                             </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
                         </div>
                     </div>
                     <div class="creditos-content">
@@ -331,7 +336,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">ATUALIZAR ENTRADA</h4>
+                <h4 class="modal-title w-100" id="myModalLabel">EDITAR RECEITA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">
@@ -358,8 +363,9 @@
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Data de registro" formControlName="registro" readonly>
-                            </mat-form-field>
+                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
                         </div>
                     </div>
                     <div class="creditos-content">
@@ -442,7 +448,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalSaida.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVA SAIDA</h4>
+                <h4 class="modal-title w-100" id="myModalLabel">NOVA DESPESA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="fsaidas">
@@ -459,6 +465,14 @@
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
                                 <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
@@ -487,7 +501,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
                 <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">EDITAR SAIDA</h4>
+                <h4 class="modal-title w-100" id="myModalLabel">EDITAR DESPESA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="fsaidas">
@@ -510,8 +524,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Data de registro" formControlName="registro" readonly>
-                            </mat-form-field>
+                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">

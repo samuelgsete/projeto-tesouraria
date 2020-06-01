@@ -3,10 +3,10 @@ import { EntidadeBase } from "./entidade-base";
 export declare class Saida extends EntidadeBase {
     descricao: string;
     valor: number;
-    registro: Date;
+    registradoEm: Date;
     detalhes: string;
     readonly tipo: TipoMovimentacao;
     tesouraria: Tesouraria;
     constructor(values?: Object);
 }
-export declare type TipoMovimentacao = "ENTRADA" | "SAIDA";
+export declare type TipoMovimentacao = 'RECEITA' | 'DESPESA';
