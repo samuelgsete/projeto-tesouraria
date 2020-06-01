@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import Swal from 'sweetalert2';
-import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
 import * as moment from 'moment';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
@@ -25,7 +24,6 @@ export class ContagemComponent implements OnInit {
 
   public indicadorDeCarregamento: boolean = true;
   public contagensSelecionadas: any = [];
-  public dateFormat = new DateFormatPipe();
   public dateValidator = new DateValidator();
 
   constructor(

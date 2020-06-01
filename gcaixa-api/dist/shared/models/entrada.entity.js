@@ -59,17 +59,18 @@ let Entrada = (() => {
         __metadata("design:type", Array)
     ], Entrada.prototype, "creditos", void 0);
     __decorate([
+        class_validator_1.IsNotEmpty({ message: `${recipes_messages_1.recipes.dateNotNull}` }),
+        class_validator_1.IsDateString({ message: `${recipes_messages_1.recipes.dateValid}` }),
+        typeorm_1.Column({ type: 'timestamp', nullable: false, default: new Date() }),
+        __metadata("design:type", Date)
+    ], Entrada.prototype, "registradoEm", void 0);
+    __decorate([
         class_validator_1.IsOptional(),
         class_validator_1.Length(3, 255, { message: `${recipes_messages_1.recipes.detailsLength}` }),
         class_validator_1.IsString({ message: `${recipes_messages_1.recipes.detailsValid}` }),
         typeorm_1.Column({ length: 255, unique: false, nullable: true }),
         __metadata("design:type", String)
     ], Entrada.prototype, "detalhes", void 0);
-    __decorate([
-        class_validator_1.IsNotEmpty({ message: `${recipes_messages_1.recipes.dateNotNull}` }),
-        typeorm_1.Column({ type: 'timestamp', nullable: false, default: new Date() }),
-        __metadata("design:type", Date)
-    ], Entrada.prototype, "registradoEm", void 0);
     __decorate([
         typeorm_1.ManyToOne(type => tesouraria_entity_1.Tesouraria, tesouraria => tesouraria.entradas, { onDelete: "CASCADE" }),
         __metadata("design:type", tesouraria_entity_1.Tesouraria)

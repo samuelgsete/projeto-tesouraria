@@ -37,6 +37,7 @@ let Saida = (() => {
     ], Saida.prototype, "valor", void 0);
     __decorate([
         class_validator_1.IsNotEmpty({ message: `${expenses_messages_1.expenses.dateNotNull}` }),
+        class_validator_1.IsDateString({ message: `${expenses_messages_1.expenses.dateValid}` }),
         typeorm_1.Column({ type: 'timestamp', nullable: false, default: new Date() }),
         __metadata("design:type", Date)
     ], Saida.prototype, "registradoEm", void 0);

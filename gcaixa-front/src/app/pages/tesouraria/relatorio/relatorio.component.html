@@ -25,7 +25,7 @@
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Saldo inicial</p>
+                                <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4>{{ receitas.openingBalance | currency:'BRL' }}</h4>
@@ -165,7 +165,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registradoEm | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ e.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -180,7 +180,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registradoEm | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ s.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
@@ -191,7 +191,7 @@
                         <td>
                             <mdb-card class="indigo lighten-5" mdbWavesEffect>
                                 <mdb-card-body>
-                                    <mdb-card-text>Rendimento mensal</mdb-card-text>
+                                    <mdb-card-text>Receitas mensais</mdb-card-text>
                                     <mdb-card-title>
                                         <h4>{{ relatorio.incomeRecipesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
@@ -201,7 +201,7 @@
                         <td>
                             <mdb-card class="indigo lighten-5" mdbWavesEffect>
                                 <mdb-card-body>
-                                    <mdb-card-text>Rendimento mensal</mdb-card-text>
+                                    <mdb-card-text>Despesas mensais</mdb-card-text>
                                     <mdb-card-title>
                                         <h4>{{ relatorio.incomeExpensesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
@@ -214,7 +214,7 @@
                             <mdb-card class="saldo-mensal" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
-                                        <p>Saldo mensal</p>
+                                        <p>Faturamento mensal</p>
                                     </mdb-card-text>
                                     <mdb-card-title>
                                         <h4 >{{ relatorio.balanceMonthly | currency:'BRL' }}</h4>
@@ -250,7 +250,7 @@
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Saldo inicial</p>
+                                <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4>{{ receitas.openingBalance | currency:'BRL' }}</h4>
@@ -341,7 +341,7 @@
             <div *ngIf="relatorio.recipes[0] != null || relatorio.expenses[0] != null">
                 <div class="row">
                     <div class="col">
-                        <p>Rendimentos {{ mesSelecionado}} de {{ anoSelecionado }}</p>
+                        <p>Rendimentos de {{ mesSelecionado}} de {{ anoSelecionado }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -374,7 +374,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registradoEm | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ e.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -386,7 +386,7 @@
                         <td>
                             <mdb-card class="indigo lighten-5" mdbWavesEffect>
                                 <mdb-card-body>
-                                    <mdb-card-text>Rendimento mensal</mdb-card-text>
+                                    <mdb-card-text>Receitas mensais</mdb-card-text>
                                     <mdb-card-title>
                                         <h4>{{ relatorio.incomeRecipesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
@@ -425,7 +425,7 @@
                                         <mdb-card-title>
                                             <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registradoEm | dateFormat }}</mdb-card-text>   
+                                        <mdb-card-text>{{ s.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
                                         <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
@@ -436,7 +436,7 @@
                         <td>
                             <mdb-card class="indigo lighten-5" mdbWavesEffect>
                                 <mdb-card-body >
-                                    <mdb-card-text>Rendimento mensal</mdb-card-text>
+                                    <mdb-card-text>Despesas mensais</mdb-card-text>
                                     <mdb-card-title>
                                         <h4>{{ relatorio.incomeExpensesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
@@ -449,7 +449,7 @@
                             <mdb-card class="saldo-mensal" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
-                                        <p>Saldo mensal</p>
+                                        <p>Faturamento mensal</p>
                                     </mdb-card-text>
                                     <mdb-card-title>
                                         <h4 >{{ relatorio.balanceMonthly  | currency:'BRL' }}</h4>

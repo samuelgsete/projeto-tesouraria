@@ -1,9 +1,9 @@
-import { Entity, ManyToOne, Column, OneToMany, CreateDateColumn } from "typeorm";
+import { Entity, ManyToOne, Column, OneToMany } from "typeorm";
 
 import { Tesouraria } from "./tesouraria.entity";
 import { Credito } from "./credito.entity";
 import { EntidadeBase } from "./entidade-base";
-import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, ValidateNested } from "class-validator";
+import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, ValidateNested, IsDateString } from "class-validator";
 import { recipes } from "../validation/recipes.messages";
 import { Type } from "class-transformer";
 
@@ -38,16 +38,17 @@ export class Entrada extends EntidadeBase {
     @Type(() => Credito)
     @OneToMany(type => Credito, credito => credito.entrada, { cascade: true })
     public creditos: Credito[];
+
+    @IsNotEmpty({message: `${recipes.dateNotNull}`})
+    @IsDateString({message: `${recipes.dateValid}`})
+    @Column({ type:'timestamp', nullable: false, default: new Date()})
+    public registradoEm: Date;
     
     @IsOptional()
     @Length(3, 255, {message: `${recipes.detailsLength}`})
     @IsString({ message:`${recipes.detailsValid}`})
     @Column({ length: 255, unique: false, nullable: true })
     public detalhes: string;
-
-    @IsNotEmpty({message: `${recipes.dateNotNull}`})
-    @Column({ type:'timestamp', nullable: false, default: new Date()})
-    public registradoEm: Date;
 
     @ManyToOne(type => Tesouraria, tesouraria => tesouraria.entradas, { onDelete: "CASCADE" })
     public tesouraria: Tesouraria;

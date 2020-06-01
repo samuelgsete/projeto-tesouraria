@@ -7,8 +7,8 @@ export declare class Entrada extends EntidadeBase {
     ofertante: string;
     readonly tipo: TipoMovimentacao;
     creditos: Credito[];
-    detalhes: string;
     registradoEm: Date;
+    detalhes: string;
     tesouraria: Tesouraria;
     constructor(values?: Object);
 }

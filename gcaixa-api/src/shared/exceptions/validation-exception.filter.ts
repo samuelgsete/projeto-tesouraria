@@ -10,7 +10,6 @@ export class ValidationExceptionFilter implements ExceptionFilter {
         const response = ctx.getResponse<Response>();
     
         const errors = ex.errors;
-        console.log(errors[0].children[0].children[0]);
         const constraints = this.getContraints(errors);
         
         let message = this.getMessage(constraints[0]);
@@ -85,8 +84,8 @@ export class ValidationExceptionFilter implements ExceptionFilter {
             return constraints.isEmail;
         }
 
-        if(constraints.isDate) {
-            return constraints.isDate;
+        if(constraints.isDateString) {
+            return constraints.isDateString;
         }
 
         if(constraints.isOptional) {
