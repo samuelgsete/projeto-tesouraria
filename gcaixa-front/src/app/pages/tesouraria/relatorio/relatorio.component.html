@@ -9,11 +9,11 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0"  mdbWavesEffect>IMPRIMIR</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="download()" mdbWavesEffect>IMPRIMIR</button>
             </div>
         </div>
     </div>
-    <div class="report z-depth-1-half">
+    <div id="report" class="report z-depth-1-half">
         <div class="loading" *ngIf="indicadorDeCarregamento">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
