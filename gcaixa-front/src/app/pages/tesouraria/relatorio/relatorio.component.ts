@@ -140,6 +140,11 @@ export class RelatorioComponent implements OnInit {
     });
   }
 
+  public download() {
+    let id = this.router.url.split('/')[2];
+    let mes = this.meses.indexOf(this.mesSelecionado);
+    this.router.navigateByUrl(`/imprimir/${id}?month=${mes}&year=${this.anoSelecionado}`);
+  }
   
   private errorMessage(err: any) {
     if(err.status == 0) {

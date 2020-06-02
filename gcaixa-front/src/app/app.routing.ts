@@ -10,11 +10,13 @@ import { HistoricoComponent } from './pages/tesouraria/historico/historico.compo
 import { ContagemComponent } from './pages/tesouraria/contagem/contagem.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
 import { AccountComponent } from './pages/tesouraria/account/account.component';
+import { PrintComponent } from './pages/tesouraria/relatorio/print/print.component';
 
 const APP_ROUTES: Routes = [
     { path: 'home', component: TesourariaComponent, canActivate: [AuthGuard] },
     { path: 'movimentacoes/:id', component: MovimentacoesComponent, canActivate: [AuthGuard] },
     { path: 'relatorio/:id', component: RelatorioComponent, canActivate: [AuthGuard] },
+    { path: 'imprimir/:id', component: PrintComponent, canActivate: [AuthGuard] },
     { path: 'historico/:id', component: HistoricoComponent, canActivate: [AuthGuard] },
     { path: 'contagem/:id', component: ContagemComponent, canActivate: [AuthGuard] },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },

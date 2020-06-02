@@ -11,7 +11,7 @@ import { HistoricoComponent } from './historico/historico.component';
 import { ContagemComponent } from './contagem/contagem.component';
 import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';
-import { UserModule } from '../user/user.module';
+import { PrintComponent } from './relatorio/print/print.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { UserModule } from '../user/user.module';
     RelatorioComponent,
     HistoricoComponent,
     ContagemComponent,
-    AccountComponent
+    AccountComponent,
+    PrintComponent
   ],
   imports: [
     CommonModule,
