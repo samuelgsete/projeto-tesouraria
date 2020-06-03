@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
-import { Receitas } from 'src/app/shared/modelos/Receitas';
-import { Relatorio } from 'src/app/shared/modelos/Relatorio';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
+import { Receitas } from 'src/app/shared/models/Receitas';
+import { Relatorio } from 'src/app/shared/models/Relatorio';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-relatorio',
-  templateUrl: './relatorio.component.html',
-  styleUrls: ['./relatorio.component.scss']
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss']
 })
-export class RelatorioComponent implements OnInit {
+export class ReportComponent implements OnInit {
 
   public relatorio = new Relatorio();
   public receitas = new Receitas();
@@ -78,7 +78,7 @@ export class RelatorioComponent implements OnInit {
   };
 
   constructor(
-          private service: TesourariaService,
+          private service: TreasuryService,
           private router: Router,
           private toastr: ToastrService
   ) 
@@ -143,7 +143,7 @@ export class RelatorioComponent implements OnInit {
   public download() {
     let id = this.router.url.split('/')[2];
     let mes = this.meses.indexOf(this.mesSelecionado);
-    this.router.navigateByUrl(`/imprimir/${id}?month=${mes}&year=${this.anoSelecionado}`);
+    this.router.navigateByUrl(`/print/${id}?month=${mes}&year=${this.anoSelecionado}`);
   }
   
   private errorMessage(err: any) {

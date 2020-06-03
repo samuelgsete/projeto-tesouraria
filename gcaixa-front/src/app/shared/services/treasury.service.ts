@@ -2,11 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Tesouraria } from '../modelos/Tesouraria';
-import { Paginacao } from '../modelos/paginacao';
+import { Tesouraria } from '../models/Tesouraria';
+import { Paginacao } from '../models/paginacao';
 
 @Injectable()
-export class TesourariaService {
+export class TreasuryService {
     
     private urlBase: string = 'http://localhost:3000/tesouraria';
 

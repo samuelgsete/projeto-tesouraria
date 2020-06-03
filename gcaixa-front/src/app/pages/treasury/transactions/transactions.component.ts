@@ -5,19 +5,19 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from "moment";
-import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
-import { Credito } from 'src/app/shared/modelos/Credito';
-import { Saida } from 'src/app/shared/modelos/Saida';
-import { Entrada } from 'src/app/shared/modelos/Entrada';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { Tesouraria } from 'src/app/shared/models/Tesouraria';
+import { Credito } from 'src/app/shared/models/Credito';
+import { Saida } from 'src/app/shared/models/Saida';
+import { Entrada } from 'src/app/shared/models/Entrada';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
-  selector: 'app-movimentacoes',
-  templateUrl: './movimentacoes.component.html',
-  styleUrls: ['./movimentacoes.component.scss']
+  selector: 'app-transactions',
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.scss']
 })
-export class MovimentacoesComponent implements OnInit {
+export class TransactionsComponent implements OnInit {
 
   public f: FormGroup;
   public fsaidas: FormGroup;
@@ -31,7 +31,7 @@ export class MovimentacoesComponent implements OnInit {
   public movimentacoesSelecionadas: any = [];
   public dateValidator = new DateValidator();
   
-  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
+  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TreasuryService) { }
   
   load() {
     let id = this.router.url.split('/')[2];

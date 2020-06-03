@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import { Receitas } from 'src/app/shared/modelos/Receitas';
-import { Relatorio } from 'src/app/shared/modelos/Relatorio';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { Receitas } from 'src/app/shared/models/Receitas';
+import { Relatorio } from 'src/app/shared/models/Relatorio';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 
 @Component({
   selector: 'app-print',
@@ -18,7 +18,7 @@ export class PrintComponent implements OnInit {
   public indicadorDeCarregamento = true;
 
   public constructor(
-              private service: TesourariaService,
+              private service: TreasuryService,
               private router: Router,
               private route: ActivatedRoute,
               private toastr: ToastrService

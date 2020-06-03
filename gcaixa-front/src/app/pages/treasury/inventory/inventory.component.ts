@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Contagem } from 'src/app/shared/modelos/Contagem';
-import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
+import { Contagem } from 'src/app/shared/models/Contagem';
+import { Tesouraria } from 'src/app/shared/models/Tesouraria';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
-  selector: 'app-contagem',
-  templateUrl: './contagem.component.html',
-  styleUrls: ['./contagem.component.scss']
+  selector: 'app-inventory',
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss']
 })
-export class ContagemComponent implements OnInit {
+export class InventoryComponent implements OnInit {
 
   public f: FormGroup;
 
@@ -30,7 +30,7 @@ export class ContagemComponent implements OnInit {
               private router: Router, 
               private _fb: FormBuilder, 
               private toastr: ToastrService,
-              private service: TesourariaService
+              private service: TreasuryService
             ) 
   {
     this.load();

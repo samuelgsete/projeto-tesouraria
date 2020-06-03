@@ -1,24 +1,25 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders} from '@angular/core';
 
-import { TesourariaComponent } from './pages/tesouraria/tesouraria.component';
-import { MovimentacoesComponent } from './pages/tesouraria/movimentacoes/movimentacoes.component';
-import { RelatorioComponent } from './pages/tesouraria/relatorio/relatorio.component';
-import { AuthComponent } from './pages/auth/auth.component';
 import { AuthGuard } from './pages/auth/auth.guard';
-import { HistoricoComponent } from './pages/tesouraria/historico/historico.component';
-import { ContagemComponent } from './pages/tesouraria/contagem/contagem.component';
+import { TreasuryComponent } from './pages/treasury/treasury.component';
+import { TransactionsComponent } from './pages/treasury/transactions/transactions.component';
+import { ReportComponent } from './pages/treasury/report/report.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { HistoricComponent } from './pages/treasury/historic/historic.component';
+import { InventoryComponent } from './pages/treasury/inventory/inventory.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
-import { AccountComponent } from './pages/tesouraria/account/account.component';
-import { PrintComponent } from './pages/tesouraria/relatorio/print/print.component';
+import { AccountComponent } from './pages/treasury/account/account.component';
+import { PrintComponent } from './pages/treasury/report/print/print.component';
+
 
 const APP_ROUTES: Routes = [
-    { path: 'home', component: TesourariaComponent, canActivate: [AuthGuard] },
-    { path: 'movimentacoes/:id', component: MovimentacoesComponent, canActivate: [AuthGuard] },
-    { path: 'relatorio/:id', component: RelatorioComponent, canActivate: [AuthGuard] },
-    { path: 'imprimir/:id', component: PrintComponent, canActivate: [AuthGuard] },
-    { path: 'historico/:id', component: HistoricoComponent, canActivate: [AuthGuard] },
-    { path: 'contagem/:id', component: ContagemComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: TreasuryComponent, canActivate: [AuthGuard] },
+    { path: 'transactions/:id', component: TransactionsComponent, canActivate: [AuthGuard] },
+    { path: 'report/:id', component: ReportComponent, canActivate: [AuthGuard] },
+    { path: 'print/:id', component: PrintComponent, canActivate: [AuthGuard] },
+    { path: 'historic/:id', component: HistoricComponent, canActivate: [AuthGuard] },
+    { path: 'inventory/:id', component: InventoryComponent, canActivate: [AuthGuard] },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'login', component: AuthComponent },
     { path: 'user/create', component: CreateUserComponent }
