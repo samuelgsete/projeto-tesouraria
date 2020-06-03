@@ -8,11 +8,11 @@ import { Relatorio } from 'src/app/shared/models/Relatorio';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-relatorio',
-  templateUrl: './relatorio.component.html',
-  styleUrls: ['./relatorio.component.scss']
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss']
 })
-export class RelatorioComponent implements OnInit {
+export class ReportComponent implements OnInit {
 
   public relatorio = new Relatorio();
   public receitas = new Receitas();
