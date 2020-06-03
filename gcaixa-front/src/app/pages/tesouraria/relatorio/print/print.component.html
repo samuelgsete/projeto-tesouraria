@@ -6,9 +6,8 @@
     <div class="report-header">
         <div class="row">
             <div class="col-md-6 col-lg-3 col-xl-3">
-                <mdb-card class="saldo-inicial z-depth-0">
+                <mdb-card class="z-depth-0">
                     <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
                             <p>Montante inicial</p>
                         </mdb-card-text>
@@ -19,9 +18,8 @@
                 </mdb-card>
             </div>
             <div class="col-md-6 col-lg-3 col-xl-3">
-                <mdb-card class="saldo-atual z-depth-0">
+                <mdb-card class="z-depth-0">
                     <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
                             <p>Saldo atual</p>
                         </mdb-card-text>
@@ -32,9 +30,8 @@
                 </mdb-card>
             </div>
             <div class="col-md-6 col-lg-3 col-xl-3">
-                <mdb-card class="rendimento-entradas z-depth-0">
+                <mdb-card class="z-depth-0">
                     <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
                             <p>Total de receitas</p>
                         </mdb-card-text>
@@ -45,9 +42,8 @@
                 </mdb-card>
             </div>
             <div class="col-md-6 col-lg-3 col-xl-3">
-                <mdb-card class="rendimento-saidas z-depth-0">
+                <mdb-card class="z-depth-0">
                     <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
                             <p>Total de despesas</p>
                         </mdb-card-text>
@@ -63,17 +59,17 @@
     <div class="main-content">  
         <table>
             <tr>
-                <th class="entradas">RECEITAS</th>
-                <th class="saidas">DESPESAS</th>
+                <th>RECEITAS</th>
+                <th>DESPESAS</th>
             </tr>
             <tr>
                 <td>
-                    <div class="box-moviment" *ngFor="let e of relatorio.recipes">
+                    <div *ngFor="let e of relatorio.recipes">
                         <mdb-card class="z-depth-0">
                             <mdb-card-body>
                                 <mdb-card-text>{{ e.descricao }}</mdb-card-text>
                                 <mdb-card-title>
-                                    <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
+                                    <h4>{{ e.valor | currency:'BRL' }}</h4>
                                 </mdb-card-title>    
                                 <mdb-card-text>{{ e.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
                                 <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 

@@ -121,7 +121,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <mdb-card mdbWavesEffect>
+                        <mdb-card class="z-depth-0" mdbWavesEffect>
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
@@ -136,7 +136,7 @@
                         </mdb-card>
                     </div>
                     <div class="col-6">
-                        <mdb-card mdbWavesEffect>
+                        <mdb-card class="z-depth-0" mdbWavesEffect>
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
@@ -159,7 +159,7 @@
                     <tr>
                         <td>
                             <div class="box-moviment" *ngFor="let e of relatorio.recipes">
-                                <mdb-card mdbWavesEffect>
+                                <mdb-card class="z-depth-0" mdbWavesEffect>
                                     <mdb-card-body>
                                         <mdb-card-text>{{ e.descricao }}</mdb-card-text>
                                         <mdb-card-title>
@@ -174,7 +174,7 @@
                         </td>
                         <td>
                             <div class="box-moviment" *ngFor="let s of relatorio.expenses">
-                                <mdb-card mdbWavesEffect>
+                                <mdb-card class="z-depth-0" mdbWavesEffect>
                                     <mdb-card-body>
                                         <mdb-card-text>{{ s.descricao }}</mdb-card-text>
                                         <mdb-card-title>
@@ -189,7 +189,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <mdb-card class="indigo lighten-5" mdbWavesEffect>
+                            <mdb-card class="indigo lighten-5 z-depth-0" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>Receitas mensais</mdb-card-text>
                                     <mdb-card-title>
@@ -199,7 +199,7 @@
                             </mdb-card>
                         </td>
                         <td>
-                            <mdb-card class="indigo lighten-5" mdbWavesEffect>
+                            <mdb-card class="indigo lighten-5 z-depth-0" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>Despesas mensais</mdb-card-text>
                                     <mdb-card-title>
@@ -211,7 +211,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <mdb-card class="saldo-mensal" mdbWavesEffect>
+                            <mdb-card class="saldo-mensal z-depth-0" [ngClass]="{ 'danger-color': relatorio.balanceMonthly < 0, 'primary-color': relatorio.balanceMonthly > 0, 'default-color': relatorio.balanceMonthly == 0 }" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
                                         <p>Faturamento mensal</p>
@@ -236,7 +236,7 @@
                 <mat-icon>description</mat-icon>
                 <h2>Relatório</h2>
             </div>
-            <button type="button" mdbBtn color="light" class="z-depth-0" mdbWavesEffect>IMPRIMIR</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="download()" mdbWavesEffect>IMPRIMIR</button>
         </div>
     </div>
     <div class="report z-depth-0">
@@ -446,7 +446,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <mdb-card class="saldo-mensal" mdbWavesEffect>
+                            <mdb-card class="saldo-mensal" [ngClass]="{ 'danger-color': relatorio.balanceMonthly < 0, 'primary-color': relatorio.balanceMonthly > 0, 'default-color': relatorio.balanceMonthly == 0 }" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
                                         <p>Faturamento mensal</p>
