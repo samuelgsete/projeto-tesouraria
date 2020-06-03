@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 
-import { Tesouraria } from 'src/app/shared/modelos/Tesouraria';
+import { Tesouraria } from 'src/app/shared/models/Tesouraria';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
-import { Paginacao } from 'src/app/shared/modelos/paginacao';
+import { Paginacao } from 'src/app/shared/models/paginacao';
 import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 
 

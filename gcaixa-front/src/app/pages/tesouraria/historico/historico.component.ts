@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { ToastrService } from 'ngx-toastr';
-import { Receitas } from 'src/app/shared/modelos/Receitas';
+import { Receitas } from 'src/app/shared/models/Receitas';
 
 @Component({
   selector: 'app-historico',
