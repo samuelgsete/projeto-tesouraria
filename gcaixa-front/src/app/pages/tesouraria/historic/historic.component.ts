@@ -10,7 +10,7 @@ import { Receitas } from 'src/app/shared/models/Receitas';
   templateUrl: './historic.component.html',
   styleUrls: ['./historic.component.scss']
 })
-export class HistoricoComponent implements OnInit {
+export class HistoricComponent implements OnInit {
 
   public historico = {};
   public receitas = new Receitas();

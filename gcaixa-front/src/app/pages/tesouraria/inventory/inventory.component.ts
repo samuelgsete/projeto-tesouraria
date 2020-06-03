@@ -11,11 +11,11 @@ import * as moment from 'moment';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
-  selector: 'app-contagem',
-  templateUrl: './contagem.component.html',
-  styleUrls: ['./contagem.component.scss']
+  selector: 'app-inventory',
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss']
 })
-export class ContagemComponent implements OnInit {
+export class InventoryComponent implements OnInit {
 
   public f: FormGroup;
 

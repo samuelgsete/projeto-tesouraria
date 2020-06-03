@@ -152,18 +152,18 @@ export class TesourariaComponent implements OnInit {
   }
 
   abrirTesouraria(id: number) {
-    this.router.navigateByUrl('movimentacoes/' + id);
+    this.router.navigateByUrl(`movimentacoes/${id}`);
   }
 
   emitirRelatorio(id: number) {
-    this.router.navigateByUrl(`relatorio/${id}`);
+    this.router.navigateByUrl(`report/${id}`);
   }
 
   exibirHistorico(id: number) {
-    this.router.navigateByUrl(`historico/${id}`);
+    this.router.navigateByUrl(`historic/${id}`);
   }
 
-  efetuarContagem(id: number) { this.router.navigateByUrl(`contagem/${id}`) }
+  efetuarInventario(id: number) { this.router.navigateByUrl(`inventory/${id}`) }
 
   ngOnInit() {
     this.load(this.paginacao);
