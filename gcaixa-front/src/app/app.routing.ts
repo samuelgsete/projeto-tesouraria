@@ -6,7 +6,7 @@ import { MovimentacoesComponent } from './pages/tesouraria/movimentacoes/movimen
 import { ReportComponent } from './pages/tesouraria/report/report.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { AuthGuard } from './pages/auth/auth.guard';
-import { HistoricoComponent } from './pages/tesouraria/historico/historico.component';
+import { HistoricoComponent } from './pages/tesouraria/historic/historic.component';
 import { ContagemComponent } from './pages/tesouraria/contagem/contagem.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
 import { AccountComponent } from './pages/tesouraria/account/account.component';

@@ -7,7 +7,7 @@ import { MovimentacoesComponent } from './movimentacoes/movimentacoes.component'
 import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
 import { ReportComponent } from './report/report.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
-import { HistoricoComponent } from './historico/historico.component';
+import { HistoricoComponent } from './historic/historic.component';
 import { ContagemComponent } from './contagem/contagem.component';
 import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';

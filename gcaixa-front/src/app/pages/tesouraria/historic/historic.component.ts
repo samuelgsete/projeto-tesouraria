@@ -6,9 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Receitas } from 'src/app/shared/models/Receitas';
 
 @Component({
-  selector: 'app-historico',
-  templateUrl: './historico.component.html',
-  styleUrls: ['./historico.component.scss']
+  selector: 'app-historic',
+  templateUrl: './historic.component.html',
+  styleUrls: ['./historic.component.scss']
 })
 export class HistoricoComponent implements OnInit {
 
