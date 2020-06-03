@@ -162,12 +162,8 @@
 
                     .box-moviment:last-child {  margin-bottom: 0px; }
 
-                    mdb-card.saldo-mensal {
-                        background-color: #0d47a1;
-                        
-                        p, h4 {
-                            color: #fff;
-                        }
+                    mdb-card.saldo-mensal {                        
+                        p, h4 { color: #ffff; }
                     }
                 }
             }
@@ -339,9 +335,7 @@
     
                         .box-moviment:last-child {  margin-bottom: 0px; }
     
-                        mdb-card.saldo-mensal {
-                            background-color: #0d47a1;
-                            
+                        mdb-card.saldo-mensal {                            
                             p, h4 {
                                 color: #fff;
                             }

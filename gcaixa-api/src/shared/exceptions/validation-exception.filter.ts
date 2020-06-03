@@ -5,14 +5,17 @@ import { ValidationException } from "./models/validation.exception";
 
 @Catch(ValidationException)
 export class ValidationExceptionFilter implements ExceptionFilter {
+    
+    private constraints = [];
+
     catch(ex: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
     
         const errors = ex.errors;
-        const constraints = this.getContraints(errors);
-        
-        let message = this.getMessage(constraints[0]);
+        this.getConstraintsResponsive(errors);
+        let message = this.getMessage(this.constraints[0]);
+        this.constraints = [];
 
         response
             .status(HttpStatus.BAD_REQUEST)
@@ -23,35 +26,15 @@ export class ValidationExceptionFilter implements ExceptionFilter {
             });
     }
 
-    public getContraints(errors: any[]) {
-        let constraints = [];
-
+    public getConstraintsResponsive(errors: any[]) {
         errors.forEach(error => {
-            if(error.constraints) {
-                constraints.push(error.constraints);
+            if(error.constraints){
+                this.constraints.push(error.constraints);
             }
-            error.children.forEach( nivel1 => {
-                if(nivel1.constraints) {
-                    constraints.push(nivel1.constraints);
-                }
-                nivel1.children.forEach( nivel2 => {
-                    if(nivel2.constraints) {
-                        constraints.push(nivel2.constraints);
-                    }
-                    nivel2.children.forEach( nivel3 => {
-                        if(nivel3.constraints) {
-                            constraints.push(nivel3.constraints);
-                        }
-                        nivel3.children.forEach( nivel4 => {
-                            if(nivel4.constraints) {
-                                constraints.push(nivel4.constraints);
-                            }
-                        })
-                    })
-                 })
-            });
+            if(error.children) {
+                this.getConstraintsResponsive(error.children);
+            }
         });
-        return constraints;
     }
 
     public getMessage(constraints: any): string {
