@@ -13,11 +13,11 @@ import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
-  selector: 'app-movimentacoes',
-  templateUrl: './movimentacoes.component.html',
-  styleUrls: ['./movimentacoes.component.scss']
+  selector: 'app-transactions',
+  templateUrl: './transactions.component.html',
+  styleUrls: ['./transactions.component.scss']
 })
-export class MovimentacoesComponent implements OnInit {
+export class TransactionsComponent implements OnInit {
 
   public f: FormGroup;
   public fsaidas: FormGroup;

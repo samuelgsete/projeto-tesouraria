@@ -150,7 +150,7 @@ export class TreasuryComponent implements OnInit {
   }
 
   abrirTesouraria(id: number) {
-    this.router.navigateByUrl(`movimentacoes/${id}`);
+    this.router.navigateByUrl(`transactions/${id}`);
   }
 
   emitirRelatorio(id: number) {

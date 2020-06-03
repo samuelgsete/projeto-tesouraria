@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TreasuryComponent } from './treasury.component';
-import { MovimentacoesComponent } from './movimentacoes/movimentacoes.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ReportComponent } from './report/report.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
@@ -16,7 +16,7 @@ import { PrintComponent } from './report/print/print.component';
 @NgModule({
   declarations: [
     TreasuryComponent,
-    MovimentacoesComponent,
+    TransactionsComponent,
     ReportComponent,
     HistoricComponent,
     InventoryComponent,
