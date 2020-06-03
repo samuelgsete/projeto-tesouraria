@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
-import { TesourariaModule } from './pages/tesouraria/tesouraria.module';
+import { TreasuryModule } from './pages/treasury/treasury.module';
 import { routing } from './app.routing';
 import { AuthModule } from './pages/auth/auth.module';
 import { AuthService } from './shared/services/auth.service';
@@ -26,7 +26,7 @@ import { UserModule } from './pages/user/user.module';
     HttpClientModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
-    TesourariaModule,
+    TreasuryModule,
     UserModule,
     AuthModule,
     routing,

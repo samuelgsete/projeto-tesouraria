@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from 'src/app/shared/shared.module';
-import { TesourariaComponent } from './tesouraria.component';
+import { TreasuryComponent } from './treasury.component';
 import { MovimentacoesComponent } from './movimentacoes/movimentacoes.component';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ReportComponent } from './report/report.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { HistoricComponent } from './historic/historic.component';
@@ -15,7 +15,7 @@ import { PrintComponent } from './report/print/print.component';
 
 @NgModule({
   declarations: [
-    TesourariaComponent,
+    TreasuryComponent,
     MovimentacoesComponent,
     ReportComponent,
     HistoricComponent,
@@ -29,10 +29,10 @@ import { PrintComponent } from './report/print/print.component';
     LayoutModule,
   ],
   exports: [
-    TesourariaComponent
+    TreasuryComponent
   ],
   providers: [
-    TesourariaService, UserService
+    TreasuryService, UserService
   ]
 })
-export class TesourariaModule { }
+export class TreasuryModule { }

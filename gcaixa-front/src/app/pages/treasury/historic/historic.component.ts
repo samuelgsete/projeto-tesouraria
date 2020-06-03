@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ToastrService } from 'ngx-toastr';
 import { Receitas } from 'src/app/shared/models/Receitas';
 
@@ -79,7 +79,7 @@ export class HistoricComponent implements OnInit {
 
   public constructor(
           private router: Router, 
-          private servico: TesourariaService, 
+          private servico: TreasuryService, 
           private toastr: ToastrService
   ) { 
     this.obterReceitas();

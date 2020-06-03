@@ -9,7 +9,7 @@ import { Tesouraria } from 'src/app/shared/models/Tesouraria';
 import { Credito } from 'src/app/shared/models/Credito';
 import { Saida } from 'src/app/shared/models/Saida';
 import { Entrada } from 'src/app/shared/models/Entrada';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 
 @Component({
@@ -31,7 +31,7 @@ export class MovimentacoesComponent implements OnInit {
   public movimentacoesSelecionadas: any = [];
   public dateValidator = new DateValidator();
   
-  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TesourariaService) { }
+  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TreasuryService) { }
   
   load() {
     let id = this.router.url.split('/')[2];

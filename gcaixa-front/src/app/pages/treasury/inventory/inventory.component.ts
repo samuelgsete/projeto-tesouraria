@@ -5,7 +5,7 @@ import { Contagem } from 'src/app/shared/models/Contagem';
 import { Tesouraria } from 'src/app/shared/models/Tesouraria';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
@@ -30,7 +30,7 @@ export class InventoryComponent implements OnInit {
               private router: Router, 
               private _fb: FormBuilder, 
               private toastr: ToastrService,
-              private service: TesourariaService
+              private service: TreasuryService
             ) 
   {
     this.load();

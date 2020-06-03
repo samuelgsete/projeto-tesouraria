@@ -6,7 +6,7 @@ import { Tesouraria } from '../models/Tesouraria';
 import { Paginacao } from '../models/paginacao';
 
 @Injectable()
-export class TesourariaService {
+export class TreasuryService {
     
     private urlBase: string = 'http://localhost:3000/tesouraria';
 

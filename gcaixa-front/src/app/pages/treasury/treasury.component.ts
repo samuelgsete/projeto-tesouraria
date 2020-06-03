@@ -6,17 +6,17 @@ import { debounceTime } from 'rxjs/operators';
 import { Tesouraria } from 'src/app/shared/models/Tesouraria';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { TesourariaService } from 'src/app/shared/services/tesouraria.service';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Paginacao } from 'src/app/shared/models/paginacao';
 import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 
 
 @Component({
-  selector: 'app-tesouraria',
-  templateUrl: './tesouraria.component.html',
-  styleUrls: ['./tesouraria.component.scss']
+  selector: 'app-treasury',
+  templateUrl: './treasury.component.html',
+  styleUrls: ['./treasury.component.scss']
 })
-export class TesourariaComponent implements OnInit {
+export class TreasuryComponent implements OnInit {
 
   public f: FormGroup;
   public pesquisar: FormControl = new FormControl();
@@ -27,7 +27,7 @@ export class TesourariaComponent implements OnInit {
   public paginacao = new Paginacao();
   public indicadorDeCarregamento = true;
 
-  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TesourariaService, private paginationService: PaginationService) { 
+  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TreasuryService, private paginationService: PaginationService) { 
   }
 
   load(paginacao: Paginacao) {
@@ -75,8 +75,6 @@ export class TesourariaComponent implements OnInit {
       detalhes: dados.detalhes,
       userId: userId
     });
-
-    console.log(tesouraria);
     
     if(tesouraria.id == null) {
       this.servico.save(tesouraria).subscribe(res => {
