@@ -2,8 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like} from 'typeorm';
 
-import { Tesouraria } from 'src/shared/models/tesouraria.entity';
-import { FiltroBusca } from 'src/shared/models/filtro-busca';
+import { Tesouraria } from 'src/shared/models/treasury.entity';
+import { FiltroBusca } from 'src/shared/models/search-filter.entity';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
 import { PermissionDeniedException } from 'src/shared/exceptions/models/permission-denied.excepton';
 import { TreasuryNotFoundException } from 'src/shared/exceptions/models/treasury-not-foud.exception';

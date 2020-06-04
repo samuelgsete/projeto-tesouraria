@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Contagem } from 'src/app/shared/models/Contagem';
-import { Tesouraria } from 'src/app/shared/models/Tesouraria';
+import { Contagem } from 'src/app/shared/models/inventory.entity';
+import { Tesouraria } from 'src/app/shared/models/treasury.entity';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';

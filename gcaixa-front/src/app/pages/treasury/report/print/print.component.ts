@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import { Receitas } from 'src/app/shared/models/Receitas';
-import { Relatorio } from 'src/app/shared/models/Relatorio';
+import { Receitas } from 'src/app/shared/models/income.entity';
+import { Relatorio } from 'src/app/shared/models/report.entity';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 
 @Component({

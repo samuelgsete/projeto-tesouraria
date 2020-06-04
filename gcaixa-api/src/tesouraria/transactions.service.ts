@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
-import { Entrada } from "src/shared/models/entrada.entity";
-import { Saida } from "src/shared/models/saida.entity";
+import { Entrada } from "src/shared/models/recipe.entity";
+import { Saida } from "src/shared/models/expense.entity";
 
 @Injectable()
 export class TransactionsService {

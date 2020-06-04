@@ -1,4 +1,4 @@
-import { Credito } from './Credito';
+import { Credito } from './credit.entity';
 
 export class Entrada {
 

@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from "moment";
-import { Tesouraria } from 'src/app/shared/models/Tesouraria';
-import { Credito } from 'src/app/shared/models/Credito';
-import { Saida } from 'src/app/shared/models/Saida';
-import { Entrada } from 'src/app/shared/models/Entrada';
+import { Tesouraria } from 'src/app/shared/models/treasury.entity';
+import { Credito } from 'src/app/shared/models/credit.entity';
+import { Saida } from 'src/app/shared/models/expense.entity';
+import { Entrada } from 'src/app/shared/models/recipe.entity';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 

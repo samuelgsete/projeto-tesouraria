@@ -4,13 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { TesourariaModule } from './tesouraria/tesouraria.module';
-import { Tesouraria } from './shared/models/tesouraria.entity';
-import { Saida } from './shared/models/saida.entity';
-import { Entrada } from './shared/models/entrada.entity';
-import { Credito } from './shared/models/credito.entity';
+import { Tesouraria } from './shared/models/treasury.entity';
+import { Saida } from './shared/models/expense.entity';
+import { Entrada } from './shared/models/recipe.entity';
+import { Credito } from './shared/models/credit.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
-import { Contagem } from './shared/models/contagem.entity';
+import { Contagem } from './shared/models/inventory.entity';
 import { User } from './shared/models/user.entity';
 
 @Module({

@@ -1,5 +1,5 @@
-import { Entrada } from './Entrada';
-import { Saida } from './Saida';
+import { Entrada } from './recipe.entity';
+import { Saida } from './expense.entity';
 
 export class Relatorio {
 

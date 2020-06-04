@@ -10,19 +10,19 @@ export class users {
 
     public static emailNotNull = 'O email não pode ser vázio';
     public static emailLength = 'O email deve conter no mínimo 10 e no máximo 30 caractares';
-    public static emailValid = 'O email deve ser válido';
-    public static emailCreated = 'O email já está em uso';
+    public static readonly emailValid = 'O email deve ser válido';
+    public static readonly emailCreated = 'O email já está em uso';
 
-    public static usernameNotNull = 'O usuário não pode ser vázio';
-    public static usernameLength = 'O usuário deve conter no mínimo 4 e no máximo 15 caractares';
-    public static usernameValid = 'O usuário deve ser uma cadeia de caracteres';
-    public static usernameCreated = 'O usuário já está em uso';
+    public static readonly usernameNotNull = 'O usuário não pode ser vázio';
+    public static readonly usernameLength = 'O usuário deve conter no mínimo 4 e no máximo 15 caractares';
+    public static readonly usernameValid = 'O usuário deve ser uma cadeia de caracteres';
+    public static readonly usernameCreated = 'O usuário já está em uso';
 
-    public static passwordNotNull = 'A senha não pode ser vázia';
-    public static passwordLength = 'A senha deve conter no mínimo 4 e no máximo 15 caractares';
-    public static passwordValid = 'A senha deve ser uma cadeia de caracteres';
+    public static readonly passwordNotNull = 'A senha não pode ser vázia';
+    public static readonly passwordLength = 'A senha deve conter no mínimo 4 e no máximo 15 caractares';
+    public static readonly passwordValid = 'A senha deve ser uma cadeia de caracteres';
 
-    public static whatzappNotNull = 'O whatzapp não pode ser vázio';
-    public static whatzappLength = 'O whatzapp deve conter no mínimo 10 caracteres e no máximo 15';
-    public static whatzappValid = 'O whatzapp deve ser válido';
+    public static readonly whatzappNotNull = 'O whatzapp não pode ser vázio';
+    public static readonly whatzappLength = 'O whatzapp deve conter no mínimo 10 caracteres e no máximo 15';
+    public static readonly whatzappValid = 'O whatzapp deve ser válido';
 }

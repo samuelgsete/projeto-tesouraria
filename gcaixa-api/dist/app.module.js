@@ -12,13 +12,13 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const tesouraria_module_1 = require("./tesouraria/tesouraria.module");
-const tesouraria_entity_1 = require("./shared/models/tesouraria.entity");
-const saida_entity_1 = require("./shared/models/saida.entity");
-const entrada_entity_1 = require("./shared/models/entrada.entity");
-const credito_entity_1 = require("./shared/models/credito.entity");
+const treasury_entity_1 = require("./shared/models/treasury.entity");
+const expense_entity_1 = require("./shared/models/expense.entity");
+const recipe_entity_1 = require("./shared/models/recipe.entity");
+const credit_entity_1 = require("./shared/models/credit.entity");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./users/user.module");
-const contagem_entity_1 = require("./shared/models/contagem.entity");
+const inventory_entity_1 = require("./shared/models/inventory.entity");
 const user_entity_1 = require("./shared/models/user.entity");
 let AppModule = (() => {
     let AppModule = class AppModule {
@@ -34,11 +34,11 @@ let AppModule = (() => {
                     password: 'postgres',
                     database: 'tesourariadb',
                     entities: [
-                        tesouraria_entity_1.Tesouraria,
-                        saida_entity_1.Saida,
-                        entrada_entity_1.Entrada,
-                        credito_entity_1.Credito,
-                        contagem_entity_1.Contagem,
+                        treasury_entity_1.Tesouraria,
+                        expense_entity_1.Saida,
+                        recipe_entity_1.Entrada,
+                        credit_entity_1.Credito,
+                        inventory_entity_1.Contagem,
                         user_entity_1.User
                     ],
                     synchronize: true,
