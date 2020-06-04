@@ -3,9 +3,8 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Request } from 'express';
 
 import { TesourariaService } from './tesouraria.service';
-import { Tesouraria } from 'src/shared/models/tesouraria.entity';
-import { FiltroBusca } from 'src/shared/models/filtro-busca';
-import { JsonToObjectPipe } from 'src/shared/pipes/json-to-object.pipe';
+import { Tesouraria } from 'src/shared/models/treasury.entity';
+import { FiltroBusca } from 'src/shared/models/search-filter.entity';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
 
 @Controller('tesouraria')

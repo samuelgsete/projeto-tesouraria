@@ -1,6 +1,6 @@
-import { Entrada } from './Entrada';
-import { Saida } from './Saida';
-import { Contagem } from './Contagem';
+import { Entrada } from './recipe.entity';
+import { Saida } from './expense.entity';
+import { Contagem } from './inventory.entity';
 
 export class Tesouraria {
 

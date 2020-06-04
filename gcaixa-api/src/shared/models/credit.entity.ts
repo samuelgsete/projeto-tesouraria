@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, UpdateDateColumn } from "typeorm";
-
-import { Entrada } from "./entrada.entity";
-import { EntidadeBase } from "./entidade-base";
 import { IsNotEmpty, Length, IsString, IsNumber } from "class-validator";
+
+import { Entrada } from "./recipe.entity";
+import { EntidadeBase } from "./entity-base.entity";
 import { credits } from "../validation/credits.messages";
 
 @Entity()

@@ -2,10 +2,10 @@ import { Entity, Column, OneToMany } from "typeorm";
 import { IsNotEmpty, IsString, Length, IsInt, IsNumber, ValidateNested, IsOptional } from "class-validator";
 import { Type } from 'class-transformer';
 
-import { Saida } from "./saida.entity";
-import { Entrada } from "./entrada.entity";
-import { EntidadeBase } from "./entidade-base";
-import { Contagem } from "./contagem.entity";
+import { Saida } from "./expense.entity";
+import { Entrada } from "./recipe.entity";
+import { EntidadeBase } from "./entity-base.entity";
+import { Contagem } from "./inventory.entity";
 import { treasuries } from "../validation/treasuries.messages";
 
 

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
-import { Receitas } from 'src/app/shared/models/Receitas';
-import { Relatorio } from 'src/app/shared/models/Relatorio';
 import * as moment from 'moment';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
+import { Receitas } from 'src/app/shared/models/income.entity';
+import { Relatorio } from 'src/app/shared/models/report.entity';
+
 
 @Component({
   selector: 'app-report',

@@ -3411,19 +3411,19 @@
         "signature": "1d5f30cbd06ffa2aab22346b087e140f069851c17b91189be8d1e168d53f9f93",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/entidade-base.ts": {
+      "../src/shared/models/entity-base.entity.ts": {
         "version": "8edb480719c0c93b0f48227ba70db0491dd7bb2174932191d9a51ae2c4795763",
         "signature": "b3951a2e1aafb61b0403d7527a648221f2f6d6d6227223417cca71927d5d0b41",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/user.messages.ts": {
-        "version": "d77f68d319d5d398f020b3ced177cfbd17f620bb3ef9819e767357abc617f5b4",
-        "signature": "32fa50e741744d6940e4ff693ace2debad2180be7fc81c29b7985b2225139797",
+        "version": "1feb7b438607c688f28fff0d3f5f640a926a54c20f03f62c88402f43d61e614f",
+        "signature": "d735468117e448b89168b1b6f49124eefc7750b46fc912e6c55aed38ab3a85b3",
         "affectsGlobalScope": false
       },
       "../src/shared/models/user.entity.ts": {
-        "version": "8f4efa61b2f71d742084d6fa217a62b494285f72978ce2edf8a5e0982c679ea5",
-        "signature": "527248164f4d673758abc2540cc98dc4d907b784503759344270d9ba2f7766ef",
+        "version": "2502cb750a02595b87be5c51fc495ed4c1f3a96ae9b0c0b7e127cdc328cd56fe",
+        "signature": "664e28e2d270e1531ae3393e8b70f772a9a7b5bf8e9a617a1e4cab0d0887389a",
         "affectsGlobalScope": false
       },
       "../src/shared/exceptions/models/is-created.exception.ts": {
@@ -3497,13 +3497,13 @@
         "affectsGlobalScope": false
       },
       "../src/shared/validation/expenses.messages.ts": {
-        "version": "7158b546b0952c2bf80775f9d7b5305943b84344954e89a9e472f2dc0cd80f94",
-        "signature": "0f6a2346dd94be003ab76633e6ebe6377723fe68bde947d4952f4a4a73e57f57",
+        "version": "87b4a10cc1c2fc523c9d553b0118d85cdba7c7d597c86045263a5af07a5c1375",
+        "signature": "a880e4cdaddb81bab00571d7c2e6eee56f985422a0aae6f466ab0dd8be78f444",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/saida.entity.ts": {
-        "version": "7f4e1ea210ca041eb68ab0bdb85be439c4046ca435d038f2e7aec70955d7c0dd",
-        "signature": "452505af58c31217c73985a5cf21e300587a3c34a37bc38cf4b5796affcec79a",
+      "../src/shared/models/expense.entity.ts": {
+        "version": "975dec8ff7c483f8fcacdbc6efc574ab95e06d172d9dd32c0eea65cb7474cf07",
+        "signature": "e4ba4a0854a3d6475e0dc0c0e44b33c69180f5e5057f4e171b9fbf4817c24a9a",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/credits.messages.ts": {
@@ -3511,42 +3511,42 @@
         "signature": "b3f98cc378dae02bf82402946d5f12131c3be4290cc5bccd3e75710bf0d743d0",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/credito.entity.ts": {
-        "version": "320796f2d74cd8c453b557371f47f1d52c18f3c0a9ca67288fcb3666e4c96108",
-        "signature": "d704664a141206836aeeb7055bceb2a8ae3314a706674f223ad7573c5881b1e1",
+      "../src/shared/models/credit.entity.ts": {
+        "version": "acd91ea275963c264888fe6aed007c2f95e25f389bd1107298dd6a242c28357b",
+        "signature": "b88d9a84568d1008c78797b3b3384531dc0178d4bab9e2c4ed14b2a96b707bc0",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/recipes.messages.ts": {
-        "version": "edaae4163ac228dd5ebfdb2207c74f7d520b60715f831a1544e81c1f3564c254",
-        "signature": "bd2db12c4d2a55fae5117354686efc35fdc4dea0eeea54b01fa313a20fb96527",
+        "version": "14c7bd271776c2953544773dbf58cc222b8f09836e5a56f5f133c42d90508e26",
+        "signature": "6c8edc1ab0eabe01ef40ce21a98807790d88d8f25c9824b05324b8f9cc3092ce",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/entrada.entity.ts": {
-        "version": "f3a1254483351937c3e78ed7e13af37c159527baff4204f3965960955290cd59",
-        "signature": "8434fb85cadc2fb925842b2c4123256be653d77632ac78534b5110e9394146e8",
+      "../src/shared/models/recipe.entity.ts": {
+        "version": "9a8ce7c4bb9a7fce135c1c08d3f4dc273822be3a1f6673dc280c646ed641d862",
+        "signature": "89d858a80c8108bf7cef689c9bc9751be397e32ee9b0c47e47fe756c5a8e1cbb",
         "affectsGlobalScope": false
       },
-      "../src/shared/validation/counts.messages.ts": {
-        "version": "7544bb05d3b93f6ea557f4b0026595ccd25c9a9508fd3ea7aab8d19c4191d5d8",
-        "signature": "7ba46e5c0616158f98d6d16aa0dab581b4cb3e105d66bff575f09caafe2f5fa4",
+      "../src/shared/validation/inventory.messages.ts": {
+        "version": "2b0f4933ec6d352f0e4390df91e30fc0c424f0ed60d7ee06bd633642010c1584",
+        "signature": "e53323a520f2c648075b616e97e196ab81e06869102f063f75d0cf7e5346bc96",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/contagem.entity.ts": {
-        "version": "a84abef13213831650f29f49f1fbd66d186694594191bfd72cc54661c34f83f2",
-        "signature": "e665b015581350f7b4b8949480c12933a8d4bf817990755a87dc1e42df8a8ebb",
+      "../src/shared/models/inventory.entity.ts": {
+        "version": "415b2bba5cb4899a5211aa30fd8e356eef108f6a2a4c8a357a41ff7daf3be09f",
+        "signature": "5c1de3186d2cd8990a256a2d11e2d1a21225d945beca57daecc3c7f6c51bf2b4",
         "affectsGlobalScope": false
       },
       "../src/shared/validation/treasuries.messages.ts": {
-        "version": "03f43b92108442d46690d347b779c4fa70e112ffe43f69c187883dee84f4b632",
-        "signature": "081825c47807d0d2af1fddb37fac909d65da982d03bbd3d234c47714119e1a18",
+        "version": "248bb8d657b1cd69ebcbc0dcd5e2162567bdaf908b9a0a643fb656fd269b742b",
+        "signature": "b2de118afc7c4c5f658173e5d6e4e849fc8f0d31b5154fbaf6b3709ffbc358f0",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/tesouraria.entity.ts": {
-        "version": "af31cac71eb539e7ebad18da946fd1c14d3949cfc70cb7546aec73deccb5eed2",
-        "signature": "2ef19c36bc618faeffe39445ca6b22229b5fb662bf0c33f72ff65d1dd6ce34aa",
+      "../src/shared/models/treasury.entity.ts": {
+        "version": "7e566f06f0c241cbf98b15e8a599e9b722a08422b84a8e5ac0788c18307dff93",
+        "signature": "4d48e99e82a17dc1c1ff9fd46a5049267391d033656e2cc2470f9b16ba80682f",
         "affectsGlobalScope": false
       },
-      "../src/shared/models/filtro-busca.ts": {
+      "../src/shared/models/search-filter.entity.ts": {
         "version": "0efba8a4fc278e6268da66f9cf5eab1c438665546e9fd9162e75387674c51bf1",
         "signature": "1f92ba1f9d66f630b102a648abda19c67b2d0071a041e905007701d121741a95",
         "affectsGlobalScope": false
@@ -3562,27 +3562,22 @@
         "affectsGlobalScope": false
       },
       "../src/tesouraria/transactions.service.ts": {
-        "version": "c689bae2b12dbb4b498630c61fd0805f3fd27cccf394a800c2b8130ee3490e43",
-        "signature": "a889e29653634b2221fb6803dc0138b85a0bff14365a5bc45e528d3a5297015c",
+        "version": "77ddc5ad5e08a3e032dc4b02e3c55366ee9abe93f0579185b070265ed03b3ff1",
+        "signature": "ef8f7a420d5599cbbf36bd4ee0926bde36d1ccbd92eb2f7df1d285c68c2f37ef",
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.service.ts": {
-        "version": "ec179b29362b5a5d082eb865177dcc0bf0bf0970b74a655143175a8f5704dc84",
-        "signature": "27d280169cdcedd9976032fc6533eac2cad119bce72d63898ad14b7f1d3b792b",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/pipes/json-to-object.pipe.ts": {
-        "version": "2045add992266dd2381ec2bdb08260b60de8ca9c74d93924aa447ad6afb42c8b",
-        "signature": "2c10730ff88b1ecf72aa9f62bfd2f5833f3b9b3fe63676fb8154e03bd494cfa0",
+        "version": "67a6e8b9e3a9889987de9944de958f38a0d7e39196dceb54e2ddee0fdc18324f",
+        "signature": "cbba36759e56745e4a0905ce0e88615ef6425c0da42efddc31b16c0a6cf40d7c",
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.controller.ts": {
-        "version": "aae9ec1ea78207cf2c681a5b7776f85116347ef3003c4574956e56709d0ea4e5",
-        "signature": "59d327b73c7e4a7dee13a9e44c82c98af18db88cfb567228efb05cb81a22c8fc",
+        "version": "e8c1c563aeb4d959280672326a9c976779943a8faaba0f2d289eca289745abea",
+        "signature": "928b99e8dd774f761c1366d8cf2b1b3df846da1cbca3fd9a7023facc48d37628",
         "affectsGlobalScope": false
       },
       "../src/tesouraria/tesouraria.module.ts": {
-        "version": "683207c6cee8281e8f406d970dd3f377be661728140c405d91d0183a6e87753a",
+        "version": "87fb818092e1cffda44ffa69fb68ce26984cfe637c51590d7751311bd698dac3",
         "signature": "88b1b7754e26fb5c280fa564333bae8ad595eabbd09f4250365c49a0af2eb65e",
         "affectsGlobalScope": false
       },
@@ -3632,7 +3627,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "350158ae14957d5be6ad6d7643e84394835aef11736c1e5508ab62935d13ad15",
+        "version": "aaa5ca95cd25f9bbee7894d44282f0a1e3d7f0c9a0be77548183637e4b259d34",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -10290,11 +10285,11 @@
         "../src/app.controller.ts",
         "../src/app.service.ts",
         "../src/auth/auth.module.ts",
-        "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/credito.entity.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/credit.entity.ts",
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/inventory.entity.ts",
+        "../src/shared/models/recipe.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/shared/models/user.entity.ts",
         "../src/tesouraria/tesouraria.module.ts",
         "../src/users/user.module.ts"
@@ -10464,29 +10459,18 @@
         "../node_modules/@types/node/util.d.ts",
         "../src/shared/exceptions/models/validation.exception.ts"
       ],
-      "../src/shared/models/contagem.entity.ts": [
+      "../src/shared/models/credit.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts",
-        "../src/shared/validation/counts.messages.ts"
-      ],
-      "../src/shared/models/credito.entity.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/class-validator/types/index.d.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/entrada.entity.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/recipe.entity.ts",
         "../src/shared/validation/credits.messages.ts"
       ],
-      "../src/shared/models/entidade-base.ts": [
+      "../src/shared/models/entity-base.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
@@ -10494,7 +10478,29 @@
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts"
       ],
-      "../src/shared/models/entrada.entity.ts": [
+      "../src/shared/models/expense.entity.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/class-validator/types/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
+        "../src/shared/validation/expenses.messages.ts"
+      ],
+      "../src/shared/models/inventory.entity.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/class-validator/types/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
+        "../src/shared/validation/inventory.messages.ts"
+      ],
+      "../src/shared/models/recipe.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
@@ -10502,29 +10508,18 @@
         "../node_modules/class-transformer/index.d.ts",
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/credito.entity.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/credit.entity.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/shared/validation/recipes.messages.ts"
       ],
-      "../src/shared/models/filtro-busca.ts": [
+      "../src/shared/models/search-filter.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../src/shared/models/saida.entity.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/class-validator/types/index.d.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts",
-        "../src/shared/validation/expenses.messages.ts"
-      ],
-      "../src/shared/models/tesouraria.entity.ts": [
+      "../src/shared/models/treasury.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
@@ -10532,10 +10527,10 @@
         "../node_modules/class-transformer/index.d.ts",
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/inventory.entity.ts",
+        "../src/shared/models/recipe.entity.ts",
         "../src/shared/validation/treasuries.messages.ts"
       ],
       "../src/shared/models/user.entity.ts": [
@@ -10545,19 +10540,8 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/class-validator/types/index.d.ts",
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/entidade-base.ts",
+        "../src/shared/models/entity-base.entity.ts",
         "../src/shared/validation/user.messages.ts"
-      ],
-      "../src/shared/pipes/json-to-object.pipe.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts",
-        "../src/shared/models/tesouraria.entity.ts"
       ],
       "../src/shared/pipes/validation-custom.pipe.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -10569,12 +10553,6 @@
         "../node_modules/class-validator/types/index.d.ts",
         "../src/shared/exceptions/models/validation.exception.ts"
       ],
-      "../src/shared/validation/counts.messages.ts": [
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
       "../src/shared/validation/credits.messages.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -10582,6 +10560,12 @@
         "../node_modules/@types/node/util.d.ts"
       ],
       "../src/shared/validation/expenses.messages.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../src/shared/validation/inventory.messages.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
@@ -10614,9 +10598,8 @@
         "../node_modules/@types/node/util.d.ts",
         "../src/auth/guards/jwt-auth.guard.ts",
         "../src/shared/exceptions/models/id-invalid.exception.ts",
-        "../src/shared/models/filtro-busca.ts",
-        "../src/shared/models/tesouraria.entity.ts",
-        "../src/shared/pipes/json-to-object.pipe.ts",
+        "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/tesouraria/tesouraria.service.ts"
       ],
       "../src/tesouraria/tesouraria.module.ts": [
@@ -10626,11 +10609,11 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
-        "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/credito.entity.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/credit.entity.ts",
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/inventory.entity.ts",
+        "../src/shared/models/recipe.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/tesouraria/tesouraria.controller.ts",
         "../src/tesouraria/tesouraria.service.ts",
         "../src/tesouraria/transactions.service.ts"
@@ -10647,8 +10630,8 @@
         "../src/shared/exceptions/models/is-created.exception.ts",
         "../src/shared/exceptions/models/permission-denied.excepton.ts",
         "../src/shared/exceptions/models/treasury-not-foud.exception.ts",
-        "../src/shared/models/filtro-busca.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/tesouraria/transactions.service.ts"
       ],
       "../src/tesouraria/transactions.service.ts": [
@@ -10657,8 +10640,8 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts"
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/recipe.entity.ts"
       ],
       "../src/users/user.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -16992,52 +16975,49 @@
       "../src/shared/exceptions/validation-exception.filter.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
       ],
-      "../src/shared/models/contagem.entity.ts": [
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts"
+      "../src/shared/models/credit.entity.ts": [
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/recipe.entity.ts"
       ],
-      "../src/shared/models/credito.entity.ts": [
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/entrada.entity.ts"
+      "../src/shared/models/expense.entity.ts": [
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts"
       ],
-      "../src/shared/models/entrada.entity.ts": [
-        "../src/shared/models/credito.entity.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts"
+      "../src/shared/models/inventory.entity.ts": [
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts"
       ],
-      "../src/shared/models/saida.entity.ts": [
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/tesouraria.entity.ts"
+      "../src/shared/models/recipe.entity.ts": [
+        "../src/shared/models/credit.entity.ts",
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/treasury.entity.ts"
       ],
-      "../src/shared/models/tesouraria.entity.ts": [
-        "../src/shared/models/contagem.entity.ts",
-        "../src/shared/models/entidade-base.ts",
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts"
+      "../src/shared/models/treasury.entity.ts": [
+        "../src/shared/models/entity-base.entity.ts",
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/inventory.entity.ts",
+        "../src/shared/models/recipe.entity.ts"
       ],
       "../src/shared/models/user.entity.ts": [
-        "../src/shared/models/entidade-base.ts"
-      ],
-      "../src/shared/pipes/json-to-object.pipe.ts": [
-        "../node_modules/@nestjs/common/index.d.ts"
+        "../src/shared/models/entity-base.entity.ts"
       ],
       "../src/shared/pipes/validation-custom.pipe.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
       ],
       "../src/tesouraria/tesouraria.controller.ts": [
         "../node_modules/@types/express/index.d.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/tesouraria/tesouraria.service.ts"
       ],
       "../src/tesouraria/tesouraria.service.ts": [
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/filtro-busca.ts",
-        "../src/shared/models/tesouraria.entity.ts",
+        "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/treasury.entity.ts",
         "../src/tesouraria/transactions.service.ts"
       ],
       "../src/tesouraria/transactions.service.ts": [
-        "../src/shared/models/entrada.entity.ts",
-        "../src/shared/models/saida.entity.ts"
+        "../src/shared/models/expense.entity.ts",
+        "../src/shared/models/recipe.entity.ts"
       ],
       "../src/users/user.controller.ts": [
         "../src/shared/models/user.entity.ts",
@@ -17826,19 +17806,18 @@
       "../src/shared/exceptions/models/validation.exception.ts",
       "../src/shared/exceptions/persistense-exception.filter.ts",
       "../src/shared/exceptions/validation-exception.filter.ts",
-      "../src/shared/models/contagem.entity.ts",
-      "../src/shared/models/credito.entity.ts",
-      "../src/shared/models/entidade-base.ts",
-      "../src/shared/models/entrada.entity.ts",
-      "../src/shared/models/filtro-busca.ts",
-      "../src/shared/models/saida.entity.ts",
-      "../src/shared/models/tesouraria.entity.ts",
+      "../src/shared/models/credit.entity.ts",
+      "../src/shared/models/entity-base.entity.ts",
+      "../src/shared/models/expense.entity.ts",
+      "../src/shared/models/inventory.entity.ts",
+      "../src/shared/models/recipe.entity.ts",
+      "../src/shared/models/search-filter.entity.ts",
+      "../src/shared/models/treasury.entity.ts",
       "../src/shared/models/user.entity.ts",
-      "../src/shared/pipes/json-to-object.pipe.ts",
       "../src/shared/pipes/validation-custom.pipe.ts",
-      "../src/shared/validation/counts.messages.ts",
       "../src/shared/validation/credits.messages.ts",
       "../src/shared/validation/expenses.messages.ts",
+      "../src/shared/validation/inventory.messages.ts",
       "../src/shared/validation/recipes.messages.ts",
       "../src/shared/validation/treasuries.messages.ts",
       "../src/shared/validation/user.messages.ts",

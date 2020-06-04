@@ -1,8 +1,8 @@
 import { Column, Entity, ManyToOne } from "typeorm";
 import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, IsDateString } from "class-validator";
 
-import { Tesouraria } from "./tesouraria.entity";
-import { EntidadeBase } from "./entidade-base";
+import { Tesouraria } from "./treasury.entity";
+import { EntidadeBase } from "./entity-base.entity";
 import { expenses } from "../validation/expenses.messages";
 
 @Entity()

@@ -1,7 +1,7 @@
 import { Entity,Column, UpdateDateColumn } from "typeorm";
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
-import { EntidadeBase } from "./entidade-base";
+import { EntidadeBase } from "./entity-base.entity";
 import { users } from "../validation/user.messages";
 
 @Entity()

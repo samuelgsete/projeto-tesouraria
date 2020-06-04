@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Tesouraria } from '../models/Tesouraria';
-import { Paginacao } from '../models/paginacao';
+import { Tesouraria } from '../models/treasury.entity';
+import { Paginacao } from '../models/pagination.entity';
 
 @Injectable()
 export class TreasuryService {
