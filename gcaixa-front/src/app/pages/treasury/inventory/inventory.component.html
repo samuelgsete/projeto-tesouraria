@@ -212,14 +212,14 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalCreate="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalCreate="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCreate.hide()">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalCreate.hide()">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVA CONTAGEM</h4>
+                <h4 class="modal-title w-100">NOVA CONTAGEM</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">
@@ -248,14 +248,14 @@
     </div>
 </div>
 
-<div mdbModal #modalUpdate="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalUpdate="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalUpdate.hide()">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalUpdate.hide()">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">EDITAR CONTAGEM</h4>
+                <h4 class="modal-title w-100">EDITAR CONTAGEM</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">

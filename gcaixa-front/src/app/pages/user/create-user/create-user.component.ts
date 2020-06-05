@@ -53,9 +53,9 @@ export class CreateUserComponent implements OnInit {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
 
-    else if(response.status == 500) {
+    else {
       this.toastr.error(error.details, 'ERRO', { progressBar: true });
-    } 
+    }
   }
 
   ngOnInit() {

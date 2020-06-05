@@ -221,14 +221,14 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalRecipe="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+<div mdbModal #modalRecipe="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalRecipe(modalRecipe)">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="hideModalRecipe(modalRecipe)">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVA RECEITA</h4>
+                <h4 class="modal-title w-100">NOVA RECEITA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formRecipes">
@@ -328,14 +328,14 @@
     </div>
 </div>
 
-<div mdbModal #modalUpdateRecipe="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdateRecipe="mdbModal" class="modal fade modal-zindex">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalUpdateRecipe.hide()">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="hideModalRecipe(modalUpdateRecipe)">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">EDITAR RECEITA</h4>
+                <h4 class="modal-title w-100">EDITAR RECEITA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formRecipes">
@@ -376,7 +376,6 @@
                         <div class="row">
                             <div class="col"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
                         </div> 
-                       
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let credit of credits; let i = index">
                                 <mat-expansion-panel-header mdbWavesEffect>
@@ -440,14 +439,14 @@
     </div>
 </div>
 
-<div mdbModal #modalExpense="mdbModal" style="overflow-y: auto" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalExpense="mdbModal" style="overflow-y: auto" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalExpense.hide()">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalExpense.hide()">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVA DESPESA</h4>
+                <h4 class="modal-title w-100">NOVA DESPESA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formExpenses">
@@ -493,14 +492,14 @@
     </div>
 </div>
 
-<div mdbModal #modalUpdateExpense="mdbModal" class="modal fade modal-zindex" style="overflow-y: auto" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalUpdateExpense="mdbModal" class="modal fade modal-zindex" style="overflow-y: auto">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalUpdateExpense(modalUpdateExpense)">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal"(click)="hideModalUpdateExpense(modalUpdateExpense)">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">EDITAR DESPESA</h4>
+                <h4 class="modal-title w-100">EDITAR DESPESA</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formExpenses">
@@ -546,14 +545,14 @@
     </div>
 </div>
 
-<div mdbModal #modalCredit="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalCredit="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCredit.hide()">
-                <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalCredit.hide()">
+                <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">NOVO CRÉDITO</h4>
+                <h4 class="modal-title w-100">NOVO CRÉDITO</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="formCredits">

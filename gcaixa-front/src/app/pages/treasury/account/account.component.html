@@ -280,14 +280,14 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modal="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+<div mdbModal #modal="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modal.hide()">
-                    <span aria-hidden="true">×</span>
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modal.hide()">
+                    <span>×</span>
                 </button>
-                <h4 class="modal-title w-100" id="myModalLabel">ATUALIZAR INFORMAÇÕES</h4>
+                <h4 class="modal-title w-100">ATUALIZAR INFORMAÇÕES</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="form">

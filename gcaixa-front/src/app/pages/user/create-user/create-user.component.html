@@ -1,14 +1,11 @@
 <div class="create-user">
     <div class="content z-depth-2">
         <div class="header">
-            <img src="/assets/img/create-new-user.png" alt="logotipo" width="90px" height="90px">
+            <img src="/assets/img/create_user.png" alt="usuario" width="80px" height="80px">
             <h5>Crie sua conta gratuita</h5>
         </div>
         <div class="main">
             <form [formGroup]="form">
-                <div *ngIf="loading">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <mat-form-field class="input-width" appearance="outline">
@@ -52,7 +49,7 @@
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Login</mat-label>
                             <input formControlName="username" matInput required>
-                            <mat-icon matSuffix>https</mat-icon>
+                            <mat-icon matSuffix>security</mat-icon>
                             <mat-error>preencha o nome corretamente</mat-error>
                         </mat-form-field>
                     </div>
@@ -60,22 +57,18 @@
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Senha</mat-label>
                             <input formControlName="password" type="password" matInput required>
-                            <mat-icon matSuffix>vpn_key</mat-icon>
+                            <mat-icon matSuffix>https</mat-icon>
                             <mat-error>preencha o sobrenome corretamente</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-7 col-xl-7 mobile-hidden">
-                        <a routerLink="/home">Fazer login</a>
+                    <div class="col-12">
+                        <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="createUser(form.value)" mdbWavesEffect>CRIAR CONTA</button>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5">
-                        <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="createUser(form.value)" mdbWavesEffect>CADASTRAR</button>
-                    </div>
-                    <div class="col-12 desktop-hidden">
-                        <br>
-                        <a routerLink="/home">Fazer login</a>
-                    </div>
+                </div>
+                <div *ngIf="loading">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                 </div>
             </form>
         </div>

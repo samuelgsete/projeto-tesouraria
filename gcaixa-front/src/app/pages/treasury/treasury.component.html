@@ -42,7 +42,7 @@
                             </button>
                             <mat-menu #actions="matMenu">
                                 <button style="outline: none;" mat-menu-item (click)="emitterReport(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
-                                <button class="btn-grafico" mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
+                                <button mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
                                 <button mat-menu-item (click)="takeInventory(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                             </mat-menu>  
     
@@ -64,8 +64,7 @@
                         </mdb-card-body>
                     </mdb-card>
                 </div>
-            </div>
-                
+            </div>            
             <div class="main-footer">
                 <div class="row">
                     <div class="col">
@@ -75,7 +74,6 @@
             </div> 
         </div> 
     </div>
-    
 </div>
 <div class="mobile">
     <div class="hero">
@@ -88,7 +86,7 @@
         </div>
     </div>
     <div class="box">
-        <div class="loading" *ngIf="loading">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <mat-form-field class="input-width" appearance="fill">
@@ -107,7 +105,7 @@
         </mdb-card>
 
         <div class="row">
-            <div class="col-12" *ngFor="let t of treasuries">
+            <div class="col-12" *ngFor="let treasury of treasuries">
                 <mdb-card mdbWavesEffect>
                     <mdb-card-body>
                         
@@ -115,24 +113,24 @@
                             <mat-icon>more_horiz</mat-icon>
                         </button>
                         <mat-menu #actions="matMenu">
-                            <button style="outline: none;" mat-menu-item (click)="emitterReport(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
-                            <button mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                            <button mat-menu-item (click)="takeInventory(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
+                            <button style="outline: none;" mat-menu-item (click)="emitterReport(treasury.id)"><mat-icon>description</mat-icon>Ver relatório</button>
+                            <button mat-menu-item (click)="showHistoric(treasury.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
+                            <button mat-menu-item (click)="takeInventory(treasury.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                         </mat-menu>  
 
                         <mdb-card-title>
-                            <h4>{{ t.name }}</h4>
+                            <h4>{{ treasury.name }}</h4>
                         </mdb-card-title>
                 
-                        <mdb-card-text>Saldo Atual {{ t.currentBalance | currency:'BRL' }}</mdb-card-text>
+                        <mdb-card-text>Saldo Atual {{ treasury.currentBalance | currency:'BRL' }}</mdb-card-text>
                     
-                        <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(t.id)">
+                        <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(treasury.id)">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(t)">
+                        <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(treasury)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(t)">
+                        <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(treasury)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mdb-card-body>
@@ -150,14 +148,14 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalCreate="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalCreate="mdbModal" class="modal fade" style="overflow-y: auto" >
+    <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalCreate()">
-            <span aria-hidden="true">×</span>
+          <button type="button" class="close pull-right btn-hide-modal" (click)="hideModalCreate()">
+            <span>×</span>
           </button>
-          <h4 class="modal-title w-100" id="myModalLabel">NOVA TESOURARIA</h4>
+          <h4 class="modal-title w-100">NOVA TESOURARIA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
@@ -194,14 +192,14 @@
       </div>
     </div>
 </div>
-<div mdbModal #modalUpdate="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div mdbModal #modalUpdate="mdbModal" class="modal fade" style="overflow-y: auto" >
+    <div class="modal-dialog modal-sm modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right  btn-hide-modal" aria-label="Close" (click)="hideModalUpdate()">
+          <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalUpdate()">
             <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title w-100" id="myModalLabel">EDITAR TESOURARIA</h4>
+          <h4 class="modal-title w-100">EDITAR TESOURARIA</h4>
         </div>
         <div class="modal-body">
             <form [formGroup]="f">
