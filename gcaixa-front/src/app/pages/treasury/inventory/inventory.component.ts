@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Contagem } from 'src/app/shared/models/inventory.entity';
-import { Tesouraria } from 'src/app/shared/models/treasury.entity';
+import { Inventory } from 'src/app/shared/models/inventory.entity';
+import { Treasury } from 'src/app/shared/models/treasury.entity';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
@@ -19,11 +19,11 @@ export class InventoryComponent implements OnInit {
 
   public f: FormGroup;
 
-  public rows: Contagem[] = [];
-  public tesouraria: Tesouraria = new Tesouraria();
+  public rows: Inventory[] = [];
+  public treasury: Treasury = new Treasury();
 
-  public indicadorDeCarregamento: boolean = true;
-  public contagensSelecionadas: any = [];
+  public loading = true;
+  public inventoriesSelected: any = [];
   public dateValidator = new DateValidator();
 
   constructor(
@@ -36,20 +36,20 @@ export class InventoryComponent implements OnInit {
     this.load();
   }
 
-  aoSelecionar(contagem: any) { this.contagensSelecionadas = contagem.selected }
+  public whenSelecting(rows: any) { this.inventoriesSelected = rows.selected }
 
-  load() {
-    let id = this.router.url.split('/')[2];
+  public load() {
+    let id = parseInt(this.router.url.split('/')[2]);
     this.service.findById(id).subscribe( res => {
-      this.tesouraria = res;
-      this.rows = this.tesouraria.contagens;
-      this.indicadorDeCarregamento = false;
+      this.treasury = res;
+      this.rows = this.treasury.inventories;
+      this.loading = false;
     }, e => {
       this.errorMessage(e);
     })
   }
 
-  errorMessage(err: any) {
+  public errorMessage(err: any) {
     if(err.status == 0) {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
@@ -66,16 +66,16 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  salvarOuAtualizarContagem(c: Contagem, modal: any) {
-    const contagem = new Contagem({
-      id: c.id,
-      saldoReal: c.saldoReal,
-      registradoEm: moment(c.registradoEm, 'DDMMYYYY', true).toDate()
+  public saveOrUpdateInventory(inventory: Inventory, modal: any) {
+    const newInventory = new Inventory({
+      id: inventory.id,
+      actualBalance: inventory.actualBalance,
+      registeredIn: moment(inventory.registeredIn, 'DDMMYYYY', true).toDate()
     });
 
-    if(contagem.id == null) {
-      this.tesouraria.contagens.push(contagem);
-      this.service.update(this.tesouraria).subscribe( res => {
+    if(newInventory.id == null) {
+      this.treasury.inventories.push(newInventory);
+      this.service.update(this.treasury).subscribe( res => {
         this.toastr.success('Cadastrado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
       }, e => {
@@ -84,13 +84,13 @@ export class InventoryComponent implements OnInit {
     }
     else {
       let i = 0;
-      this.tesouraria.contagens.forEach((item, index) => {
-        if(item.id === contagem.id) {
+      this.treasury.inventories.forEach((item, index) => {
+        if(item.id === newInventory.id) {
           i = index;
         }
       });
-      this.tesouraria.contagens[i] = contagem;
-      this.service.update(this.tesouraria).subscribe( res => {
+      this.treasury.inventories[i] = newInventory;
+      this.service.update(this.treasury).subscribe( res => {
         this.toastr.success('Atalizado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
       }, e => {
@@ -100,7 +100,7 @@ export class InventoryComponent implements OnInit {
     modal.hide();
   }
 
-  deletarContagensSelecionadas() {
+  public deleteInventoriesSelected() {
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -111,24 +111,24 @@ export class InventoryComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         let index = 0;
-        this.contagensSelecionadas.forEach(item => {
-          index = this.tesouraria.contagens.indexOf(item);
+        this.inventoriesSelected.forEach(item => {
+          index = this.treasury.inventories.indexOf(item);
           if (index >= 0) {
-            this.tesouraria.contagens.splice(index,1);
+            this.treasury.inventories.splice(index,1);
           } 
-          this.service.update(this.tesouraria).subscribe(res => {
+          this.service.update(this.treasury).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
           }, e => {
             this.errorMessage(e);
           }); 
         });
-        this.contagensSelecionadas = [];
+        this.inventoriesSelected = [];
       } 
     });
   }
 
-  deletarContagem(contagem: any) {
+  public deleteInventory(inventory: any) {
     let index = 0;
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
@@ -139,39 +139,34 @@ export class InventoryComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.tesouraria.contagens.indexOf(contagem);
+        index = this.treasury.inventories.indexOf(inventory);
         if(index >=0) {
-          this.tesouraria.contagens.splice(index, 1);
+          this.treasury.inventories.splice(index, 1);
         }
-        this.service.update(this.tesouraria).subscribe( res => {
+        this.service.update(this.treasury).subscribe( res => {
           this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
           this.load();
         }, e => {
           this.errorMessage(e);
         });
-        this.contagensSelecionadas = [];
+        this.inventoriesSelected = [];
       } 
     });
   }
 
-  abirModalEditar(row: any, modal: any) {
+  public showModalUpdate(row: any, modal: any) {
     modal.show();
     this.f.patchValue({
       id: row.id,
-      saldoReal: row.saldoReal,
-      saldoAtual: this.tesouraria.saldoAtual,
-      saldoInicial: this.tesouraria.saldoInicial,
-      registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
-      caixa: row.caixa
+      actualBalance: row.actualBalance,
+      registeredIn: moment(row.registeredIn).format('DDMMYYYY')
     });
   }
 
-  abrirModalCriar(modal: any) {
+  public showModalCreate(modal: any) {
     this.f.reset();
     this.f.patchValue({
-      registradoEm: moment().format('DDMMYYYY'),
-      saldoAtual: this.tesouraria.saldoAtual,
-      saldoInicial: this.tesouraria.saldoInicial
+      registeredIn: moment().format('DDMMYYYY'),
     });
     modal.show();
   }
@@ -179,10 +174,8 @@ export class InventoryComponent implements OnInit {
   ngOnInit() {
     this.f = this._fb.group({
       id: [null],
-      saldoReal: ['', Validators.required],
-      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      saldoAtual: [''],
-      saldoInicial: ['']
+      actualBalance: [0, Validators.required],
+      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
     });
   }
 }

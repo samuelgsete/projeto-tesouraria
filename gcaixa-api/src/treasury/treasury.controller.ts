@@ -2,20 +2,20 @@ import { Controller, Get, Param, Post, Body, Put, Delete, Query, UseGuards, Req 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Request } from 'express';
 
-import { TesourariaService } from './tesouraria.service';
-import { Tesouraria } from 'src/shared/models/treasury.entity';
-import { FiltroBusca } from 'src/shared/models/search-filter.entity';
+import { TreasuryService } from './treasury.service';
+import { Treasury } from 'src/shared/models/treasury.entity';
+import { SearchFilter } from 'src/shared/models/search-filter.entity';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
 
-@Controller('tesouraria')
+@Controller('treasury')
 @UseGuards(JwtAuthGuard)
-export class TesourariaController {
+export class TreasuryController {
 
-    public constructor(private service: TesourariaService) { }
+    public constructor(private service: TreasuryService) { }
 
     @Get()
     public findPaginete(
-                            @Query('filtro') filtro, 
+                            @Query('filter') filter, 
                             @Query('page') page,
                             @Req() request: Request
                        ): Promise<any[]> 
@@ -25,14 +25,14 @@ export class TesourariaController {
         }
 
         let userId = parseInt(request.headers.userid[0]);
-        return this.service.findAll(userId, new FiltroBusca(filtro, page));
+        return this.service.findAll(userId, new SearchFilter(filter, page));
     }
 
     @Get(':id')
     public findById(
                         @Param('id') id: number,
                         @Req() request: Request
-                   ): Promise<Tesouraria> 
+                   ): Promise<Treasury> 
     {
         if(!request.headers.userid){
             throw new IdInvalidException('O ID do usuário está ausente');
@@ -42,11 +42,11 @@ export class TesourariaController {
         return this.service.findById(id, userId);
     }
 
-    @Get('relatorio/:id')
+    @Get('report/:id')
     public getReport(
                         @Param('id') id: number, 
-                        @Query('ano') ano:number,
-                        @Query('mes') mes: number, 
+                        @Query('year') year:number,
+                        @Query('month') month: number, 
                         @Req() request: Request
                     ): Promise<any[]> 
     {
@@ -55,13 +55,13 @@ export class TesourariaController {
         }
 
         let userId = parseInt(request.headers.userid[0]);
-        return this.service.getReport(id, userId, ano, mes);
+        return this.service.getReport(id, userId, year, month);
     }
 
-    @Get('historico/:id')
+    @Get('historic/:id')
     public getHistory(
                         @Param('id') id: number, 
-                        @Query('ano') ano: number, 
+                        @Query('year') year: number, 
                         @Req() request: Request 
                      ): Promise<any[]> 
     {
@@ -70,10 +70,10 @@ export class TesourariaController {
         }
 
         let userId = parseInt(request.headers.userid[0]);
-        return this.service.getHistory(userId, id, ano);
+        return this.service.getHistory(userId, id, year);
     }
 
-    @Get('receitas/:id')
+    @Get('income/:id')
     public getRecipes(
                         @Param('id') id: number, 
                         @Req() request: Request
@@ -89,18 +89,18 @@ export class TesourariaController {
 
     @Post()
     public create(
-                    @Body() tesouraria: Tesouraria,
+                    @Body() treasury: Treasury,
                     @Req() request: Request
                  ) 
     {
         let userId = parseInt(request.headers.userid[0]);
-        tesouraria.userId = userId;
-        return this.service.save(tesouraria);
+        treasury.userId = userId;
+        return this.service.save(treasury);
     }
 
     @Put()
     public update(
-                    @Body() tesouraria: Tesouraria,
+                    @Body() treasury: Treasury,
                     @Req() request: Request
                  ) 
     {
@@ -109,7 +109,7 @@ export class TesourariaController {
         }
 
         let userId = parseInt(request.headers.userid[0]);
-        return this.service.update(userId, tesouraria);
+        return this.service.update(userId, treasury);
     }
 
     @Delete(':id')

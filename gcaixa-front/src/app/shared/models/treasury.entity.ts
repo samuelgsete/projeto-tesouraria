@@ -1,17 +1,17 @@
-import { Entrada } from './recipe.entity';
-import { Saida } from './expense.entity';
-import { Contagem } from './inventory.entity';
+import { Recipe } from './recipe.entity';
+import { Expense } from './expense.entity';
+import { Inventory } from './inventory.entity';
 
-export class Tesouraria {
+export class Treasury {
 
-    public id:string;
-    public nome: string;
-    public saldoInicial: number;
-    public saldoAtual: number;
-    public entradas: Array<Entrada> = [];
-    public saidas: Array<Saida> = [];
-    public contagens: Array<Contagem> = [];
-    public detalhes: string;
+    public id: number;
+    public name: string;
+    public initialAmount: number;
+    public currentBalance: number;
+    public recipes: Recipe[] = [];
+    public expenses: Expense[] = [];
+    public inventories: Inventory[] = [];
+    public details: string;
     public userId: number;
 
     public constructor(values: Object = {}) { Object.assign(this, values) }

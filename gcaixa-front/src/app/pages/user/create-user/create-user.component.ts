@@ -14,6 +14,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class CreateUserComponent implements OnInit {
 
   public form: FormGroup;
+  public loading = false;
 
   public constructor(
                         private readonly router: Router, 
@@ -24,6 +25,8 @@ export class CreateUserComponent implements OnInit {
   { }
 
   public createUser(data: any) {
+    this.loading = true;
+
     let user = new User({
       name: data.name,
       surname: data.surname,
@@ -35,9 +38,11 @@ export class CreateUserComponent implements OnInit {
 
     this.service.create(user).subscribe( response => {
       this.toastr.success(response.message, 'Tudo ok', { progressBar: true });
+      this.loading = false;
       this.router.navigateByUrl('/login');
     },
     erro => {
+      this.loading = false;
       this.errorMessage(erro);
     });
   }
@@ -48,7 +53,9 @@ export class CreateUserComponent implements OnInit {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
 
-    this.toastr.error(error.details, 'ERRO', { progressBar: true });
+    else if(response.status == 500) {
+      this.toastr.error(error.details, 'ERRO', { progressBar: true });
+    } 
   }
 
   ngOnInit() {

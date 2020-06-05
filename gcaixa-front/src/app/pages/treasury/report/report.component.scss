@@ -76,7 +76,7 @@
             }
 
             mdb-card.rendimento-entradas {
-                background-color: #3e8aee;
+                background-color: #33b5e5;
 
                 p, h4, mat-icon {
                     color: #fff;
@@ -100,6 +100,7 @@
             .empty-data {
                 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 text-align: center;
+                margin-top: 30px;
                 padding: 40px;
                 h5 { margin-top: 15px }
             }
@@ -129,7 +130,7 @@
                 }
 
                 th.entradas {
-                    background-color: #3e8aee;
+                    background-color: #33b5e5
                 }
 
                 th.saidas {
@@ -147,11 +148,11 @@
                         mdb-card {
                             transition: background-color 0.7s;
                             h4.valor-entrada {
-                               color: #2374df; 
+                               color: #33b5e5; 
                             }
 
                             h4.valor-saida {
-                                color: #d82424; 
+                                color: #ff4444; 
                             }
                         }
                         mdb-card:hover {
@@ -254,7 +255,7 @@
                 }
     
                 mdb-card.rendimento-entradas {
-                    background-color: #3e8aee;
+                    background-color: #33b5e5;
     
                     p, h4, mat-icon {
                         color: #fff;
@@ -307,7 +308,7 @@
                     }
     
                     th.entradas {
-                        background-color: #3e8aee;
+                        background-color: #33b5e5
                     }
     
                     th.saidas {
@@ -324,7 +325,7 @@
                            
                             mdb-card {    
                                 h4.valor-entrada {
-                                   color: #2374df; 
+                                   color: #33b5e5; 
                                 }
     
                                 h4.valor-saida {

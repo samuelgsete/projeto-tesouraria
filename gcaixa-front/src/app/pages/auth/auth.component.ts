@@ -14,8 +14,9 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
 
   public f: FormGroup;
+  public loading = false;
 
-  constructor( 
+  public constructor( 
                 private _fb: FormBuilder, 
                 private router: Router,  
                 private servico: AuthService, 
@@ -23,12 +24,16 @@ export class AuthComponent implements OnInit {
   ) { }
   
   public fazerLogin(user: User) {
+    this.loading = true;
+    
     this.servico.login(user).subscribe( res => {
       localStorage.setItem("id_token", res.access_token);
       localStorage.setItem('name_user', res.name_user);
       localStorage.setItem('user_id', res.user_id);
-      this.router.navigateByUrl('/home');
+      this.loading = false;
+      this.router.navigateByUrl('/home')
     }, err => {
+      this.loading = false;
       this.messageError(err);
     });
   }

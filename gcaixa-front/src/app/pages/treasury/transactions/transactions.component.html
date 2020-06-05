@@ -9,10 +9,10 @@
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA RECEITA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="showModalRecipe(modalRecipe)" mdbWavesEffect>NOVA RECEITA</button>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA DESPESA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="showModalExpense(modalExpense)" mdbWavesEffect>NOVA DESPESA</button>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
                                 <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                                <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -40,7 +40,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                                <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -53,8 +53,8 @@
                                 <p>Saldo real</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL'  }}</h4>
-                                <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
+                                <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL'  }}</h4>
+                                <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -62,9 +62,9 @@
             </div>
 
             <div class="all-delete">
-                <div class="alert alert-warning" role="alert" *ngIf="movimentacoesSelecionadas.length > 1">
-                    {{ movimentacoesSelecionadas.length }} selecionado(s) ...
-                    <button (click)="deletarMovimentacoesSelecionadas()" mat-icon-button>
+                <div class="alert alert-warning" role="alert" *ngIf="transactionsSelected.length > 1">
+                    {{ transactionsSelected.length }} selecionado(s) ...
+                    <button (click)="deleteTransactionsSelected()" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -75,15 +75,15 @@
             <ngx-datatable
                 [rows]="rows"
                 class="material"
-                [loadingIndicator]="indicadorDeCarregamento"
+                [loadingIndicator]="loading"
                 [columnMode]="'force'"
                 [headerHeight]="50"
                 [footerHeight]="50"
                 [rowHeight]="'auto'"
                 [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
                 [selectionType]="'checkbox'"
-                (select)="aoSelecionar($event)"
-                [selected]="movimentacoesSelecionadas"
+                (select)="whenSelecting($event)"
+                [selected]="transactionsSelected"
                 [limit]="6"
             >
             <ngx-datatable-column
@@ -96,28 +96,28 @@
                 [checkboxable]="true">
     
             </ngx-datatable-column>
-                <ngx-datatable-column name="Descrição" [width]="250" prop="descricao"></ngx-datatable-column>
+                <ngx-datatable-column name="Descrição" [width]="250" prop="description"></ngx-datatable-column>
                 <ngx-datatable-column name="Valor" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                        <div >{{ row.valor | currency:'BRL' }}</div>
+                        <div >{{ row.value | currency:'BRL' }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                        <div >{{ row.registradoEm | date: 'dd/MM/yyyy' }}</div>
+                        <div >{{ row.registeredIn | date: 'dd/MM/yyyy' }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Tipo" [width]="150">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.tipo == 'RECEITA', 'danger-color': row.tipo == 'DESPESA'}" >{{ row.tipo }}</div>
+                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.type == transactionType.RECIPE, 'danger-color': row.type == transactionType.EXPENSE }" >{{ row.type }}</div>
                     </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                        <button class="button-actions" (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)" mat-icon-button>
+                        <button class="button-actions" (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="button-actions " (click)="deletarMovimentacao(row)" mat-icon-button>
+                        <button class="button-actions " (click)="deleteTransaction(row)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                     </ng-template>
@@ -134,8 +134,8 @@
                 <mat-icon>layers</mat-icon>
                 <h2>Transações</h2>
             </div>
-            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalEntrada(modalEntrada)" mdbWavesEffect>NOVA RECEITA</button>
-            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="mostrarModalSaida(modalSaida)" mdbWavesEffect>NOVA DESPESA</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalRecipe(modalRecipe)" mdbWavesEffect>NOVA RECEITA</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalExpense(modalExpense)" mdbWavesEffect>NOVA DESPESA</button>
         </div>
     </div>
     <div class="movment">
@@ -148,7 +148,7 @@
                             <p>Montante inicial</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                            <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -161,7 +161,7 @@
                             <p>Saldo atual</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                            <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -174,8 +174,8 @@
                             <p>Saldo real</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
-                            <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
+                            <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
+                            <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -184,7 +184,7 @@
         <ngx-datatable
             [rows]="rows"
             class="material z-depth-0"
-            [loadingIndicator]="indicadorDeCarregamento"
+            [loadingIndicator]="loading"
             [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
             [columnMode]="'force'"
             [headerHeight]="50"
@@ -192,25 +192,25 @@
             [rowHeight]="50"
             [limit]="6"
         >
-            <ngx-datatable-column name="Descrição" [width]="250" prop="descricao"></ngx-datatable-column>
-            <ngx-datatable-column name="Valor" [width]="100">
+            <ngx-datatable-column name="Descrição" [width]="250" prop="description"></ngx-datatable-column>
+            <ngx-datatable-column name="Valor" [width]="100" prop="value">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
                     <span class="mobile-hidden">{{ column.name }}</span>
                   </ng-template>
-                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <ng-template let-value="value" ngx-datatable-cell-template>
                     <span class="mobile-hidden">{{ value | currency:'BRL' }}</span>
                   </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Ações" [width]="100">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
                     <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #actions="matMenu">
-                        <button style="outline: none;" mat-menu-item  (click)="setFormEntradaOuSaida(row, modalAtualizarEntrada, modalAtualizarSaida)">
+                        <button style="outline: none;" mat-menu-item  (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)">
                             <mat-icon>edit</mat-icon>Editar
                         </button>
-                        <button mat-menu-item (click)="deletarMovimentacao(row)">
+                        <button mat-menu-item (click)="deleteTransaction(row)">
                             <mat-icon>delete</mat-icon>Deletar
                         </button>
                     </mat-menu> 
@@ -221,27 +221,27 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalRecipe="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalEntrada(modalEntrada)">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalRecipe(modalRecipe)">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA RECEITA</h4>
             </div>
             <div class="modal-body">
-                <form [formGroup]="f">
+                <form [formGroup]="formRecipes">
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="descricao" required>
+                                <input matInput placeholder="Descrição" formControlName="description" required>
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field>
                         </div>
@@ -249,13 +249,13 @@
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Ofertante" formControlName="ofertante">
+                                <input matInput placeholder="Ofertante" formControlName="offerer">
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
@@ -267,36 +267,36 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><p *ngIf="creditos.length == 0">Não há créditos adicionados</p></div>
+                            <div class="col-md-12"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
                         </div> 
             
                         <mat-accordion>
-                            <mat-expansion-panel *ngFor="let c of creditos; let i = index">
+                            <mat-expansion-panel *ngFor="let credit of credits; let i = index">
                                 <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-description style="width: 50%;">
                                         <mat-icon>face</mat-icon>
-                                        {{ c.titular }}
+                                        {{ credit.holder }}
                                     </mat-panel-description>
                                     <mat-panel-description style="width: 50%;">
                                         <mat-icon>phone</mat-icon>
-                                        {{ c.telefone }}
+                                        {{ credit.telephone }}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <mdb-card class="z-depth-0 card-credit danger-color" mdbWavesEffect>
                                     <mdb-card-body>
                                         <mdb-card-text>
-                                            <p>{{ c.situacao }}</p>
+                                            <p>{{ credit.status }}</p>
                                         </mdb-card-text>  
                                         <mdb-card-text>
-                                            <p>{{ c.telefone }}</p>
+                                            <p>{{ credit.telephone }}</p>
                                         </mdb-card-text>            
                                         <mdb-card-title>
-                                            <h4>{{ c.valor | currency:'BRL' }}</h4>
+                                            <h4>{{ credit.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>  
                                         <mdb-card-text>
-                                            <p>{{ c.registro | date: 'dd/MM/yyyy' }}</p>
+                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
                                         </mdb-card-text>   
-                                        <button (click)="removerCredito(i, c)" mat-icon-button>
+                                        <button (click)="removeCredit(i, credit)" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
                                         </button>                              
                                     </mdb-card-body>                              
@@ -306,14 +306,14 @@
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-md-8 col-lg-9"></div>
                             <div class="col-sm-12 col-md-4 col-lg-3">
-                                <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                                <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="default" (click)="modalCredit.show()" mdbWavesEffect>ADICIONAR</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                                 <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
@@ -322,34 +322,33 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="danger" class="waves-light z-depth-0" (click)="limparForm(f)" mdbWavesEffect>LIMPAR</button>
-                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarEntrada(f.value, modalEntrada)" mdbWavesEffect>SALVAR</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!formRecipes.valid" (click)="saveOrUpdateRecipe(formRecipes.value, modalRecipe)" mdbWavesEffect>SALVAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<div mdbModal #modalAtualizarEntrada="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdateRecipe="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalAtualizarEntrada.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalUpdateRecipe.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">EDITAR RECEITA</h4>
             </div>
             <div class="modal-body">
-                <form [formGroup]="f">
+                <form [formGroup]="formRecipes">
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="descricao" required>
+                                <input matInput placeholder="Descrição" formControlName="description" required>
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field>
                         </div>
@@ -357,13 +356,13 @@
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Ofertante" formControlName="ofertante">
+                                <input matInput placeholder="Ofertante" formControlName="offerer">
                                 <mat-error>Informe no mínimo quatro caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
@@ -375,41 +374,41 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col"><p *ngIf="creditos.length == 0">Não há créditos adicionados</p></div>
+                            <div class="col"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
                         </div> 
                        
                         <mat-accordion>
-                            <mat-expansion-panel *ngFor="let c of creditos; let i = index">
+                            <mat-expansion-panel *ngFor="let credit of credits; let i = index">
                                 <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-description style="width: 50%;">
                                         <mat-icon>face</mat-icon>
-                                        {{ c.titular }}
+                                        {{ credit.holder }}
                                     </mat-panel-description>
                                     <mat-panel-description style="width: 50%;">
                                         <mat-icon>phone</mat-icon>
-                                        {{ c.telefone }}
+                                        {{ credit.telephone }}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                           
-                                <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': c.situacao == 'ABERTO', 'info-color': c.situacao == 'QUITADO', 'default-color': c.situacao == 'ENCERRADO' }" mdbWavesEffect>
-                                    <mdb-card-body (click)="quitarCredito(c)">
+                                <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': credit.status == 'ABERTO', 'info-color': credit.status == 'QUITADO', 'default-color': credit.status == 'ENCERRADO' }" mdbWavesEffect>
+                                    <mdb-card-body (click)="payOffCredit(credit)">
                                         <mdb-card-text>
-                                            <p>{{ c.situacao }}</p>
+                                            <p>{{ credit.status }}</p>
                                         </mdb-card-text>             
                                         <mdb-card-title>
-                                            <h4>{{ c.valor | currency:'BRL' }}</h4>
+                                            <h4>{{ credit.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>                                        
                                         <mdb-card-text>                                        
-                                            <p>{{ c.registro | date: 'dd/MM/yyyy' }}</p>
+                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
                                         </mdb-card-text>   
 
-                                        <button (click)="removerCredito(i, c)" *ngIf="c.situacao != 'ENCERRADO'" mat-icon-button>
+                                        <button (click)="removeCredit(i, credit)" *ngIf="credit.status != 'ENCERRADO'" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
                                         </button>                         
                                     </mdb-card-body>                              
                                 </mdb-card>
 
-                                <div class="row info-credit" *ngIf="c.situacao != 'ENCERRADO'">
+                                <div class="row info-credit" *ngIf="credit.status != 'ENCERRADO'">
                                     <div class="col">
                                         <mat-icon>info</mat-icon><p>Click no card para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
                                     </div>
@@ -419,14 +418,14 @@
                         <div class="row" style="margin-top: 20px;">
                             <div class="col-sm-6 col-md-6 col-lg-9"></div>
                             <div class="col-sm-6 col-md-6 col-lg-3">
-                                <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="default" (click)="modalCredito.show()" mdbWavesEffect>ADICIONAR</button>
+                                <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="default" (click)="modalCredit.show()" mdbWavesEffect>ADICIONAR</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                                 <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
@@ -435,27 +434,27 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarEntrada(f.value, modalAtualizarEntrada)" mdbWavesEffect>ATUALIZAR</button>
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!formRecipes.valid" (click)="saveOrUpdateRecipe(formRecipes.value, modalUpdateRecipe)" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<div mdbModal #modalSaida="mdbModal" style="overflow-y: auto" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalExpense="mdbModal" style="overflow-y: auto" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalSaida.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalExpense.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA DESPESA</h4>
             </div>
             <div class="modal-body">
-                <form [formGroup]="fsaidas">
+                <form [formGroup]="formExpenses">
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="descricao">
+                                <input matInput placeholder="Descrição" formControlName="description">
                                 <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -463,7 +462,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
@@ -471,7 +470,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
@@ -479,36 +478,36 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #detalhes matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                                <textarea #details matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{ detalhes.value?.length || 0 }}/200</mat-hint>
+                                <mat-hint>{{ details.value?.length || 0 }}/200</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid" (click)="salvarOuAtualizarSaida(fsaidas.value, modalSaida)" mdbWavesEffect>SALVAR</button>
+                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!formExpenses.valid" (click)="saveOrUpdateExpense(formExpenses.value, modalExpense)" mdbWavesEffect>SALVAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<div mdbModal #modalAtualizarSaida="mdbModal" class="modal fade modal-zindex" style="overflow-y: auto" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdateExpense="mdbModal" class="modal fade modal-zindex" style="overflow-y: auto" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalAtualizarSaida(modalAtualizarSaida);">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalUpdateExpense(modalUpdateExpense)">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">EDITAR DESPESA</h4>
             </div>
             <div class="modal-body">
-                <form [formGroup]="fsaidas">
+                <form [formGroup]="formExpenses">
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="descricao">
+                                <input matInput placeholder="Descrição" formControlName="description">
                                 <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -516,7 +515,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>Esse campo é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
@@ -524,7 +523,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
@@ -532,7 +531,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                                <textarea #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                                 <mat-hint>{{ input.value?.length || 0}}/200</mat-hint>
                             </mat-form-field>
@@ -541,27 +540,27 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!fsaidas.valid" (click)="salvarOuAtualizarSaida(fsaidas.value, modalAtualizarSaida)" mdbWavesEffect>ATUALIZAR</button>
+                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!formExpenses.valid" (click)="saveOrUpdateExpense(formExpenses.value, modalUpdateExpense)" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<div mdbModal #modalCredito="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalCredit="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCredito.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCredit.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVO CRÉDITO</h4>
             </div>
             <div class="modal-body">
-                <form [formGroup]="fcreditos">
+                <form [formGroup]="formCredits">
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Titular" formControlName="titular" maxlength="200" required>
+                                <input matInput placeholder="Titular" formControlName="holder" maxlength="200" required>
                                 <mat-error>Informe no mínimo 4  e no máximo 20 caracteres</mat-error>
                             </mat-form-field>
                         </div>
@@ -569,7 +568,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Valor" formControlName="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>O valor é obrigatório</mat-error>
                             </mat-form-field>
                         </div>
@@ -577,7 +576,7 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Telefone" formControlName="telefone" mask="(00) 00000-0000" required>
+                                <input matInput placeholder="Telefone" formControlName="telephone" mask="(00) 00000-0000" required>
                                 <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000</mat-error>
                             </mat-form-field>
                         </div>
@@ -585,9 +584,8 @@
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="default" block=true class="relative waves-light z-depth-0" (click)="addCredito(fcreditos, modalCredito)" [disabled]="!fcreditos.valid" mdbWavesEffect>ADICIONAR</button>
+                <button type="button" mdbBtn color="default" block=true class="relative waves-light z-depth-0" (click)="addCredit(formCredits, modalCredit)" [disabled]="!formCredits.valid" mdbWavesEffect>ADICIONAR</button>
             </div>
         </div>
     </div>
 </div>
-

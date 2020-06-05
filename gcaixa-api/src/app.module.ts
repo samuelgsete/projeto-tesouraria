@@ -3,14 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { TesourariaModule } from './tesouraria/tesouraria.module';
-import { Tesouraria } from './shared/models/treasury.entity';
-import { Saida } from './shared/models/expense.entity';
-import { Entrada } from './shared/models/recipe.entity';
-import { Credito } from './shared/models/credit.entity';
+import { TreasuryModule } from './treasury/treasury.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
-import { Contagem } from './shared/models/inventory.entity';
+
+import { Treasury } from './shared/models/treasury.entity';
+import { Expense } from './shared/models/expense.entity';
+import { Recipe } from './shared/models/recipe.entity';
+import { Credit } from './shared/models/credit.entity';
+import { Inventory} from './shared/models/inventory.entity';
 import { User } from './shared/models/user.entity';
 
 @Module({
@@ -21,18 +22,18 @@ import { User } from './shared/models/user.entity';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'tesourariadb',
+      database: 'treasurydb',
       entities: [
-        Tesouraria, 
-        Saida,
-        Entrada,
-        Credito,
-        Contagem,
+        Treasury, 
+        Expense,
+        Recipe,
+        Credit,
+        Inventory,
         User
       ],
       synchronize: true,
     }),
-    TesourariaModule,
+    TreasuryModule,
     AuthModule,
     UserModule,
   ],

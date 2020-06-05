@@ -9,13 +9,13 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" mdbWavesEffect (click)="alimentarGrafico()">ATUALIZAR</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="feedChart()" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>
 
     <div class="graphic z-depth-1-half">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="row">
@@ -27,7 +27,7 @@
                             <p>Saldo atual</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ receitas.currentBalance | currency:'BRL' }}</h4>
+                            <h4 >{{ income.currentBalance | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -40,7 +40,7 @@
                             <p>Total de receitas</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4>{{ receitas.incomeRecipes | currency:'BRL' }}</h4>
+                            <h4>{{ income.incomeRecipes | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -53,7 +53,7 @@
                             <p>Total de despesas </p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4>{{ receitas.incomeExpenses | currency:'BRL' }}</h4>
+                            <h4>{{ income.incomeExpenses | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -61,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <mdb-card class="empty-data" *ngIf="receitas.incomeRecipes == 0 && receitas.incomeExpenses == 0" mdbWavesEffect>
+                <mdb-card class="empty-data" *ngIf="income.incomeRecipes == 0 && income.incomeExpenses == 0" mdbWavesEffect>
                     <mdb-card-body>
                         <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                         <h4>Nenhuma registro encontrado</h4>
@@ -70,7 +70,7 @@
                 </mdb-card>
             </div>
         </div>
-        <div class="main-content" *ngIf="receitas.incomeRecipes != 0 || receitas.incomeExpenses != 0">
+        <div class="main-content" *ngIf="income.incomeRecipes != 0 || income.incomeExpenses != 0">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header mdbWavesEffect>
@@ -80,8 +80,8 @@
                         <div class="col-12">
                             <mat-form-field>
                                 <mat-label>Ano</mat-label>
-                                <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
-                                    <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                                <mat-select [(value)]="yearSelected" (selectionChange)="feedChart()">
+                                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -90,13 +90,13 @@
             </mat-accordion>
             <div class="row transacoes">
                 <div class="col-12">
-                    <h5>Histórico de transações de {{ anoSelecionado }}</h5>
+                    <h5>Histórico de transações de {{ yearSelected }}</h5>
                     <div mdbWavesEffect>
                         <canvas mdbChart
                             [chartType]="chartType"
-                            [(datasets)]="rendimentos"
+                            [(datasets)]="transactions"
                             [labels]="chartLabels"
-                            [colors]="rendimentosCores"
+                            [colors]="transactionsColors"
                             [options]="chartOptions"
                             [legend]="true"
                         >
@@ -106,13 +106,13 @@
             </div>
             <div class="row transacoes">
                 <div class="col-12">
-                    <h5>Histórico de faturamento de {{ anoSelecionado }}</h5>
+                    <h5>Histórico de faturamento de {{ yearSelected }}</h5>
                     <div mdbWavesEffect>
                         <canvas mdbChart
                             [chartType]="chartType"
-                            [(datasets)]="faturamento"
+                            [(datasets)]="billing"
                             [labels]="chartLabels"
-                            [colors]="faturamentoCor"
+                            [colors]="billingColors"
                             [options]="chartOptions"
                             [legend]="true"
                         >
@@ -130,12 +130,12 @@
                 <mat-icon>batch_prediction</mat-icon>
                 <h2>Histórico</h2>
             </div>
-            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" mdbWavesEffect (click)="alimentarGrafico()">ATUALIZAR</button>
+            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" mdbWavesEffect (click)="feedChart()">ATUALIZAR</button>
         </div>
     </div>
     <br>
     <div class="history">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="row">
@@ -147,7 +147,7 @@
                             <p>Saldo atual</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ receitas.currentBalance | currency:'BRL' }}</h4>
+                            <h4 >{{ income.currentBalance | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -160,7 +160,7 @@
                             <p>Total de receitas</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4>{{ receitas.incomeRecipes | currency:'BRL' }}</h4>
+                            <h4>{{ income.incomeRecipes | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -173,7 +173,7 @@
                             <p>Total de despesas</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4>{{ receitas.incomeExpenses | currency:'BRL' }}</h4>
+                            <h4>{{ income.incomeExpenses | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -181,7 +181,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <mdb-card class="empty-data" *ngIf="receitas.incomeRecipes == 0 && receitas.incomeExpenses == 0" mdbWavesEffect>
+                <mdb-card class="empty-data" *ngIf="income.incomeRecipes == 0 && income.incomeExpenses == 0" mdbWavesEffect>
                     <mdb-card-body>
                         <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                         <h4>Nenhuma registro encontrado</h4>
@@ -190,7 +190,7 @@
                 </mdb-card>
             </div>
         </div>
-        <div class="main-content" *ngIf="receitas.incomeRecipes != 0 || receitas.incomeExpenses != 0" >
+        <div class="main-content" *ngIf="income.incomeRecipes != 0 || income.incomeExpenses != 0" >
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header mdbWavesEffect>
@@ -200,8 +200,8 @@
                         <div class="col-12">
                             <mat-form-field>
                                 <mat-label>Ano</mat-label>
-                                <mat-select [(value)]="anoSelecionado" (selectionChange)="alimentarGrafico()">
-                                    <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                                <mat-select [(value)]="yearSelected" (selectionChange)="feedChart()">
+                                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -211,7 +211,7 @@
 
             <div class="row rendimentos">
                 <div class="col-12">
-                    <p class="text-center">Histórico de rendimentos de {{ anoSelecionado }}</p>
+                    <p class="text-center">Histórico de rendimentos de {{ yearSelected }}</p>
                 </div>
                 <div class="col-12">
                     <mdb-card mdbWavesEffect>
@@ -219,9 +219,9 @@
                             <div>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="rendimentos"
+                                    [(datasets)]="transactions"
                                     [labels]="chartLabels"
-                                    [colors]="rendimentosCores"
+                                    [colors]="transactionsColors"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >
@@ -234,7 +234,7 @@
         
             <div class="row receitas">
                 <div class="col-12">
-                    <p class="text-center">Histórico de geral de faturamento de {{ anoSelecionado }}</p>  
+                    <p class="text-center">Histórico de geral de faturamento de {{ yearSelected }}</p>  
                 </div>
                 <div class="col-12">
                     <mdb-card mdbWavesEffect>
@@ -242,9 +242,9 @@
                             <div>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="faturamento"
+                                    [(datasets)]="billing"
                                     [labels]="chartLabels"
-                                    [colors]="faturamentoCor"
+                                    [colors]="billingColors"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >

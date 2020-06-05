@@ -9,17 +9,17 @@
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVA TESOURARIA</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCreate.show()" mdbWavesEffect>NOVA TESOURARIA</button>
             </div>
         </div>
     </div>
     <div class="box z-depth-1-half">
-        <div *ngIf="indicadorDeCarregamento">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="header">
             <mat-form-field class="input-width" appearance="fill">
-                <input [formControl]="pesquisar" matInput placeholder="Diga-me o que deseja procurar">
+                <input [formControl]="search" matInput placeholder="Diga-me o que deseja procurar">
                 <button mat-icon-button matSuffix>
                     <mat-icon>search</mat-icon>
                 </button>
@@ -27,13 +27,13 @@
         </div>
         
         <div class="main-content">           
-            <div class="empty-data" *ngIf="this.tesourarias.length == 0">
+            <div class="empty-data" *ngIf="this.treasuries.length == 0">
                 <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                 <h4>Nenhuma tesouraria encontrada</h4>
                 <h5>Crie uma clicando no botão acima</h5>  
             </div>
             <div class="row">
-                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let t of tesourarias">
+                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let t of treasuries">
                     <mdb-card mdbWavesEffect>
                         <mdb-card-body>
                             
@@ -41,24 +41,24 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
-                                <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                                <button mat-menu-item (click)="efetuarInventario(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitterReport(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
+                                <button class="btn-grafico" mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
+                                <button mat-menu-item (click)="takeInventory(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                             </mat-menu>  
     
                             <mdb-card-title>
-                                <h4>{{ t.nome }}</h4>
+                                <h4>{{ t.name }}</h4>
                             </mdb-card-title>
                     
-                            <mdb-card-text>Saldo Atual {{ t.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                            <mdb-card-text>Saldo Atual {{ t.currentBalance | currency:'BRL' }}</mdb-card-text>
                         
-                            <button mat-fab class="btn-add z-depth-0" (click)="abrirTesouraria(t.id)">
+                            <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(t.id)">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <button mat-fab class="btn-edit z-depth-0" (click)="abrirModalEditar(t)">
+                            <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(t)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-fab class="btn-delete z-depth-0" (click)="deletarTesouraria(t)">
+                            <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(t)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </mdb-card-body>
@@ -84,21 +84,21 @@
                 <mat-icon>how_to_vote</mat-icon>
                 <h2>Tesourarias</h2>
             </div>
-            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCadastro.show()" mdbWavesEffect>NOVA TESOURARIA</button>
+            <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCreate.show()" mdbWavesEffect>NOVA TESOURARIA</button>
         </div>
     </div>
     <div class="box">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div class="loading" *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <mat-form-field class="input-width" appearance="fill">
-            <input [formControl]="pesquisar" matInput placeholder="Qual tesouraria você está procurando?">
+            <input [formControl]="search" matInput placeholder="Qual tesouraria você está procurando?">
             <button mat-icon-button matSuffix>
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
 
-        <mdb-card class="empty-data" *ngIf="this.tesourarias.length == 0" mdbWavesEffect>
+        <mdb-card class="empty-data" *ngIf="this.treasuries.length == 0" mdbWavesEffect>
             <mdb-card-body>
                 <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                 <h4>Nenhuma tesouraria encontrada</h4>
@@ -107,7 +107,7 @@
         </mdb-card>
 
         <div class="row">
-            <div class="col-12" *ngFor="let t of tesourarias">
+            <div class="col-12" *ngFor="let t of treasuries">
                 <mdb-card mdbWavesEffect>
                     <mdb-card-body>
                         
@@ -115,24 +115,24 @@
                             <mat-icon>more_horiz</mat-icon>
                         </button>
                         <mat-menu #actions="matMenu">
-                            <button style="outline: none;" mat-menu-item (click)="emitirRelatorio(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
-                            <button class="btn-grafico" mat-menu-item (click)="exibirHistorico(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                            <button mat-menu-item (click)="efetuarInventario(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
+                            <button style="outline: none;" mat-menu-item (click)="emitterReport(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
+                            <button mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
+                            <button mat-menu-item (click)="takeInventory(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                         </mat-menu>  
 
                         <mdb-card-title>
-                            <h4>{{ t.nome }}</h4>
+                            <h4>{{ t.name }}</h4>
                         </mdb-card-title>
                 
-                        <mdb-card-text>Saldo Atual {{ t.saldoAtual | currency:'BRL' }}</mdb-card-text>
+                        <mdb-card-text>Saldo Atual {{ t.currentBalance | currency:'BRL' }}</mdb-card-text>
                     
-                        <button mat-fab class="btn-add z-depth-0" (click)="abrirTesouraria(t.id)">
+                        <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(t.id)">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-fab class="btn-edit z-depth-0" (click)="abrirModalEditar(t)">
+                        <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(t)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-fab class="btn-delete z-depth-0" (click)="deletarTesouraria(t)">
+                        <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(t)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mdb-card-body>
@@ -150,11 +150,11 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalCadastro="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalCreate="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="ocultarModalCadastrar()">
+          <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="hideModalCreate()">
             <span aria-hidden="true">×</span>
           </button>
           <h4 class="modal-title w-100" id="myModalLabel">NOVA TESOURARIA</h4>
@@ -164,7 +164,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Nome" formControlName="nome" required>
+                            <input matInput placeholder="Nome" formControlName="name" required>
                             <mat-error>Informe no mínimo quatro caracteres</mat-error>
                         </mat-form-field>
                     </div>
@@ -172,7 +172,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Montante inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                            <input matInput placeholder="Montante inicial" formControlName="initialAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                             <mat-error>Esse campo precisa ser preenchido</mat-error>
                         </mat-form-field>
                     </div>
@@ -180,7 +180,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                             <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                             <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
                         </mat-form-field>
@@ -189,16 +189,16 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="info" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>CADASTRAR</button>
+          <button type="button" block="true" mdbBtn color="info" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="createOrUpdateTreasury(f.value)" mdbWavesEffect>CADASTRAR</button>
         </div>
       </div>
     </div>
 </div>
-<div mdbModal #modalEditar="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdate="mdbModal" style="overflow-y: auto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close pull-right  btn-hide-modal" aria-label="Close" (click)="ocultarModalEditar()">
+          <button type="button" class="close pull-right  btn-hide-modal" aria-label="Close" (click)="hideModalUpdate()">
             <span aria-hidden="true">×</span>
           </button>
           <h4 class="modal-title w-100" id="myModalLabel">EDITAR TESOURARIA</h4>
@@ -208,7 +208,7 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Nome" formControlName="nome" required>
+                            <input matInput placeholder="Nome" formControlName="name" required>
                             <mat-error>Informe no mínimo quatro caracteres</mat-error>
                         </mat-form-field>
                     </div>
@@ -216,14 +216,14 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Montante inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                            <input matInput placeholder="Montante inicial" formControlName="initialAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="detalhes"></textarea>
+                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
                             <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
                             <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
                         </mat-form-field>
@@ -232,7 +232,7 @@
             </form>
         </div>
         <div class="modal-footer"> 
-          <button type="button" block="true" mdbBtn color="indigo" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="cadastrarOuAtualizarTesouraria(f.value)" mdbWavesEffect>ATUALIZAR</button>
+          <button type="button" block="true" mdbBtn color="indigo" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="createOrUpdateTreasury(f.value)" mdbWavesEffect>ATUALIZAR</button>
         </div>
       </div>
     </div>

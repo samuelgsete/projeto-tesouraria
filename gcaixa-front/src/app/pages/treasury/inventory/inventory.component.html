@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
-                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="showModalCreate(modalCreate)" mdbWavesEffect>NOVO INVENTÁRIO</button>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
                                 <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                                <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -37,7 +37,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                                <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -50,17 +50,17 @@
                                 <p>Saldo real</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[tesouraria.contagens.length - 1].saldoReal | currency:'BRL' }}</h4>
-                                <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
+                                <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
+                                <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
                 </div>
             </div>
             <div class="all-delete">
-                <div class="alert alert-warning" role="alert" *ngIf="contagensSelecionadas.length > 1">
-                    {{ contagensSelecionadas.length }} selecionado(s) ...
-                    <button (click)="deletarContagensSelecionadas()" mat-icon-button>
+                <div class="alert alert-warning" role="alert" *ngIf="inventoriesSelected.length > 1">
+                    {{ inventoriesSelected.length }} selecionado(s) ...
+                    <button (click)="deleteInventoriesSelected()" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
@@ -70,15 +70,15 @@
             <ngx-datatable
                 [rows]="rows"
                 class="material"
-                [loadingIndicator]="indicadorDeCarregamento"
+                [loadingIndicator]="loading"
                 [columnMode]="'force'"
                 [headerHeight]="50"
                 [footerHeight]="50"
                 [rowHeight]="'auto'"
                 [messages]="{emptyMessage: '<center>Nenhuma contagem cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
                 [selectionType]="'checkbox'"
-                (select)="aoSelecionar($event)"
-                [selected]="contagensSelecionadas"
+                (select)="whenSelecting($event)"
+                [selected]="inventoriesSelected"
                 [limit]="6"
             >
             <ngx-datatable-column
@@ -92,20 +92,20 @@
             </ngx-datatable-column>
                 <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
                 <ngx-datatable-column name="Tesouraria" [width]="250">
-                    <ng-template let-row="row" ngx-datatable-cell-template>{{ tesouraria.nome }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ treasury.name }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Saldo real" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.saldoReal | currency:'BRL' }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.actualBalance | currency:'BRL' }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.registradoEm | date: 'dd/MM/yyyy' }}</ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.registeredIn | date: 'dd/MM/yyyy' }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Ações" [width]="100">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                        <button class="button-actions" (click)="abirModalEditar(row, modalEditar)" mat-icon-button>
+                        <button class="button-actions" (click)="showModalUpdate(row, modalUpdate)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="button-actions" (click)="deletarContagem(row)" mat-icon-button>
+                        <button class="button-actions" (click)="deleteInventory(row)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                     </ng-template>
@@ -123,7 +123,7 @@
                     <h2>Inventário</h2>
                 </div>
             </div>
-            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="abrirModalCriar(modalCriar)" mdbWavesEffect>NOVA CONTAGEM</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalCreate(modalCreate)" mdbWavesEffect>NOVO INVENTÁRIO</button>
         </div>
     </div>
     <div class="score">
@@ -136,7 +136,7 @@
                             <p>Montante inicial</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ tesouraria.saldoInicial | currency:'BRL' }}</h4>
+                            <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -149,7 +149,7 @@
                             <p>Saldo atual</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 >{{ tesouraria.saldoAtual | currency:'BRL' }}</h4>
+                            <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -162,8 +162,8 @@
                             <p>Saldo real</p>
                         </mdb-card-text>
                         <mdb-card-title>
-                            <h4 *ngIf="tesouraria.contagens[0] != null">{{ tesouraria.contagens[0].saldoReal | currency:'BRL' }}</h4>
-                            <h4 *ngIf="tesouraria.contagens[0] == null">Não contabilizado</h4>
+                            <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
+                            <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
                         </mdb-card-title>                   
                     </mdb-card-body>
                 </mdb-card>
@@ -172,7 +172,7 @@
         <ngx-datatable
             [rows]="rows"
             class="material z-depth-0"
-            [loadingIndicator]="indicadorDeCarregamento"
+            [loadingIndicator]="loading"
             [columnMode]="'force'"
             [headerHeight]="50"
             [footerHeight]="50"
@@ -182,26 +182,26 @@
         >
             <ngx-datatable-column name="ID" [width]="100" prop="id"></ngx-datatable-column>
             <ngx-datatable-column name="Tesouraria" [width]="200">
-                <ng-template let-row="row" ngx-datatable-cell-template>{{ tesouraria.nome }}</ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ treasury.name }}</ng-template>
             </ngx-datatable-column>  
-            <ngx-datatable-column name="Saldo real" [width]="100">
+            <ngx-datatable-column name="Saldo real" [width]="100" prop="actualBalance">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
                     <span class="mobile-hidden">{{ column.name }}</span>
                   </ng-template>
-                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <ng-template let-value="value" ngx-datatable-cell-template>
                     <span class="mobile-hidden">{{ value | currency:'BRL' }}</span>
                   </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Ações" [width]="100">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
                     <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #actions="matMenu">
-                        <button style="outline: none;" mat-menu-item (click)="abirModalEditar(row, modalEditar)">
+                        <button style="outline: none;" mat-menu-item (click)="showModalUpdate(row, modalUpdate)">
                             <mat-icon>edit</mat-icon>Editar
                         </button>
-                        <button mat-menu-item (click)="deletarContagem(row)">
+                        <button mat-menu-item (click)="deleteInventory(row)">
                             <mat-icon>delete</mat-icon>Deletar
                         </button>
                     </mat-menu> 
@@ -212,11 +212,11 @@
 </div>
 <app-footer></app-footer>
 
-<div mdbModal #modalCriar="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalCreate="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCriar.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalCreate.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">NOVA CONTAGEM</h4>
@@ -226,45 +226,33 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo real" formControlName="saldoReal" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
-                                <mat-error>Esse campo é obrigatório</mat-error>
+                                <input matInput placeholder="Saldo real" formControlName="actualBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>o saldo real é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
-                            </mat-form-field> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
-                            </mat-form-field> 
-                        </div>
-                        <div class="col-6">
-                            <mat-form-field  class="input-width">
-                                <input matInput placeholder="Montante inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalCriar)" mdbWavesEffect>SALVAR</button>
+                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="saveOrUpdateInventory(f.value, modalCreate)" mdbWavesEffect>SALVAR</button>
             </div>
         </div>
     </div>
 </div>
 
-<div mdbModal #modalEditar="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+<div mdbModal #modalUpdate="mdbModal" class="modal fade modal-zindex" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalEditar.hide()">
+                <button type="button" class="close pull-right btn-hide-modal" aria-label="Close" (click)="modalUpdate.hide()">
                 <span aria-hidden="true">×</span>
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">EDITAR CONTAGEM</h4>
@@ -274,37 +262,24 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo real" formControlName="saldoReal" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
-                                <mat-error>Esse campo é obrigatório</mat-error>
+                                <input matInput placeholder="Saldo real" formControlName="actualBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>O saldo real é obrigatório</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Registrado em" formControlName="registradoEm" mask="00/00/0000" required>
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
                                 <mat-error>A data de registro deve ser válida</mat-error>
-                            </mat-form-field> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <mat-form-field  class="input-width">
-                                <input matInput placeholder="Saldo atual" formControlName="saldoAtual" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
-                            </mat-form-field> 
-                        </div>
-                        <div class="col-6">
-                            <mat-form-field  class="input-width">
-                                <input matInput placeholder="Montante inicial" formControlName="saldoInicial" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer"> 
-                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="salvarOuAtualizarContagem(f.value, modalEditar)" mdbWavesEffect>ATUALIZAR</button>
+                <button type="button" mdbBtn color="indigo" block="true" class="relative waves-light z-depth-0" [disabled]="!f.valid" (click)="saveOrUpdateInventory(f.value, modalUpdate)" mdbWavesEffect>ATUALIZAR</button>
             </div>
         </div>
     </div>
 </div>
-

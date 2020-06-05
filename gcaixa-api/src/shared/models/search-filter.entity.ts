@@ -1,10 +1,10 @@
-export class FiltroBusca {
+export class SearchFilter {
 
-    public palavra: string;
+    public word: string;
     public page: number;
 
-    constructor(_palavra: string, _page: number) {
-        this.palavra =  (_palavra == null || _palavra == "")? "%%" : "%" + _palavra + "%";
+    constructor(_word: string, _page: number) {
+        this.word =  (_word == null || _word == "")? "%%" : "%" + _word + "%";
         this.page = _page <=0 ? 1: _page;
     }
 

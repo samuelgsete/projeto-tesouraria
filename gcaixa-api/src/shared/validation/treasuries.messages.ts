@@ -7,8 +7,8 @@ export class treasuries {
     public static readonly balanceCurrentNotNull = 'O saldo Atual não pode ser nulo';
     public static readonly balanceCurrentValid = 'O saldo atual deve ser numérico';
     
-    public static readonly openingBalanceNotNull = 'O saldo inicial não pode ser nulo';
-    public static readonly openingBalanceValid = 'O saldo inicial deve ser numérico';
+    public static readonly initialAmountNotNull = 'O montante inicial não pode ser nulo';
+    public static readonly initialAmountValid = 'O montante inicial deve ser numérico';
 
     public static readonly detailsValid = 'Os detalhes devem ser uma cadeia de caracteres';
     public static readonly detailsLength = 'Os detalhes devem conter no mínimo 3 e no máximo 255 caractares';

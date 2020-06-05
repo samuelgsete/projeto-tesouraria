@@ -1,17 +1,16 @@
-import { Credito } from './credit.entity';
+import { Credit } from './credit.entity';
+import { TransactionType } from './enums/transaction-type.enum';
 
-export class Entrada {
+export class Recipe {
 
     public id: number;
-    public descricao: string;
-    public valor: number;
-    public ofertante: string;
-    public registradoEm: Date;
-    public creditos: Credito[] = [];
-    public tipo: string;
-    public detalhes: string;
+    public description: string;
+    public value: number;
+    public offerer: string;
+    public registeredIn: Date;
+    public credits: Credit[] = [];
+    public type: TransactionType;
+    public details: string;
 
-    constructor(values: Object = {}) {
-        Object.assign(this, values);
-    }
+    public constructor(values: Object = {}) { Object.assign(this, values) }
 }

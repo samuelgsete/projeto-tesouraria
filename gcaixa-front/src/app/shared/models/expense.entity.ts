@@ -1,13 +1,13 @@
-export class Saida {
+import { TransactionType } from './enums/transaction-type.enum';
+
+export class Expense {
 
     public id: number;
-    public descricao: string;
-    public valor: number;
-    public registradoEm: Date;
-    public tipo: string;
-    public detalhes: string;
+    public description: string;
+    public value: number;
+    public registeredIn: Date;
+    public type: TransactionType;
+    public details: string;
 
-    constructor(values: Object = {}) {
-        Object.assign(this, values);
-    }
+    public constructor(values: Object = {}) { Object.assign(this, values) }
 }

@@ -23,6 +23,9 @@
                     <mat-error>preencha esse campo corretamente</mat-error>
                 </mat-form-field>
                 <button type="button" class="z-depth-0" block="true" mdbBtn color="indigo" mdbWavesEffect (click)="fazerLogin(f.value)" [disabled]="!f.valid" >ENTRAR</button>
+                <div *ngIf="loading">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
                 <br>
                 <a routerLink="/user/create">Criar conta</a>
             </form> 
