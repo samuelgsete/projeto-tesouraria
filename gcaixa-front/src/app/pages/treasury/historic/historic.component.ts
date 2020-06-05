@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ToastrService } from 'ngx-toastr';
-import { Receitas } from 'src/app/shared/models/income.entity';
+import { Income } from 'src/app/shared/models/income.entity';
 
 @Component({
   selector: 'app-historic',
@@ -12,20 +12,20 @@ import { Receitas } from 'src/app/shared/models/income.entity';
 })
 export class HistoricComponent implements OnInit {
 
-  public historico = {};
-  public receitas = new Receitas();
-  public indicadorDeCarregamento = true;
-  public anos = [ 2019, 2020, 2021, 2022 ];
-  public anoSelecionado = new Date().getFullYear();
+  public historic = {};
+  public income = new Income();
+  public loading = true;
+  public years = [ 2019, 2020, 2021, 2022 ];
+  public yearSelected = new Date().getFullYear();
 
   public chartType: string = 'bar';
  
-  public rendimentos = [
+  public transactions = [
     { data: [], label: 'RECEITAS' },
     { data: [], label: 'DESPESAS' }
   ];
 
-  public faturamento = [
+  public billing = [
     { data: [], label: 'FATURAMENTO ACUMULADO' },
     { data: [], label: 'FATURAMENTO MENSAL' }
   ];
@@ -35,7 +35,7 @@ export class HistoricComponent implements OnInit {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
-  public rendimentosCores = [
+  public transactionsColors = [
     {
       backgroundColor: '#33b5e5'
     },
@@ -44,7 +44,7 @@ export class HistoricComponent implements OnInit {
     }
   ];
 
-  public faturamentoCor = [
+  public billingColors = [
     {
       backgroundColor: '#2BBBAD',
     },
@@ -78,40 +78,40 @@ export class HistoricComponent implements OnInit {
   };
 
   public constructor(
-          private router: Router, 
-          private servico: TreasuryService, 
-          private toastr: ToastrService
+                      private router: Router, 
+                      private servico: TreasuryService, 
+                      private toastr: ToastrService
   ) { 
-    this.obterReceitas();
-    this.alimentarGrafico();
+    this.getIncome();
+    this.feedChart();
   }
 
-  public alimentarGrafico() {
-    let id = this.router.url.split('/')[2];
+  public feedChart() {
+    let id = parseInt(this.router.url.split('/')[2]);
 
     this.chartLabels = [
       'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
-    this.indicadorDeCarregamento = true;
-    this.servico.obterHistoricoMensal(id, this.anoSelecionado).subscribe( response => {
-      this.historico = response.body;
-      this.plotar(this.historico);
-      this.indicadorDeCarregamento = false;
+    this.loading = true;
+    this.servico.getHistoric(id, this.yearSelected).subscribe( response => {
+      this.historic = response.body;
+      this.populate(this.historic);
+      this.loading = false;
 
     }, error => {
       this.errorMessage(error);
     });
   }
 
-  private plotar(body: any) {
-    this.rendimentos = [
+  private populate(body: any) {
+    this.transactions = [
       { data: [], label: 'RECEITAS' },
       { data: [], label: 'DESPESAS' }
     ];
 
-    this.faturamento = [
+    this.billing = [
       { data: [], label: 'FATURAMENTO ACUMULADO' },
       { data: [], label: 'FATURAMENTO MENSAL' }
     ];
@@ -119,22 +119,22 @@ export class HistoricComponent implements OnInit {
     const incomes = body.incomeYearly;
   
     incomes.forEach(income => {
-      this.rendimentos[0].data.push(income.incomeRecipes);
-      this.rendimentos[1].data.push(income.incomeExpenses);
+      this.transactions [0].data.push(income.incomeRecipes);
+      this.transactions [1].data.push(income.incomeExpenses);
     });
 
     const history = body.historyYearly;
 
     history.forEach( item => {
-      this.faturamento[0].data.push(item.cumulativeBilling);
-      this.faturamento[1].data.push(item.monthlyBiiling);
+      this.billing[0].data.push(item.cumulativeBilling);
+      this.billing[1].data.push(item.monthlyBiiling);
     });
   }
 
-  public obterReceitas() {
-    let id = this.router.url.split('/')[2];
-    this.servico.getRecipes(id).subscribe( response => {
-      this.receitas = response;
+  public getIncome() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    this.servico.getIncome(id).subscribe( response => {
+      this.income = response;
     },
     erro => {
       this.errorMessage(erro);

@@ -1,10 +1,8 @@
-export class Contagem {
+export class Inventory{
 
     public id: number;
-    public saldoReal: number;
-    public registradoEm: Date;
+    public actualBalance: number;
+    public registeredIn: Date;
 
-    public constructor(values: Object = {}) {
-        Object.assign(this, values);
-    }
+    public constructor(values: Object = {}) { Object.assign(this, values) }
 }

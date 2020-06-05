@@ -2,57 +2,53 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Tesouraria } from '../models/treasury.entity';
-import { Paginacao } from '../models/pagination.entity';
+import { Treasury } from '../models/treasury.entity';
+import { Pagination } from '../models/pagination.entity';
 
 @Injectable()
 export class TreasuryService {
     
-    private urlBase: string = 'http://localhost:3000/tesouraria';
+    private urlBase: string = 'http://localhost:3000/treasury';
 
     constructor(private http: HttpClient) {}
 
-    public findPaginate(paginacao: Paginacao):Observable<any> {
-        const _params = new HttpParams().set('page', '' + paginacao.pageCurrent).set('filtro', '' + paginacao.filter);
+    public findPaginate(paginacao: Pagination):Observable<any> {
+        const _params = new HttpParams().set('page', '' + paginacao.pageCurrent).set('filter', '' + paginacao.filter);
         return this.http
             .get<any>(this.urlBase, { 
                 observe: 'response', params: _params
             });
     }
 
-    public findById(id: string): Observable<Tesouraria> {
-        return this.http.get<Tesouraria>(this.urlBase.concat(`/${id}`));
+    public findById(id: number): Observable<Treasury> {
+        return this.http.get<Treasury>(this.urlBase.concat(`/${id}`));
     }
 
-    public obterHistoricoMensal(id: string, ano: number) {
-        const _params = new HttpParams().set('ano', `${ano}`);
+    public getHistoric(id: number, year: number) {
+        const _params = new HttpParams().set('year', `${year}`);
 
-        return this.http.get<any>(this.urlBase.concat(`/historico/${id}`), { observe: 'response', params: _params });
+        return this.http.get<any>(this.urlBase.concat(`/historic/${id}`), { observe: 'response', params: _params });
     }
 
-    public obterRelatorioMensal(id: string, ano: number, mes: number) {
-        const _params = new HttpParams().set('ano', `${ano}`).set('mes', `${mes}`);
+    public getReport(id: number, year: number, month: number) {
+        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`);
 
-        return this.http.get<any>(this.urlBase.concat(`/relatorio/${id}`), { observe: 'response', params: _params });
+        return this.http.get<any>(this.urlBase.concat(`/report/${id}`), { observe: 'response', params: _params });
     }
 
-    public getRecipes(id: string): Observable<any> {
-        return this.http.get<any>(this.urlBase.concat(`/receitas/${id}`));
+    public getIncome(id: number): Observable<any> {
+        return this.http.get<any>(this.urlBase.concat(`/income/${id}`));
     }
 
-    public remove(id: string): Observable<Tesouraria> {
-        return this.http.delete<Tesouraria>(this.urlBase.concat('/'+id));
+    public remove(id: number): Observable<Treasury> {
+        return this.http.delete<Treasury>(this.urlBase.concat(`/${id}`));
     }
 
-    public save(tesouraria: Tesouraria): Observable<Tesouraria> {
-        return this.http.post<Tesouraria>(this.urlBase, tesouraria);  
+    public save(treasury: Treasury): Observable<Treasury> {
+        return this.http.post<Treasury>(this.urlBase, treasury);  
     }
 
-    public update(tesouraria: Tesouraria): Observable<Tesouraria> {
-        return this.http.put<Tesouraria>(this.urlBase, tesouraria);   
-    }
-
-    public findAll() :Observable<Tesouraria[]> {
-        return this.http.get<Tesouraria[]>(this.urlBase);
+    public update(treasury: Treasury): Observable<Treasury> {
+        return this.http.put<Treasury>(this.urlBase, treasury);   
     }
 }

@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 
-import { Tesouraria } from 'src/app/shared/models/treasury.entity';
+import { Treasury } from 'src/app/shared/models/treasury.entity';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
-import { Paginacao } from 'src/app/shared/models/pagination.entity';
-import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
+import { Pagination} from 'src/app/shared/models/pagination.entity';
+import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 
 @Component({
   selector: 'app-treasury',
@@ -19,29 +19,35 @@ import { PaginationService } from 'src/app/shared/pagination/pagination.service'
 export class TreasuryComponent implements OnInit {
 
   public f: FormGroup;
-  public pesquisar: FormControl = new FormControl();
+  public search: FormControl = new FormControl();
 
-  @ViewChild('modalCadastro', { static: false }) modalCadastrar: any;
-  @ViewChild('modalEditar', { static: false }) modalEditar: any;
-  public tesourarias = [];
-  public paginacao = new Paginacao();
-  public indicadorDeCarregamento = true;
+  @ViewChild('modalCreate', { static: false }) modalCreate: any;
+  @ViewChild('modalUpdate', { static: false }) modalUpdate: any;
 
-  constructor(private router: Router, private _fb: FormBuilder, private toastr: ToastrService, private servico: TreasuryService, private paginationService: PaginationService) { 
-  }
+  public treasuries = [];
+  public pagination = new Pagination();
+  public loading = true;
 
-  load(paginacao: Paginacao) {
-    this.indicadorDeCarregamento = true;
+  public constructor(
+                private router: Router, 
+                private _fb: FormBuilder, 
+                private toastr: ToastrService, 
+                private servico: TreasuryService,
+                private paginationService: PaginationService
+  ) { }
+
+  public load(paginacao: Pagination) {
+    this.loading = true;
     this.servico.findPaginate(paginacao).subscribe( res => {
-      this.tesourarias = res.body.data;
+      this.treasuries = res.body.data;
       this.paginationService.loader(res.body.count, paginacao.pageCurrent);
-      this.indicadorDeCarregamento = false;
+      this.loading = false;
     }, e => {
       this.errorMessage(e);
     });
   }
 
-  errorMessage(err: any) {
+  private errorMessage(err: any) {
     if(err.status == 0) {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
@@ -57,38 +63,38 @@ export class TreasuryComponent implements OnInit {
     }
   }
 
-  changePage(pagination: any) {
-    this.paginacao.pageCurrent = pagination.pageCurrent.label;
-    this.load(this.paginacao);
+  public changePage(pagination: any) {
+    this.pagination.pageCurrent = pagination.pageCurrent.label;
+    this.load(this.pagination);
   }
 
-  cadastrarOuAtualizarTesouraria(dados: Tesouraria) {
+  public createOrUpdateTreasury(dados: Treasury) {
     let userId = parseInt(localStorage.getItem('user_id'));
-    let tesouraria = new Tesouraria({
+    let treasury = new Treasury({
       id: dados.id,
-      nome: dados.nome, 
-      saldoAtual: 0,
-      saldoInicial: dados.saldoInicial,
-      entradas: dados.entradas,
-      saidas: dados.saidas,
-      contagens: dados.contagens,
-      detalhes: dados.detalhes,
+      name: dados.name, 
+      initialAmount: dados.initialAmount,
+      currentBalance: 0,
+      recipes: dados.recipes,
+      expenses: dados.expenses,
+      inventories: dados.inventories,
+      details: dados.details,
       userId: userId
     });
     
-    if(tesouraria.id == null) {
-      this.servico.save(tesouraria).subscribe(res => {
+    if(treasury.id == null) {
+      this.servico.save(treasury).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
-        this.ocultarModalCadastrar();    
+        this.hideModalCreate();    
         this.reload();  
       }, e => {
         this.errorMessage(e);
       });
     }
     else {
-      this.servico.update(tesouraria).subscribe(res => {
+      this.servico.update(treasury).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
-        this.ocultarModalEditar();
+        this.hideModalUpdate();
         this.reload();
       }, e => {
         this.errorMessage(e);
@@ -97,13 +103,13 @@ export class TreasuryComponent implements OnInit {
     }
   }
 
-  reload() {
-    this.paginacao = new Paginacao();
-    this.load(this.paginacao); 
+  public reload() {
+    this.pagination = new Pagination();
+    this.load(this.pagination); 
     this.f.reset();
   }
 
-  deletarTesouraria(c: Tesouraria) {
+  public deleteTreasury(treasury: Treasury) {
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -113,10 +119,10 @@ export class TreasuryComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        this.servico.remove(c.id).subscribe(r => {   
+        this.servico.remove(treasury.id).subscribe(r => {   
           this.toastr.success('Removido com sucesso!', 'Feito', {progressBar: true});
-          this.paginacao = new Paginacao();
-          this.load(this.paginacao);
+          this.pagination = new Pagination();
+          this.load(this.pagination);
         }, e =>{
           this.errorMessage(e);
         })
@@ -124,61 +130,61 @@ export class TreasuryComponent implements OnInit {
     })
   }
 
-  ocultarModalCadastrar() {
-    this.modalCadastrar.hide();
+  public hideModalCreate() {
+    this.modalCreate.hide();
     this.f.reset();
   }
 
-  ocultarModalEditar() {
-    this.modalEditar.hide();
+  public hideModalUpdate() {
+    this.modalUpdate.hide();
     this.f.reset();
   }
 
-  abrirModalEditar(tesouraria: Tesouraria) {
+  public showModalUpdate(treasury: Treasury) {
     this.f.patchValue({
-      id: tesouraria.id,
-      nome: tesouraria.nome,
-      saldoAtual: tesouraria.saldoAtual,
-      saldoInicial: tesouraria.saldoInicial,
-      entradas: tesouraria.entradas,
-      saidas: tesouraria.saidas,
-      contagens: tesouraria.contagens,
-      detalhes: tesouraria.detalhes,
-      userId: tesouraria.userId
+      id: treasury.id,
+      name: treasury.name,
+      initialAmount: treasury.initialAmount,
+      currentBalance: treasury.currentBalance,
+      recipes: treasury.recipes,
+      expenses: treasury.expenses,
+      inventories: treasury.inventories,
+      details: treasury.details,
+      userId: treasury.userId
     });
-    this.modalEditar.show();
+    this.modalUpdate.show();
   }
 
-  abrirTesouraria(id: number) {
+  public addTransactions(id: number) {
     this.router.navigateByUrl(`transactions/${id}`);
   }
 
-  emitirRelatorio(id: number) {
+  public emitterReport(id: number) {
     this.router.navigateByUrl(`report/${id}`);
   }
 
-  exibirHistorico(id: number) {
+  public showHistoric(id: number) {
     this.router.navigateByUrl(`historic/${id}`);
   }
 
-  efetuarInventario(id: number) { this.router.navigateByUrl(`inventory/${id}`) }
+  public takeInventory(id: number) { this.router.navigateByUrl(`inventory/${id}`) }
 
   ngOnInit() {
-    this.load(this.paginacao);
-    this.pesquisar.valueChanges.pipe(debounceTime(700)).subscribe(value => {
-      this.paginacao.filter = value;
-      this.load(this.paginacao);
+    this.load(this.pagination);
+    this.search.valueChanges.pipe(debounceTime(700)).subscribe(value => {
+      this.pagination.filter = value;
+      this.load(this.pagination);
     });
 
     this.f = this._fb.group({
       id: [null],
-      nome:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      saldoInicial:['', [Validators.required]],
-      saldoAtual:['', []],
-      detalhes: [null, [Validators.minLength(3), Validators.maxLength(255)]],
-      entradas: [[]],
-      contagens: [[]],
-      saidas: [[]],
+      name:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      initialAmount:['', [Validators.required]],
+      currentBalance:['', []],
+      details: [null, [Validators.minLength(3), Validators.maxLength(255)]],
+      recipes: [[]],
+      expenses: [[]],
+      inventories: [[]],
       userId:[]
     });
   }

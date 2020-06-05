@@ -6,6 +6,9 @@
         </div>
         <div class="main">
             <form [formGroup]="form">
+                <div *ngIf="loading">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <mat-form-field class="input-width" appearance="outline">

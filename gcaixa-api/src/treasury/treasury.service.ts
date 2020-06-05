@@ -2,8 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like} from 'typeorm';
 
-import { Tesouraria } from 'src/shared/models/treasury.entity';
-import { FiltroBusca } from 'src/shared/models/search-filter.entity';
+import { Treasury } from 'src/shared/models/treasury.entity';
+import { SearchFilter } from 'src/shared/models/search-filter.entity';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
 import { PermissionDeniedException } from 'src/shared/exceptions/models/permission-denied.excepton';
 import { TreasuryNotFoundException } from 'src/shared/exceptions/models/treasury-not-foud.exception';
@@ -11,23 +11,23 @@ import { IsCreatedEception } from 'src/shared/exceptions/models/is-created.excep
 import { TransactionsService } from './transactions.service';
 
 @Injectable()
-export class TesourariaService {
+export class TreasuryService {
 
     public constructor(
-                        @InjectRepository(Tesouraria) private repositoryTesouraria: Repository<Tesouraria>,
+                        @InjectRepository(Treasury) private repository: Repository<Treasury>,
                         private readonly transactionService: TransactionsService
     ) {}
 
-    public async findAll(userId: number, filtro: FiltroBusca): Promise<any> {
-        const [result, total] = await this.repositoryTesouraria.findAndCount(
+    public async findAll(userId: number, filter: SearchFilter): Promise<any> {
+        const [result, total] = await this.repository.findAndCount(
             {
-                relations: ["saidas", "entradas", "contagens", "entradas.creditos"],
+                relations: ["expenses", "recipes", "inventories", "recipes.credits"],
                 where: [
-                    { nome: Like(filtro.palavra), userId: userId },
+                    { name: Like(filter.word), userId: userId },
                 ],
-                order: { nome: "ASC" },
+                order: { name: "ASC" },
                 take: 6,
-                skip: filtro.nextPage()
+                skip: filter.nextPage()
             }
         )
         return {
@@ -36,26 +36,26 @@ export class TesourariaService {
         }
     }
 
-    public async findById(id: number, userId: number): Promise<Tesouraria> {
+    public async findById(id: number, userId: number): Promise<Treasury> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        let treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
         
-        if(tesouraria == null) {
+        if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
         }
 
-        if(tesouraria.userId != userId) {
+        if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        return tesouraria;
+        return treasury;
     }
 
     public async finByName(name: string) {
-        const result = await this.repositoryTesouraria.find({ where: { nome: name }});
+        const result = await this.repository.find({ where: { name: name }});
         const treasury = result[0];
         return treasury;
     }
@@ -65,38 +65,38 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        const tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        const treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
 
-        if(tesouraria == null) {
+        if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
         }
 
-        if(tesouraria.userId != userId) {
+        if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        const report = this.transactionService.getReportMonthly(ano, mes, tesouraria.entradas, tesouraria.saidas);
+        const report = this.transactionService.getReportMonthly(ano, mes, treasury.recipes, treasury.expenses);
     
         return report;
     }
 
-    public async getHistory(userId: number, id: number, ano:number): Promise<any> {
+    public async getHistory(userId: number, id: number, year:number): Promise<any> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        const tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        const treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
         
-        if(tesouraria == null) {
+        if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
         }
 
-        if(tesouraria.userId != userId) {
+        if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        const incomeYearly = this.transactionService.getIncomeYearly(ano, tesouraria.entradas, tesouraria.saidas);
-        const historyYearly = this.transactionService.getHistoryYearly(ano, tesouraria.saldoInicial, tesouraria.entradas, tesouraria.saidas);
+        const incomeYearly = this.transactionService.getIncomeYearly(year, treasury.recipes, treasury.expenses);
+        const historyYearly = this.transactionService.getHistoryYearly(year, treasury.initialAmount, treasury.recipes, treasury.expenses);
        
         return { incomeYearly, historyYearly }
     }
@@ -106,32 +106,32 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let tesouraria = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        let treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
 
-        if(tesouraria == null) {
+        if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
         }
 
-        if(tesouraria.userId != userId) {
+        if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        let recipes = this.transactionService.getRecipeGeneral(tesouraria.entradas, tesouraria.saidas, tesouraria.saldoInicial, tesouraria.saldoAtual);
+        let recipes = this.transactionService.getRecipeGeneral(treasury.recipes, treasury.expenses, treasury.initialAmount, treasury.currentBalance);
 
         return recipes;
     }
 
-    public async save(tesouraria: Tesouraria) {
-        tesouraria.saldoAtual = tesouraria.saldoInicial;
+    public async save(treasury: Treasury) {
+        treasury.currentBalance = treasury.initialAmount;
 
-        const result = await this.finByName(tesouraria.nome);
+        const result = await this.finByName(treasury.name);
 
         if(result) {
             throw new IsCreatedEception('O nome da tesouraria já está sendo utilizado', HttpStatus.BAD_REQUEST);
         }
 
-        return this.repositoryTesouraria
-            .save(tesouraria)
+        return this.repository
+            .save(treasury)
             .then( e => {
                 return {
                     mensagem: 'Criado com sucesso'
@@ -139,25 +139,21 @@ export class TesourariaService {
             });     
     }   
 
-    public async update(userId: number, tesouraria: Tesouraria) { 
+    public async update(userId: number, treasury: Treasury) { 
 
-        let treasury = await this.repositoryTesouraria.findOne(tesouraria.id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
-        if(treasury  == null) {
-            throw new TreasuryNotFoundException("Tesouraria inexistente");
-        }
 
-        if(tesouraria.userId != userId) {
+        if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        if(tesouraria.id == null || tesouraria.id <= 0) {
+        if(treasury.id == null || treasury.id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        tesouraria.saldoAtual = this.transactionService.updateBalance(tesouraria.entradas, tesouraria.saidas, tesouraria.saldoInicial);
+        treasury.currentBalance = this.transactionService.updateBalance(treasury.recipes, treasury.expenses, treasury.initialAmount);
 
-        return this.repositoryTesouraria
-            .save(tesouraria)
+        return this.repository
+            .save(treasury)
             .then( e => {
                 return {
                     mensagem: 'Atualizado com sucesso'
@@ -170,7 +166,7 @@ export class TesourariaService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let treasury = await this.repositoryTesouraria.findOne(id, { relations: ["saidas", "entradas", "contagens", "entradas.creditos"] });
+        let treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
         
         if(treasury  == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
@@ -180,7 +176,7 @@ export class TesourariaService {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        return this.repositoryTesouraria
+        return this.repository
             .delete(id)
             .then( e => { 
                 return {

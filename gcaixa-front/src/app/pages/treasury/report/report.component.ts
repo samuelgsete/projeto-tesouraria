@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
-import { Receitas } from 'src/app/shared/models/income.entity';
-import { Relatorio } from 'src/app/shared/models/report.entity';
 
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
+import { Income } from 'src/app/shared/models/income.entity';
+import { Report } from 'src/app/shared/models/report.entity';
 
 @Component({
   selector: 'app-report',
@@ -15,11 +15,11 @@ import { Relatorio } from 'src/app/shared/models/report.entity';
 })
 export class ReportComponent implements OnInit {
 
-  public relatorio = new Relatorio();
-  public receitas = new Receitas();
-  public indicadorDeCarregamento = true;
+  public report = new Report();
+  public income = new Income();
+  public loading = true;
 
-  public meses = [
+  public months = [
     'Janeiro',
     'Fevereiro',
     'Março',
@@ -34,30 +34,30 @@ export class ReportComponent implements OnInit {
     'Dezembro'
   ];
 
-  public anos = [ 2020, 2021, 2022 ];
-  public mesSelecionado = 'Janeiro';
-  public anoSelecionado = 2020;
+  public years = [ 2020, 2021, 2022 ];
+  public monthSelected = 'Janeiro';
+  public yearSelected = 2020;
 
   public chartType: string = 'bar';
 
-  public entradas = [
+  public recipes = [
     { data: [], label: 'RECEITAS' }
   ];
 
-  public saidas = [
+  public expenses = [
     { data: [], label: 'DESPESAS' }
   ]
 
-  public rotulosEntradas = [];
-  public rotulosSaidas = [];
+  public labelsRecipes = [];
+  public labelsExpenses = [];
 
-  public coresEntradas = [
+  public colorsRecipes = [
     {
-      backgroundColor: '#4285F4'
+      backgroundColor: '#33b5e5'
     }
   ];
 
-  public coresSaidas = [
+  public colorsExpenses = [
     {
       backgroundColor: '#ff4444'
     }
@@ -78,63 +78,63 @@ export class ReportComponent implements OnInit {
     }
   };
 
-  constructor(
+  public constructor(
           private service: TreasuryService,
           private router: Router,
           private toastr: ToastrService
   ) 
   { 
-    this.obterReceitas(); 
-    this.obterRelatorio();
+    this.getIncome(); 
+    this.getReport();
   }
 
-  public obterRelatorio() {
-    let id = this.router.url.split('/')[2];
-    let mes = this.meses.indexOf(this.mesSelecionado);
-    this.indicadorDeCarregamento = true;
-    this.service.obterRelatorioMensal(id, this.anoSelecionado, mes).subscribe( response => {
-      this.relatorio = response.body
-      this.indicadorDeCarregamento = false;
-      this.alimentarGrafico();
+  public getReport() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    let month = this.months.indexOf(this.monthSelected);
+    this.loading = true;
+    this.service.getReport(id, this.yearSelected, month).subscribe( response => {
+      this.report = response.body
+      this.loading = false;
+      this.feedChart();
     }, error => {
       this.errorMessage(error);
     });
   }
 
-  private alimentarGrafico() {
-    this.entradas = [
+  private feedChart() {
+    this.recipes = [
       { data: [], label: 'RECEITAS' }
       
     ];
 
-    this.saidas = [
+    this.expenses = [
       { data: [], label: 'DESPESAS' }
     ]
 
-    this.rotulosEntradas = [];
-    this.rotulosSaidas = [];
+    this.labelsRecipes = [];
+    this.labelsExpenses = [];
 
-    this.relatorio.recipes.forEach( entrada => {
-      this.entradas[0].data.push(entrada.valor);
-      this.rotulosEntradas.push(moment(entrada.registradoEm).format('DD/MM/YYYY'));
+    this.report.recipes.forEach( recipe => {
+      this.recipes[0].data.push(recipe.value);
+      this.labelsRecipes.push(moment(recipe.registeredIn).format('DD/MM/YYYY'));
     });
 
-    this.relatorio.expenses.forEach( saida => {
-      this.saidas[0].data.push(saida.valor);
-      this.rotulosSaidas.push(moment(saida.registradoEm).format('DD/MM/YYYY'));
+    this.report.expenses.forEach( expense => {
+      this.expenses[0].data.push(expense.value);
+      this.labelsExpenses.push(moment(expense.registeredIn).format('DD/MM/YYYY'));
     });
 
-    this.saidas[0].data.push(0);
-    this.rotulosSaidas.push('');
+    this.expenses[0].data.push(0);
+    this.labelsExpenses.push('');
 
-    this.entradas[0].data.push(0);
-    this.rotulosEntradas.push('');
+    this.recipes[0].data.push(0);
+    this.labelsRecipes.push('');
   }
 
-  public obterReceitas() {
-    let id = this.router.url.split('/')[2];
-    this.service.getRecipes(id).subscribe( response => {
-      this.receitas = response;
+  public getIncome() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    this.service.getIncome(id).subscribe( response => {
+      this.income = response;
     },
     erro => {
       this.errorMessage(erro);
@@ -143,8 +143,8 @@ export class ReportComponent implements OnInit {
 
   public download() {
     let id = this.router.url.split('/')[2];
-    let mes = this.meses.indexOf(this.mesSelecionado);
-    this.router.navigateByUrl(`/print/${id}?month=${mes}&year=${this.anoSelecionado}`);
+    let month = this.months.indexOf(this.monthSelected);
+    this.router.navigateByUrl(`/print/${id}?month=${month}&year=${this.yearSelected}`);
   }
   
   private errorMessage(err: any) {

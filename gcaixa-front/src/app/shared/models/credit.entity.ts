@@ -1,15 +1,15 @@
-export class Credito {
+import { StatusType } from './enums/status-type.enum';
+
+export class Credit {
     
     public id: number;
-    public titular: string;
-    public valor: number;
-    public registro: Date;
-    public telefone: string;
-    public situacao: TipoSituacao;
+    public holder: string;
+    public value: number;
+    public registeredIn: Date;
+    public telephone: string;
+    public status: StatusType;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);
     }
 }
-
-export type TipoSituacao = "QUITADO" | "ABERTO" | "ENCERRADO";

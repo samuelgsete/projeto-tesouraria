@@ -1,85 +1,86 @@
 import { Injectable } from "@nestjs/common";
 
-import { Entrada } from "src/shared/models/recipe.entity";
-import { Saida } from "src/shared/models/expense.entity";
+import { Recipe } from "src/shared/models/recipe.entity";
+import { Expense } from "src/shared/models/expense.entity";
+import { StatusType } from "src/shared/models/enums/status-type.enum";
 
 @Injectable()
 export class TransactionsService {
     
     public constructor() {}
 
-    public updateBalance(recipes: Entrada[], expenses: Saida[], openingBalance: number): number {
+    public updateBalance(recipes: Recipe[], expenses: Expense[], initialAmount: number): number {
         let balance = 0;
 
         recipes.forEach( recipe => {
             recipe = this.updateRecipe(recipe);
-            balance += recipe.valor;
+            balance += recipe.value;
         });
 
         expenses.forEach( expense => {
-            balance -= expense.valor;
+            balance -= expense.value;
         });
 
-        return balance + openingBalance;
+        return balance + initialAmount;
     }
 
-    private updateRecipe(recipe: Entrada): Entrada {
+    private updateRecipe(recipe: Recipe): Recipe {
         let value = 0;
-        recipe.creditos.forEach( credit => {
-            if(credit.situacao === 'QUITADO'){
-                value += credit.valor;
-                credit.situacao = 'ENCERRADO';
+        recipe.credits.forEach( credit => {
+            if(credit.status === StatusType.SETTLED){
+                value += credit.value;
+                credit.status = StatusType.FINISHED;
             }
         });
-        recipe.valor += value;
+        recipe.value += value;
         return recipe;
     }
 
-    public getTransactionsByMonth(year: number, month: number, recipes: Entrada[], expenses: Saida[]): any {
+    public getTransactionsByMonth(year: number, month: number, recipes: Recipe[], expenses: Expense[]): any {
         recipes = recipes.filter( recipe => {
-            return recipe.registradoEm.getFullYear() == year && recipe.registradoEm.getMonth() == month;
+            return recipe.registeredIn.getFullYear() == year && recipe.registeredIn.getMonth() == month;
         });
 
         expenses = expenses.filter( expense => {
-            return expense.registradoEm.getFullYear() == year && expense.registradoEm.getMonth() == month;
+            return expense.registeredIn.getFullYear() == year && expense.registeredIn.getMonth() == month;
         });
 
         return { recipes, expenses }
     }
 
-    private getIncome(recipes: Entrada[], expenses: Saida[]): any {
+    private getIncome(recipes: Recipe[], expenses: Expense[]): any {
 
         let incomeRecipes = 0
 
         recipes.forEach( recipe => {
-            incomeRecipes += recipe.valor;
+            incomeRecipes += recipe.value;
         });
 
         let incomeExpenses = 0;
 
         expenses.forEach( expense => {
-            incomeExpenses += expense.valor;
+            incomeExpenses += expense.value;
         });
 
         return { incomeRecipes, incomeExpenses }
     }
 
-    public getRecipeGeneral(recipes: Entrada[], expenses: Saida[], openingBalance: number, currentBalance: number): any {
+    public getRecipeGeneral(recipes: Recipe[], expenses: Expense[], initialAmount: number, currentBalance: number): any {
  
         let { incomeRecipes, incomeExpenses } = this.getIncome(recipes, expenses);
        
         return {
-            openingBalance,
+            initialAmount,
             currentBalance,
             incomeRecipes, 
             incomeExpenses
         }
     }
 
-    public getHistoryYearly(year: number, openingBalance: number, recipes: Entrada[], expenses: Saida[]): any[] {
+    public getHistoryYearly(year: number, initialAmount: number, recipes: Recipe[], expenses: Expense[]): any[] {
         const historyYearly = [];
 
-        let cumulativeBilling = openingBalance;
+        let cumulativeBilling = initialAmount;
         let monthlyBiiling = 0;
 
         for(let month = 0; month < 12; month++) {
@@ -99,7 +100,7 @@ export class TransactionsService {
         return historyYearly;
     }
 
-    public getIncomeYearly(year: number, recipes: Entrada[], expenses: Saida[]): any[] {
+    public getIncomeYearly(year: number, recipes: Recipe[], expenses: Expense[]): any[] {
         const incomeMontly = [];
 
         for(let month = 0; month < 12; month++) {
@@ -114,7 +115,7 @@ export class TransactionsService {
         return incomeMontly;
     }
 
-    public getReportMonthly(year: number, month: number, recipes: Entrada[], expenses: Saida[]) {
+    public getReportMonthly(year: number, month: number, recipes: Recipe[], expenses: Expense[]) {
         const transactions = this.getTransactionsByMonth(year, month, recipes, expenses);
 
         const incomeMontly = this.getIncome(transactions.recipes, transactions.expenses);

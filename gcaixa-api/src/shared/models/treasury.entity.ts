@@ -2,37 +2,37 @@ import { Entity, Column, OneToMany } from "typeorm";
 import { IsNotEmpty, IsString, Length, IsInt, IsNumber, ValidateNested, IsOptional } from "class-validator";
 import { Type } from 'class-transformer';
 
-import { Saida } from "./expense.entity";
-import { Entrada } from "./recipe.entity";
-import { EntidadeBase } from "./entity-base.entity";
-import { Contagem } from "./inventory.entity";
+import { Expense } from "./expense.entity";
+import { Recipe } from "./recipe.entity";
+import { EntityBase } from "./entity-base.entity";
+import { Inventory } from "./inventory.entity";
 import { treasuries } from "../validation/treasuries.messages";
 
 
 @Entity()
-export class Tesouraria extends EntidadeBase {
+export class Treasury extends EntityBase {
    
     @IsNotEmpty({ message: `${treasuries.nameNotNull}`})
     @IsString({ message: `${treasuries.nameValid}`})
     @Length(2,30, {message: `${treasuries.nameLength}`})
     @Column({ length: 30, unique: false, nullable: false })
-    public nome: string;
+    public name: string;
 
-    @IsNotEmpty({ message: `${treasuries.openingBalanceNotNull}`})
-    @IsNumber({}, { message: `${treasuries.openingBalanceValid}`})
+    @IsNotEmpty({ message: `${treasuries.initialAmountNotNull}`})
+    @IsNumber({}, { message: `${treasuries.initialAmountValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
-    public saldoInicial: number;
+    public initialAmount: number;
 
     @IsNotEmpty({ message: `${treasuries.balanceCurrentNotNull}`})
     @IsNumber({}, { message: `${treasuries.balanceCurrentValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
-    public saldoAtual: number;
+    public currentBalance: number;
 
     @IsOptional()
     @Length(3, 255, {message: `${treasuries.detailsLength}`})
     @IsString({ message:`${treasuries.detailsValid}`})
     @Column({ length: 255, unique: false, nullable: true })
-    public detalhes: string;
+    public details: string;
 
     @IsNotEmpty({ message: `${treasuries.userIdNotNull}`})
     @IsInt({ message: `${treasuries.userIdValid}`})
@@ -40,22 +40,22 @@ export class Tesouraria extends EntidadeBase {
     public userId: number;
 
     @IsOptional()
-    @Type(() => Saida)
+    @Type(() => Expense)
     @ValidateNested()
-    @OneToMany(type => Saida, saida => saida.tesouraria, { cascade: true })
-    public saidas: Saida[];
+    @OneToMany(type => Expense, expense => expense.treasury, { cascade: true })
+    public expenses: Expense[];
 
     @IsOptional()
-    @Type(() => Entrada)
+    @Type(() => Recipe)
     @ValidateNested()
-    @OneToMany(type => Entrada, entrada => entrada.tesouraria, { cascade: true })
-    public entradas: Entrada[];
+    @OneToMany(type => Recipe, recipe => recipe.treasury, { cascade: true })
+    public recipes: Recipe[];
 
     @IsOptional()
-    @Type(() => Contagem)
+    @Type(() => Inventory)
     @ValidateNested()
-    @OneToMany(type => Contagem, contagem => contagem.tesouraria, { cascade: true })
-    public contagens: Contagem[];
+    @OneToMany(type => Inventory, inventory => inventory.treasury, { cascade: true })
+    public inventories: Inventory[];
 
     public constructor(values: Object = {}) {
         super();

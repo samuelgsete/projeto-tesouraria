@@ -5,7 +5,7 @@
             <div class="col-sm-6 col-md-8 col-lg-10 col-xl-10">
                 <div class="name-page">
                     <mat-icon>description</mat-icon>
-                    <h2>Relatorio</h2>
+                    <h2>Relatório</h2>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2">
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="report" class="report z-depth-1-half">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         
@@ -28,7 +28,7 @@
                                 <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ receitas.openingBalance | currency:'BRL' }}</h4>
+                                <h4>{{ income.initialAmount | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -41,7 +41,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ receitas.currentBalance | currency:'BRL' }}</h4>
+                                <h4 >{{ income.currentBalance | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -54,7 +54,7 @@
                                 <p>Total de receitas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ receitas.incomeRecipes | currency:'BRL' }}</h4>
+                                <h4 >{{ income.incomeRecipes | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -67,7 +67,7 @@
                                 <p>Total de despesas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4 >{{ receitas.incomeExpenses | currency:'BRL' }}</h4>
+                                <h4 >{{ income.incomeExpenses | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -84,27 +84,26 @@
                     <div class="col-6">
                         <mat-form-field>
                             <mat-label>Mês</mat-label>
-                            <mat-select [(value)]="mesSelecionado" (selectionChange)="obterRelatorio()">
-                                <mat-option *ngFor="let mes of meses; let i = index" [value]="mes">{{ mes }}</mat-option>
+                            <mat-select [(value)]="monthSelected" (selectionChange)="getReport()">
+                                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field>
                             <mat-label>Ano</mat-label>
-                            <mat-select [(value)]="anoSelecionado" (selectionChange)="obterRelatorio()">
-                                <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                            <mat-select [(value)]="yearSelected" (selectionChange)="getReport()">
+                                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
-        <br>
         <div class="main-content">
             <div class="row">
                 <div class="col">
-                    <mdb-card class="empty-data" *ngIf="relatorio.recipes.length == 0 && relatorio.expenses.length == 0" mdbWavesEffect>
+                    <mdb-card class="empty-data" *ngIf="report.recipes.length == 0 && report.expenses.length == 0" mdbWavesEffect>
                         <mdb-card-body>
                             <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                             <h4>Nenhuma registro encontrado</h4>
@@ -113,10 +112,10 @@
                     </mdb-card>
                 </div>
             </div>
-            <div *ngIf="relatorio.recipes[0] != null || relatorio.expenses[0] != null">
+            <div *ngIf="report.recipes[0] != null || report.expenses[0] != null">
                 <div class="row">
                     <div class="col">
-                        <p>Rendimentos de {{ mesSelecionado }} de {{ anoSelecionado }}</p>
+                        <p style="margin-top: 10px;">Rendimentos de {{ monthSelected}} de {{ yearSelected }}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -125,9 +124,9 @@
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="entradas"
-                                    [labels]="rotulosEntradas"
-                                    [colors]="coresEntradas"
+                                    [(datasets)]="recipes"
+                                    [labels]="labelsRecipes"
+                                    [colors]="colorsRecipes"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >
@@ -140,9 +139,9 @@
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="saidas"
-                                    [labels]="rotulosSaidas"
-                                    [colors]="coresSaidas"
+                                    [(datasets)]="expenses"
+                                    [labels]="labelsExpenses"
+                                    [colors]="colorsExpenses"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >
@@ -158,30 +157,30 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="box-moviment" *ngFor="let e of relatorio.recipes">
+                            <div class="box-moviment" *ngFor="let recipe of report.recipes">
                                 <mdb-card class="z-depth-0" mdbWavesEffect>
                                     <mdb-card-body>
-                                        <mdb-card-text>{{ e.descricao }}</mdb-card-text>
+                                        <mdb-card-text>{{ recipe.description }}</mdb-card-text>
                                         <mdb-card-title>
-                                            <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
+                                            <h4 class="valor-entrada">{{ recipe.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
-                                        <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
-                                        <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
+                                        <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
+                                        <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
                                     </mdb-card-body>
                                 </mdb-card>
                             </div>
                         </td>
                         <td>
-                            <div class="box-moviment" *ngFor="let s of relatorio.expenses">
+                            <div class="box-moviment" *ngFor="let expense of report.expenses">
                                 <mdb-card class="z-depth-0" mdbWavesEffect>
                                     <mdb-card-body>
-                                        <mdb-card-text>{{ s.descricao }}</mdb-card-text>
+                                        <mdb-card-text>{{ expense.description }}</mdb-card-text>
                                         <mdb-card-title>
-                                            <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
+                                            <h4 class="valor-saida">{{ expense.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
-                                        <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
+                                        <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
                             </div>
@@ -193,7 +192,7 @@
                                 <mdb-card-body>
                                     <mdb-card-text>Receitas mensais</mdb-card-text>
                                     <mdb-card-title>
-                                        <h4>{{ relatorio.incomeRecipesMonthly | currency:'BRL' }}</h4>
+                                        <h4>{{ report.incomeRecipesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
                                 </mdb-card-body>
                             </mdb-card>
@@ -203,7 +202,7 @@
                                 <mdb-card-body>
                                     <mdb-card-text>Despesas mensais</mdb-card-text>
                                     <mdb-card-title>
-                                        <h4>{{ relatorio.incomeExpensesMonthly | currency:'BRL' }}</h4>
+                                        <h4>{{ report.incomeExpensesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
                                 </mdb-card-body>
                             </mdb-card>
@@ -211,13 +210,13 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <mdb-card class="saldo-mensal z-depth-0" [ngClass]="{ 'danger-color': relatorio.balanceMonthly < 0, 'primary-color': relatorio.balanceMonthly > 0, 'default-color': relatorio.balanceMonthly == 0 }" mdbWavesEffect>
+                            <mdb-card class="saldo-mensal z-depth-0" [ngClass]="{ 'danger-color': report.balanceMonthly < 0, 'info-color': report.balanceMonthly > 0, 'default-color': report.balanceMonthly == 0 }" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
                                         <p>Faturamento mensal</p>
                                     </mdb-card-text>
                                     <mdb-card-title>
-                                        <h4 >{{ relatorio.balanceMonthly | currency:'BRL' }}</h4>
+                                        <h4 >{{ report.balanceMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                  
                                 </mdb-card-body>
                             </mdb-card>
@@ -240,7 +239,7 @@
         </div>
     </div>
     <div class="report z-depth-0">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="report-header">
@@ -253,7 +252,7 @@
                                 <p>Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ receitas.openingBalance | currency:'BRL' }}</h4>
+                                <h4>{{ income.initialAmount | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -266,7 +265,7 @@
                                 <p>Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ receitas.currentBalance | currency:'BRL' }}</h4>
+                                <h4>{{ income.currentBalance | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -279,7 +278,7 @@
                                 <p>Total de receitas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ receitas.incomeRecipes  | currency:'BRL' }}</h4>
+                                <h4>{{ income.incomeRecipes  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
@@ -292,44 +291,42 @@
                                 <p>Total de despesas</p>
                             </mdb-card-text>
                             <mdb-card-title>
-                                <h4>{{ receitas.incomeExpenses  | currency:'BRL' }}</h4>
+                                <h4>{{ income.incomeExpenses  | currency:'BRL' }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
                 </div>
             </div>
         </div>
-
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header mdbWavesEffect>
                     <mat-panel-description>Escolha um período de referência</mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <mat-form-field>
                             <mat-label>Mês</mat-label>
-                            <mat-select [(value)]="mesSelecionado" (selectionChange)="obterRelatorio()">
-                                <mat-option *ngFor="let mes of meses; let i = index" [value]="mes">{{ mes }}</mat-option>
+                            <mat-select [(value)]="monthSelected" (selectionChange)="getReport()">
+                                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <mat-form-field>
                             <mat-label>Ano</mat-label>
-                            <mat-select [(value)]="anoSelecionado" (selectionChange)="obterRelatorio()">
-                                <mat-option *ngFor="let ano of anos; let i = index" [value]="ano">{{ ano }}</mat-option>
+                            <mat-select [(value)]="yearSelected" (selectionChange)="getReport()">
+                                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
-        <br>
         <div class="main-content">
             <div class="row">
                 <div class="col">
-                    <mdb-card class="empty-data" *ngIf="relatorio.recipes.length == 0 && relatorio.expenses.length == 0" mdbWavesEffect>
+                    <mdb-card class="empty-data" *ngIf="report.recipes.length == 0 && report.expenses.length == 0" mdbWavesEffect>
                         <mdb-card-body>
                             <img src="/assets/img/box-empty.png" alt="empty" width="200px" height="200px">
                             <h4>Nenhuma registro encontrado</h4>
@@ -338,21 +335,21 @@
                     </mdb-card>
                 </div>
             </div>
-            <div *ngIf="relatorio.recipes[0] != null || relatorio.expenses[0] != null">
+            <div *ngIf="report.recipes[0] != null || report.expenses[0] != null">
                 <div class="row">
                     <div class="col">
-                        <p>Rendimentos de {{ mesSelecionado}} de {{ anoSelecionado }}</p>
+                        <p>Rendimentos de {{ monthSelected }} de {{ yearSelected }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <mdb-card mdbWavesEffect>
+                        <mdb-card class="z-depth-0" mdbWavesEffect>
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="entradas"
-                                    [labels]="rotulosEntradas"
-                                    [colors]="coresEntradas"
+                                    [(datasets)]="recipes"
+                                    [labels]="labelsRecipes"
+                                    [colors]="colorsRecipes"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >
@@ -367,16 +364,16 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="box-moviment" *ngFor="let e of relatorio.recipes">
+                            <div class="box-moviment" *ngFor="let recipe of report.recipes">
                                 <mdb-card mdbWavesEffect>
                                     <mdb-card-body>
-                                        <mdb-card-text>{{ e.descricao }}</mdb-card-text>
+                                        <mdb-card-text>{{ recipe.description }}</mdb-card-text>
                                         <mdb-card-title>
-                                            <h4 class="valor-entrada">{{ e.valor | currency:'BRL' }}</h4>
+                                            <h4 class="valor-entrada">{{ recipe.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ e.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
-                                        <mdb-card-text *ngIf="e.ofertante != null" >{{ e.ofertante }}</mdb-card-text> 
-                                        <mdb-card-text *ngIf="e.detalhes != null" >{{ e.detalhes }}</mdb-card-text>            
+                                        <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
+                                        <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
                                     </mdb-card-body>
                                 </mdb-card>
                             </div>                              
@@ -388,7 +385,7 @@
                                 <mdb-card-body>
                                     <mdb-card-text>Receitas mensais</mdb-card-text>
                                     <mdb-card-title>
-                                        <h4>{{ relatorio.incomeRecipesMonthly | currency:'BRL' }}</h4>
+                                        <h4>{{ report.incomeRecipesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
                                 </mdb-card-body>
                             </mdb-card>
@@ -401,9 +398,9 @@
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
-                                    [(datasets)]="saidas"
-                                    [labels]="rotulosSaidas"
-                                    [colors]="coresSaidas"
+                                    [(datasets)]="expenses"
+                                    [labels]="labelsExpenses"
+                                    [colors]="colorsExpenses"
                                     [options]="chartOptions"
                                     [legend]="true"
                                 >
@@ -418,15 +415,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="box-moviment" *ngFor="let s of relatorio.expenses">
+                            <div class="box-moviment" *ngFor="let expense of report.expenses">
                                 <mdb-card mdbWavesEffect>
                                     <mdb-card-body>
-                                        <mdb-card-text>{{ s.descricao }}</mdb-card-text>
+                                        <mdb-card-text>{{ expense.description }}</mdb-card-text>
                                         <mdb-card-title>
-                                            <h4 class="valor-saida">{{ s.valor | currency:'BRL' }}</h4>
+                                            <h4 class="valor-saida">{{ expense.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ s.registradoEm | date: 'dd/MM/yyyy' }}</mdb-card-text>   
-                                        <mdb-card-text *ngIf="s.detalhes != null" >{{ s.detalhes }}</mdb-card-text>             
+                                        <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
                             </div>
@@ -438,7 +435,7 @@
                                 <mdb-card-body >
                                     <mdb-card-text>Despesas mensais</mdb-card-text>
                                     <mdb-card-title>
-                                        <h4>{{ relatorio.incomeExpensesMonthly | currency:'BRL' }}</h4>
+                                        <h4>{{ report.incomeExpensesMonthly | currency:'BRL' }}</h4>
                                     </mdb-card-title>                   
                                 </mdb-card-body>
                             </mdb-card>
@@ -446,13 +443,13 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <mdb-card class="saldo-mensal" [ngClass]="{ 'danger-color': relatorio.balanceMonthly < 0, 'primary-color': relatorio.balanceMonthly > 0, 'default-color': relatorio.balanceMonthly == 0 }" mdbWavesEffect>
+                            <mdb-card class="saldo-mensal" [ngClass]="{ 'danger-color': report.balanceMonthly < 0, 'info-color': report.balanceMonthly > 0, 'default-color': report.balanceMonthly == 0 }" mdbWavesEffect>
                                 <mdb-card-body>
                                     <mdb-card-text>
                                         <p>Faturamento mensal</p>
                                     </mdb-card-text>
                                     <mdb-card-title>
-                                        <h4 >{{ relatorio.balanceMonthly  | currency:'BRL' }}</h4>
+                                        <h4 >{{ report.balanceMonthly  | currency:'BRL' }}</h4>
                                     </mdb-card-title>                  
                                 </mdb-card-body>
                             </mdb-card>

@@ -5,12 +5,15 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from "moment";
-import { Tesouraria } from 'src/app/shared/models/treasury.entity';
-import { Credito } from 'src/app/shared/models/credit.entity';
-import { Saida } from 'src/app/shared/models/expense.entity';
-import { Entrada } from 'src/app/shared/models/recipe.entity';
+
+import { Treasury } from 'src/app/shared/models/treasury.entity';
+import { Credit } from 'src/app/shared/models/credit.entity';
+import { Expense } from 'src/app/shared/models/expense.entity';
+import { Recipe } from 'src/app/shared/models/recipe.entity';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
+import { StatusType } from 'src/app/shared/models/enums/status-type.enum';
+import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
 
 @Component({
   selector: 'app-transactions',
@@ -19,39 +22,45 @@ import { DateValidator } from 'src/app/shared/validators/date.validator';
 })
 export class TransactionsComponent implements OnInit {
 
-  public f: FormGroup;
-  public fsaidas: FormGroup;
-  public fcreditos: FormGroup;
+  public formRecipes: FormGroup;
+  public formExpenses: FormGroup;
+  public formCredits: FormGroup;
 
-  public tesouraria: Tesouraria = new Tesouraria();
-  public creditos: Credito[]= [];
+  public treasury: Treasury = new Treasury();
+  public credits: Credit[] = [];
 
   public rows: any[] = [];
-  public indicadorDeCarregamento: boolean = true;
-  public movimentacoesSelecionadas: any = [];
+  public loading = true;
+  public transactionsSelected: any = [];
   public dateValidator = new DateValidator();
+  public transactionType = TransactionType;
   
-  constructor(private _fb: FormBuilder, private router: Router, private toastr: ToastrService, private servico: TreasuryService) { }
+  public constructor(
+                private _fb: FormBuilder, 
+                private router: Router, 
+                private toastr: ToastrService, 
+                private servico: TreasuryService
+  ) { }
   
-  load() {
-    let id = this.router.url.split('/')[2];
+  public load() {
+    let id = parseInt(this.router.url.split('/')[2]);
     this.servico.findById(id).subscribe( resp => {
-      let c: Tesouraria = resp
-      if(c != null) {
-        this.tesouraria = c;
-        this.rows = [...c.entradas, ...c.saidas];    
-        this.indicadorDeCarregamento = false;
+      let treasury: Treasury = resp
+      if(treasury != null) {
+        this.treasury = treasury;
+        this.rows = [...treasury.recipes, ...treasury.expenses];  
+        this.loading = false;
       }
       else {
         this.router.navigateByUrl('/home');
-        this.toastr.error('Nenhum caixa encontrado', 'Erro', {progressBar: true});
+        this.toastr.error('Nenhuma tesouraria encontrada', 'Erro', {progressBar: true});
       } 
     }, erro => {
       this.errorMessage(erro);
     });
   }
 
-  errorMessage(err: any) {
+  private errorMessage(err: any) {
     if(err.status == 0) {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
@@ -68,143 +77,144 @@ export class TransactionsComponent implements OnInit {
     }
   }
 
-  aoSelecionar(movimentacoes: any) {
-    this.movimentacoesSelecionadas = movimentacoes.selected;
+  public whenSelecting(transactions: any) {
+    this.transactionsSelected = transactions.selected;
   }
 
-  ocultarModalEntrada(modal: any) {
-    this.resetarFormulario();
+  public hideModalRecipe(modal: any) {
+    this.resetFormRecipes();
     modal.hide();
   }
 
-  mostrarModalEntrada(modal: any) {
-    this.resetarFormulario();
+  public showModalRecipe(modal: any) {
+    this.resetFormRecipes();
     modal.show();
   }
 
-  mostrarModalSaida(modal: any) {
-    this.resetarFormulario();
+  public showModalExpense(modal: any) {
+    this.resetFormRecipes();
     modal.show();
   }
 
-  ocultarModalAtualizarSaida(modal: any) {
-    this.resetarFormularioSaidas();
+  public hideModalUpdateExpense(modal: any) {
+    this.resetFormExpenses();
     modal.hide();
   }
 
-  resetarFormulario() {
-    this.f.patchValue({
+  public resetFormRecipes() {
+    this.formRecipes.patchValue({
         id: null,
-        descricao: '',
-        valor: '',
-        ofertante: null,
-        registradoEm: moment().format('DDMMYYYY'),
-        detalhes: null
+        description: '',
+        value: '',
+        offerer: null,
+        registeredIn: moment().format('DDMMYYYY'),
+        details: null
     })
-    this.creditos = [];
+    this.credits = [];
   }
 
-  resetarFormularioSaidas() {
-    this.fsaidas.patchValue({
+  public resetFormExpenses() {
+    this.formExpenses.patchValue({
       id: null,
-      descricao: '',
-      valor: '',
-      registradoEm: moment().format('DDMMYYYY'),
-      detalhes: null,
+      description: '',
+      value: '',
+      registeredIn: moment().format('DDMMYYYY'),
+      details: null,
     });
   }
 
-  salvarOuAtualizarEntrada(e: Entrada, modal: any) {
-    let novaEntrada = new Entrada({
-      id: e.id,
-      descricao: e.descricao,
-      valor: e.valor,
-      ofertante: e.ofertante,
-      tipo: 'RECEITA',
-      detalhes: e.detalhes,
-      registradoEm: moment(e.registradoEm, 'DDMMYYYY', true).toDate(),
-      creditos: this.creditos
+  public saveOrUpdateRecipe(recipe: Recipe, modal: any) {
+    let newRecipe = new Recipe({
+      id: recipe.id,
+      description: recipe.description,
+      value: recipe.value,
+      offerer: recipe.offerer,
+      type: TransactionType.RECIPE,
+      details: recipe.details,
+      registeredIn: moment(recipe.registeredIn, 'DDMMYYYY', true).toDate(),
+      credits: this.credits
     });
     
-    if(novaEntrada.id == null) {
-      this.tesouraria.entradas.push(novaEntrada);
-      this.servico.update(this.tesouraria).subscribe(res => {
+    if(newRecipe.id == null) {
+      this.treasury.recipes.push(newRecipe);
+      this.servico.update(this.treasury).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load(); 
       }
       , erro => {
-        let index = this.tesouraria.entradas.indexOf(novaEntrada);
-        this.tesouraria.entradas.splice(index,1);
+        let index = this.treasury.recipes.indexOf(newRecipe);
+        this.treasury.recipes.splice(index,1);
         this.errorMessage(erro);
       });
     }
     else {
-      let entradaAtual = this.tesouraria.entradas.filter( entrada => {
-        return entrada.id == novaEntrada.id;
+      let currentRecipe = this.treasury.recipes.filter( recipe => {
+        return recipe.id == recipe.id;
       })[0];
 
-      let indice = this.tesouraria.entradas.indexOf(entradaAtual);
-      this.tesouraria.entradas[indice] = novaEntrada;
+      let indice = this.treasury.recipes.indexOf(currentRecipe);
+      this.treasury.recipes[indice] = newRecipe;
 
-      this.servico.update(this.tesouraria).subscribe(res => {
+      this.servico.update(this.treasury).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }
       , erro => {
-        let index = this.tesouraria.entradas.indexOf(novaEntrada);
-        this.tesouraria.entradas.splice(index,1);
+        let index = this.treasury.recipes.indexOf(newRecipe);
+        this.treasury.recipes.splice(index,1);
         this.errorMessage(erro);
       });
     }
     modal.hide();
-    this.resetarFormulario();
+    this.resetFormRecipes();
   }
 
-  salvarOuAtualizarSaida(s: Saida, modal: any) {
-    let novaSaida: Saida = new Saida({
-      id: s.id,
-      descricao: s.descricao,
-      valor: s.valor,
-      tipo: 'DESPESA',
-      detalhes: s.detalhes,
-      registradoEm: moment(s.registradoEm, 'DDMMYYYY', true).toDate()
+  public saveOrUpdateExpense(expense: Expense, modal: any) {
+    let newExpense: Expense = new Expense({
+      id: expense.id,
+      description: expense.description,
+      value: expense.value,
+      type: TransactionType.EXPENSE,
+      details: expense.details,
+      registeredIn: moment(expense.registeredIn, 'DDMMYYYY', true).toDate()
     });
 
-    if(novaSaida.id == null) {
-      this.tesouraria.saidas.push(novaSaida);
-      this.servico.update(this.tesouraria).subscribe(res => {
+    if(newExpense.id == null) {
+      this.treasury.expenses.push(newExpense);
+      this.servico.update(this.treasury).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();  
       }
-      , erro => {
-        let index = this.tesouraria.saidas.indexOf(novaSaida);
-        this.tesouraria.saidas.splice(index,1);
+      , 
+      erro => {
+        let index = this.treasury.expenses.indexOf(newExpense);
+        this.treasury.expenses.splice(index,1);
         this.errorMessage(erro);
       });
     }
     else {
-      let saidaAtual = this.tesouraria.saidas.filter( saida => {
-        return saida.id == novaSaida.id;
+      let currentExpense = this.treasury.expenses.filter( expense => {
+        return expense.id == newExpense.id;
       })[0];
 
-      let index = this.tesouraria.saidas.indexOf(saidaAtual);
-      this.tesouraria.saidas[index] = novaSaida;
+      let index = this.treasury.expenses.indexOf(currentExpense);
+      this.treasury.expenses[index] = newExpense;
 
-      this.servico.update(this.tesouraria).subscribe(res => {
+      this.servico.update(this.treasury).subscribe(res => {
         this.load();
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
       }
       , erro => {
-        let index = this.tesouraria.saidas.indexOf(novaSaida);
-        this.tesouraria.saidas.splice(index,1);
+        let index = this.treasury.expenses.indexOf(newExpense);
+        this.treasury.expenses.splice(index,1);
         this.errorMessage(erro);
       });
     }
     modal.hide();
-    this.resetarFormularioSaidas();
+    this.resetFormExpenses();
   }
 
-  deletarMovimentacoesSelecionadas() {
+  public deleteTransactionsSelected() {
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -215,16 +225,16 @@ export class TransactionsComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         let index = 0;
-        this.movimentacoesSelecionadas.forEach(item => {
-          index = this.tesouraria.entradas.indexOf(item);
+        this.transactionsSelected.forEach(item => {
+          index = this.treasury.recipes.indexOf(item);
           if (index >= 0) {
-            this.tesouraria.entradas.splice(index,1);
+            this.treasury.recipes.splice(index,1);
           } 
-          index = this.tesouraria.saidas.indexOf(item);
+          index = this.treasury.recipes.indexOf(item);
           if (index >= 0) {
-            this.tesouraria.saidas.splice(index,1);
+            this.treasury.recipes.splice(index,1);
           }
-          this.servico.update(this.tesouraria).subscribe(res => {
+          this.servico.update(this.treasury).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
           }
@@ -232,12 +242,12 @@ export class TransactionsComponent implements OnInit {
             this.errorMessage(erro);
           }); 
         });
-        this.movimentacoesSelecionadas = [];
+        this.transactionsSelected = [];
       } 
     });
   }
 
-  deletarMovimentacao(movimentacao: any) {
+  public deleteTransaction(transaction: any) {
     let index = 0;
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
@@ -248,15 +258,15 @@ export class TransactionsComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.tesouraria.entradas.indexOf(movimentacao);
+        index = this.treasury.recipes.indexOf(transaction);
         if(index >=0) {
-          this.tesouraria.entradas.splice(index, 1);
+          this.treasury.recipes.splice(index, 1);
         }
-        index = this.tesouraria.saidas.indexOf(movimentacao);
+        index = this.treasury.expenses.indexOf(transaction);
         if(index >=0) {
-          this.tesouraria.saidas.splice(index, 1);
+          this.treasury.expenses.splice(index, 1);
         }
-        this.servico.update(this.tesouraria).subscribe(res => {
+        this.servico.update(this.treasury).subscribe(res => {
           this.load();
           this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
         }
@@ -267,86 +277,81 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  addCredito(form: any, modal: any){
+  public addCredit(form: any, modal: any){
     modal.hide();
-    let credito = form.value;
-    this.creditos.push(new Credito({
-      titular: credito.titular,
-      valor: credito.valor,
-      telefone: credito.telefone,
-      situacao: 'ABERTO'
+    let credit = form.value;
+    this.credits.push(new Credit({
+      holder: credit.holder,
+      value: credit.value,
+      telephone: credit.telephone,
+      status: StatusType.ACTIVE
     }));
     form.reset();
   }
 
-  removerCredito(index: number, c: Credito) {
-    this.creditos.splice(index, 1);
+  public removeCredit(index: number, credit: Credit) {
+    this.credits.splice(index, 1);
   }
 
-  quitarCredito(c: Credito) {
-    if(c.situacao  != 'ENCERRADO') {
-      c.situacao = c.situacao === 'ABERTO' ? 'QUITADO' : 'ABERTO';
+  public payOffCredit(credit: Credit) {
+    if(credit.status  != StatusType.FINISHED) {
+      credit.status = credit.status === StatusType.ACTIVE ? StatusType.SETTLED : StatusType.ACTIVE;
     }
   }
 
-  setFormEntradaOuSaida(row: any, modalAtualizarEntrada: any, modalAtualizarSaida: any) {
-    if(row.tipo === 'DESPESA') {
-      this.fsaidas.patchValue({
+  public setFormRecipeOrExpense(row: any, modalUpdateRecipe: any, modalUpdateExpense: any) {
+    if(row.type === TransactionType.EXPENSE) {
+      this.formExpenses.patchValue({
         id: row.id,
-        descricao: row.descricao,
-        valor: row.valor,
-        registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
-        detalhes: row.detalhes,
+        description: row.description,
+        value: row.value,
+        registeredIn: moment(row.registeredIn).format('DDMMYYYY'),
+        details: row.details,
       });
-      modalAtualizarSaida.show();
+      modalUpdateExpense.show();
     }
-    if(row.tipo === 'RECEITA') {
-      this.f.patchValue({
+    if(row.type === TransactionType.RECIPE) {
+      this.formRecipes.patchValue({
         id: row.id,
-        descricao: row.descricao,
-        valor: row.valor,
-        ofertante: row.ofertante,
-        registradoEm: moment(row.registradoEm).format('DDMMYYYY'),
-        detalhes: row.detalhes
+        description: row.description,
+        value: row.value,
+        offerer: row.offerer,
+        registeredIn: moment(row.registeredIn).format('DDMMYYYY'),
+        details: row.details,
       });
-      this.creditos = row.creditos;
-      modalAtualizarEntrada.show();
+      this.credits = row.credits;
+      modalUpdateRecipe.show();
     }
-  }
-
-  limparForm(form: FormGroup) {
-    form.reset();
-    this.creditos = [];
   }
 
   ngOnInit() {
     this.load();
-    this.f = this._fb.group({
+    this.formRecipes = this._fb.group({
       id: [null],
-      descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
-      valor:[Validators.required],
-      ofertante: [null, [Validators.minLength(2), Validators.maxLength(60)]],
-      tipo: ['RECEITA'],
-      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      detalhes: [null, Validators.maxLength(255)],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
+      value :[Validators.required],
+      offerer: [null, [Validators.minLength(2), Validators.maxLength(60)]],
+      type: [TransactionType.RECIPE],
+      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
+      details: [null, Validators.maxLength(255)],
     });
 
-    this.fcreditos = this._fb.group({
+    this.formExpenses = this._fb.group({
       id: [null],
-      titular: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
-      valor:['', Validators.required],
-      registro: [''],
-      telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
-      situacao: ['']
+      description:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
+      value:['', Validators.required],
+      type: [TransactionType.EXPENSE],
+      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
+      details: [null, Validators.maxLength(255)]
     });
 
-    this.fsaidas = this._fb.group({
+    this.formCredits = this._fb.group({
       id: [null],
-      descricao:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
-      valor:['', Validators.required],
-      tipo: ['DESPESA'],
-      registradoEm: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      detalhes: [null, Validators.maxLength(255)]
+      holder: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      value: ['', Validators.required],
+      registeredIn: [''],
+      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
+      status: ['']
     });
   }
 }

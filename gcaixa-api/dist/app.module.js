@@ -11,13 +11,13 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const tesouraria_module_1 = require("./tesouraria/tesouraria.module");
+const treasury_module_1 = require("./treasury/treasury.module");
+const auth_module_1 = require("./auth/auth.module");
+const user_module_1 = require("./users/user.module");
 const treasury_entity_1 = require("./shared/models/treasury.entity");
 const expense_entity_1 = require("./shared/models/expense.entity");
 const recipe_entity_1 = require("./shared/models/recipe.entity");
 const credit_entity_1 = require("./shared/models/credit.entity");
-const auth_module_1 = require("./auth/auth.module");
-const user_module_1 = require("./users/user.module");
 const inventory_entity_1 = require("./shared/models/inventory.entity");
 const user_entity_1 = require("./shared/models/user.entity");
 let AppModule = (() => {
@@ -32,18 +32,18 @@ let AppModule = (() => {
                     port: 5432,
                     username: 'postgres',
                     password: 'postgres',
-                    database: 'tesourariadb',
+                    database: 'treasurydb',
                     entities: [
-                        treasury_entity_1.Tesouraria,
-                        expense_entity_1.Saida,
-                        recipe_entity_1.Entrada,
-                        credit_entity_1.Credito,
-                        inventory_entity_1.Contagem,
+                        treasury_entity_1.Treasury,
+                        expense_entity_1.Expense,
+                        recipe_entity_1.Recipe,
+                        credit_entity_1.Credit,
+                        inventory_entity_1.Inventory,
                         user_entity_1.User
                     ],
                     synchronize: true,
                 }),
-                tesouraria_module_1.TesourariaModule,
+                treasury_module_1.TreasuryModule,
                 auth_module_1.AuthModule,
                 user_module_1.UserModule,
             ],

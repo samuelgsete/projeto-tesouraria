@@ -1,11 +1,11 @@
 import { Entity,Column, UpdateDateColumn } from "typeorm";
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
-import { EntidadeBase } from "./entity-base.entity";
+import { EntityBase } from "./entity-base.entity";
 import { users } from "../validation/user.messages";
 
 @Entity()
-export class User extends EntidadeBase {
+export class User extends EntityBase {
 
     @IsNotEmpty({ message: `${users.nomeNotNull}` })
     @IsString({ message: `${users.nomeValid}` })
