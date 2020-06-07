@@ -19,6 +19,14 @@ export class UserService {
         return this.http.post(this.urlBase, user);
     }
 
+    public verifyUser(code: string): Observable<any> {
+        return this.http.post(this.urlBase.concat(`/${code}`), '');
+    }
+
+    public resendCode(email: string): Observable<any> {
+        return this.http.put(this.urlBase.concat(`/resend`), { email });
+    }
+
     public update(user: User): Observable<any> {
         return this.http.put(this.urlBase, user);
     }

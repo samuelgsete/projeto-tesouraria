@@ -36,10 +36,12 @@ export class CreateUserComponent implements OnInit {
       password: data.password
     });
 
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('userEmail', user.email);
+    
     this.service.create(user).subscribe( response => {
-      this.toastr.success(response.message, 'Tudo ok', { progressBar: true });
       this.loading = false;
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/user/verify');
     },
     erro => {
       this.loading = false;

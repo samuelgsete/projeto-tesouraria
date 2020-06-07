@@ -1,15 +1,19 @@
-import { Injectable, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from 'src/shared/models/user.entity';
 import { Repository } from 'typeorm';
 import { IsCreatedEception } from 'src/shared/exceptions/models/is-created.exception';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
+import { EmailService } from 'src/shared/services/email.service';
 
 @Injectable()
 export class UserService {
 
-    public constructor(@InjectRepository(User) private repository: Repository<User>) { }
+    public constructor(
+                        @InjectRepository(User) private repository: Repository<User>,
+                        private readonly emailService: EmailService
+    ) { }
 
     public async findById(id: number): Promise<User> {
         if(id <= 0) {
@@ -44,13 +48,56 @@ export class UserService {
             throw new IsCreatedEception('O email já está sendo utilizado', HttpStatus.BAD_REQUEST);
         }
 
+        const code = this.generateVerificationCode();
+        user.codeVerify = code;
+
+        this.emailService.verifyUser(user.name, user.email, user.codeVerify);
+
         return this.repository
                     .save(user)
                     .then( e => {
                         return {
-                            message: 'Criado com sucesso'
+                            message: 'Aguardando confirmação'
                         };
                     }) 
+    }
+
+    public async confirmUser(code: string) {
+        const result = await this.repository.find({ where: { codeVerify: code }});
+        let user = result[0];
+        if(user) {
+            user.isActive = true;
+            return this.repository
+                .save(user)
+                .then( e => {
+                    return {
+                        message: 'Criado com sucesso'
+                    }
+                })
+        }
+        throw new IdInvalidException('Codigo de verificação inválido');
+    }
+
+    public async resendCode(email: string) {
+        const result = await this.repository.find({ where: { email: email }});
+        const user = result[0];
+
+        if(!user) {
+            throw new HttpException('Usuário não está cadastrado', HttpStatus.NOT_FOUND);
+        }
+
+        const code = this.generateVerificationCode();
+        user.codeVerify = code;
+
+        this.emailService.verifyUser(user.name, user.email, user.codeVerify);
+
+        return this.repository
+                    .save(user)
+                    .then( () => {
+                        return {
+                            message: 'Código reenviado'
+                        };
+                    });
     }
 
     public async update(user: User) {
@@ -81,5 +128,9 @@ export class UserService {
                             message: 'Atualizado com sucesso'
                         };
                     }); 
+    }
+
+    private generateVerificationCode(): string {
+        return `${Math.floor(Math.random()*90000) + 10000}`;
     }
 }

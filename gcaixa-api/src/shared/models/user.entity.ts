@@ -43,8 +43,11 @@ export class User extends EntityBase {
     @Column({ length: 15, unique: false, nullable: false })
     public whatzapp: string;
 
-    @Column({ default: true })
+    @Column({ default: false })
     public isActive: boolean;
+
+    @Column()
+    public codeVerify: string;
 
     @UpdateDateColumn()
     public updated: Date;

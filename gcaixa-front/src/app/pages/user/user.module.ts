@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { UserService } from 'src/app/shared/services/user.service';
-import { CreateUserComponent } from './create-user/create-user.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { routing } from 'src/app/app.routing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { VerifyComponent } from './create-user/verify/verify.component';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @NgModule({
-  declarations: [CreateUserComponent],
+  declarations: [CreateUserComponent, VerifyComponent],
   imports: [
     CommonModule,
     SharedModule,

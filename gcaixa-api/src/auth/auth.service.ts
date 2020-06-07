@@ -20,6 +20,9 @@ export class AuthService {
     }
 
     if (user && user.password === pass) {
+      if(!user.isActive) {
+        throw new UnauthorizedException('Usuario inativo');
+      }
       return user;
     }
     return null;
