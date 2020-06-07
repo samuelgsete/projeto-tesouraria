@@ -1,0 +1,29 @@
+<div class="verify-user">
+    <div class="content z-depth-2">
+        <div class="header">
+            <img src="/assets/img/create_user.png" alt="usuario" width="80px" height="80px">
+            <h4>Confirme seu cadastro</h4>
+            <p>
+                Olá 
+                <span>{{ name }}</span> 
+                um código de verificação foi enviado para 
+                <span class="email">{{ email }}</span>,  
+                insirá-o para confirmar seu cadastro. Caso for necessário
+                click <a (click)="resendCode()">aqui</a> para reenviar o código
+            </p>
+        </div>
+        <div class="main">
+            <mat-form-field class="input-width" appearance="outline">
+                <mat-label>Código</mat-label>
+                <input [formControl]="code" matInput mask="00000" autofocus required>
+                <mat-icon matSuffix>code</mat-icon>
+                <mat-error>Por favor insira o código</mat-error>
+            </mat-form-field>
+            <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!code.valid" (click)="finalizeRegistration()" mdbWavesEffect>FINALIZAR CADASTRO</button>
+            <button class="z-depth-0" style="margin-top: 15px;" mdbBtn type="button" block="true" color="light" (click)="createUser()" mdbWavesEffect>CADASTRAR NOVAMENTE</button>
+            <div *ngIf="loading">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+        </div>
+    </div>
+</div>

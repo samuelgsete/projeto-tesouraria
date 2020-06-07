@@ -26,6 +26,9 @@ let AuthService = (() => {
                 throw new common_1.UnauthorizedException('Usuario não encontrado');
             }
             if (user && user.password === pass) {
+                if (!user.isActive) {
+                    throw new common_1.UnauthorizedException('Usuario inativo');
+                }
                 return user;
             }
             return null;

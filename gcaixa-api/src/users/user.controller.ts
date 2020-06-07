@@ -20,6 +20,16 @@ export class UserController {
         return this.service.save(user);
     }
 
+    @Post(':code')
+    public confirmUser(@Param('code') code: string) {
+        return this.service.confirmUser(code);
+    }
+
+    @Put('resend')
+    public resendCode(@Body() body: any) {
+        return this.service.resendCode(body.email);
+    }
+
     @Put()
     @UseGuards(JwtAuthGuard)
     public update(@Body() user: User) {

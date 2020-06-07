@@ -1,0 +1,41 @@
+.verify-user {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #2BBBAD, #35998f);
+
+    .content {
+        background-color: #ffffff;
+        padding: 35px 30px 50px; 
+        overflow-y: auto;
+        width: 500px;
+
+        .header {
+            text-align: center;
+            h4 {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            p {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #607174;
+                margin: 30px;
+                span.email {
+                    color: #0026ff;
+                }
+
+                a {
+                    color: #0422cc;
+                }
+            }
+        }
+
+        .main {
+            .input-width { width: 100% }
+
+            mat-error { margin-left: -12px }
+        }
+    }
+}

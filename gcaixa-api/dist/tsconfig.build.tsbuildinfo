@@ -3422,8 +3422,8 @@
         "affectsGlobalScope": false
       },
       "../src/shared/models/user.entity.ts": {
-        "version": "7400507c52e7dd09300a5b7a3aaa819373dbd5287a8e9171da1d274564b27789",
-        "signature": "bcf7639b7386bb55705f5e1b5ed68c30714d227a5b9d0e6d35f96738158f218d",
+        "version": "c0f42956629a4a4337c5ec9d0ff35f36b054911e0218a7db9f15c67210197325",
+        "signature": "5e8fc995bcc878d8a7a95c93777327c456e18e84e085b671783b8ab06a8c61de",
         "affectsGlobalScope": false
       },
       "../src/shared/exceptions/models/is-created.exception.ts": {
@@ -3436,13 +3436,18 @@
         "signature": "8fe8949f1e26683194d007c4c95c9e0b50d3395b87d7469086a630d476412823",
         "affectsGlobalScope": false
       },
+      "../src/shared/services/email.service.ts": {
+        "version": "6b9f1fc19d19d7bd9396c3a05c8d72f93cc0ff0d68362e86e1e88732c8002602",
+        "signature": "245fffc50f1f6b7264e3221cb195f67a0a0bb6ab7d8f321ff3dec941d77c1fe2",
+        "affectsGlobalScope": false
+      },
       "../src/users/user.service.ts": {
-        "version": "922c0e01335038b71c3bd50b124a389c7e5b802750e97900ff8aacaaf272cc83",
-        "signature": "93e69f38be303186e43f71fad8449fc44adb665083a76473bb431819908689d6",
+        "version": "6e3beb95ed58cafc029ff544cae34a680363c503fbf074e2c1ee3f9125c947ad",
+        "signature": "77579726692958b835475ac9ee8274a3a14db6be87f984f7f9e55205ab459119",
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "34d49b5e31b164b2fd8e4e74c4f7b0262caefeeed2eaf094e74989cc4fd792dc",
+        "version": "23bb91bb1d4274451a004f06a9450f6a34bc3bc466feb573fb2e61c72be39a5d",
         "signature": "4ae83868801f099bc5734e132d72864f4c89b630335dc2174718bf54fe85bf4d",
         "affectsGlobalScope": false
       },
@@ -3592,12 +3597,12 @@
         "affectsGlobalScope": false
       },
       "../src/users/user.controller.ts": {
-        "version": "d23d400b9e55365a1b746509df15e5c74cb21279b46a02d326a73c3f7405ab50",
-        "signature": "2fa3444e79e10055e6ec247615d43e4f216a67bf08777323440efabef8f00160",
+        "version": "0beec26f64ade3677ec1989cc52d44e00c3062f17ae79474fa1df861c6ff6f77",
+        "signature": "24d153190910c71e6163ff5688eac8018964b0c7fc0c420329cdffbf592c13a9",
         "affectsGlobalScope": false
       },
       "../src/users/user.module.ts": {
-        "version": "885e6b413b3867b96d24bad0294e05a7c1fcc695cfb37b9f43fb00e442fbd982",
+        "version": "2f1c4f704326a7fc9f898beabd238ca535452e11a596ce50980dd19630d0680f",
         "signature": "9e36626cb39f17790cf2403e2e54d8a74542da63e2a49aba7061133a1af26dcd",
         "affectsGlobalScope": false
       },
@@ -10578,6 +10583,13 @@
         "../node_modules/class-validator/types/index.d.ts",
         "../src/shared/exceptions/models/validation.exception.ts"
       ],
+      "../src/shared/services/email.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../src/shared/validation/credits.messages.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -10687,6 +10699,7 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../src/shared/models/user.entity.ts",
+        "../src/shared/services/email.service.ts",
         "../src/users/user.controller.ts",
         "../src/users/user.service.ts"
       ],
@@ -10700,7 +10713,8 @@
         "../node_modules/typeorm/index.d.ts",
         "../src/shared/exceptions/models/id-invalid.exception.ts",
         "../src/shared/exceptions/models/is-created.exception.ts",
-        "../src/shared/models/user.entity.ts"
+        "../src/shared/models/user.entity.ts",
+        "../src/shared/services/email.service.ts"
       ]
     },
     "exportedModulesMap": {
@@ -17054,7 +17068,8 @@
       ],
       "../src/users/user.service.ts": [
         "../node_modules/typeorm/index.d.ts",
-        "../src/shared/models/user.entity.ts"
+        "../src/shared/models/user.entity.ts",
+        "../src/shared/services/email.service.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -17846,6 +17861,7 @@
       "../src/shared/models/treasury.entity.ts",
       "../src/shared/models/user.entity.ts",
       "../src/shared/pipes/validation-custom.pipe.ts",
+      "../src/shared/services/email.service.ts",
       "../src/shared/validation/credits.messages.ts",
       "../src/shared/validation/expenses.messages.ts",
       "../src/shared/validation/inventory.messages.ts",
