@@ -3,6 +3,8 @@ import { Injectable } from "@nestjs/common";
 import { Recipe } from "src/shared/models/recipe.entity";
 import { Expense } from "src/shared/models/expense.entity";
 import { StatusType } from "src/shared/models/enums/status-type.enum";
+import { TransactionType } from "src/shared/models/enums/transaction-type.enum";
+import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -135,5 +137,60 @@ export class TransactionsService {
             incomeExpensesMonthly,
             balanceMonthly 
         }
+    }
+
+    public filterTransactions(transactionsFilter: TransactionsFilter, recipes: Recipe[], expenses: Expense[]) {
+       
+        let filteredRecipes = [];
+        let filteredExpenses = [];
+
+        if(transactionsFilter.type == TransactionType.RECIPE) {
+            filteredRecipes = recipes.filter( recipe => {
+                return recipe.registeredIn.getFullYear() == transactionsFilter.year && recipe.registeredIn.getMonth() == transactionsFilter.month;
+            });
+
+            if(transactionsFilter.month == 12) {
+                filteredRecipes = recipes.filter( recipe => {
+                    return recipe.registeredIn.getFullYear() == transactionsFilter.year;
+                });
+            }
+        }
+
+        else if(transactionsFilter.type == TransactionType.EXPENSE) {
+            filteredExpenses = expenses.filter( expense => {
+                return expense.registeredIn.getFullYear() == transactionsFilter.year && expense.registeredIn.getMonth() == transactionsFilter.month;
+            });
+
+            if(transactionsFilter.month == 12) {
+                filteredExpenses = expenses.filter( expense => {
+                    return expense.registeredIn.getFullYear() == transactionsFilter.year;
+                });
+            }
+        }
+       
+        else {
+            if(transactionsFilter.month == 12) {
+         
+                filteredRecipes = recipes.filter( recipe => {
+                    return recipe.registeredIn.getFullYear() == transactionsFilter.year;
+                });
+    
+                filteredExpenses = expenses.filter( expense => {
+                    return expense.registeredIn.getFullYear() == transactionsFilter.year;
+                });
+            }
+
+            else {
+                filteredRecipes = recipes.filter( recipe => {
+                    return recipe.registeredIn.getFullYear() == transactionsFilter.year && recipe.registeredIn.getMonth() == transactionsFilter.month;
+                });
+    
+                filteredExpenses = expenses.filter( expense => {
+                    return expense.registeredIn.getFullYear() == transactionsFilter.year && expense.registeredIn.getMonth() == transactionsFilter.month;
+                });
+            }
+        }
+   
+        return { filteredRecipes, filteredExpenses }
     }
 }

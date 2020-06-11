@@ -34,6 +34,17 @@ export class TransactionsComponent implements OnInit {
   public transactionsSelected: any = [];
   public dateValidator = new DateValidator();
   public transactionType = TransactionType;
+
+  public yearSelected = 2020;
+  public monthSelected = 'Todos os meses';
+  public typeSelected = 'RECEITA E DESPESA';
+
+  public years = [ 2019, 2020, 2021 ];
+  public months = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro','Todos os meses'
+  ];
+  public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA']
   
   public constructor(
                 private _fb: FormBuilder, 
@@ -43,19 +54,16 @@ export class TransactionsComponent implements OnInit {
   ) { }
   
   public load() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    this.servico.findById(id).subscribe( resp => {
-      let treasury: Treasury = resp
-      if(treasury != null) {
-        this.treasury = treasury;
-        this.rows = [...treasury.recipes, ...treasury.expenses];  
-        this.loading = false;
-      }
-      else {
-        this.router.navigateByUrl('/home');
-        this.toastr.error('Nenhuma tesouraria encontrada', 'Erro', {progressBar: true});
-      } 
-    }, erro => {
+    console.log('oi');
+    const id = parseInt(this.router.url.split('/')[2]);
+    const month = this.months.indexOf(this.monthSelected);
+
+    this.servico.findByIdWithFilter(id, this.typeSelected, this.yearSelected, month).subscribe( resp => {
+      this.treasury =  resp.body;
+      this.rows = [...this.treasury.recipes, ...this.treasury.expenses];  
+      this.loading = false;
+    }, 
+    erro => {
       this.errorMessage(erro);
     });
   }
@@ -74,6 +82,7 @@ export class TransactionsComponent implements OnInit {
 
     else {
       this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
     }
   }
 

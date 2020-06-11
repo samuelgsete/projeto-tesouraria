@@ -3576,19 +3576,24 @@
         "signature": "80e6236a45a927fb3d2143acf92077ba1417118f8ed4def214f3a3f6f9604bc3",
         "affectsGlobalScope": false
       },
+      "../src/shared/models/transactions-filter.entity.ts": {
+        "version": "20af73ee670975d636950ad5f2a6de2f1c14942ba7aa99fa25077b886fe8a51d",
+        "signature": "af07f530e62371c1de6ef3b0a9d04fbcd108543a1ac5a77c172315dd0f116dd9",
+        "affectsGlobalScope": false
+      },
       "../src/treasury/transactions.service.ts": {
-        "version": "3c8a3a98809490962a07e3169d14507ac10e3fc1c7d6def4131ce3f5800ec4a5",
-        "signature": "9658c28a649cbba47b5e857c78dc62bfedc9affe90db37de4b07d8143fb4c756",
+        "version": "79617e140824baed691aa94d67947ca759ea674fa5af21a275dd4e751f195267",
+        "signature": "39af779d0250388448dc340961c2deb3005a179a5441f5e876782ff90dc0e80d",
         "affectsGlobalScope": false
       },
       "../src/treasury/treasury.service.ts": {
-        "version": "8c377453a7b0b6dbdf34d100954b403eb14503b9adc702047ef9e9adfe921898",
-        "signature": "411b2b7f4355fbe2c3cda0289baf56b4b7b240a24d4e7a47af803bc460e0480d",
+        "version": "dd42ccf6e7bede2d606c58b0fe979ed7dcf51a1bb1df0240ca534bb203fbd859",
+        "signature": "2d8447ab3f46621256f3a00aa91bc79d6ae4cc4ab04e1221245b15b8fb7dc931",
         "affectsGlobalScope": false
       },
       "../src/treasury/treasury.controller.ts": {
-        "version": "cc1e288da7780aaeda1db3737e2338149afc84232007d3e21fe233c655f564ff",
-        "signature": "e7d1e25479da89575a1cc5d7f859cab66b6b95198d32676ac61e97bedd24df04",
+        "version": "03c84926e20ade3121a2f535ad791a3757bfb2d29dacacd9a51f43cf054577b0",
+        "signature": "39ce7952ced8990b3217a9f8cf2baa596ba8a40a5543c9ad01d23b049254f729",
         "affectsGlobalScope": false
       },
       "../src/treasury/treasury.module.ts": {
@@ -10549,6 +10554,13 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
+      "../src/shared/models/transactions-filter.entity.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../src/shared/models/enums/transaction-type.enum.ts"
+      ],
       "../src/shared/models/treasury.entity.ts": [
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -10633,8 +10645,10 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../src/shared/models/enums/status-type.enum.ts",
+        "../src/shared/models/enums/transaction-type.enum.ts",
         "../src/shared/models/expense.entity.ts",
-        "../src/shared/models/recipe.entity.ts"
+        "../src/shared/models/recipe.entity.ts",
+        "../src/shared/models/transactions-filter.entity.ts"
       ],
       "../src/treasury/treasury.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -10644,8 +10658,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../src/auth/guards/jwt-auth.guard.ts",
-        "../src/shared/exceptions/models/id-invalid.exception.ts",
         "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/transactions-filter.entity.ts",
         "../src/shared/models/treasury.entity.ts",
         "../src/treasury/treasury.service.ts"
       ],
@@ -10678,6 +10692,7 @@
         "../src/shared/exceptions/models/permission-denied.excepton.ts",
         "../src/shared/exceptions/models/treasury-not-foud.exception.ts",
         "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/transactions-filter.entity.ts",
         "../src/shared/models/treasury.entity.ts",
         "../src/treasury/transactions.service.ts"
       ],
@@ -17035,6 +17050,9 @@
         "../src/shared/models/enums/transaction-type.enum.ts",
         "../src/shared/models/treasury.entity.ts"
       ],
+      "../src/shared/models/transactions-filter.entity.ts": [
+        "../src/shared/models/enums/transaction-type.enum.ts"
+      ],
       "../src/shared/models/treasury.entity.ts": [
         "../src/shared/models/entity-base.entity.ts",
         "../src/shared/models/expense.entity.ts",
@@ -17049,7 +17067,8 @@
       ],
       "../src/treasury/transactions.service.ts": [
         "../src/shared/models/expense.entity.ts",
-        "../src/shared/models/recipe.entity.ts"
+        "../src/shared/models/recipe.entity.ts",
+        "../src/shared/models/transactions-filter.entity.ts"
       ],
       "../src/treasury/treasury.controller.ts": [
         "../node_modules/@types/express/index.d.ts",
@@ -17059,6 +17078,7 @@
       "../src/treasury/treasury.service.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/shared/models/search-filter.entity.ts",
+        "../src/shared/models/transactions-filter.entity.ts",
         "../src/shared/models/treasury.entity.ts",
         "../src/treasury/transactions.service.ts"
       ],
@@ -17858,6 +17878,7 @@
       "../src/shared/models/inventory.entity.ts",
       "../src/shared/models/recipe.entity.ts",
       "../src/shared/models/search-filter.entity.ts",
+      "../src/shared/models/transactions-filter.entity.ts",
       "../src/shared/models/treasury.entity.ts",
       "../src/shared/models/user.entity.ts",
       "../src/shared/pipes/validation-custom.pipe.ts",

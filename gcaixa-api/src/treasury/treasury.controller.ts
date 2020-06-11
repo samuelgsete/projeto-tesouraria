@@ -5,7 +5,7 @@ import { Request } from 'express';
 import { TreasuryService } from './treasury.service';
 import { Treasury } from 'src/shared/models/treasury.entity';
 import { SearchFilter } from 'src/shared/models/search-filter.entity';
-import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
+import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity';
 
 @Controller('treasury')
 @UseGuards(JwtAuthGuard)
@@ -20,26 +20,23 @@ export class TreasuryController {
                             @Req() request: Request
                        ): Promise<any[]> 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.findAll(userId, new SearchFilter(filter, page));
     }
 
     @Get(':id')
     public findById(
                         @Param('id') id: number,
-                        @Req() request: Request
+                        @Req() request: Request,
+                        @Query('year') year: number,
+                        @Query('month') month: number,
+                        @Query('type') type: string,
                    ): Promise<Treasury> 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
+        const userId = parseInt(request.headers['userid'].toString());
+        const transactonsFilter = new TransactionsFilter({ year: year, month: month, type: type });
 
-        let userId = parseInt(request.headers.userid[0]);
-        return this.service.findById(id, userId);
+        return this.service.findById(id, userId, transactonsFilter);
     }
 
     @Get('report/:id')
@@ -50,11 +47,7 @@ export class TreasuryController {
                         @Req() request: Request
                     ): Promise<any[]> 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.getReport(id, userId, year, month);
     }
 
@@ -65,11 +58,7 @@ export class TreasuryController {
                         @Req() request: Request 
                      ): Promise<any[]> 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.getHistory(userId, id, year);
     }
 
@@ -79,11 +68,8 @@ export class TreasuryController {
                         @Req() request: Request
                      ): Promise<any> 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+  
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.getRecipes(id, userId);
     }
 
@@ -93,7 +79,7 @@ export class TreasuryController {
                     @Req() request: Request
                  ) 
     {
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         treasury.userId = userId;
         return this.service.save(treasury);
     }
@@ -104,11 +90,7 @@ export class TreasuryController {
                     @Req() request: Request
                  ) 
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.update(userId, treasury);
     }
 
@@ -118,11 +100,7 @@ export class TreasuryController {
                     @Req() request: Request
                  )
     {
-        if(!request.headers.userid){
-            throw new IdInvalidException('O ID do usuário está ausente');
-        }
-
-        let userId = parseInt(request.headers.userid[0]);
+        const userId = parseInt(request.headers['userid'].toString());
         return this.service.delete(id, userId);
     }
 }

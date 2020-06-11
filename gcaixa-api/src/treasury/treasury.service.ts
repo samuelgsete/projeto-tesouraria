@@ -9,6 +9,7 @@ import { PermissionDeniedException } from 'src/shared/exceptions/models/permissi
 import { TreasuryNotFoundException } from 'src/shared/exceptions/models/treasury-not-foud.exception';
 import { IsCreatedEception } from 'src/shared/exceptions/models/is-created.exception';
 import { TransactionsService } from './transactions.service';
+import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity';
 
 @Injectable()
 export class TreasuryService {
@@ -36,7 +37,7 @@ export class TreasuryService {
         }
     }
 
-    public async findById(id: number, userId: number): Promise<Treasury> {
+    public async findById(id: number, userId: number, transactionsFilter: TransactionsFilter): Promise<Treasury> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
@@ -50,6 +51,11 @@ export class TreasuryService {
         if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
         }
+
+        const { filteredRecipes, filteredExpenses } = this.transactionService.filterTransactions(transactionsFilter, treasury.recipes, treasury.expenses);
+        
+        treasury.recipes = filteredRecipes;
+        treasury.expenses = filteredExpenses;
 
         return treasury;
     }
@@ -140,7 +146,6 @@ export class TreasuryService {
     }   
 
     public async update(userId: number, treasury: Treasury) { 
-
 
         if(treasury.userId != userId) {
             throw new PermissionDeniedException('Permissão negada')
