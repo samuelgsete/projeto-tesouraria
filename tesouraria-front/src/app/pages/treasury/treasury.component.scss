@@ -1,0 +1,207 @@
+.body {
+    background-color: #d3e0e2;
+    padding-bottom: 110px;
+
+    .hero {
+        height: 220px;
+        padding: 60px 35px;
+        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+
+        .name-page {                
+            h2 {
+                color: #fff;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+            }
+    
+            mat-icon { 
+                cursor: pointer;
+                float:left;
+                margin-right: 30px;
+                font-size: 32px;
+                color: #fff;
+            }
+
+            h2, mat-icon { cursor: pointer; }
+        }
+        
+        button {  margin-top: -10px } 
+    }
+
+    .box {
+        margin: -70px 35px;
+        padding: 30px 35px 40px 35px;
+        border-radius: 6px;
+        background-color: #fff;
+        
+        .header {
+            mat-form-field.input-width { width:100% }
+            button:focus { outline: none }
+        }
+
+        .main-content {
+
+            .empty-data {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                text-align: center;
+                padding: 50px;
+            }
+            
+            mdb-card { 
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 40px;
+                cursor: pointer;
+                transition: background-color 0.5s;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+                mdb-card-body {
+
+                    button:focus { outline: none }
+
+                    .btn-add { background-color: #ffc107 }
+
+                    .btn-edit { background-color: #3f51b5 }
+
+                    .btn-delete { background-color: #ff4444 }
+
+                    .btn-add, .btn-edit { margin-right: 5px }
+
+                    .icon-more-actions {
+                        float: right;
+                        margin: -20px;
+                    }
+                    
+                    .icon-more-actions:focus { outline: none }
+
+                    mdb-card-title {
+                        h4 { margin-top: 20px }
+                    }
+                }       
+            }
+
+            mdb-card:hover {
+                background-color: #eef0f7;
+            }
+        }
+    }
+
+    .main-footer {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.modal {
+    .modal-dialog {
+        .modal-content {
+            .modal-header {
+                h4 { text-align: center }
+            }
+            .modal-body {
+                form {
+                    mat-form-field.input-width { width:100% }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 599px) {
+
+    .body { display: none }
+
+    .mobile {
+        padding-bottom: 20px;
+        
+        .hero {
+            height: 240px;
+            padding: 60px;
+            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+            
+            .header-page {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;    
+
+                .name-page {
+                    h2 {
+                        text-align: center;
+                        float: left;
+                        color: #fff; 
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                    }
+    
+                    mat-icon { 
+                        margin-right: 20px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
+
+                    h2, mat-icon { cursor: pointer; }
+                }
+                
+                button { width: 290px }
+            }  
+        }
+
+        .box {
+            padding: 15px;
+
+            .empty-data {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                text-align: center;
+                padding: 50px;
+            }
+            
+            .input-width { 
+                width: 100%;
+            }
+
+            mdb-card { 
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 15px;
+                cursor: pointer;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+                mdb-card-body {
+
+                    button:focus { outline: none }
+
+                    .btn-add { background-color: #ffc107 }
+
+                    .btn-edit { background-color: #3f51b5 }
+
+                    .btn-delete { background-color: #ff4444 }
+
+                    .btn-add, .btn-edit { margin-right: 5px }
+
+                    .icon-more-actions {
+                        float: right;
+                        margin: -20px;
+                    }
+                    
+                    .icon-more-actions:focus { outline: none }
+
+                    mdb-card-title {
+                        h4 { margin-top: 20px }
+                    }
+                }       
+            }
+        }
+        .main-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .mobile {
+        display: none;
+    }
+}

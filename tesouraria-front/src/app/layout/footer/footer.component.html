@@ -1,0 +1,10 @@
+<footer>
+    <ul>
+        <li *ngFor="let icon of icons">
+            <a>
+                <i [ngClass]="icon"></i>
+            </a>
+        </li>
+    </ul>
+    <p>© {{ year }} Copyright - Todos os direitos autorais estão reservados.</p>
+</footer>

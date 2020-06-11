@@ -1,0 +1,656 @@
+<app-menu></app-menu>
+<div class="body">
+    <div class="hero">
+        <div class="row info-page">
+            <div class="col-md-6 col-lg-6 col-xl-8">
+                <div class="name-page">
+                    <mat-icon>layers</mat-icon>
+                    <h2>Transações</h2>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="showModalRecipe(modalRecipe)" mdbWavesEffect>NOVA RECEITA</button>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-2">
+                <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="showModalExpense(modalExpense)" mdbWavesEffect>NOVA DESPESA</button>
+            </div>
+        </div>
+    </div>
+    <div class="moviment z-depth-1-half">
+        <div class="header">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Montante inicial</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo atual</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mat-icon>attach_money</mat-icon>
+                            <mdb-card-text>
+                                <p>Saldo real</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL'  }}</h4>
+                                <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
+
+            <div class="all-delete">
+                <div class="alert alert-warning" role="alert" *ngIf="transactionsSelected.length > 1">
+                    {{ transactionsSelected.length }} selecionado(s) ...
+                    <button (click)="deleteTransactionsSelected()" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main-content">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header mdbWavesEffect>
+                        <mat-panel-description>Filtre as transações que deseja gerenciar</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row">
+                        <div class="col-4">
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>Ano</mat-label>
+                                <mat-select [(value)]="yearSelected" (selectionChange)="load()">
+                                    <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>Mês</mat-label>
+                                <mat-select [(value)]="monthSelected" (selectionChange)="load()">
+                                    <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>Tipo de transação</mat-label>
+                                <mat-select [(value)]="typeSelected" (selectionChange)="load()">
+                                    <mat-option *ngFor="let type of types" [value]="type" >{{ type }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <ngx-datatable
+                [rows]="rows"
+                class="material"
+                [loadingIndicator]="loading"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
+                [selectionType]="'checkbox'"
+                (select)="whenSelecting($event)"
+                [selected]="transactionsSelected"
+                [limit]="6"
+            >
+            <ngx-datatable-column
+                [width]="50"
+                [sortable]="false"
+                [canAutoResize]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [headerCheckboxable]="true"
+                [checkboxable]="true">
+    
+            </ngx-datatable-column>
+                <ngx-datatable-column name="Descrição" [width]="250" prop="description"></ngx-datatable-column>
+                <ngx-datatable-column name="Valor" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <div >{{ row.value | currency:'BRL' }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Registrado em" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <div >{{ row.registeredIn | date: 'dd/MM/yyyy' }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Tipo" [width]="150">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="tipo-movimentacao" [ngClass]="{'info-color': row.type == transactionType.RECIPE, 'danger-color': row.type == transactionType.EXPENSE }" >{{ row.type }}</div>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Ações" [width]="100">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                        <button class="button-actions" (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="button-actions " (click)="deleteTransaction(row)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
+
+<div class="mobile">
+    <div class="hero">
+        <div class="header-page">
+            <div class="name-page">
+                <mat-icon>layers</mat-icon>
+                <h2>Transações</h2>
+            </div>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalRecipe(modalRecipe)" mdbWavesEffect>NOVA RECEITA</button>
+            <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalExpense(modalExpense)" mdbWavesEffect>NOVA DESPESA</button>
+        </div>
+    </div>
+    <div class="movment">
+        <div class="row">
+            <div class="col-12">
+                <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Montante inicial</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-12">
+                <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                    <mdb-card-body>
+                        <mat-icon>attach_money</mat-icon>
+                        <mdb-card-text>
+                            <p>Saldo real</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
+                            <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header mdbWavesEffect>
+                    <mat-panel-description>Filtre as transações que deseja gerenciar</mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Ano</mat-label>
+                            <mat-select [(value)]="yearSelected" (selectionChange)="load()">
+                                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Mês</mat-label>
+                            <mat-select [(value)]="monthSelected" (selectionChange)="load()">
+                                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field style="width: 100%;">
+                            <mat-label>Tipo de transação</mat-label>
+                            <mat-select [(value)]="typeSelected" (selectionChange)="load()">
+                                <mat-option *ngFor="let type of types" [value]="type" >{{ type }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <ngx-datatable
+            [rows]="rows"
+            class="material z-depth-0"
+            [loadingIndicator]="loading"
+            [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="50"
+            [limit]="6"
+        >
+            <ngx-datatable-column name="Descrição" [width]="250" prop="description"></ngx-datatable-column>
+            <ngx-datatable-column name="Valor" [width]="100" prop="value">
+                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                    <span class="mobile-hidden">{{ column.name }}</span>
+                  </ng-template>
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    <span class="mobile-hidden">{{ value | currency:'BRL' }}</span>
+                  </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Ações" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #actions="matMenu">
+                        <button style="outline: none;" mat-menu-item  (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)">
+                            <mat-icon>edit</mat-icon>Editar
+                        </button>
+                        <button mat-menu-item (click)="deleteTransaction(row)">
+                            <mat-icon>delete</mat-icon>Deletar
+                        </button>
+                    </mat-menu> 
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+<app-footer></app-footer>
+
+<div mdbModal #modalRecipe="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right btn-hide-modal" (click)="hideModalRecipe(modalRecipe)">
+                <span>×</span>
+                </button>
+                <h4 class="modal-title w-100">NOVA RECEITA</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formRecipes">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="description" required>
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Ofertante" formControlName="offerer">
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="creditos-content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Creditos</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
+                        </div> 
+            
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let credit of credits; let i = index">
+                                <mat-expansion-panel-header mdbWavesEffect>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>face</mat-icon>
+                                        {{ credit.holder }}
+                                    </mat-panel-description>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>phone</mat-icon>
+                                        {{ credit.telephone }}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <mdb-card class="z-depth-0 card-credit danger-color" mdbWavesEffect>
+                                    <mdb-card-body>
+                                        <mdb-card-text>
+                                            <p>{{ credit.status }}</p>
+                                        </mdb-card-text>  
+                                        <mdb-card-text>
+                                            <p>{{ credit.telephone }}</p>
+                                        </mdb-card-text>            
+                                        <mdb-card-title>
+                                            <h4>{{ credit.value | currency:'BRL' }}</h4>
+                                        </mdb-card-title>  
+                                        <mdb-card-text>
+                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
+                                        </mdb-card-text>   
+                                        <button (click)="removeCredit(i, credit)" mat-icon-button>
+                                            <mat-icon>delete</mat-icon>
+                                        </button>                              
+                                    </mdb-card-body>                              
+                                </mdb-card>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <div class="row" style="margin-top: 15px;">
+                            <div class="col-md-8 col-lg-9"></div>
+                            <div class="col-sm-12 col-md-4 col-lg-3">
+                                <button class="relative waves-light z-depth-0 button-add-credit" mdbBtn  block="true" type="button" color="default" (click)="modalCredit.show()" mdbWavesEffect>ADICIONAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>    
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!formRecipes.valid" (click)="saveOrUpdateRecipe(formRecipes.value, modalRecipe)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalUpdateRecipe="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right btn-hide-modal" (click)="hideModalRecipe(modalUpdateRecipe)">
+                <span>×</span>
+                </button>
+                <h4 class="modal-title w-100">EDITAR RECEITA</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formRecipes">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="description" required>
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Ofertante" formControlName="offerer">
+                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="creditos-content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Creditos</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
+                        </div> 
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let credit of credits; let i = index">
+                                <mat-expansion-panel-header mdbWavesEffect>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>face</mat-icon>
+                                        {{ credit.holder }}
+                                    </mat-panel-description>
+                                    <mat-panel-description style="width: 50%;">
+                                        <mat-icon>phone</mat-icon>
+                                        {{ credit.telephone }}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                          
+                                <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': credit.status == 'ABERTO', 'info-color': credit.status == 'QUITADO', 'default-color': credit.status == 'ENCERRADO' }" mdbWavesEffect>
+                                    <mdb-card-body (click)="payOffCredit(credit)">
+                                        <mdb-card-text>
+                                            <p>{{ credit.status }}</p>
+                                        </mdb-card-text>             
+                                        <mdb-card-title>
+                                            <h4>{{ credit.value | currency:'BRL' }}</h4>
+                                        </mdb-card-title>                                        
+                                        <mdb-card-text>                                        
+                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
+                                        </mdb-card-text>   
+
+                                        <button (click)="removeCredit(i, credit)" *ngIf="credit.status != 'ENCERRADO'" mat-icon-button>
+                                            <mat-icon>delete</mat-icon>
+                                        </button>                         
+                                    </mdb-card-body>                              
+                                </mdb-card>
+
+                                <div class="row info-credit" *ngIf="credit.status != 'ENCERRADO'">
+                                    <div class="col">
+                                        <mat-icon>info</mat-icon><p>Click no card para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-sm-6 col-md-6 col-lg-9"></div>
+                            <div class="col-sm-6 col-md-6 col-lg-3">
+                                <button class="relative waves-light z-depth-0" block="true" mdbBtn type="button" color="default" (click)="modalCredit.show()" mdbWavesEffect>ADICIONAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>       
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="primary" class="relative waves-light z-depth-0" [disabled]="!formRecipes.valid" (click)="saveOrUpdateRecipe(formRecipes.value, modalUpdateRecipe)" mdbWavesEffect>ATUALIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalExpense="mdbModal" style="overflow-y: auto" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalExpense.hide()">
+                <span>×</span>
+                </button>
+                <h4 class="modal-title w-100">NOVA DESPESA</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formExpenses">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="description">
+                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea #details matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{ details.value?.length || 0 }}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!formExpenses.valid" (click)="saveOrUpdateExpense(formExpenses.value, modalExpense)" mdbWavesEffect>SALVAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalUpdateExpense="mdbModal" class="modal fade modal-zindex" style="overflow-y: auto">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right btn-hide-modal"(click)="hideModalUpdateExpense(modalUpdateExpense)">
+                <span>×</span>
+                </button>
+                <h4 class="modal-title w-100">EDITAR DESPESA</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formExpenses">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Descrição" formControlName="description">
+                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>Esse campo é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
+                                <mat-error>A data de registro deve ser válida</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="input-width">
+                                <textarea #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
+                                <mat-hint>{{ input.value?.length || 0}}/200</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="danger" block="true" class="relative waves-light z-depth-0" [disabled]="!formExpenses.valid" (click)="saveOrUpdateExpense(formExpenses.value, modalUpdateExpense)" mdbWavesEffect>ATUALIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #modalCredit="mdbModal" class="modal fade modal-zindex">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right btn-hide-modal" (click)="modalCredit.hide()">
+                <span>×</span>
+                </button>
+                <h4 class="modal-title w-100">NOVO CRÉDITO</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formCredits">
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Titular" formControlName="holder" maxlength="200" required>
+                                <mat-error>Informe no mínimo 4  e no máximo 20 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>O valor é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Telefone" formControlName="telephone" mask="(00) 00000-0000" required>
+                                <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div><br>
+                </form>
+            </div>
+            <div class="modal-footer"> 
+                <button type="button" mdbBtn color="default" block=true class="relative waves-light z-depth-0" (click)="addCredit(formCredits, modalCredit)" [disabled]="!formCredits.valid" mdbWavesEffect>ADICIONAR</button>
+            </div>
+        </div>
+    </div>
+</div>

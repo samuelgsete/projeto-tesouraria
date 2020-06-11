@@ -1,0 +1,134 @@
+<div class="report">
+    <div *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    
+    <div class="report-header">
+        <div class="row">
+            <div class="col-md-6 col-lg-3 col-xl-3">
+                <mdb-card class="z-depth-0">
+                    <mdb-card-body>
+                        <mdb-card-text>
+                            <p>Montante inicial</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4>{{ income.initialAmount | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-6 col-lg-3 col-xl-3">
+                <mdb-card class="z-depth-0">
+                    <mdb-card-body>
+                        <mdb-card-text>
+                            <p>Saldo atual</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ income.currentBalance | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-6 col-lg-3 col-xl-3">
+                <mdb-card class="z-depth-0">
+                    <mdb-card-body>
+                        <mdb-card-text>
+                            <p>Total de receitas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ income.incomeRecipes | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-md-6 col-lg-3 col-xl-3">
+                <mdb-card class="z-depth-0">
+                    <mdb-card-body>
+                        <mdb-card-text>
+                            <p>Total de despesas</p>
+                        </mdb-card-text>
+                        <mdb-card-title>
+                            <h4 >{{ income.incomeExpenses | currency:'BRL' }}</h4>
+                        </mdb-card-title>                   
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">  
+        <table>
+            <tr>
+                <th>RECEITAS</th>
+                <th>DESPESAS</th>
+            </tr>
+            <tr>
+                <td>
+                    <div *ngFor="let recipe of report.recipes">
+                        <mdb-card class="z-depth-0">
+                            <mdb-card-body>
+                                <mdb-card-text>{{ recipe.description }}</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ recipe.value | currency:'BRL' }}</h4>
+                                </mdb-card-title>    
+                                <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
+                                <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                </td>
+                <td>
+                    <div class="box-moviment" *ngFor="let expense of report.expenses">
+                        <mdb-card class="z-depth-0">
+                            <mdb-card-body>
+                                <mdb-card-text>{{ expense.description }}</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4 class="valor-saida">{{ expense.value | currency:'BRL' }}</h4>
+                                </mdb-card-title>    
+                                <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mdb-card class="mdb-color lighten-5 z-depth-0">
+                        <mdb-card-body>
+                            <mdb-card-text>Receitas mensais</mdb-card-text>
+                            <mdb-card-title>
+                                <h4>{{ report.incomeRecipesMonthly | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </td>
+                <td>
+                    <mdb-card class="mdb-color lighten-5 z-depth-0">
+                        <mdb-card-body>
+                            <mdb-card-text>Despesas mensais</mdb-card-text>
+                            <mdb-card-title>
+                                <h4>{{ report.incomeExpensesMonthly | currency:'BRL' }}</h4>
+                            </mdb-card-title>                   
+                        </mdb-card-body>
+                    </mdb-card>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <mdb-card class="saldo-mensal z-depth-0">
+                        <mdb-card-body>
+                            <mdb-card-text>
+                                <p>Faturamento mensal</p>
+                            </mdb-card-text>
+                            <mdb-card-title>
+                                <h4 >{{ report.balanceMonthly | currency:'BRL' }}</h4>
+                            </mdb-card-title>                  
+                        </mdb-card-body>
+                    </mdb-card>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

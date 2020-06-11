@@ -1,0 +1,353 @@
+.body {
+    padding-bottom: 115px;
+    background-color: #d3e0e2;
+
+    .hero {
+        height: 220px;
+        padding: 10px 35px;
+        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+        
+        .header-page {
+            margin-top: 50px;
+
+            .name-page {
+                h2 {
+                    color: #fff; 
+                    float: left;
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                }
+    
+                mat-icon { 
+                    margin-right: 30px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
+
+                h2, mat-icon { cursor: pointer; }
+            }
+            
+
+            button { margin-top: -10px }
+        }
+    }
+
+    .report {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 18px;
+        margin: -70px 35px;
+        padding: 40px 35px 40px 35px;
+        background-color: #fff;
+        border-radius: 6px;
+
+        mat-form-field {
+            width: 100%;
+        }
+       
+        .report-header {
+
+            mdb-card {
+                cursor: pointer;
+                margin-bottom: 30px;
+
+                h4 { margin-top: -10px }
+
+                mat-icon {
+                    font-size: 40px;
+                    float: right;
+                    margin-top: 10px;
+                }
+            }
+
+            mdb-card.saldo-inicial {
+                background-color: #2BBBAD;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.saldo-atual {
+                background-color: #ffbb33;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.rendimento-entradas {
+                background-color: #33b5e5;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.rendimento-saidas {
+                background-color: #ff4444;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+        }
+
+        .main-content {
+            mdb-card {
+                cursor: pointer;
+            }
+
+            .empty-data {
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                text-align: center;
+                margin-top: 30px;
+                padding: 40px;
+                h5 { margin-top: 15px }
+            }
+
+            p {
+                text-align: center;
+                font-size: 20px;
+                font-weight: normal;
+                color: #3a5266;
+            }
+            
+            table, th, tr, td {
+                border: 1px solid #cbd5da;
+                border-collapse: collapse;  
+            }
+
+            table { 
+                width: 100%; 
+                margin-top: 20px;
+
+                th {
+                    text-align: center;
+                    font-size: 20px;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    width: 50%;
+                    color: #fff; 
+                }
+
+                th.entradas {
+                    background-color: #33b5e5
+                }
+
+                th.saidas {
+                    background-color: #ff4444; 
+                }
+             
+                tr td {
+                    line-height: 18px; 
+                    padding: 12px;
+                    text-align: center;
+    
+                    .box-moviment { 
+                        margin-bottom: 20px;
+                       
+                        mdb-card {
+                            transition: background-color 0.7s;
+                            h4.valor-entrada {
+                               color: #33b5e5; 
+                            }
+
+                            h4.valor-saida {
+                                color: #ff4444; 
+                            }
+                        }
+                        mdb-card:hover {
+                            background-color: #eef0f7;
+                        }
+
+                    }
+
+                    .box-moviment:last-child {  margin-bottom: 0px; }
+
+                    mdb-card.saldo-mensal {                        
+                        p, h4 { color: #ffff; }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 719px) {
+    .body {
+        display: none;
+    }
+
+    .mobile {
+        padding-bottom: 20px;
+
+        .hero {
+            height: 240px;
+            padding: 60px;
+            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+            
+            .header-page {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;       
+
+                .name-page {
+                    h2 {
+                        color: #fff; 
+                        float: left;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    }
+        
+                    mat-icon { 
+                        margin-right: 30px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
+    
+                    h2, mat-icon { cursor: pointer; }
+                }
+
+                button { width: 260px }
+            }
+        }
+
+        .report {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 18px;
+            padding: 10px 10px;
+ 
+            mat-form-field {
+                width: 100%;
+            }
+
+            .report-header {
+                margin-top: 10px;
+
+                mdb-card {
+                    cursor: pointer;
+                    margin-bottom: 10px;
+    
+                    h4 { margin-top: -10px }
+    
+                    mat-icon {
+                        font-size: 40px;
+                        float: right;
+                        margin-top: 10px;
+                    }
+                }
+    
+                mdb-card.saldo-inicial {
+                    background-color: #2BBBAD;
+    
+                    p, h4, mat-icon {
+                        color: #fff;
+                    }
+                }
+    
+                mdb-card.saldo-atual {
+                    background-color: #ffbb33;
+    
+                    p, h4, mat-icon {
+                        color: #fff;
+                    }
+                }
+    
+                mdb-card.rendimento-entradas {
+                    background-color: #33b5e5;
+    
+                    p, h4, mat-icon {
+                        color: #fff;
+                    }
+                }
+    
+                mdb-card.rendimento-saidas {
+                    background-color: #ff4444;
+    
+                    p, h4, mat-icon {
+                        color: #fff;
+                    }
+                }
+            }
+
+            .main-content {
+                mdb-card {
+                    cursor: pointer;
+                }
+
+                .empty-data {
+                    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                    text-align: center;
+                    padding: 40px;
+                    h5 { margin-top: 15px }
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: normal;
+                    color: #3a5266;
+                }
+                
+                table, th, tr, td {
+                    border: 1px solid #cbd5da;
+                    border-collapse: collapse;  
+                }
+    
+                table { 
+                    width: 100%; 
+                    margin: 20px 0;
+    
+                    th {
+                        text-align: center;
+                        font-size: 20px;
+                        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                        width: 50%;
+                        color: #fff; 
+                    }
+    
+                    th.entradas {
+                        background-color: #33b5e5
+                    }
+    
+                    th.saidas {
+                        background-color: #ff4444; 
+                    }
+                 
+                    tr td {
+                        line-height: 18px; 
+                        padding: 12px;
+                        text-align: center;
+        
+                        .box-moviment { 
+                            margin-bottom: 20px;
+                           
+                            mdb-card {    
+                                h4.valor-entrada {
+                                   color: #33b5e5; 
+                                }
+    
+                                h4.valor-saida {
+                                    color: #d82424; 
+                                }
+                            }
+                        }
+    
+                        .box-moviment:last-child {  margin-bottom: 0px; }
+    
+                        mdb-card.saldo-mensal {                            
+                            p, h4 {
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 720px) {
+    .mobile { display: none }
+}

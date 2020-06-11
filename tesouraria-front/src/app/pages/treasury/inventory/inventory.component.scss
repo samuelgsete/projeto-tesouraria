@@ -1,0 +1,223 @@
+.body {
+    padding-bottom: 115px;
+    background-color: #d3e0e2;
+    .hero {
+        height: 220px;
+        padding: 10px 35px;
+        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+        
+        .header-page {
+            margin-top: 50px;
+
+            .name-page {
+                h2 {
+                    text-align: center;
+                    float: left;
+                    color: #fff; 
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                }
+
+                mat-icon { 
+                    margin-right: 20px;
+                    font-size: 32px;
+                    color: #fff;
+                    float: left;
+                }
+
+                h2, mat-icon { cursor: pointer; }
+            }
+
+            button { margin-top: -10px }
+        }
+    }
+
+    .score {
+        margin: -70px 35px;
+        padding: 30px 35px 40px 35px;
+        background-color: #fff;
+        border-radius: 6px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
+        .header {
+            .all-delete { 
+                button { 
+                    float: right;
+                    margin-top:-8px;
+                }
+
+                button:focus { outline: none }
+            } 
+
+            mdb-card {
+                cursor: pointer;
+                margin-bottom: 30px;
+
+                h4 { margin-top: -10px }
+
+                mat-icon {
+                    font-size: 40px;
+                    float: right;
+                    margin-top: 10px;
+                }
+            }
+
+            mdb-card.saldo-inicial {
+                background-color: #2BBBAD;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.saldo-atual {
+                background-color: #ffbb33;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+
+            mdb-card.saldo-real {
+                background-color: #ff4444;
+
+                p, h4, mat-icon {
+                    color: #fff;
+                }
+            }
+        }
+
+        .main {
+            ngx-datatable {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                width: 100%; 
+                box-shadow: none;
+
+                .button-actions { margin-top: -5px }
+
+                .button-actions:focus { outline: none }
+
+                .tipo-movimentacao {
+                    color: #fff;
+                    border-radius: 15px;
+                    padding: 5px;
+                    text-align: center;
+                }   
+            }
+        }
+    }
+}
+
+.modal {
+   .modal-header {
+        h4 { text-align: center }
+    }
+
+    .modal-body {
+        form {
+            .input-width {
+               width: 100%
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 759px) {
+
+    .body { display: none }
+
+    .mobile {
+        padding-bottom: 20px;
+
+        .hero {
+            height: 240px;
+            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
+            padding: 60px;
+
+            .header-page {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: space-around;
+                align-items: center;       
+
+                .name-page {
+                    h2 {
+                        text-align: center;
+                        float: left;
+                        color: #fff; 
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                    }
+    
+                    mat-icon { 
+                        margin-right: 20px;
+                        font-size: 32px;
+                        color: #fff;
+                        float: left;
+                    }
+
+                    h2, mat-icon { cursor: pointer; }
+                }
+                
+                button { width: 290px }
+            }
+        }
+    }
+
+    .score {
+        padding: 15px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        ngx-datatable {
+            width: 100%;
+
+            .btn-more { margin-top: -10px }
+
+            .btn-more:focus { outline: none }
+        }
+
+        mdb-card {
+            cursor: pointer;
+            margin-bottom: 10px;
+
+            h4 { margin-top: -10px }
+
+            mat-icon {
+                font-size: 40px;
+                float: right;
+                margin-top: 10px;
+            }
+        }
+
+        mdb-card.saldo-inicial {
+            background-color: #2BBBAD;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.saldo-atual {
+            background-color: #4285F4;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+
+        mdb-card.saldo-real {
+            background-color: #ffbb33;
+
+            p, h4, mat-icon {
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 760px) {
+    .mobile { display: none }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .mobile-hidden { display: none }
+}
