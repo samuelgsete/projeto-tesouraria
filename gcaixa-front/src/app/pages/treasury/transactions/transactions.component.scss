@@ -93,6 +93,7 @@
         .main-content {
             ngx-datatable {
                 width: 100%; 
+                margin-top: 10px;
                 box-shadow: none;
 
                 .button-actions { margin-top: -5px }
@@ -257,6 +258,7 @@
 
             ngx-datatable {
                 width: 100%;
+                margin-top: 10px;
 
                 .btn-more { margin-top: -10px }
 

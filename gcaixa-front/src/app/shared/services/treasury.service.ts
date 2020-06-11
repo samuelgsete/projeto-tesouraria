@@ -20,6 +20,13 @@ export class TreasuryService {
             });
     }
 
+    public findByIdWithFilter(id: number, type: any, year: number, month: number): Observable<any> {
+        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`).set('type', `${type}`);
+        return this.http.get<any>(this.urlBase.concat(`/${id}`), {
+            observe: 'response', params: _params
+        });
+    }
+
     public findById(id: number): Observable<Treasury> {
         return this.http.get<Treasury>(this.urlBase.concat(`/${id}`));
     }

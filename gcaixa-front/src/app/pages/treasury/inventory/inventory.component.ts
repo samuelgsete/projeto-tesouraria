@@ -62,7 +62,8 @@ export class InventoryComponent implements OnInit {
     }
 
     else {
-      this.toastr.error(err.error.detalhes, 'ERRO', { progressBar: true });
+      this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('/home');
     }
   }
 
