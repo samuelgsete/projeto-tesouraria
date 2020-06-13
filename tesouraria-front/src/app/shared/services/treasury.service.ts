@@ -47,6 +47,11 @@ export class TreasuryService {
         return this.http.get<any>(this.urlBase.concat(`/income/${id}`));
     }
 
+    public downloadReport(id: number, year: number, month: number) {
+        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`);
+        return this.http.get<any>(this.urlBase.concat(`/download/${id}`), { responseType: 'text' as 'json', observe: 'response', params: _params });
+    }
+
     public remove(id: number): Observable<Treasury> {
         return this.http.delete<Treasury>(this.urlBase.concat(`/${id}`));
     }
