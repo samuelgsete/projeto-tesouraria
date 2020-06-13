@@ -10,14 +10,12 @@ import { HistoricComponent } from './pages/treasury/historic/historic.component'
 import { InventoryComponent } from './pages/treasury/inventory/inventory.component';
 import { CreateUserComponent } from './pages/user/create-user/create-user.component';
 import { AccountComponent } from './pages/treasury/account/account.component';
-import { PrintComponent } from './pages/treasury/report/print/print.component';
 import { VerifyComponent } from './pages/user/create-user/verify/verify.component';
 
 const APP_ROUTES: Routes = [
     { path: 'home', component: TreasuryComponent, canActivate: [AuthGuard] },
     { path: 'transactions/:id', component: TransactionsComponent, canActivate: [AuthGuard] },
     { path: 'report/:id', component: ReportComponent, canActivate: [AuthGuard] },
-    { path: 'print/:id', component: PrintComponent, canActivate: [AuthGuard] },
     { path: 'historic/:id', component: HistoricComponent, canActivate: [AuthGuard] },
     { path: 'inventory/:id', component: InventoryComponent, canActivate: [AuthGuard] },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },

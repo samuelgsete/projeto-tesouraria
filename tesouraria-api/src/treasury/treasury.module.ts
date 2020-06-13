@@ -11,7 +11,6 @@ import { Recipe } from 'src/shared/models/recipe.entity';
 import { Credit } from 'src/shared/models/credit.entity';
 import { Inventory } from 'src/shared/models/inventory.entity';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([
     Treasury, 
@@ -21,6 +20,9 @@ import { Inventory } from 'src/shared/models/inventory.entity';
     Inventory
   ])],
   controllers: [ TreasuryController ],
-  providers: [ TreasuryService, TransactionsService ]
+  providers: [ 
+    TreasuryService, 
+    TransactionsService
+  ]
 })
 export class TreasuryModule {}

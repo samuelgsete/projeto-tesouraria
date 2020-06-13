@@ -2,6 +2,8 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like} from 'typeorm';
 
+import * as ejs from 'ejs';
+
 import { Treasury } from 'src/shared/models/treasury.entity';
 import { SearchFilter } from 'src/shared/models/search-filter.entity';
 import { IdInvalidException } from 'src/shared/exceptions/models/Id-invalid.exception';
@@ -188,5 +190,39 @@ export class TreasuryService {
                     mensagem: 'Deletado com sucesso'
                 };
             });
+    }
+
+    public async downloadReport(id: number, userId: number, year: number, month) {
+        const  options =  { format: 'A4', orientation: 'landscape' };
+        const income = await this.getRecipes(id, userId);
+        const report = await this.getReport(id, userId, year, month);
+        let document = '';
+
+        const months = [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril', 
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outrubo', 
+            'Novembro',
+            'Dezembro'
+        ];
+
+        const monthSelected = months[month];
+
+        ejs.renderFile("src/treasury/template-report.ejs", { income: income, report: report, year: year, month: monthSelected }, (err, html) => {
+            if(err) {
+                throw new Error('Não foi possivel renderizar o documento');
+            }
+            else {
+                document = html;  
+            }
+        }); 
+        return document;  
     }
 }

@@ -113,7 +113,7 @@
             }
             
             table, th, tr, td {
-                border: 1px solid #cbd5da;
+                border: 0px solid #cbd5da;
                 border-collapse: collapse;  
             }
 
@@ -139,7 +139,6 @@
              
                 tr td {
                     line-height: 18px; 
-                    padding: 12px;
                     text-align: center;
     
                     .box-moviment { 
@@ -291,7 +290,7 @@
                 }
                 
                 table, th, tr, td {
-                    border: 1px solid #cbd5da;
+                    border: 0px solid #cbd5da;
                     border-collapse: collapse;  
                 }
     
@@ -317,7 +316,6 @@
                  
                     tr td {
                         line-height: 18px; 
-                        padding: 12px;
                         text-align: center;
         
                         .box-moviment { 

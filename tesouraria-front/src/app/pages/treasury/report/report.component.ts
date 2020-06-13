@@ -142,9 +142,13 @@ export class ReportComponent implements OnInit {
   }
 
   public download() {
-    let id = this.router.url.split('/')[2];
+    let id = parseInt(this.router.url.split('/')[2]);
     let month = this.months.indexOf(this.monthSelected);
-    this.router.navigateByUrl(`/print/${id}?month=${month}&year=${this.yearSelected}`);
+    this.service.downloadReport(id, this.yearSelected, month).subscribe( res => {
+      const newWin = open();
+      newWin.document.write(res.body);
+      
+    });
   }
   
   private errorMessage(err: any) {

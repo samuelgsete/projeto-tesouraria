@@ -11,7 +11,7 @@ import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity
 @UseGuards(JwtAuthGuard)
 export class TreasuryController {
 
-    public constructor(private service: TreasuryService) { }
+    public constructor  (private readonly service: TreasuryService) { }
 
     @Get()
     public findPaginete(
@@ -71,6 +71,18 @@ export class TreasuryController {
   
         const userId = parseInt(request.headers['userid'].toString());
         return this.service.getRecipes(id, userId);
+    }
+
+    @Get('download/:id')
+    public downloadReportMonthly(
+                                    @Param('id') id: number,
+                                    @Query('year') year:number,
+                                    @Query('month') month: number,
+                                    @Req() request: Request
+                                ): Promise<any>
+    {
+        const userId = parseInt(request.headers['userid'].toString());
+        return this.service.downloadReport(id, userId, year, month);
     }
 
     @Post()
