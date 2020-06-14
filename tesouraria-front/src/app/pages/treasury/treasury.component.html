@@ -52,13 +52,13 @@
                     
                             <mdb-card-text>Saldo Atual {{ t.currentBalance | currency:'BRL' }}</mdb-card-text>
                         
-                            <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(t.id)">
+                            <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px" (click)="addTransactions(t.id)">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(t)">
+                            <button mat-fab class="indigo text-white z-depth-0" style="margin-right: 5px" (click)="showModalUpdate(t)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(t)">
+                            <button mat-fab class="danger-color text-white z-depth-0" (click)="deleteTreasury(t)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </mdb-card-body>
@@ -124,13 +124,13 @@
                 
                         <mdb-card-text>Saldo Atual {{ treasury.currentBalance | currency:'BRL' }}</mdb-card-text>
                     
-                        <button mat-fab class="btn-add z-depth-0" (click)="addTransactions(treasury.id)">
+                        <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px;" (click)="addTransactions(treasury.id)">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-fab class="btn-edit z-depth-0" (click)="showModalUpdate(treasury)">
+                        <button mat-fab class="indigo text-white z-depth-0" style="margin-right: 5px;" (click)="showModalUpdate(treasury)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-fab class="btn-delete z-depth-0" (click)="deleteTreasury(treasury)">
+                        <button mat-fab class="danger-color text-white z-depth-0" (click)="deleteTreasury(treasury)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mdb-card-body>

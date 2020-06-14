@@ -20,11 +20,11 @@
         <div class="header">
             <div class="row">
                 <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                    <mdb-card class="default-color text-white z-depth-0" mdbWavesEffect>
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Montante inicial</p>
+                                <p class="text-light">Montante inicial</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
@@ -33,11 +33,11 @@
                     </mdb-card>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                    <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Saldo atual</p>
+                                <p class="text-white">Saldo atual</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
@@ -46,11 +46,11 @@
                     </mdb-card>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                    <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
                         <mdb-card-body>
                             <mat-icon>attach_money</mat-icon>
                             <mdb-card-text>
-                                <p>Saldo real</p>
+                                <p class="text-light">Saldo real</p>
                             </mdb-card-text>
                             <mdb-card-title>
                                 <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL'  }}</h4>
@@ -60,18 +60,6 @@
                     </mdb-card>
                 </div>
             </div>
-
-            <div class="all-delete">
-                <div class="alert alert-warning" role="alert" *ngIf="transactionsSelected.length > 1">
-                    {{ transactionsSelected.length }} selecionado(s) ...
-                    <button (click)="deleteTransactionsSelected()" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
-            </div>
-            
-        </div>
-        <div class="main-content">
             <mat-accordion>
                 <mat-expansion-panel>
                     <mat-expansion-panel-header mdbWavesEffect>
@@ -105,6 +93,16 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
+            <div class="all-delete">
+                <div class="alert alert-warning" role="alert" *ngIf="transactionsSelected.length > 1">
+                    {{ transactionsSelected.length }} selecionado(s) ...
+                    <button (click)="deleteTransactionsSelected()" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>  
+        </div>
+        <div class="main-content">
             <ngx-datatable
                 [rows]="rows"
                 class="material"
@@ -174,11 +172,11 @@
     <div class="movment">
         <div class="row">
             <div class="col-12">
-                <mdb-card class="saldo-inicial z-depth-0" mdbWavesEffect>
+                <mdb-card class="default-color text-white z-depth-0" mdbWavesEffect>
                     <mdb-card-body>
                         <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
-                            <p>Montante inicial</p>
+                            <p class="text-light">Montante inicial</p>
                         </mdb-card-text>
                         <mdb-card-title>
                             <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
@@ -187,11 +185,11 @@
                 </mdb-card>
             </div>
             <div class="col-12">
-                <mdb-card class="saldo-atual z-depth-0" mdbWavesEffect>
+                <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
                     <mdb-card-body>
                         <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
-                            <p>Saldo atual</p>
+                            <p class="text-white">Saldo atual</p>
                         </mdb-card-text>
                         <mdb-card-title>
                             <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
@@ -200,11 +198,11 @@
                 </mdb-card>
             </div>
             <div class="col-12">
-                <mdb-card class="saldo-real z-depth-0" mdbWavesEffect>
+                <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
                     <mdb-card-body>
                         <mat-icon>attach_money</mat-icon>
                         <mdb-card-text>
-                            <p>Saldo real</p>
+                            <p class="text-light">Saldo real</p>
                         </mdb-card-text>
                         <mdb-card-title>
                             <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
@@ -333,35 +331,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
+                            <div class="col-md-12"><p class="text-center" *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
                         </div> 
             
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let credit of credits; let i = index">
                                 <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-description style="width: 50%;">
-                                        <mat-icon>face</mat-icon>
+                                        <mat-icon style="margin-right: 8px">face</mat-icon>
                                         {{ credit.holder }}
                                     </mat-panel-description>
                                     <mat-panel-description style="width: 50%;">
-                                        <mat-icon>phone</mat-icon>
+                                        <mat-icon style="margin-right: 8px">phone</mat-icon>
                                         {{ credit.telephone }}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                <mdb-card class="z-depth-0 card-credit danger-color" mdbWavesEffect>
+                                <mdb-card class="z-depth-0 danger-color text-white text-center" mdbWavesEffect>
                                     <mdb-card-body>
                                         <mdb-card-text>
-                                            <p>{{ credit.status }}</p>
-                                        </mdb-card-text>  
-                                        <mdb-card-text>
-                                            <p>{{ credit.telephone }}</p>
-                                        </mdb-card-text>            
+                                            <p class="text-light">{{ credit.status }}</p>
+                                        </mdb-card-text>           
                                         <mdb-card-title>
                                             <h4>{{ credit.value | currency:'BRL' }}</h4>
-                                        </mdb-card-title>  
-                                        <mdb-card-text>
-                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
-                                        </mdb-card-text>   
+                                        </mdb-card-title>    
                                         <button (click)="removeCredit(i, credit)" mat-icon-button>
                                             <mat-icon>delete</mat-icon>
                                         </button>                              
@@ -440,31 +432,31 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col"><p *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
+                            <div class="col"><p class="text-center" *ngIf="credits.length == 0">Não há créditos adicionados</p></div>
                         </div> 
                         <mat-accordion>
                             <mat-expansion-panel *ngFor="let credit of credits; let i = index">
                                 <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-description style="width: 50%;">
-                                        <mat-icon>face</mat-icon>
+                                        <mat-icon style="margin-right: 8px">face</mat-icon>
                                         {{ credit.holder }}
                                     </mat-panel-description>
                                     <mat-panel-description style="width: 50%;">
-                                        <mat-icon>phone</mat-icon>
+                                        <mat-icon style="margin-right: 8px">phone</mat-icon>
                                         {{ credit.telephone }}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                           
-                                <mdb-card class="z-depth-0 card-credit" [ngClass]="{ 'danger-color': credit.status == 'ABERTO', 'info-color': credit.status == 'QUITADO', 'default-color': credit.status == 'ENCERRADO' }" mdbWavesEffect>
+                                <mdb-card class="z-depth-0 text-center text-white" style="cursor: pointer" [ngClass]="{ 'danger-color': credit.status == 'ABERTO', 'info-color': credit.status == 'QUITADO', 'default-color': credit.status == 'ENCERRADO' }" mdbWavesEffect>
                                     <mdb-card-body (click)="payOffCredit(credit)">
                                         <mdb-card-text>
-                                            <p>{{ credit.status }}</p>
+                                            <p class="text-light">{{ credit.status }}</p>
                                         </mdb-card-text>             
                                         <mdb-card-title>
                                             <h4>{{ credit.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>                                        
                                         <mdb-card-text>                                        
-                                            <p>{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
+                                            <p class="text-light">{{ credit.registeredIn | date: 'dd/MM/yyyy' }}</p>
                                         </mdb-card-text>   
 
                                         <button (click)="removeCredit(i, credit)" *ngIf="credit.status != 'ENCERRADO'" mat-icon-button>
@@ -473,9 +465,9 @@
                                     </mdb-card-body>                              
                                 </mdb-card>
 
-                                <div class="row info-credit" *ngIf="credit.status != 'ENCERRADO'">
+                                <div class="row text-center" style="margin-top: 8px;" *ngIf="credit.status != 'ENCERRADO'">
                                     <div class="col">
-                                        <mat-icon>info</mat-icon><p>Click no card para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
+                                        <mat-icon class="text-primary">info</mat-icon><p>Click no card para alterar a situação do credito, depois precione atualizar para efetivar a operação</p>  
                                     </div>
                                 </div>
                             </mat-expansion-panel>
