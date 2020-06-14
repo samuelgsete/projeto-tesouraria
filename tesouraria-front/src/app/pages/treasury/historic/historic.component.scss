@@ -62,30 +62,6 @@
             }
         }
 
-        mdb-card.saldo-atual {
-            background-color: #ffbb33;
-
-            p, h4, mat-icon {
-                color: #fff;
-            }
-        }
-
-        mdb-card.rendimento-total-entradas {
-            background-color: #0099CC;
-
-            p, h4, mat-icon {
-                color: #fff;
-            }
-        }
-
-        mdb-card.rendimento-total-saidas {
-            background-color: #ff4444;
-
-            p, h4, mat-icon {
-                color: #fff;
-            }
-        }
-
         .empty-data {
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             text-align: center;
@@ -161,30 +137,6 @@
                 }
             }
     
-            mdb-card.saldo-atual {
-                background-color: #ffbb33;
-    
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-    
-            mdb-card.rendimento-total-entradas {
-                background-color: #0099CC;
-    
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-    
-            mdb-card.rendimento-total-saidas {
-                background-color: #ff4444;
-    
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
             .empty-data {
                 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 text-align: center;

@@ -28,6 +28,7 @@
         .card p, h4 {
             color: #fff;
         }
+
         .card p {
             font-size: 15px;
         }
@@ -68,7 +69,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="card default-color text-left">
+                        <div class="card stylish-color text-left">
                             <div class="card-body">
                                 <p class="label">Montante inicial</p>
                                 <h4 class="card-title">R$ <%= income.initialAmount.toFixed(2) %></h4>
@@ -76,7 +77,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="card warning-color text-left">
+                        <div class="card stylish-color text-left">
                             <div class="card-body">
                                 <p class="label">Saldo atual</p>
                                 <h4 class="card-title">R$ <%= income.currentBalance.toFixed(2) %></h4>
@@ -86,7 +87,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="card info-color text-left">
+                        <div class="card stylish-color text-left">
                             <div class="card-body">
                                 <p class="label">Total de receitas</p>
                                 <h4 class="card-title">R$ <%= income.incomeRecipes.toFixed(2) %></h4>
@@ -94,7 +95,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="card danger-color text-left">
+                        <div class="card stylish-color text-left">
                             <div class="card-body">
                                 <p class="label">Total de despesas</p>
                                 <h4 class="card-title">R$ <%= income.incomeExpenses.toFixed(2) %></h4>
@@ -108,78 +109,56 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="info-color label" style="font-family: Calibri;">RECEITAS</th>
-                    <th class="danger-color label" style="font-family: Calibri;"> DESPESAS</th>
+                    <th class="stylish-color label" style="font-family: Calibri;">RECEITAS</th>
+                    <th class="stylish-color label" style="font-family: Calibri;"> DESPESAS</th>
                 </tr>
                 <tr>
                     <td>
                         <% report.recipes.forEach(function(recipe){ %>
-                            <div class="card">
+                            <div class="card blue-grey lighten-5">
                                 <div class="card-body text-center">
                                     <p class="text-dark"><%= recipe.description %></p>
-                                    <h4 class="card-title text-info">R$ <%= recipe.value.toFixed(2) %></h4>
+                                    <h4 class="card-title text-dark">R$ <%= recipe.value.toFixed(2) %></h4>
                                     <p class="text-dark"><%= recipe.registeredIn.toLocaleDateString() %></p>
                                     <p class="text-dark"><%= recipe.details %></p>
                                 </div>
                             </div>
-                        <% }); %>
-                        
+                        <% }); %>  
                     </td>
                     <td>
                         <% report.expenses.forEach(function(expense){ %>
-                            <div class="card">
+                            <div class="card blue-grey lighten-5">
                                 <div class="card-body text-center">
                                     <p class="text-dark"><%= expense.description %></p>
-                                    <h4 class="card-title text-danger">R$ <%= expense.value.toFixed(2) %></h4>
+                                    <h4 class="card-title text-dark">R$ <%= expense.value.toFixed(2) %></h4>
                                     <p class="text-dark"><%= expense.registeredIn.toLocaleDateString() %></p>
                                     <p class="text-dark"><%= expense.details %></p>
                                 </div>
                             </div>
-                        <% }); %>
-                        
+                        <% }); %> 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="card-body blue lighten-5 text-center">
+                        <div class="card-body grey lighten-3 text-center">
                             <p class="text-dark">Receitas mensais</p>
                             <h4 class="card-title text-dark" style="margin-top: -12px;">R$ <%= report.incomeRecipesMonthly.toFixed(2) %></h4>
                         </div>
                     </td>
                     <td>
-                        <div class="card-body blue lighten-5 text-center">
+                        <div class="card-body grey lighten-3 text-center">
                             <p class="text-dark">Despesas mensais</p>
                             <h4 class="card-title text-dark" style="margin-top: -12px;">R$ <%= report.incomeExpensesMonthly.toFixed(2) %></h4>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <% if (report.balanceMonthly < 0) { %>
-                        <td colspan="2">
-                            <div class="card-body danger-color text-center">
-                                <p class="text-light label">Faturamento mensal</p>
-                                <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
-                            </div>
-                        </td>
-                    <% } %>
-                    
-                    <% if (report.balanceMonthly == 0) { %>
-                        <td colspan="2">
-                            <div class="card-body default-color text-center">
-                                <p class="text-light label">Faturamento mensal</p>
-                                <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
-                            </div>
-                        </td>
-                    <% } %>
-
-                    <% if (report.balanceMonthly > 0) { %>
-                        <td colspan="2">
-                            <div class="card-body info-color text-center">
-                                <p class="text-light label">Faturamento mensal</p>
-                                <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
-                            </div>
-                        </td>
-                    <% } %>
+                    <td colspan="2">
+                        <div class="card-body stylish-color text-center">
+                            <p class="text-light label">Faturamento mensal</p>
+                            <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>   

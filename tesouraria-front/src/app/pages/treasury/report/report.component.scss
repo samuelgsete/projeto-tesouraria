@@ -58,38 +58,6 @@
                     margin-top: 10px;
                 }
             }
-
-            mdb-card.saldo-inicial {
-                background-color: #2BBBAD;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-atual {
-                background-color: #ffbb33;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.rendimento-entradas {
-                background-color: #33b5e5;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.rendimento-saidas {
-                background-color: #ff4444;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
         }
 
         .main-content {
@@ -128,14 +96,6 @@
                     width: 50%;
                     color: #fff; 
                 }
-
-                th.entradas {
-                    background-color: #33b5e5
-                }
-
-                th.saidas {
-                    background-color: #ff4444; 
-                }
              
                 tr td {
                     line-height: 18px; 
@@ -146,13 +106,6 @@
                        
                         mdb-card {
                             transition: background-color 0.7s;
-                            h4.valor-entrada {
-                               color: #33b5e5; 
-                            }
-
-                            h4.valor-saida {
-                                color: #ff4444; 
-                            }
                         }
                         mdb-card:hover {
                             background-color: #eef0f7;
@@ -161,10 +114,6 @@
                     }
 
                     .box-moviment:last-child {  margin-bottom: 0px; }
-
-                    mdb-card.saldo-mensal {                        
-                        p, h4 { color: #ffff; }
-                    }
                 }
             }
         }
@@ -236,38 +185,6 @@
                         margin-top: 10px;
                     }
                 }
-    
-                mdb-card.saldo-inicial {
-                    background-color: #2BBBAD;
-    
-                    p, h4, mat-icon {
-                        color: #fff;
-                    }
-                }
-    
-                mdb-card.saldo-atual {
-                    background-color: #ffbb33;
-    
-                    p, h4, mat-icon {
-                        color: #fff;
-                    }
-                }
-    
-                mdb-card.rendimento-entradas {
-                    background-color: #33b5e5;
-    
-                    p, h4, mat-icon {
-                        color: #fff;
-                    }
-                }
-    
-                mdb-card.rendimento-saidas {
-                    background-color: #ff4444;
-    
-                    p, h4, mat-icon {
-                        color: #fff;
-                    }
-                }
             }
 
             .main-content {
@@ -284,7 +201,7 @@
 
                 p {
                     text-align: center;
-                    font-size: 15px;
+                    font-size: 20px;
                     font-weight: normal;
                     color: #3a5266;
                 }
@@ -305,40 +222,16 @@
                         width: 50%;
                         color: #fff; 
                     }
-    
-                    th.entradas {
-                        background-color: #33b5e5
-                    }
-    
-                    th.saidas {
-                        background-color: #ff4444; 
-                    }
-                 
+                     
                     tr td {
                         line-height: 18px; 
                         text-align: center;
         
                         .box-moviment { 
                             margin-bottom: 20px;
-                           
-                            mdb-card {    
-                                h4.valor-entrada {
-                                   color: #33b5e5; 
-                                }
-    
-                                h4.valor-saida {
-                                    color: #d82424; 
-                                }
-                            }
                         }
     
                         .box-moviment:last-child {  margin-bottom: 0px; }
-    
-                        mdb-card.saldo-mensal {                            
-                            p, h4 {
-                                color: #fff;
-                            }
-                        }
                     }
                 }
             }

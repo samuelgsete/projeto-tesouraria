@@ -60,30 +60,6 @@
                     margin-top: 10px;
                 }
             }
-
-            mdb-card.saldo-inicial {
-                background-color: #2BBBAD;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-atual {
-                background-color: #ffbb33;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-real {
-                background-color: #ff4444;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
         }
 
         .main {
@@ -184,30 +160,6 @@
                 font-size: 40px;
                 float: right;
                 margin-top: 10px;
-            }
-        }
-
-        mdb-card.saldo-inicial {
-            background-color: #2BBBAD;
-
-            p, h4, mat-icon {
-                color: #fff;
-            }
-        }
-
-        mdb-card.saldo-atual {
-            background-color: #4285F4;
-
-            p, h4, mat-icon {
-                color: #fff;
-            }
-        }
-
-        mdb-card.saldo-real {
-            background-color: #ffbb33;
-
-            p, h4, mat-icon {
-                color: #fff;
             }
         }
     }

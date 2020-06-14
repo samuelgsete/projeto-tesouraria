@@ -37,13 +37,13 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
         .header {
-
             .input-width { 
                 width: 100%;
                 button:focus { outline: none } 
             }
 
             .all-delete { 
+                margin-top: 10px;
                 button { 
                     float: right;
                     margin-top:-8px;
@@ -65,29 +65,6 @@
                 }
             }
 
-            mdb-card.saldo-inicial {
-                background-color: #2BBBAD;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-atual {
-                background-color: #ffbb33;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-real {
-                background-color: #ff4444;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
         }
 
         .main-content {
@@ -121,43 +98,6 @@
             .modal-body {
                 form {
                     mat-form-field.input-width { width:100% }
-                    
-                    .creditos-content {
-                        p { text-align: center }
-
-                        .card-credit {
-                            cursor: pointer;
-                            text-align: center;
-                            color: #ffff;
-                            p {
-                                color: #ffff; 
-                            }
-
-                            button:focus { outline: none;}
-                        }
-
-                         mat-accordion {
-                            margin-bottom: 5px;
-                                
-                            button { margin-top: -10px }
-
-                            mat-expansion-panel-header {
-                                mat-icon { margin-right: 8px }
-                            }
-                            
-                            .info-credit {
-                                margin-top: 8px;
-                                font-size: 13px;
-                                text-align: center;
-                        
-                                mat-icon {
-                                    color: #4285F4;
-                                }  
-                            }
-                        }
-
-                        .button-add-credit { margin: 10px 0 }
-                    }
                 }
             }
         }
@@ -232,30 +172,6 @@
                 }
             }
 
-            mdb-card.saldo-inicial {
-                background-color: #2BBBAD;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-atual {
-                background-color: #ffbb33;
-
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.saldo-real {
-                background-color: #ff4444;
-                
-                p, h4, mat-icon {
-                    color: #fff;
-                }
-            }
-
             ngx-datatable {
                 width: 100%;
                 margin-top: 10px;
@@ -274,6 +190,5 @@
 
 
 @media (max-width: 480px) {
-
     .mobile-hidden { display: none }
 }
