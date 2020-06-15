@@ -60,7 +60,7 @@
                     </mdb-card>
                 </div>
             </div>
-            <mat-accordion>
+            <mat-accordion *ngIf="this.rows[0]">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header mdbWavesEffect>
                         <mat-panel-description>Filtre as transações que deseja gerenciar</mat-panel-description>

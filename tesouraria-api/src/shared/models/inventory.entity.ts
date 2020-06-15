@@ -13,6 +13,11 @@ export class Inventory extends EntityBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public actualBalance: number;
 
+    @IsNotEmpty({ message: `${inventory.discrepancyNotNul}`})
+    @IsNumber({}, {message: `${inventory.discrepancyValid}`})
+    @Column({ type: 'float', unique: false, nullable: true })
+    public discrepancy: number;
+
     @IsNotEmpty({message: `${inventory.dateNotNul}`})
     @IsDateString({message: `${inventory.dateValid}`})
     @Column({ type:'timestamp', nullable: false, default: new Date()})

@@ -54,13 +54,12 @@ export class TransactionsComponent implements OnInit {
   ) { }
   
   public load() {
-    console.log('oi');
     const id = parseInt(this.router.url.split('/')[2]);
     const month = this.months.indexOf(this.monthSelected);
 
     this.servico.findByIdWithFilter(id, this.typeSelected, this.yearSelected, month).subscribe( resp => {
       this.treasury =  resp.body;
-      this.rows = [...this.treasury.recipes, ...this.treasury.expenses];  
+      this.rows = [...this.treasury.recipes, ...this.treasury.expenses]; 
       this.loading = false;
     }, 
     erro => {
