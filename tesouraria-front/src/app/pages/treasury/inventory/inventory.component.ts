@@ -71,6 +71,7 @@ export class InventoryComponent implements OnInit {
     const newInventory = new Inventory({
       id: inventory.id,
       actualBalance: inventory.actualBalance,
+      discrepancy: inventory.actualBalance - this.treasury.currentBalance,
       registeredIn: moment(inventory.registeredIn, 'DDMMYYYY', true).toDate()
     });
 
@@ -160,6 +161,7 @@ export class InventoryComponent implements OnInit {
     this.f.patchValue({
       id: row.id,
       actualBalance: row.actualBalance,
+      discrepancy: row.discrepancy,
       registeredIn: moment(row.registeredIn).format('DDMMYYYY')
     });
   }
@@ -176,6 +178,7 @@ export class InventoryComponent implements OnInit {
     this.f = this._fb.group({
       id: [null],
       actualBalance: [0, Validators.required],
+      discrepancy: [0],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
     });
   }

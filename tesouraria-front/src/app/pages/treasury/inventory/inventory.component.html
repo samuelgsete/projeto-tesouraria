@@ -90,12 +90,15 @@
                 [headerCheckboxable]="true"
                 [checkboxable]="true">
             </ngx-datatable-column>
-                <ngx-datatable-column name="ID" [width]="50" prop="id"></ngx-datatable-column>
-                <ngx-datatable-column name="Tesouraria" [width]="250">
+                <ngx-datatable-column name="ID" [width]="10" prop="id"></ngx-datatable-column>
+                <ngx-datatable-column name="Tesouraria" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>{{ treasury.name }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Saldo real" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>{{ row.actualBalance | currency:'BRL' }}</ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Defasagem" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.discrepancy | currency:'BRL' }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>{{ row.registeredIn | date: 'dd/MM/yyyy' }}</ng-template>
@@ -219,7 +222,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" (click)="modalCreate.hide()">
                 <span>×</span>
                 </button>
-                <h4 class="modal-title w-100">NOVA CONTAGEM</h4>
+                <h4 class="modal-title w-100">NOVO INVENTÁRIO</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">
@@ -255,7 +258,7 @@
                 <button type="button" class="close pull-right btn-hide-modal" (click)="modalUpdate.hide()">
                 <span>×</span>
                 </button>
-                <h4 class="modal-title w-100">EDITAR CONTAGEM</h4>
+                <h4 class="modal-title w-100">EDITAR INVENTÁRIO</h4>
             </div>
             <div class="modal-body">
                 <form [formGroup]="f">
@@ -264,6 +267,13 @@
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Saldo real" formControlName="actualBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>O saldo real é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Discrepância" formControlName="discrepancy" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
                             </mat-form-field> 
                         </div>
                     </div>
