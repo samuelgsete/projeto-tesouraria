@@ -18,47 +18,7 @@
         <div *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-lg-4 col-xl-4">
-                <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-white">Saldo atual</p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4>{{ income.currentBalance | currency:'BRL' }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-md-4 col-lg-4 col-xl-4">
-                <mdb-card class="info-color-dark text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-light">Total de receitas</p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4>{{ income.incomeRecipes | currency:'BRL' }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-md-4 col-lg-4 col-xl-4">
-                <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-light">Total de despesas </p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4>{{ income.incomeExpenses | currency:'BRL' }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-        </div>
+        <app-income></app-income>
         <div class="row">
             <div class="col">
                 <mdb-card class="empty-data" *ngIf="income.incomeRecipes == 0 && income.incomeExpenses == 0" mdbWavesEffect>

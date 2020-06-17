@@ -47,19 +47,6 @@
 
                 button:focus { outline: none }
             } 
-
-            mdb-card {
-                cursor: pointer;
-                margin-bottom: 30px;
-
-                h4 { margin-top: -10px }
-
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
         }
 
         .main {
@@ -148,19 +135,6 @@
             .btn-more { margin-top: -10px }
 
             .btn-more:focus { outline: none }
-        }
-
-        mdb-card {
-            cursor: pointer;
-            margin-bottom: 10px;
-
-            h4 { margin-top: -10px }
-
-            mat-icon {
-                font-size: 40px;
-                float: right;
-                margin-top: 10px;
-            }
         }
     }
 }

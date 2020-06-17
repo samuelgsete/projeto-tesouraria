@@ -36,7 +36,7 @@
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 18px;
         margin: -70px 35px;
-        padding: 40px 35px 40px 35px;
+        padding: 30px 35px 40px 35px;
         background-color: #fff;
         border-radius: 6px;
 
@@ -44,22 +44,6 @@
             width: 100%;
         }
        
-        .report-header {
-
-            mdb-card {
-                cursor: pointer;
-                margin-bottom: 30px;
-
-                h4 { margin-top: -10px }
-
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
-        }
-
         .main-content {
             mdb-card {
                 cursor: pointer;
@@ -168,23 +152,6 @@
  
             mat-form-field {
                 width: 100%;
-            }
-
-            .report-header {
-                margin-top: 10px;
-
-                mdb-card {
-                    cursor: pointer;
-                    margin-bottom: 10px;
-    
-                    h4 { margin-top: -10px }
-    
-                    mat-icon {
-                        font-size: 40px;
-                        float: right;
-                        margin-top: 10px;
-                    }
-                }
             }
 
             .main-content {

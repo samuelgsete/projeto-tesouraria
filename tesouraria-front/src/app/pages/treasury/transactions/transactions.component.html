@@ -18,48 +18,7 @@
     </div>
     <div class="moviment z-depth-1-half">
         <div class="header">
-            <div class="row">
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="default-color text-white z-depth-0" mdbWavesEffect>
-                        <mdb-card-body>
-                            <mat-icon>attach_money</mat-icon>
-                            <mdb-card-text>
-                                <p class="text-light">Montante inicial</p>
-                            </mdb-card-text>
-                            <mdb-card-title>
-                                <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
-                            </mdb-card-title>                   
-                        </mdb-card-body>
-                    </mdb-card>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
-                        <mdb-card-body>
-                            <mat-icon>attach_money</mat-icon>
-                            <mdb-card-text>
-                                <p class="text-white">Saldo atual</p>
-                            </mdb-card-text>
-                            <mdb-card-title>
-                                <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
-                            </mdb-card-title>                   
-                        </mdb-card-body>
-                    </mdb-card>
-                </div>
-                <div class="col-md-4 col-lg-4 col-xl-4">
-                    <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
-                        <mdb-card-body>
-                            <mat-icon>attach_money</mat-icon>
-                            <mdb-card-text>
-                                <p class="text-light">Saldo real</p>
-                            </mdb-card-text>
-                            <mdb-card-title>
-                                <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL'  }}</h4>
-                                <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
-                            </mdb-card-title>                   
-                        </mdb-card-body>
-                    </mdb-card>
-                </div>
-            </div>
+            <app-income #income></app-income>
             <mat-accordion *ngIf="this.rows[0]">
                 <mat-expansion-panel>
                     <mat-expansion-panel-header mdbWavesEffect>
@@ -170,48 +129,7 @@
         </div>
     </div>
     <div class="movment">
-        <div class="row">
-            <div class="col-12">
-                <mdb-card class="default-color text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-light">Montante inicial</p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4 >{{ treasury.initialAmount | currency:'BRL' }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-12">
-                <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-white">Saldo atual</p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4 >{{ treasury.currentBalance | currency:'BRL' }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-12">
-                <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>attach_money</mat-icon>
-                        <mdb-card-text>
-                            <p class="text-light">Saldo real</p>
-                        </mdb-card-text>
-                        <mdb-card-title>
-                            <h4 *ngIf="treasury.inventories[0] != null">{{ treasury.inventories[0].actualBalance | currency:'BRL' }}</h4>
-                            <h4 *ngIf="treasury.inventories[0] == null">Não contabilizado</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-        </div>
+        <app-income></app-income>
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header mdbWavesEffect>

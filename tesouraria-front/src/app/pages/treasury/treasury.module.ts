@@ -11,6 +11,7 @@ import { HistoricComponent } from './historic/historic.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';
+import { IncomeComponent } from './income/income.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserService } from 'src/app/shared/services/user.service';
     ReportComponent,
     HistoricComponent,
     InventoryComponent,
-    AccountComponent
+    AccountComponent,
+    IncomeComponent
   ],
   imports: [
     CommonModule,

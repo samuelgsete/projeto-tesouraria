@@ -87,8 +87,7 @@ export class TransactionsService {
 
         for(let month = 0; month < 12; month++) {
             let transactions = this.getTransactionsByMonth(year, month, recipes, expenses);    
-            let { incomeRecipes, incomeExpenses } = this.getIncome(transactions.recipes, transactions.expenses);
-
+            let { incomeRecipes, incomeExpenses } = this.getIncome(transactions.recipes, transactions.expenses);   
             cumulativeBilling +=  (incomeRecipes - incomeExpenses);
             monthlyBiiling = incomeRecipes - incomeExpenses;
 

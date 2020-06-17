@@ -1,0 +1,24 @@
+.income {
+    .label {
+        font-family: Century Gothic;
+    }
+
+    .money {
+        font-family: 'Segoe UI'
+    }
+
+    margin-top: 10px;
+
+    mdb-card {
+        cursor: pointer;
+        margin-bottom: 10px;
+
+        h4 { margin-top: -10px }
+
+        mat-icon {
+            font-size: 40px;
+            float: right;
+            margin-top: 10px;
+        }
+    }
+}
