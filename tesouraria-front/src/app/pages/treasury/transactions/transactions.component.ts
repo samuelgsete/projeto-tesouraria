@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -44,7 +44,9 @@ export class TransactionsComponent implements OnInit {
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro','Todos os meses'
   ];
-  public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA']
+  public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA'];
+
+  @ViewChild('income', { static: true }) incomeComponent: any;
   
   public constructor(
                 private _fb: FormBuilder, 
@@ -54,6 +56,7 @@ export class TransactionsComponent implements OnInit {
   ) { }
   
   public load() {
+    this.incomeComponent.load();
     const id = parseInt(this.router.url.split('/')[2]);
     const month = this.months.indexOf(this.monthSelected);
 

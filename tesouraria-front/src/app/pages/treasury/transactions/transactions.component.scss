@@ -51,20 +51,6 @@
 
                 button:focus { outline: none }
             }  
-            
-            mdb-card {
-                cursor: pointer;
-                margin-bottom: 30px;
-
-                h4 { margin-top: -10px }
-
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
-
         }
 
         .main-content {
@@ -146,32 +132,7 @@
         .movment {
             padding: 20px 5px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
-            mdb-card {
-                cursor: pointer;
-
-                h4 { margin-top: -10px }
-
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
-
-            mdb-card {
-                cursor: pointer;
-                margin-bottom: 10px;
-
-                h4 { margin-top: -10px }
-
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
-
+            
             ngx-datatable {
                 width: 100%;
                 margin-top: 10px;
