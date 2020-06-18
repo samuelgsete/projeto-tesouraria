@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Income } from 'src/app/shared/models/income.entity';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
+import { IncomeService } from './income.service';
 
 @Component({
   selector: 'app-income',
@@ -13,22 +12,12 @@ export class IncomeComponent implements OnInit {
 
   public income = new Income();
 
-  public constructor(
-                        private readonly service: TreasuryService,
-                        private readonly router: Router
-                    )
-  { 
-    this.load();
-  }
-
-  public load() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    
-    this.service.getIncome(id).subscribe( response => {
-      this.income = response;
-    },
-    erro => {
-      console.log(erro);
+  public constructor(private readonly incomeService: IncomeService) { 
+    this.incomeService.emitterIncome.subscribe( income => {
+      this.income.initialAmount = income.initialAmount;
+      this.income.currentBalance = income.currentBalance;
+      this.income.incomeRecipes = income.incomeRecipes;
+      this.income.incomeExpenses = income.incomeExpenses;
     });
   }
 

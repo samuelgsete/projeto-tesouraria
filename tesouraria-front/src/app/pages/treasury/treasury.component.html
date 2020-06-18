@@ -33,34 +33,33 @@
                 <h5>Crie uma clicando no botão acima</h5>  
             </div>
             <div class="row">
-                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let t of treasuries">
+                <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let treasury of treasuries">
                     <mdb-card mdbWavesEffect>
+                        <app-charts-treasury [treasury]="treasury"></app-charts-treasury>
                         <mdb-card-body>
-                            
                             <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button>
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #actions="matMenu">
-                                <button style="outline: none;" mat-menu-item (click)="emitterReport(t.id)"><mat-icon>description</mat-icon>Ver relatório</button>
-                                <button mat-menu-item (click)="showHistoric(t.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                                <button mat-menu-item (click)="takeInventory(t.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
+                                <button style="outline: none;" mat-menu-item (click)="emitterReport(treasury.id)"><mat-icon>description</mat-icon>Ver relatório</button>
+                                <button mat-menu-item (click)="showHistoric(treasury.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
+                                <button mat-menu-item (click)="takeInventory(treasury.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                             </mat-menu>  
-    
                             <mdb-card-title>
-                                <h4>{{ t.name }}</h4>
+                                <h4>{{ treasury.name }}</h4>
                             </mdb-card-title>
-                    
-                            <mdb-card-text>Saldo Atual {{ t.currentBalance | currency:'BRL' }}</mdb-card-text>
-                        
-                            <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px" (click)="addTransactions(t.id)">
+                            <mdb-card-text>Atualizado em {{ treasury.updated | date: 'dd/MM/yyyy' }}</mdb-card-text>  
+                            <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px" (click)="addTransactions(treasury.id)">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <button mat-fab class="indigo text-white z-depth-0" style="margin-right: 5px" (click)="showModalUpdate(t)">
+                            <button mat-fab class="indigo text-white z-depth-0" style="margin-right: 5px" (click)="showModalUpdate(treasury)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-fab class="danger-color text-white z-depth-0" (click)="deleteTreasury(t)">
+                            <button mat-fab class="danger-color text-white z-depth-0" (click)="deleteTreasury(treasury)">
                                 <mat-icon>delete</mat-icon>
                             </button>
+                            <hr>
+                            <p><mdb-icon fas icon="quote-left"></mdb-icon> {{ treasury.details != null ? treasury.details: 'Não há detalhes para essa tesouraria' }}</p>
                         </mdb-card-body>
                     </mdb-card>
                 </div>
@@ -107,8 +106,8 @@
         <div class="row">
             <div class="col-12" *ngFor="let treasury of treasuries">
                 <mdb-card mdbWavesEffect>
-                    <mdb-card-body>
-                        
+                    <app-charts-treasury [treasury]="treasury"></app-charts-treasury>
+                    <mdb-card-body>                    
                         <button class="icon-more-actions" [matMenuTriggerFor]="actions" mat-icon-button>
                             <mat-icon>more_horiz</mat-icon>
                         </button>
@@ -117,13 +116,10 @@
                             <button mat-menu-item (click)="showHistoric(treasury.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
                             <button mat-menu-item (click)="takeInventory(treasury.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                         </mat-menu>  
-
                         <mdb-card-title>
                             <h4>{{ treasury.name }}</h4>
                         </mdb-card-title>
-                
-                        <mdb-card-text>Saldo Atual {{ treasury.currentBalance | currency:'BRL' }}</mdb-card-text>
-                    
+                        <mdb-card-text>Atualizado em {{ treasury.updated | date: 'dd/MM/yyyy' }}</mdb-card-text>  
                         <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px;" (click)="addTransactions(treasury.id)">
                             <mat-icon>add</mat-icon>
                         </button>
@@ -133,6 +129,8 @@
                         <button mat-fab class="danger-color text-white z-depth-0" (click)="deleteTreasury(treasury)">
                             <mat-icon>delete</mat-icon>
                         </button>
+                        <hr>
+                        <p><mdb-icon fas icon="quote-left"></mdb-icon> {{ treasury.details != null ? treasury.details: 'Não há detalhes para essa tesouraria' }}</p>
                     </mdb-card-body>
                 </mdb-card>
             </div>

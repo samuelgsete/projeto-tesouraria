@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany, UpdateDateColumn } from "typeorm";
 import { IsNotEmpty, IsString, Length, IsInt, IsNumber, ValidateNested, IsOptional } from "class-validator";
 import { Type } from 'class-transformer';
 
@@ -50,6 +50,15 @@ export class Treasury extends EntityBase {
     @ValidateNested()
     @OneToMany(type => Recipe, recipe => recipe.treasury, { cascade: true })
     public recipes: Recipe[];
+
+    @Column({ type: 'float', unique: false, nullable: true })
+    public incomeRecipes: number;
+
+    @Column({ type: 'float', unique: false, nullable: true })
+    public incomeExpenses: number;
+
+    @UpdateDateColumn()
+    public updated: Date;
 
     @IsOptional()
     @Type(() => Inventory)

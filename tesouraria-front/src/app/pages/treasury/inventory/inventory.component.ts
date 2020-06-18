@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Inventory } from 'src/app/shared/models/inventory.entity';
-import { Treasury } from 'src/app/shared/models/treasury.entity';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+
+import { Inventory } from 'src/app/shared/models/inventory.entity';
+import { Treasury } from 'src/app/shared/models/treasury.entity';
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
+import { IncomeService } from '../income/income.service';
 
 @Component({
   selector: 'app-inventory',
@@ -27,10 +29,11 @@ export class InventoryComponent implements OnInit {
   public dateValidator = new DateValidator();
 
   constructor(
-              private router: Router, 
-              private _fb: FormBuilder, 
-              private toastr: ToastrService,
-              private service: TreasuryService
+                private readonly router: Router, 
+                private readonly _fb: FormBuilder, 
+                private readonly toastr: ToastrService,
+                private readonly service: TreasuryService,
+                private readonly incomeService: IncomeService
             ) 
   {
     this.load();
@@ -42,6 +45,7 @@ export class InventoryComponent implements OnInit {
     let id = parseInt(this.router.url.split('/')[2]);
     this.service.findById(id).subscribe( res => {
       this.treasury = res;
+      this.incomeService.loader(this.treasury.initialAmount, this.treasury.currentBalance, this.treasury.incomeRecipes, this.treasury.incomeExpenses);
       this.rows = this.treasury.inventories;
       this.loading = false;
     }, e => {

@@ -6,6 +6,8 @@ import { TreasuryService } from './treasury.service';
 import { Treasury } from 'src/shared/models/treasury.entity';
 import { SearchFilter } from 'src/shared/models/search-filter.entity';
 import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity';
+import { Recipe } from 'src/shared/models/recipe.entity';
+import { Expense } from 'src/shared/models/expense.entity';
 
 @Controller('treasury')
 @UseGuards(JwtAuthGuard)
@@ -70,7 +72,7 @@ export class TreasuryController {
     {
   
         const userId = parseInt(request.headers['userid'].toString());
-        return this.service.getRecipes(id, userId);
+        return this.service.getIncome(id, userId);
     }
 
     @Get('download/:id')

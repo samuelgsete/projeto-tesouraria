@@ -109,12 +109,12 @@ export class TreasuryService {
         return { incomeYearly, historyYearly }
     }
 
-    public async getRecipes(id: number , userId: number): Promise<any> {
+    public async getIncome(id: number , userId: number): Promise<any> {
         if(id <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        let treasury = await this.repository.findOne(id, { relations: ["expenses", "recipes", "inventories", "recipes.credits"] });
+        let treasury = await this.repository.findOne(id);
 
         if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
@@ -124,9 +124,14 @@ export class TreasuryService {
             throw new PermissionDeniedException('Permissão negada')
         }
 
-        let recipes = this.transactionService.getRecipeGeneral(treasury.recipes, treasury.expenses, treasury.initialAmount, treasury.currentBalance);
+        let income = {
+            initialAmount: treasury.initialAmount,
+            currentBalance: treasury.currentBalance,
+            incomeRecipes: treasury.incomeRecipes,
+            incomeExpenses: treasury.incomeExpenses,
+        }
 
-        return recipes;
+        return income;
     }
 
     public async save(treasury: Treasury) {
@@ -158,6 +163,11 @@ export class TreasuryService {
         }
 
         treasury.currentBalance = this.transactionService.updateBalance(treasury.recipes, treasury.expenses, treasury.initialAmount);
+        const result =  this.transactionService.getIncome(treasury.recipes, treasury.expenses);
+
+        treasury.incomeRecipes = result.incomeRecipes;
+        treasury.incomeExpenses = result.incomeExpenses;
+
 
         return this.repository
             .save(treasury)
@@ -194,7 +204,7 @@ export class TreasuryService {
 
     public async downloadReport(id: number, userId: number, year: number, month) {
         const  options =  { format: 'A4', orientation: 'landscape' };
-        const income = await this.getRecipes(id, userId);
+        const income = await this.getIncome(id, userId);
         const report = await this.getReport(id, userId, year, month);
         let document = '';
 

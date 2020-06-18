@@ -15,6 +15,7 @@ import { AuthGuard } from './pages/auth/auth.guard';
 import { AuthInterceptor } from './pages/auth/auth.interceptor';
 import { PaginationService } from './shared/pagination/pagination.service';
 import { UserModule } from './pages/user/user.module';
+import { IncomeService } from './pages/treasury/income/income.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UserModule } from './pages/user/user.module';
     AuthGuard, 
     AuthService,
     PaginationService,
+    IncomeService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

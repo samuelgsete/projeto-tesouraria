@@ -14,6 +14,7 @@ import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { StatusType } from 'src/app/shared/models/enums/status-type.enum';
 import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
+import { IncomeService } from '../income/income.service';
 
 @Component({
   selector: 'app-transactions',
@@ -45,23 +46,22 @@ export class TransactionsComponent implements OnInit {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro','Todos os meses'
   ];
   public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA'];
-
-  @ViewChild('income', { static: true }) incomeComponent: any;
   
   public constructor(
-                private _fb: FormBuilder, 
-                private router: Router, 
-                private toastr: ToastrService, 
-                private servico: TreasuryService
+                      private readonly _fb: FormBuilder, 
+                      private readonly router: Router, 
+                      private readonly toastr: ToastrService, 
+                      private readonly servico: TreasuryService,
+                      private readonly incomeService: IncomeService
   ) { }
   
   public load() {
-    this.incomeComponent.load();
     const id = parseInt(this.router.url.split('/')[2]);
     const month = this.months.indexOf(this.monthSelected);
 
     this.servico.findByIdWithFilter(id, this.typeSelected, this.yearSelected, month).subscribe( resp => {
       this.treasury =  resp.body;
+      this.incomeService.loader(this.treasury.initialAmount, this.treasury.currentBalance, this.treasury.incomeRecipes, this.treasury.incomeExpenses);
       this.rows = [...this.treasury.recipes, ...this.treasury.expenses]; 
       this.loading = false;
     }, 
