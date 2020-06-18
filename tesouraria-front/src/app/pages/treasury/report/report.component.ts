@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Income } from 'src/app/shared/models/income.entity';
 import { Report } from 'src/app/shared/models/report.entity';
+import { IncomeService } from '../income/income.service';
 
 @Component({
   selector: 'app-report',
@@ -81,7 +82,8 @@ export class ReportComponent implements OnInit {
   public constructor(
           private service: TreasuryService,
           private router: Router,
-          private toastr: ToastrService
+          private toastr: ToastrService,
+          private readonly incomeService: IncomeService
   ) 
   { 
     this.getIncome(); 
@@ -135,6 +137,7 @@ export class ReportComponent implements OnInit {
     let id = parseInt(this.router.url.split('/')[2]);
     this.service.getIncome(id).subscribe( response => {
       this.income = response;
+      this.incomeService.loader(this.income.initialAmount, this.income.currentBalance, this.income.incomeRecipes, this.income.incomeExpenses);
     },
     erro => {
       this.errorMessage(erro);

@@ -50,7 +50,7 @@ export class TransactionsService {
         return { recipes, expenses }
     }
 
-    private getIncome(recipes: Recipe[], expenses: Expense[]): any {
+    public getIncome(recipes: Recipe[], expenses: Expense[]): any {
 
         let incomeRecipes = 0
 
@@ -65,18 +65,6 @@ export class TransactionsService {
         });
 
         return { incomeRecipes, incomeExpenses }
-    }
-
-    public getRecipeGeneral(recipes: Recipe[], expenses: Expense[], initialAmount: number, currentBalance: number): any {
- 
-        let { incomeRecipes, incomeExpenses } = this.getIncome(recipes, expenses);
-       
-        return {
-            initialAmount,
-            currentBalance,
-            incomeRecipes, 
-            incomeExpenses
-        }
     }
 
     public getHistoryYearly(year: number, initialAmount: number, recipes: Recipe[], expenses: Expense[]): any[] {

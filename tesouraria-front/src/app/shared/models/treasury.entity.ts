@@ -10,8 +10,11 @@ export class Treasury {
     public currentBalance: number;
     public recipes: Recipe[] = [];
     public expenses: Expense[] = [];
+    public incomeRecipes: number;
+    public incomeExpenses: number;
     public inventories: Inventory[] = [];
     public details: string;
+    public updated: Date;
     public userId: number;
 
     public constructor(values: Object = {}) { Object.assign(this, values) }

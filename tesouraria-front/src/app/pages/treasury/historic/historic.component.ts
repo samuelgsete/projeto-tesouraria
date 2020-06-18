@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ToastrService } from 'ngx-toastr';
+
+import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Income } from 'src/app/shared/models/income.entity';
+import { IncomeService } from '../income/income.service';
 
 @Component({
   selector: 'app-historic',
@@ -68,10 +70,13 @@ export class HistoricComponent implements OnInit {
   },
     plugins: {
       datalabels: {
-        anchor: 'end',
-        align: 'end',
-        font: {
-          size: 12,
+        display: false,
+      }
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem) {
+          return `R$ ${tooltipItem.value}`;
         }
       }
     }
@@ -80,7 +85,8 @@ export class HistoricComponent implements OnInit {
   public constructor(
                       private router: Router, 
                       private servico: TreasuryService, 
-                      private toastr: ToastrService
+                      private toastr: ToastrService,
+                      private incomeService: IncomeService
   ) { 
     this.getIncome();
     this.feedChart();
@@ -135,6 +141,7 @@ export class HistoricComponent implements OnInit {
     let id = parseInt(this.router.url.split('/')[2]);
     this.servico.getIncome(id).subscribe( response => {
       this.income = response;
+      this.incomeService.loader(this.income.initialAmount, this.income.currentBalance, this.income.incomeRecipes, this.income.incomeExpenses);
     },
     erro => {
       this.errorMessage(erro);
