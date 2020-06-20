@@ -6,15 +6,13 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from "moment";
 
-import { Treasury } from 'src/app/shared/models/treasury.entity';
 import { Credit } from 'src/app/shared/models/credit.entity';
 import { Expense } from 'src/app/shared/models/expense.entity';
 import { Recipe } from 'src/app/shared/models/recipe.entity';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { StatusType } from 'src/app/shared/models/enums/status-type.enum';
 import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
-import { IncomeService } from '../income/income.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -27,7 +25,7 @@ export class TransactionsComponent implements OnInit {
   public formExpenses: FormGroup;
   public formCredits: FormGroup;
 
-  public treasury: Treasury = new Treasury();
+  public treasuryId: number = 0;
   public credits: Credit[] = [];
 
   public rows: any[] = [];
@@ -38,7 +36,7 @@ export class TransactionsComponent implements OnInit {
 
   public yearSelected = 2020;
   public monthSelected = 'Todos os meses';
-  public typeSelected = 'RECEITA E DESPESA';
+  public typeTransactionSelected = 'RECEITA E DESPESA';
 
   public years = [ 2019, 2020, 2021 ];
   public months = [
@@ -46,27 +44,24 @@ export class TransactionsComponent implements OnInit {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro','Todos os meses'
   ];
   public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA'];
+
+  @ViewChild('income', { static: true }) incomeComponent: any;
   
   public constructor(
                       private readonly _fb: FormBuilder, 
                       private readonly router: Router, 
                       private readonly toastr: ToastrService, 
-                      private readonly servico: TreasuryService,
-                      private readonly incomeService: IncomeService
+                      private readonly transactionsService: TransactionsService
   ) { }
   
   public load() {
-    const id = parseInt(this.router.url.split('/')[2]);
+    this.incomeComponent.load();
     const month = this.months.indexOf(this.monthSelected);
-
-    this.servico.findByIdWithFilter(id, this.typeSelected, this.yearSelected, month).subscribe( resp => {
-      this.treasury =  resp.body;
-      this.incomeService.loader(this.treasury.initialAmount, this.treasury.currentBalance, this.treasury.incomeRecipes, this.treasury.incomeExpenses);
-      this.rows = [...this.treasury.recipes, ...this.treasury.expenses]; 
+    this.transactionsService.findAll(this.treasuryId, this.typeTransactionSelected, this.yearSelected, month).subscribe( response => {
+      this.rows = [...response.body.recipes, ...response.body.expenses];
       this.loading = false;
-    }, 
-    erro => {
-      this.errorMessage(erro);
+    }, err => {
+      this.errorMessage(err);
     });
   }
 
@@ -146,34 +141,22 @@ export class TransactionsComponent implements OnInit {
       credits: this.credits
     });
     
-    if(newRecipe.id == null) {
-      this.treasury.recipes.push(newRecipe);
-      this.servico.update(this.treasury).subscribe(res => {
+    if(!newRecipe.id) {
+      this.transactionsService.createRecipe(this.treasuryId, newRecipe).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load(); 
       }
-      , erro => {
-        let index = this.treasury.recipes.indexOf(newRecipe);
-        this.treasury.recipes.splice(index,1);
-        this.errorMessage(erro);
+      , err => {
+        this.errorMessage(err);
       });
     }
-    else {
-      let currentRecipe = this.treasury.recipes.filter( recipe => {
-        return recipe.id == recipe.id;
-      })[0];
-
-      let indice = this.treasury.recipes.indexOf(currentRecipe);
-      this.treasury.recipes[indice] = newRecipe;
-
-      this.servico.update(this.treasury).subscribe(res => {
-        this.load();
+    else { 
+      this.transactionsService.updateRecipe(this.treasuryId, newRecipe).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
+        this.load();
       }
-      , erro => {
-        let index = this.treasury.recipes.indexOf(newRecipe);
-        this.treasury.recipes.splice(index,1);
-        this.errorMessage(erro);
+      , err => {
+        this.errorMessage(err);
       });
     }
     modal.hide();
@@ -190,35 +173,20 @@ export class TransactionsComponent implements OnInit {
       registeredIn: moment(expense.registeredIn, 'DDMMYYYY', true).toDate()
     });
 
-    if(newExpense.id == null) {
-      this.treasury.expenses.push(newExpense);
-      this.servico.update(this.treasury).subscribe(res => {
+    if(!newExpense.id) {
+      this.transactionsService.createExpense(this.treasuryId, newExpense).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.load();  
-      }
-      , 
-      erro => {
-        let index = this.treasury.expenses.indexOf(newExpense);
-        this.treasury.expenses.splice(index,1);
-        this.errorMessage(erro);
+      }, err => {
+        this.errorMessage(err);
       });
     }
     else {
-      let currentExpense = this.treasury.expenses.filter( expense => {
-        return expense.id == newExpense.id;
-      })[0];
-
-      let index = this.treasury.expenses.indexOf(currentExpense);
-      this.treasury.expenses[index] = newExpense;
-
-      this.servico.update(this.treasury).subscribe(res => {
-        this.load();
+      this.transactionsService.updateExpense(this.treasuryId, newExpense).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
-      }
-      , erro => {
-        let index = this.treasury.expenses.indexOf(newExpense);
-        this.treasury.expenses.splice(index,1);
-        this.errorMessage(erro);
+        this.load();
+      }, err => {
+        this.errorMessage(err);
       });
     }
     modal.hide();
@@ -235,23 +203,22 @@ export class TransactionsComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        let index = 0;
-        this.transactionsSelected.forEach(item => {
-          index = this.treasury.recipes.indexOf(item);
-          if (index >= 0) {
-            this.treasury.recipes.splice(index,1);
-          } 
-          index = this.treasury.recipes.indexOf(item);
-          if (index >= 0) {
-            this.treasury.recipes.splice(index,1);
+        this.transactionsSelected.forEach(transaction => {
+          if(transaction.type == TransactionType.RECIPE) {
+            this.transactionsService.deleteRecipe(this.treasuryId, transaction.id).subscribe(res => {
+              this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
+              this.load();
+            }, err => {
+              this.errorMessage(err);
+            });
+          } else {
+            this.transactionsService.deleteExpense(this.treasuryId, transaction.id).subscribe(res => {
+              this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
+              this.load();
+            }, err => {
+              this.errorMessage(err);
+            });
           }
-          this.servico.update(this.treasury).subscribe(res => {
-            this.load();
-            this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
-          }
-          , erro => {
-            this.errorMessage(erro);
-          }); 
         });
         this.transactionsSelected = [];
       } 
@@ -259,7 +226,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   public deleteTransaction(transaction: any) {
-    let index = 0;
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -269,21 +235,21 @@ export class TransactionsComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.treasury.recipes.indexOf(transaction);
-        if(index >=0) {
-          this.treasury.recipes.splice(index, 1);
+        if(transaction.type == TransactionType.RECIPE) {
+          this.transactionsService.deleteRecipe(this.treasuryId, transaction.id).subscribe(res => {
+            this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
+            this.load();
+          }, err => {
+            this.errorMessage(err);
+          });
+        } else {
+          this.transactionsService.deleteExpense(this.treasuryId, transaction.id).subscribe(res => {
+            this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
+            this.load();
+          }, err => {
+            this.errorMessage(err);
+          });
         }
-        index = this.treasury.expenses.indexOf(transaction);
-        if(index >=0) {
-          this.treasury.expenses.splice(index, 1);
-        }
-        this.servico.update(this.treasury).subscribe(res => {
-          this.load();
-          this.toastr.success('Removido com sucesso', 'Feito', { progressBar: true });
-        }
-        , erro => {
-          this.errorMessage(erro);
-        });
       } 
     });
   }
@@ -336,6 +302,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.treasuryId = parseInt(this.router.url.split('/')[2]);
     this.load();
     this.formRecipes = this._fb.group({
       id: [null],

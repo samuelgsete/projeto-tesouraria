@@ -27,29 +27,8 @@ export class TreasuryService {
         });
     }
 
-    public findById(id: number): Observable<Treasury> {
-        return this.http.get<Treasury>(this.urlBase.concat(`/${id}`));
-    }
-
-    public getHistoric(id: number, year: number) {
-        const _params = new HttpParams().set('year', `${year}`);
-
-        return this.http.get<any>(this.urlBase.concat(`/historic/${id}`), { observe: 'response', params: _params });
-    }
-
-    public getReport(id: number, year: number, month: number) {
-        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`);
-
-        return this.http.get<any>(this.urlBase.concat(`/report/${id}`), { observe: 'response', params: _params });
-    }
-
-    public getIncome(id: number): Observable<any> {
-        return this.http.get<any>(this.urlBase.concat(`/income/${id}`));
-    }
-
-    public downloadReport(id: number, year: number, month: number) {
-        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`);
-        return this.http.get<any>(this.urlBase.concat(`/download/${id}`), { responseType: 'text' as 'json', observe: 'response', params: _params });
+    public getResume(id: number): Observable<any> {
+        return this.http.get<any>(this.urlBase.concat(`/resume/${id}`));
     }
 
     public remove(id: number): Observable<Treasury> {

@@ -7,10 +7,8 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 
 import { Inventory } from 'src/app/shared/models/inventory.entity';
-import { Treasury } from 'src/app/shared/models/treasury.entity';
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
-import { IncomeService } from '../income/income.service';
+import { InventoryService } from 'src/app/shared/services/inventory.service';
 
 @Component({
   selector: 'app-inventory',
@@ -22,7 +20,7 @@ export class InventoryComponent implements OnInit {
   public f: FormGroup;
 
   public rows: Inventory[] = [];
-  public treasury: Treasury = new Treasury();
+  public treasuryId: number = 0;
 
   public loading = true;
   public inventoriesSelected: any = [];
@@ -32,21 +30,18 @@ export class InventoryComponent implements OnInit {
                 private readonly router: Router, 
                 private readonly _fb: FormBuilder, 
                 private readonly toastr: ToastrService,
-                private readonly service: TreasuryService,
-                private readonly incomeService: IncomeService
+                private readonly service: InventoryService
             ) 
   {
+    this.treasuryId = parseInt(this.router.url.split('/')[2]);
     this.load();
   }
 
   public whenSelecting(rows: any) { this.inventoriesSelected = rows.selected }
 
   public load() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    this.service.findById(id).subscribe( res => {
-      this.treasury = res;
-      this.incomeService.loader(this.treasury.initialAmount, this.treasury.currentBalance, this.treasury.incomeRecipes, this.treasury.incomeExpenses);
-      this.rows = this.treasury.inventories;
+    this.service.findAll(this.treasuryId).subscribe( response => {
+      this.rows = response;
       this.loading = false;
     }, e => {
       this.errorMessage(e);
@@ -75,32 +70,25 @@ export class InventoryComponent implements OnInit {
     const newInventory = new Inventory({
       id: inventory.id,
       actualBalance: inventory.actualBalance,
-      discrepancy: inventory.actualBalance - this.treasury.currentBalance,
+      currentBalance: inventory.currentBalance,
+      discrepancy: inventory.actualBalance - inventory.currentBalance,
       registeredIn: moment(inventory.registeredIn, 'DDMMYYYY', true).toDate()
     });
 
-    if(newInventory.id == null) {
-      this.treasury.inventories.push(newInventory);
-      this.service.update(this.treasury).subscribe( res => {
+    if(!newInventory.id) {
+      this.service.save(newInventory, this.treasuryId).subscribe( res => {
         this.toastr.success('Cadastrado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
-      }, e => {
-        this.errorMessage(e);
+      }, err => {
+        this.errorMessage(err);
       });
     }
     else {
-      let i = 0;
-      this.treasury.inventories.forEach((item, index) => {
-        if(item.id === newInventory.id) {
-          i = index;
-        }
-      });
-      this.treasury.inventories[i] = newInventory;
-      this.service.update(this.treasury).subscribe( res => {
+      this.service.update(newInventory, this.treasuryId).subscribe( res => {
         this.toastr.success('Atalizado com sucesso', 'Tudo ok!', { progressBar: true });
         this.load();
-      }, e => {
-        this.errorMessage(e);
+      }, err => {
+        this.errorMessage(err);
       });
     }
     modal.hide();
@@ -116,17 +104,12 @@ export class InventoryComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        let index = 0;
-        this.inventoriesSelected.forEach(item => {
-          index = this.treasury.inventories.indexOf(item);
-          if (index >= 0) {
-            this.treasury.inventories.splice(index,1);
-          } 
-          this.service.update(this.treasury).subscribe(res => {
+        this.inventoriesSelected.forEach(inventory => {
+          this.service.delete(inventory.id, this.treasuryId).subscribe(res => {
             this.load();
             this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
-          }, e => {
-            this.errorMessage(e);
+          }, err => {
+            this.errorMessage(err);
           }); 
         });
         this.inventoriesSelected = [];
@@ -135,7 +118,6 @@ export class InventoryComponent implements OnInit {
   }
 
   public deleteInventory(inventory: any) {
-    let index = 0;
     Swal.fire({
       title: 'Tem certeza que deseja remover?',
       text: 'Você não poderá desfazer essa operação',
@@ -145,15 +127,11 @@ export class InventoryComponent implements OnInit {
       cancelButtonText: 'Não'
     }).then((result) => {
       if (result.value) {
-        index = this.treasury.inventories.indexOf(inventory);
-        if(index >=0) {
-          this.treasury.inventories.splice(index, 1);
-        }
-        this.service.update(this.treasury).subscribe( res => {
+        this.service.delete(inventory.id, this.treasuryId).subscribe( res => {
           this.toastr.success('Removido com sucesso', 'Tudo ok!', { progressBar: true });
           this.load();
-        }, e => {
-          this.errorMessage(e);
+        }, err => {
+          this.errorMessage(err);
         });
         this.inventoriesSelected = [];
       } 
@@ -165,6 +143,7 @@ export class InventoryComponent implements OnInit {
     this.f.patchValue({
       id: row.id,
       actualBalance: row.actualBalance,
+      currentBalance: row.currentBalance,
       discrepancy: row.discrepancy,
       registeredIn: moment(row.registeredIn).format('DDMMYYYY')
     });
@@ -181,7 +160,8 @@ export class InventoryComponent implements OnInit {
   ngOnInit() {
     this.f = this._fb.group({
       id: [null],
-      actualBalance: [0, Validators.required],
+      actualBalance: ['', Validators.required],
+      currentBalance: ['', Validators.required],
       discrepancy: [0],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
     });

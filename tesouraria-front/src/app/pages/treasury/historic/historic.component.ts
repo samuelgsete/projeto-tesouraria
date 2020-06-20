@@ -3,9 +3,7 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
-import { Income } from 'src/app/shared/models/income.entity';
-import { IncomeService } from '../income/income.service';
+import { HistoricService } from 'src/app/shared/services/historic.service';
 
 @Component({
   selector: 'app-historic',
@@ -15,7 +13,6 @@ import { IncomeService } from '../income/income.service';
 export class HistoricComponent implements OnInit {
 
   public historic = {};
-  public income = new Income();
   public loading = true;
   public years = [ 2019, 2020, 2021, 2022 ];
   public yearSelected = new Date().getFullYear();
@@ -30,6 +27,12 @@ export class HistoricComponent implements OnInit {
   public billing = [
     { data: [], label: 'FATURAMENTO ACUMULADO' },
     { data: [], label: 'FATURAMENTO MENSAL' }
+  ];
+
+  public inventories = [
+    { data: [], label: 'SALDO ATUAL' },
+    { data: [], label: 'SALDO REAL' },
+    { data: [], label: 'DEFASAGEM' }
   ];
 
   public chartLabels = [
@@ -48,10 +51,22 @@ export class HistoricComponent implements OnInit {
 
   public billingColors = [
     {
-      backgroundColor: '#2BBBAD',
+      backgroundColor: '#2BBBAD'
     },
     {
-      backgroundColor: '#ffbb33',
+      backgroundColor: '#ffbb33'
+    }
+  ];
+
+  public inventoriesColors = [
+    {
+      backgroundColor: '#4285F4'
+    },
+    {
+      backgroundColor: '#3F729B'
+    },
+    {
+      backgroundColor: '#0091ea'
     }
   ];
 
@@ -83,12 +98,11 @@ export class HistoricComponent implements OnInit {
   };
 
   public constructor(
-                      private router: Router, 
-                      private servico: TreasuryService, 
-                      private toastr: ToastrService,
-                      private incomeService: IncomeService
-  ) { 
-    this.getIncome();
+                        private readonly router: Router, 
+                        private readonly historicService: HistoricService, 
+                        private readonly toastr: ToastrService
+                    ) 
+  { 
     this.feedChart();
   }
 
@@ -101,8 +115,9 @@ export class HistoricComponent implements OnInit {
     ];
 
     this.loading = true;
-    this.servico.getHistoric(id, this.yearSelected).subscribe( response => {
+    this.historicService.getHistoric(id, this.yearSelected).subscribe( response => {
       this.historic = response.body;
+      console.log(this.historic);
       this.populate(this.historic);
       this.loading = false;
 
@@ -122,6 +137,12 @@ export class HistoricComponent implements OnInit {
       { data: [], label: 'FATURAMENTO MENSAL' }
     ];
 
+    this.inventories = [
+      { data: [], label: 'SALDO ATUAL' },
+      { data: [], label: 'SALDO REAL' },
+      { data: [], label: 'DEFASAGEM' }
+    ];
+
     const incomes = body.incomeYearly;
   
     incomes.forEach(income => {
@@ -135,17 +156,14 @@ export class HistoricComponent implements OnInit {
       this.billing[0].data.push(item.cumulativeBilling);
       this.billing[1].data.push(item.monthlyBiiling);
     });
-  }
 
-  public getIncome() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    this.servico.getIncome(id).subscribe( response => {
-      this.income = response;
-      this.incomeService.loader(this.income.initialAmount, this.income.currentBalance, this.income.incomeRecipes, this.income.incomeExpenses);
-    },
-    erro => {
-      this.errorMessage(erro);
-    });
+    const inventoryYearly = body.historicInventoriesYearly;
+
+    inventoryYearly.forEach( inventory => {
+      this.inventories[0].data.push(inventory.currentBalance);
+      this.inventories[1].data.push(inventory.actualBalance);
+      this.inventories[2].data.push(inventory.discrepancy);
+    })
   }
 
   private errorMessage(err: any) {

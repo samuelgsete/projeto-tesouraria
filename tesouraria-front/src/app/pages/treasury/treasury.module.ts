@@ -13,6 +13,10 @@ import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';
 import { IncomeComponent } from './income/income.component';
 import { ChartsTreasuryComponent } from './charts-treasury/charts-treasury.component';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
+import { ReportService } from 'src/app/shared/services/report.service';
+import { HistoricService } from 'src/app/shared/services/historic.service';
+import { InventoryService } from 'src/app/shared/services/inventory.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,12 @@ import { ChartsTreasuryComponent } from './charts-treasury/charts-treasury.compo
     TreasuryComponent
   ],
   providers: [
-    TreasuryService, UserService
+    TreasuryService, 
+    TransactionsService,
+    ReportService,
+    HistoricService,
+    InventoryService,
+    UserService
   ]
 })
 export class TreasuryModule { }

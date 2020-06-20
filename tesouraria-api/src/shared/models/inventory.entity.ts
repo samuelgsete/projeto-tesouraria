@@ -13,8 +13,11 @@ export class Inventory extends EntityBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public actualBalance: number;
 
-    @IsNotEmpty({ message: `${inventory.discrepancyNotNul}`})
-    @IsNumber({}, {message: `${inventory.discrepancyValid}`})
+    @IsNotEmpty({message: `${inventory.currentBalanceNotNul}`})
+    @IsNumber({}, {message: `${inventory.currentBalanceValid}`})
+    @Column({ type: 'float', unique: false, nullable: true })
+    public currentBalance: number;
+
     @Column({ type: 'float', unique: false, nullable: true })
     public discrepancy: number;
 

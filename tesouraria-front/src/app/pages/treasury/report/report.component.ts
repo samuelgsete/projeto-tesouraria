@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 
-import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Income } from 'src/app/shared/models/income.entity';
 import { Report } from 'src/app/shared/models/report.entity';
-import { IncomeService } from '../income/income.service';
+import { ReportService } from 'src/app/shared/services/report.service';
 
 @Component({
   selector: 'app-report',
@@ -54,13 +53,13 @@ export class ReportComponent implements OnInit {
 
   public colorsRecipes = [
     {
-      backgroundColor: '#33b5e5'
+      backgroundColor: 'rgb(51, 181, 229, .9)'
     }
   ];
 
   public colorsExpenses = [
     {
-      backgroundColor: '#ff4444'
+      backgroundColor: 'rgb(255, 68, 68, .9)'
     }
   ]
 
@@ -68,7 +67,13 @@ export class ReportComponent implements OnInit {
     responsive: true,
     scales: 
     { 
-      xAxes: [{}], 
+      xAxes: [{
+        ticks: {
+          callback: function(value) {
+              return ``;
+          }
+        }
+      }], 
       yAxes: [{ 
         ticks: {
           callback: function(value) {
@@ -76,17 +81,27 @@ export class ReportComponent implements OnInit {
           }
         }
       }] 
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem) {
+          return `R$ ${tooltipItem.value}`;
+        }
+      }
+    },
+    plugins: {
+      datalabels: {
+          display: false,
+      }
     }
   };
 
   public constructor(
-          private service: TreasuryService,
-          private router: Router,
-          private toastr: ToastrService,
-          private readonly incomeService: IncomeService
-  ) 
+                        private service: ReportService,
+                        private router: Router,
+                        private toastr: ToastrService
+                    ) 
   { 
-    this.getIncome(); 
     this.getReport();
   }
 
@@ -131,17 +146,6 @@ export class ReportComponent implements OnInit {
 
     this.recipes[0].data.push(0);
     this.labelsRecipes.push('');
-  }
-
-  public getIncome() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    this.service.getIncome(id).subscribe( response => {
-      this.income = response;
-      this.incomeService.loader(this.income.initialAmount, this.income.currentBalance, this.income.incomeRecipes, this.income.incomeExpenses);
-    },
-    erro => {
-      this.errorMessage(erro);
-    });
   }
 
   public download() {

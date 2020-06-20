@@ -49,27 +49,6 @@
 
         h5 { text-align: center }
 
-        mdb-card {
-            cursor: pointer;
-            margin-bottom: 30px;
-
-            h4 { margin-top: -10px }
-
-            mat-icon {
-                font-size: 40px;
-                float: right;
-                margin-top: 10px;
-            }
-        }
-
-        .empty-data {
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            text-align: center;
-            padding: 40px;
-            margin-top: 20px;
-            h5 { margin-top: 15px }
-        }
-
         .main-content {
             .transacoes {
                 margin-top: 50px;
@@ -124,27 +103,6 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             padding: 10px;
             
-            mdb-card {
-                cursor: pointer;
-                margin-bottom: 10px;
-    
-                h4 { margin-top: -10px }
-    
-                mat-icon {
-                    font-size: 40px;
-                    float: right;
-                    margin-top: 10px;
-                }
-            }
-    
-            .empty-data {
-                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-                text-align: center;
-                padding: 40px;
-                margin-top: 20px;
-                h5 { margin-top: 15px }
-            }
-
             .main-content {
                 mat-form-field { width: 100% }
 
