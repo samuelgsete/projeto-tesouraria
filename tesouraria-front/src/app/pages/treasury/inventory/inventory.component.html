@@ -50,14 +50,11 @@
                 [checkboxable]="true">
             </ngx-datatable-column>
                 <ngx-datatable-column name="ID" [width]="10" prop="id"></ngx-datatable-column>
-                <ngx-datatable-column name="Tesouraria" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>{{ treasury.name }}</ng-template>
+                <ngx-datatable-column name="Saldo atual" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.currentBalance | currency:'BRL'  }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Saldo real" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>{{ row.actualBalance | currency:'BRL' }}</ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Defasagem" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>{{ row.discrepancy | currency:'BRL' }}</ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Registrado em" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>{{ row.registeredIn | date: 'dd/MM/yyyy' }}</ng-template>
@@ -102,8 +99,8 @@
             [limit]="6"
         >
             <ngx-datatable-column name="ID" [width]="100" prop="id"></ngx-datatable-column>
-            <ngx-datatable-column name="Tesouraria" [width]="200">
-                <ng-template let-row="row" ngx-datatable-cell-template>{{ treasury.name }}</ng-template>
+            <ngx-datatable-column name="Saldo atual" [width]="200">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.currentBalance | currency:'BRL' }}</ng-template>
             </ngx-datatable-column>  
             <ngx-datatable-column name="Saldo real" [width]="100" prop="actualBalance">
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
@@ -145,7 +142,13 @@
             <div class="modal-body">
                 <form [formGroup]="f">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Saldo atual" formControlName="currentBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>o saldo atual é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                        <div class="col-6">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Saldo real" formControlName="actualBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>o saldo real é obrigatório</mat-error>
@@ -181,7 +184,13 @@
             <div class="modal-body">
                 <form [formGroup]="f">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-6">
+                            <mat-form-field  class="input-width">
+                                <input matInput placeholder="Saldo atual" formControlName="currentBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                                <mat-error>o saldo atual é obrigatório</mat-error>
+                            </mat-form-field> 
+                        </div>
+                        <div class="col-6">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Saldo real" formControlName="actualBalance" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
                                 <mat-error>O saldo real é obrigatório</mat-error>

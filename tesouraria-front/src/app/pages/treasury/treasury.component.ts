@@ -42,8 +42,8 @@ export class TreasuryComponent implements OnInit {
       this.treasuries = res.body.data;
       this.paginationService.loader(res.body.count, paginacao.pageCurrent);
       this.loading = false;
-    }, e => {
-      this.errorMessage(e);
+    }, err => {
+      this.errorMessage(err);
     });
   }
 
@@ -74,7 +74,7 @@ export class TreasuryComponent implements OnInit {
       id: dados.id,
       name: dados.name, 
       initialAmount: dados.initialAmount,
-      currentBalance: 0,
+      currentBalance: dados.currentBalance,
       recipes: dados.recipes,
       expenses: dados.expenses,
       inventories: dados.inventories,
@@ -82,31 +82,24 @@ export class TreasuryComponent implements OnInit {
       userId: userId
     });
     
-    if(treasury.id == null) {
+    if(!treasury.id) {
       this.servico.save(treasury).subscribe(res => {
         this.toastr.success('Criado com sucesso', 'Feito', { progressBar: true });  
         this.hideModalCreate();    
-        this.reload();  
-      }, e => {
-        this.errorMessage(e);
+        this.load(new Pagination());  
+      }, err => {
+        this.errorMessage(err);
       });
     }
     else {
       this.servico.update(treasury).subscribe(res => {
         this.toastr.success('Atualizado com sucesso', 'Feito', { progressBar: true });
         this.hideModalUpdate();
-        this.reload();
-      }, e => {
-        this.errorMessage(e);
+        this.load(new Pagination());
+      }, err => {
+        this.errorMessage(err);
       });
-      
     }
-  }
-
-  public reload() {
-    this.pagination = new Pagination();
-    this.load(this.pagination); 
-    this.f.reset();
   }
 
   public deleteTreasury(treasury: Treasury) {
@@ -121,8 +114,7 @@ export class TreasuryComponent implements OnInit {
       if (result.value) {
         this.servico.remove(treasury.id).subscribe(r => {   
           this.toastr.success('Removido com sucesso!', 'Feito', {progressBar: true});
-          this.pagination = new Pagination();
-          this.load(this.pagination);
+          this.load(new Pagination());
         }, e =>{
           this.errorMessage(e);
         })
@@ -180,7 +172,7 @@ export class TreasuryComponent implements OnInit {
       id: [null],
       name:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       initialAmount:['', [Validators.required]],
-      currentBalance:['', []],
+      currentBalance:[0, []],
       details: [null, [Validators.minLength(3), Validators.maxLength(255)]],
       recipes: [[]],
       expenses: [[]],

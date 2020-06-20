@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany, UpdateDateColumn } from "typeorm";
-import { IsNotEmpty, IsString, Length, IsInt, IsNumber, ValidateNested, IsOptional } from "class-validator";
+import { IsNotEmpty, IsString, Length, IsNumber, ValidateNested, IsOptional } from "class-validator";
 import { Type } from 'class-transformer';
 
 import { Expense } from "./expense.entity";
@@ -23,10 +23,14 @@ export class Treasury extends EntityBase {
     @Column({ type: 'float', unique: false, nullable: false })
     public initialAmount: number;
 
-    @IsNotEmpty({ message: `${treasuries.balanceCurrentNotNull}`})
-    @IsNumber({}, { message: `${treasuries.balanceCurrentValid}`})
-    @Column({ type: 'float', unique: false, nullable: false })
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
     public currentBalance: number;
+
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public incomeRecipes: number;
+
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public incomeExpenses: number;
 
     @IsOptional()
     @Length(3, 255, {message: `${treasuries.detailsLength}`})
@@ -34,8 +38,6 @@ export class Treasury extends EntityBase {
     @Column({ length: 255, unique: false, nullable: true })
     public details: string;
 
-    @IsNotEmpty({ message: `${treasuries.userIdNotNull}`})
-    @IsInt({ message: `${treasuries.userIdValid}`})
     @Column({ unique: false, nullable: false })
     public userId: number;
 
@@ -50,12 +52,6 @@ export class Treasury extends EntityBase {
     @ValidateNested()
     @OneToMany(type => Recipe, recipe => recipe.treasury, { cascade: true })
     public recipes: Recipe[];
-
-    @Column({ type: 'float', unique: false, nullable: true })
-    public incomeRecipes: number;
-
-    @Column({ type: 'float', unique: false, nullable: true })
-    public incomeExpenses: number;
 
     @UpdateDateColumn()
     public updated: Date;

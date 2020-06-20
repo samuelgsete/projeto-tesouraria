@@ -13,6 +13,10 @@ import { Recipe } from './shared/models/recipe.entity';
 import { Credit } from './shared/models/credit.entity';
 import { Inventory} from './shared/models/inventory.entity';
 import { User } from './shared/models/user.entity';
+import { TransactionsModule } from './transactions/transactions.module';
+import { ReportModule } from './report/report.module';
+import { HistoricModule } from './historic/historic.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -36,6 +40,10 @@ import { User } from './shared/models/user.entity';
     TreasuryModule,
     AuthModule,
     UserModule,
+    TransactionsModule,
+    ReportModule,
+    HistoricModule,
+    InventoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
