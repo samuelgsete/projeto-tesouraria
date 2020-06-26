@@ -39,7 +39,7 @@ Uma dos cuidados que mais dei atenção no desenvolvimento desse projeto foi a c
 ![Cadastro de usuario](capturas/treasury-8.png)
 
 ### Tela de confirmação de cadastro de usuário via e-mail
-![Confirmação de cadastro](capturas/treasury-8.png)
+![Confirmação de cadastro](capturas/treasury-9.png)
 
 ### Tela principal
 ![Tela principal](capturas/treasury-1.png)
