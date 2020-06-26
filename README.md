@@ -2,13 +2,13 @@
  
 Quem já se responsabilizou em gerir tesourarias com certeza já se deparou com a dor de cabeça de ter que organizar as receitas e gastos realizados e preparar relatórios. Normalmente as Igrejas do interior e da região metropolitana promovem pequenas vendas para alargar as receitas o que acaba gerando um grande fluxo de transações para gerenciar. O resultado disso é que o tesoureiro quase sempre acaba encontrando muitas inconsistências nos dados financeiros contabilizados  pela ausência de uma ferramenta apropriada para a finalidade. Pois é, eu já tive que lidar com esse problema e como estudante de computação resolvi desenvolver um sistema Web para facilitar o manuseio dessas transações e automatizar a emissão de relatórios. A principais funcionalidades do sistema são:
    
-    - Cadastro de usuário com confirmação de email
-    - Autenticação de usuário
-    - Cadastro de tesourarias,
-    - Gerenciamento de receitas e despesas
-    - Realização de inventário
-    - Emissão de relatórios
-    - Exibição de histórico de transações
+    ⋅⋅* Cadastro de usuário com confirmação de email
+    ⋅⋅* Autenticação de usuário
+    ⋅⋅* Cadastro de tesourarias,
+    ⋅⋅* Gerenciamento de receitas e despesas
+    ⋅⋅* Realização de inventário
+    ⋅⋅* Emissão de relatórios
+    ⋅⋅* Exibição de histórico de transações
  
 Preparei um vídeo de demonstração das principais funcionalidades do sistema que pode ser encontrado clicando [aqui](https://youtu.be/zXt22wRJhk0). O frontend da aplicação foi desenvolvido utilizando o [Angular](https://angular.io/) e o [MDBootstrap](https://mdbootstrap.com/docs/angular/getting-started/download/) enquanto que o backend foi construido usando [NestJS](https://nestjs.com/) e [PostgreSQL](https://www.postgresql.org/download/).
  
@@ -27,3 +27,16 @@ Precisamos agora instalar o NestJS e o nosso banco de dados Postgres, o Nest pod
 ```
  
 Esse comando irá efetuar o download de todas as bibliotecas que a aplicação utiliza. Após esse processo basta digitar mais dois comandos para iniciar a aplicação, no diretório `tesouraria-api` digite o comando `nest start` , no diretório `tesouraria-front` digite `ng serve`, em seguida aguarde os serviços serem devidamente iniciados. Após a iniciação do projeto abra o navegador e acesse a url `http://localhost:4200/user/create`, crie sua conta gratuita, faça [login](http://localhost:4200/login) e utilize livremente todas as funcionalidades que o sistema tem a oferecer.
+
+# Interface visual
+
+Uma das cuidados que mais dei atenção no desenvolvimento desse projeto foi a criação de uma interface agradável, fácil de utilizar e adaptável aos mais variados tipos de dispositivos. Vejamos as principais telas do projeto.
+
+### Tela de login
+![Tela de login](capturas/treasury-7.png)
+
+### Tela de cadastro de usuario
+![Tela de login](capturas/treasury-8.png)
+
+### Tela de confirmação de cadastro de usuário
+![Tela de login](capturas/treasury-8.png)
