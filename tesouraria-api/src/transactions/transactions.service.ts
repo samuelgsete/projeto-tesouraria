@@ -10,6 +10,7 @@ import { TransactionType } from "src/shared/models/enums/transaction-type.enum";
 import { IdInvalidException } from "src/shared/exceptions/models/Id-invalid.exception";
 import { TreasuryNotFoundException } from "src/shared/exceptions/models/treasury-not-foud.exception";
 import { PermissionDeniedException } from "src/shared/exceptions/models/permission-denied.excepton";
+import { StatusType } from "src/shared/models/enums/status-type.enum";
 
 @Injectable()
 export class TransactionsService {
@@ -43,6 +44,8 @@ export class TransactionsService {
 
     public async updateRecipe(treasuryId: number, userId: number, recipeUpdated: Recipe) {
         const treasury = await this.validateUser(treasuryId, userId);
+
+        recipeUpdated = this.updateValueRecipe(recipeUpdated);
 
         const currentRecipe = treasury.recipes.filter( recipe => {
             return recipe.id == recipeUpdated.id;
@@ -141,6 +144,16 @@ export class TransactionsService {
             throw new PermissionDeniedException('Permissão negada')
         }
         return treasury;
+    }
+
+    private updateValueRecipe(recipe: Recipe) {
+        recipe.credits.forEach( credit => {
+            if(credit.status == StatusType.SETTLED) {
+                recipe.value += credit.value;
+                credit.status = StatusType.FINISHED
+            }
+        });
+        return recipe;
     }
 
     private filterTransactions(transactionsFilter: TransactionsFilter, recipes: Recipe[], expenses: Expense[]) {
