@@ -159,13 +159,14 @@ export class TransactionsService {
     private filterTransactions(transactionsFilter: TransactionsFilter, recipes: Recipe[], expenses: Expense[]) {
         let filteredRecipes = [];
         let filteredExpenses = [];
+        const ALL_MONTHS = 12;
 
         if(transactionsFilter.type == TransactionType.RECIPE) {
             filteredRecipes = recipes.filter( recipe => {
                 return recipe.registeredIn.getFullYear() == transactionsFilter.year && recipe.registeredIn.getMonth() == transactionsFilter.month;
             });
 
-            if(transactionsFilter.month == 12) {
+            if(transactionsFilter.month == ALL_MONTHS) {
                 filteredRecipes = recipes.filter( recipe => {
                     return recipe.registeredIn.getFullYear() == transactionsFilter.year;
                 });
@@ -177,7 +178,7 @@ export class TransactionsService {
                 return expense.registeredIn.getFullYear() == transactionsFilter.year && expense.registeredIn.getMonth() == transactionsFilter.month;
             });
 
-            if(transactionsFilter.month == 12) {
+            if(transactionsFilter.month == ALL_MONTHS) {
                 filteredExpenses = expenses.filter( expense => {
                     return expense.registeredIn.getFullYear() == transactionsFilter.year;
                 });
@@ -185,7 +186,7 @@ export class TransactionsService {
         }
        
         else {
-            if(transactionsFilter.month == 12) {
+            if(transactionsFilter.month == ALL_MONTHS) {
          
                 filteredRecipes = recipes.filter( recipe => {
                     return recipe.registeredIn.getFullYear() == transactionsFilter.year;

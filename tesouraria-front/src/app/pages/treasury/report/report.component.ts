@@ -16,6 +16,7 @@ import { ReportService } from 'src/app/shared/services/report.service';
 export class ReportComponent implements OnInit {
 
   public report = new Report();
+  public annualReport: Report[] = [];
   public income = new Income();
   public loading = true;
 
@@ -29,9 +30,10 @@ export class ReportComponent implements OnInit {
     'Julho',
     'Agosto',
     'Setembro',
-    'Outrubo', 
+    'Outubro', 
     'Novembro',
-    'Dezembro'
+    'Dezembro',
+    "Todos os meses"
   ];
 
   public years = [ 2020, 2021, 2022 ];
@@ -110,7 +112,16 @@ export class ReportComponent implements OnInit {
     let month = this.months.indexOf(this.monthSelected);
     this.loading = true;
     this.service.getReport(id, this.yearSelected, month).subscribe( response => {
-      this.report = response.body
+      
+      if(!Array.isArray(response.body)) {
+        this.report = response.body;
+        this.annualReport = [];
+      }
+      else {
+        this.annualReport = response.body;
+        this.report = new Report();
+      }
+
       this.loading = false;
       this.feedChart();
     }, error => {

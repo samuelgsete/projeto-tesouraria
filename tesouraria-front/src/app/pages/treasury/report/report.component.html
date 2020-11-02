@@ -41,7 +41,7 @@
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
-        <div class="main-content">
+        <div class="main-content" *ngIf="!annualReport[0]">
             <div class="row">
                 <div class="col">
                     <mdb-card class="empty-data" *ngIf="report.recipes.length == 0 && report.expenses.length == 0" mdbWavesEffect>
@@ -165,6 +165,87 @@
                     </tr>
                 </table>
             </div>
+        </div>
+
+        <div class="main-content" *ngFor="let report of annualReport; let i = index;">
+            <div class="row">
+                <div class="col">
+                    <p style="margin-top: 10px;">Rendimentos de {{ months[i] }} de {{ yearSelected }}</p>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <th class="info-color">RECEITAS</th>
+                    <th class="danger-color">DESPESAS</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="box-moviment" *ngFor="let recipe of report.recipes">
+                            <mdb-card class="z-depth-0" mdbWavesEffect>
+                                <mdb-card-body>
+                                    <mdb-card-text>{{ recipe.description }}</mdb-card-text>
+                                    <mdb-card-title>
+                                        <h4 class="text-info">{{ recipe.value | currency:'BRL' }}</h4>
+                                    </mdb-card-title>    
+                                    <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                    <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
+                                    <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
+                                </mdb-card-body>
+                            </mdb-card>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="box-moviment" *ngFor="let expense of report.expenses">
+                            <mdb-card class="z-depth-0" mdbWavesEffect>
+                                <mdb-card-body>
+                                    <mdb-card-text>{{ expense.description }}</mdb-card-text>
+                                    <mdb-card-title>
+                                        <h4 class="text-danger">{{ expense.value | currency:'BRL' }}</h4>
+                                    </mdb-card-title>    
+                                    <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                    <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
+                                </mdb-card-body>
+                            </mdb-card>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mdb-card class="indigo lighten-5 z-depth-0" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mdb-card-text>Receitas mensais</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.incomeRecipesMonthly | currency:'BRL' }}</h4>
+                                </mdb-card-title>                   
+                            </mdb-card-body>
+                        </mdb-card>
+                    </td>
+                    <td>
+                        <mdb-card class="indigo lighten-5 z-depth-0" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mdb-card-text>Despesas mensais</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.incomeExpensesMonthly | currency:'BRL' }}</h4>
+                                </mdb-card-title>                   
+                            </mdb-card-body>
+                        </mdb-card>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <mdb-card class="text-white z-depth-0" [ngClass]="{ 'danger-color': report.balanceMonthly < 0, 'info-color': report.balanceMonthly > 0, 'default-color': report.balanceMonthly == 0 }" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mdb-card-text>
+                                    <p class="text-light">Faturamento mensal</p>
+                                </mdb-card-text>
+                                <mdb-card-title>
+                                    <h4 >{{ report.balanceMonthly | currency:'BRL' }}</h4>
+                                </mdb-card-title>                  
+                            </mdb-card-body>
+                        </mdb-card>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div> 
