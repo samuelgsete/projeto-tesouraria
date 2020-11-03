@@ -1,12 +1,8 @@
 .body {
-    background-color: #d3e0e2;
-    padding-bottom: 110px;
-
     .hero {
         height: 220px;
         padding: 60px 35px;
-        background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
-
+       
         .name-page {                
             h2 {
                 color: #fff;
@@ -113,8 +109,7 @@
         .hero {
             height: 240px;
             padding: 60px;
-            background: linear-gradient(to bottom, #00b8d4, #2BBBAD);
-            
+             
             .header-page {
                 height: 100%;
                 display: flex;

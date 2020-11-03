@@ -6,10 +6,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthUserGuard implements CanActivate {
 
-  constructor(private router: Router, private servico: AuthService, private toastr: ToastrService) { 
-  }
+  public constructor(private router: Router, private servico: AuthService, private toastr: ToastrService) {}
 
   canActivate(
       route: ActivatedRouteSnapshot,
@@ -20,8 +19,8 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    this.toastr.error('Você não está autenticado', 'ERRO', { progressBar: true });
-    this.router.navigateByUrl('/login');
+    this.toastr.error('Você não está autenticado', 'ERRO', { progressBar: true, positionClass: 'toast-bottom-center' });
+    this.router.navigateByUrl('/user/auth');
     
     return false;
   }

@@ -1,0 +1,10 @@
+comando para gerar o dump do banco de dados:
+pg_dump -U postgres treasurydb > C:\Users\Samuel\Desktop\load.sql
+Comando para popular banco
+psql -U postgres treasurydb < C:\Users\Samuel\Desktop\load.sql
+*Criar bando de dados:
+CREATE DATABASE treasurydb
+*Deletar banco de dados:
+DROP DATABASE treasurydb
+Acessar bando de dados:
+psql -U postgres treasurydb

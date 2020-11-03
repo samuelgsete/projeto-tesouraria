@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { User } from '../models/user.entity';
 import { Router } from '@angular/router';
 
@@ -10,17 +12,23 @@ export class AuthService  {
 
   private urlBase: string = 'http://localhost:3000/auth/login';
 
-  public constructor(private http: HttpClient,private router: Router) {}
+  public constructor(
+                      private http: HttpClient, 
+                      private router: Router,
+                      private toastr: ToastrService
+                    ) {}
 
-  public login(user: User): Observable<any> {
+  public loginUser(user: User): Observable<any> {
     return this.http.post<any>(this.urlBase, user);
   }
 
-  public logout() {
+  public logoutUser() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('name_user');
-    this.router.navigateByUrl('/login');
+    localStorage.removeItem('user');
+    this.router.navigateByUrl('/user/auth');
+    this.toastr.success('Desconectado com sucesso', 'Tudo ok!', { progressBar: true, positionClass: 'toast-bottom-center' });
   }
 
   public userIsAutenticate(): boolean {

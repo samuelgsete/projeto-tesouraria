@@ -1,4 +1,4 @@
-.create {
+.confirm-user {
     height: 100vh;
     width: 100%;
     overflow-y: auto;
@@ -25,7 +25,7 @@
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
-        padding: 0px 100px;
+        padding: 0px 180px;
 
         .header {
             animation: up 0.7s;
@@ -37,17 +37,27 @@
                 color: #425554;
             }
             P {
-                margin-top: 30px;
-                font-size: 20px;
+                margin-top: 10px;
+                font-size: 15px;
                 color: #5c6969;
+
             }
 
             span { color: #687e7d; }
         }
-
         .body {
-            margin-top: 40px;
-            form {
+            margin-top: 30px;
+            .form {
+                p {
+                   text-align: justify;
+                   color: #708583;
+                  
+                   span.link {
+                        color: #0422cc;
+                        cursor: pointer;
+                   }
+                }
+
                 animation: move 0.7s;
                 .input-width { width: 100% }
 
@@ -83,7 +93,6 @@
         align-items: center;
         justify-content: center;
         padding: 120px;
-        text-align: center;
         animation: fade 0.8s;
 
         img {
@@ -96,11 +105,13 @@
         }
 
         p {
-            color:#e5f7e5;
+            color:#e0fae0;
+            text-align: center;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size: 15px;
         }
     }
+
 }
 
 @keyframes fade {

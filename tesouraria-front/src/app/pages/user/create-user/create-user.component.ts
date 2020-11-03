@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/shared/models/user.entity';
 import { UserService } from 'src/app/shared/services/user.service';
+const SERVER_OFFLINE = 0;
 
 @Component({
   selector: 'app-create-user',
@@ -24,6 +25,10 @@ export class CreateUserComponent implements OnInit {
                     ) 
   { }
 
+  public toLogin() {
+    this.router.navigateByUrl('/user/auth');
+  }
+
   public createUser(data: any) {
     this.loading = true;
 
@@ -37,26 +42,37 @@ export class CreateUserComponent implements OnInit {
     });
 
     localStorage.setItem('name', user.name);
-    localStorage.setItem('userEmail', user.email);
+    localStorage.setItem('email', user.email);
     
     this.service.create(user).subscribe( response => {
-      this.loading = false;
-      this.router.navigateByUrl('/user/verify');
+      this.router.navigateByUrl('/confirm/account');
     },
     erro => {
-      this.loading = false;
+      localStorage.removeItem('email');
+      localStorage.removeItem('name');
       this.errorMessage(erro);
+    }).add( () => {
+      this.loading = false;
     });
   }
 
-  private errorMessage(response: any) {
-    const error = response.error
-    if(response.status == 0) {
-      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
-    }
+  public showPassword(input: any, icon: any) {
+    input.type = 'text';
+    icon._elementRef.nativeElement.firstChild.data = 'visibility';
+  }
 
+  public hidePassword(input: any, icon: any) {
+    icon._elementRef.nativeElement.firstChild.data = 'visibility_off';
+    input.type = 'password';
+  }
+
+  private errorMessage(response: any) {
+    const error = response.error;
+    if(response.status == SERVER_OFFLINE) {
+      this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true, positionClass: 'toast-bottom-center' });
+    }
     else {
-      this.toastr.error(error.details, 'ERRO', { progressBar: true });
+      this.toastr.error(error.details, 'Ah não!', { progressBar: true, positionClass: 'toast-bottom-center' });
     }
   }
 
