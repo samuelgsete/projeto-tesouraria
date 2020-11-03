@@ -16,8 +16,8 @@ export class MenuComponent implements OnInit {
     this.usuario = localStorage.getItem("name_user");
   }
 
-  public logout() {
-    this.service.logout();
+  public logoutUser() {
+    this.service.logoutUser();
   }
 
   public account() {

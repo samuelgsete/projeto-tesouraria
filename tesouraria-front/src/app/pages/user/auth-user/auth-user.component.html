@@ -1,0 +1,35 @@
+<div class="login"> 
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div> 
+    <div class="content z-depth-2">
+        <div class="header">
+            <img src="/assets/img/avatar/avatar-user.png" alt="usuario" width="80px" height="80px">
+            <h6>Usuário</h6>
+            <p>Login</p>
+            <span>Informe seus dados</span>
+        </div>
+        <div class="main">
+            <form [formGroup]="form">
+                <mat-form-field class="input-width" appearance="outline">
+                    <mat-label>Usuario</mat-label>
+                    <input formControlName="username" matInput required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error>preencha o usuário corretamente</mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-width" appearance="outline">
+                    <mat-label>Senha</mat-label>
+                    <input type="password" formControlName="password" #pass matInput required>
+                    <mat-icon #icon style="cursor: pointer;" (mousedown)="showPassword(pass, icon)" (mouseup)="hidePassword(pass, icon)" matSuffix>visibility_off</mat-icon>
+                    <mat-error>preencha a senha corretamente</mat-error>
+                </mat-form-field>
+                <button mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="signIn(form.value)" mdbWavesEffect>ACESSAR</button> 
+                <p class="link" (click)="toNewUser()">Criar nova conta</p>         
+            </form>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>
+</div>

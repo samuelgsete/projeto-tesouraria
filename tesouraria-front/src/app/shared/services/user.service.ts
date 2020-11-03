@@ -19,7 +19,7 @@ export class UserService {
         return this.http.post(this.urlBase, user);
     }
 
-    public verifyUser(code: string): Observable<any> {
+    public finalizeRegistration(code: string): Observable<any> {
         return this.http.post(this.urlBase.concat(`/${code}`), '');
     }
 

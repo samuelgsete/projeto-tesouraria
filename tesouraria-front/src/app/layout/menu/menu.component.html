@@ -1,4 +1,4 @@
-<mdb-navbar SideClass="navbar navbar-expand-sm navbar-dark cyan" [containerInside]="false">
+<mdb-navbar SideClass="navbar navbar-expand-sm navbar-dark" [containerInside]="false">
     <mdb-navbar-brand>
         <img class="logo" src="/assets/img/logotipo.png" alt="logotipo" width="50px" height="50px">
         <a routerLink="/home" class="navbar-brand">TREASURY</a>
@@ -14,9 +14,9 @@
                 </a>
                 <mat-menu #menuUsuer="matMenu">
                     <button style="outline: none;" mat-menu-item (click)="account()"><mat-icon>account_circle</mat-icon>Conta</button>
-                    <button style="outline: none;" mat-menu-item (click)="logout()" ><mat-icon>power_settings_new</mat-icon>Sair</button>
+                    <button style="outline: none;" mat-menu-item (click)="logoutUser()" ><mat-icon>power_settings_new</mat-icon>Sair</button>
                 </mat-menu>  
-                </li>
+            </li>
         </ul>
     </links>
 </mdb-navbar>

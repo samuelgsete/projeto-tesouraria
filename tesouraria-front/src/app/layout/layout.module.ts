@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AppRoutingModule } from '../app.routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from '../shared/services/auth.service';
 import { FooterComponent } from './footer/footer.component';
-import { routing } from '../app.routing';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { routing } from '../app.routing';
   imports: [
     CommonModule,
     SharedModule,
-    routing
+    AppRoutingModule
   ],
   exports: [
     MenuComponent,

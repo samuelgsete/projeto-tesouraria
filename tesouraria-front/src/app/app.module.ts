@@ -8,11 +8,10 @@ import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
 import { TreasuryModule } from './pages/treasury/treasury.module';
-import { routing } from './app.routing';
-import { AuthModule } from './pages/auth/auth.module';
+import { AppRoutingModule } from './app.routing.module';
 import { AuthService } from './shared/services/auth.service';
-import { AuthGuard } from './pages/auth/auth.guard';
-import { AuthInterceptor } from './pages/auth/auth.interceptor';
+import { AuthUserGuard } from './shared/auth/auth-user.guard';
+import { AuthUserInterceptor } from './shared/auth/auth-user.interceptor';
 import { PaginationService } from './shared/pagination/pagination.service';
 import { UserModule } from './pages/user/user.module';
 import { IncomeService } from './pages/treasury/income/income.service';
@@ -29,17 +28,16 @@ import { IncomeService } from './pages/treasury/income/income.service';
     FormsModule,
     TreasuryModule,
     UserModule,
-    AuthModule,
-    routing,
+    AppRoutingModule,
   ],
   providers: [
-    AuthGuard, 
+    AuthUserGuard, 
     AuthService,
     PaginationService,
     IncomeService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: AuthUserInterceptor,
       multi: true
     }
   ],
