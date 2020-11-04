@@ -1,4 +1,3 @@
-import { Credit } from './credit.entity';
 import { TransactionType } from './enums/transaction-type.enum';
 
 export class Recipe {
@@ -8,7 +7,6 @@ export class Recipe {
     public value: number;
     public offerer: string;
     public registeredIn: Date;
-    public credits: Credit[] = [];
     public type: TransactionType;
     public details: string;
 

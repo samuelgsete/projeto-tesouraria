@@ -6,11 +6,9 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from "moment";
 
-import { Credit } from 'src/app/shared/models/credit.entity';
 import { Expense } from 'src/app/shared/models/expense.entity';
 import { Recipe } from 'src/app/shared/models/recipe.entity';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
-import { StatusType } from 'src/app/shared/models/enums/status-type.enum';
 import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
@@ -23,10 +21,8 @@ export class TransactionsComponent implements OnInit {
 
   public formRecipes: FormGroup;
   public formExpenses: FormGroup;
-  public formCredits: FormGroup;
 
   public treasuryId: number = 0;
-  public credits: Credit[] = [];
 
   public rows: any[] = [];
   public loading = true;
@@ -115,8 +111,7 @@ export class TransactionsComponent implements OnInit {
         offerer: null,
         registeredIn: moment().format('DDMMYYYY'),
         details: null
-    })
-    this.credits = [];
+    });
   }
 
   public resetFormExpenses() {
@@ -137,8 +132,7 @@ export class TransactionsComponent implements OnInit {
       offerer: recipe.offerer,
       type: TransactionType.RECIPE,
       details: recipe.details,
-      registeredIn: moment(recipe.registeredIn, 'DDMMYYYY', true).toDate(),
-      credits: this.credits
+      registeredIn: moment(recipe.registeredIn, 'DDMMYYYY', true).toDate()
     });
     
     if(!newRecipe.id) {
@@ -254,28 +248,6 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  public addCredit(form: any, modal: any){
-    modal.hide();
-    let credit = form.value;
-    this.credits.push(new Credit({
-      holder: credit.holder,
-      value: credit.value,
-      telephone: credit.telephone,
-      status: StatusType.ACTIVE
-    }));
-    form.reset();
-  }
-
-  public removeCredit(index: number, credit: Credit) {
-    this.credits.splice(index, 1);
-  }
-
-  public payOffCredit(credit: Credit) {
-    if(credit.status  != StatusType.FINISHED) {
-      credit.status = credit.status === StatusType.ACTIVE ? StatusType.SETTLED : StatusType.ACTIVE;
-    }
-  }
-
   public setFormRecipeOrExpense(row: any, modalUpdateRecipe: any, modalUpdateExpense: any) {
     if(row.type === TransactionType.EXPENSE) {
       this.formExpenses.patchValue({
@@ -294,9 +266,8 @@ export class TransactionsComponent implements OnInit {
         value: row.value,
         offerer: row.offerer,
         registeredIn: moment(row.registeredIn).format('DDMMYYYY'),
-        details: row.details,
+        details: row.details
       });
-      this.credits = row.credits;
       modalUpdateRecipe.show();
     }
   }
@@ -321,15 +292,6 @@ export class TransactionsComponent implements OnInit {
       type: [TransactionType.EXPENSE],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
       details: [null, Validators.maxLength(255)]
-    });
-
-    this.formCredits = this._fb.group({
-      id: [null],
-      holder: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
-      value: ['', Validators.required],
-      registeredIn: [''],
-      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
-      status: ['']
     });
   }
 }

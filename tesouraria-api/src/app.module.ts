@@ -10,7 +10,6 @@ import { UserModule } from './users/user.module';
 import { Treasury } from './shared/models/treasury.entity';
 import { Expense } from './shared/models/expense.entity';
 import { Recipe } from './shared/models/recipe.entity';
-import { Credit } from './shared/models/credit.entity';
 import { Inventory} from './shared/models/inventory.entity';
 import { User } from './shared/models/user.entity';
 import { TransactionsModule } from './transactions/transactions.module';
@@ -31,11 +30,10 @@ import { InventoryModule } from './inventory/inventory.module';
         Treasury, 
         Expense,
         Recipe,
-        Credit,
         Inventory,
         User
       ],
-      synchronize: true,
+      synchronize: true
     }),
     TreasuryModule,
     AuthModule,

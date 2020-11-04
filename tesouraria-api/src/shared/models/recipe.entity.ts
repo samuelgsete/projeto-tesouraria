@@ -1,9 +1,7 @@
-import { Entity, ManyToOne, Column, OneToMany } from "typeorm";
-import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, ValidateNested, IsDateString } from "class-validator";
-import { Type } from "class-transformer";
+import { Entity, ManyToOne, Column } from "typeorm";
+import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, IsDateString } from "class-validator";
 
 import { Treasury } from "./treasury.entity";
-import { Credit } from "./credit.entity";
 import { EntityBase } from "./entity-base.entity";
 import { recipes } from "../validation/recipes.messages";
 import { TransactionType } from "./enums/transaction-type.enum";
@@ -34,11 +32,6 @@ export class Recipe extends EntityBase {
         unique: false, nullable: false
     })
     public readonly type: TransactionType;
-
-    @ValidateNested()
-    @Type(() => Credit)
-    @OneToMany(type => Credit, credit => credit.recipe, { cascade: true })
-    public credits: Credit[];
 
     @IsNotEmpty({message: `${recipes.dateNotNull}`})
     @IsDateString({message: `${recipes.dateValid}`})
