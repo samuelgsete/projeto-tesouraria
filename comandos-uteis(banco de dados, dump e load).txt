@@ -8,3 +8,7 @@ CREATE DATABASE treasurydb
 DROP DATABASE treasurydb
 Acessar bando de dados:
 psql -U postgres treasurydb
+* exportar o esquema de um banco de dados postgres
+pg_dump -U postgres -s treasurydb > C:\Users\Samuel\Desktop\schema.sql
+* exportando apenas os dados
+pg_dump -U postgres --table=user --data-only --column-inserts treasurydb > C:\Users\Samuel\Desktop\data.sql
