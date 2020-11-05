@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -7,18 +7,20 @@ import * as moment from 'moment';
 import { Income } from 'src/app/shared/models/income.entity';
 import { Report } from 'src/app/shared/models/report.entity';
 import { ReportService } from 'src/app/shared/services/report.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, OnDestroy {
 
   public report = new Report();
   public annualReport: Report[] = [];
   public income = new Income();
   public loading = true;
+  public subscriptions: Subscription[] = [];
 
   public months = [
     'Janeiro',
@@ -106,13 +108,12 @@ export class ReportComponent implements OnInit {
   { 
     this.getReport();
   }
-
+ 
   public getReport() {
     let id = parseInt(this.router.url.split('/')[2]);
     let month = this.months.indexOf(this.monthSelected);
     this.loading = true;
-    this.service.getReport(id, this.yearSelected, month).subscribe( response => {
-      
+    this.subscriptions.push(this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
       if(!Array.isArray(response.body)) {
         this.report = response.body;
         this.annualReport = [];
@@ -121,12 +122,12 @@ export class ReportComponent implements OnInit {
         this.annualReport = response.body;
         this.report = new Report();
       }
-
-      this.loading = false;
       this.feedChart();
     }, error => {
       this.errorMessage(error);
-    });
+    }).add( () => {
+      this.loading = false;
+    }));
   }
 
   private feedChart() {
@@ -162,11 +163,15 @@ export class ReportComponent implements OnInit {
   public download() {
     let id = parseInt(this.router.url.split('/')[2]);
     let month = this.months.indexOf(this.monthSelected);
-    this.service.downloadReport(id, this.yearSelected, month).subscribe( res => {
+    this.loading = true;
+    this.subscriptions.push(this.service.downloadReport(id, this.yearSelected, month).subscribe( res => {
       const newWin = open();
       newWin.document.write(res.body);
-      
-    });
+    }, error => {
+      this.errorMessage(error);
+    }).add( () => {
+      this.loading = false;
+    }));
   }
   
   private errorMessage(err: any) {
@@ -187,4 +192,10 @@ export class ReportComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach( sub => {
+      sub.unsubscribe();
+    });
+  }
 }

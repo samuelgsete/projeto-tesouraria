@@ -117,12 +117,12 @@ export class HistoricComponent implements OnInit {
     this.loading = true;
     this.historicService.getHistoric(id, this.yearSelected).subscribe( response => {
       this.historic = response.body;
-      console.log(this.historic);
       this.populate(this.historic);
-      this.loading = false;
 
     }, error => {
       this.errorMessage(error);
+    }).add( () => {
+      this.loading = false;
     });
   }
 

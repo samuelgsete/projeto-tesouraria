@@ -28,7 +28,21 @@ export class TransactionsService {
         const recipes = filteredRecipes;
         const expenses = filteredExpenses;
 
-        return { recipes, expenses }
+        return this.sortTransactions(recipes, expenses);;
+    }
+
+    private sortTransactions(recipes: Recipe[], expenses: Expense[]) {
+        const unsorted = [...recipes, ...expenses];
+        const transactions = unsorted.sort((t1, t2) => {
+            if (t1.registeredIn > t2.registeredIn) { 
+                return 1; 
+            }
+            if (t1.registeredIn < t2.registeredIn) { 
+                return -1; 
+            }
+            return 0;
+        });
+        return transactions;
     }
 
     public async createRecipe(treasuryId: number, userId: number, recipe: Recipe) {
