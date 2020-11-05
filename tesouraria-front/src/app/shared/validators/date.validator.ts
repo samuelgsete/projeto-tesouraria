@@ -10,5 +10,5 @@ export class DateValidator {
             }
             return null;
         };
-      }
+    }
 }

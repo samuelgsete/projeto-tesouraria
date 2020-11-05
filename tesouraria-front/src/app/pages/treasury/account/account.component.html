@@ -15,7 +15,7 @@
     </div>
     <div class="account z-depth-1-half">
         <div class="main">
-            <div *ngIf="indicadorDeCarregamento">
+            <div *ngIf="loading">
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </div>
             <div class="row">
@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="account">
-        <div class="loading" *ngIf="indicadorDeCarregamento">
+        <div class="loading" *ngIf="loading">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
         <div class="row">

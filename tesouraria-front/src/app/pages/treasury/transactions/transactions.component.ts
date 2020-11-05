@@ -54,7 +54,7 @@ export class TransactionsComponent implements OnInit {
     this.incomeComponent.load();
     const month = this.months.indexOf(this.monthSelected);
     this.transactionsService.findAll(this.treasuryId, this.typeTransactionSelected, this.yearSelected, month).subscribe( response => {
-      this.rows = [...response.body.recipes, ...response.body.expenses];
+      this.rows = response.body;
       this.loading = false;
     }, err => {
       this.errorMessage(err);

@@ -5,7 +5,7 @@
     <div class="about">
         <img src="/assets/img/computer.png" alt="usuario" width="80px" height="80px">
         <h1>Crie sua conta gratuita</h1>
-        <p><mdb-icon fas icon="quote-left"></mdb-icon> Para acessar nosso serviço você precisa relizar um cadastro, não se preoucpe, vai ser rápido. Caso ja tenha criado uma conta clique no botão abaixo para ser direcionado à tela de login <mdb-icon fas icon="quote-right"></mdb-icon> </p>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon> Para acessar nosso serviço você precisa relizar um cadastro, não se preocupe, vai ser rápido. Caso ja tenha criado uma conta clique no botão abaixo para ser direcionado à tela de login <mdb-icon fas icon="quote-right"></mdb-icon> </p>
         <button mdbBtn type="button" color="indigo" outline="true" (click)="toLogin()" mdbWavesEffect>JA ESTOU CADASTRADO</button> 
     </div>
     <div class="main z-depth-2">
@@ -17,7 +17,7 @@
         <div class="body">
             <form [formGroup]="form">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Nome</mat-label>
                             <input formControlName="name" matInput required>
@@ -25,7 +25,7 @@
                             <mat-error>preencha o nome corretamente</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Sobrenome</mat-label>
                             <input formControlName="surname" matInput required>
@@ -45,17 +45,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Whatzapp</mat-label>
                             <input formControlName="whatzapp" matInput required mask="(00) 00000-0000">
                             <mat-icon matSuffix>phone</mat-icon>
-                            <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000</mat-error>
+                            <mat-error>Preencha essa capo corretamente</mat-error>
                         </mat-form-field>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Login</mat-label>
                             <input formControlName="username" matInput required>
@@ -63,12 +61,23 @@
                             <mat-error>preencha o nome corretamente</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                </div>
+               
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Senha</mat-label>
                             <input #pass formControlName="password" type="password" matInput required>
                             <mat-icon #icon style="cursor: pointer;" (mousedown)="showPassword(pass, icon)" (mouseup)="hidePassword(pass, icon)" matSuffix>visibility_off</mat-icon>
-                            <mat-error>preencha o sobrenome corretamente</mat-error>
+                            <mat-error>preencha a senha corretamente</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <mat-form-field class="input-width" appearance="outline">
+                            <mat-label>Confirmação de senha</mat-label>
+                            <input #pass2 formControlName="confirmPassword" type="password" matInput required>
+                            <mat-icon #icon2 style="cursor: pointer;" (mousedown)="showPassword(pass2, icon2)" (mouseup)="hidePassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
+                            <mat-error>preencha a confirmação de senha corretamente</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

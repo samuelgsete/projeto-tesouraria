@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
 
   public form: FormGroup;
   public user = new User();
-  public indicadorDeCarregamento = true;
+  public loading = true;
   @ViewChild('modal') modal: any;
 
   public constructor(
@@ -26,12 +26,15 @@ export class AccountComponent implements OnInit {
                     ) { }
 
   public load() {
-    this.indicadorDeCarregamento = true;
+    this.loading= true;
     const userId = parseInt(localStorage.getItem("user_id"));
     this.userService.findById(userId).subscribe( response => {
       this.user = response;
-      this.indicadorDeCarregamento = false;
-    })
+    }, error => {
+      this.errorMessage(error);
+    }).add( () => {
+      this.loading = false;
+    });
   }
 
   public abrirModal() {
@@ -57,7 +60,7 @@ export class AccountComponent implements OnInit {
       username: usuario.username,
       password: usuario.password
     });
-
+    this.loading = true;
     this.userService.update(user).subscribe( response => {
       this.toastr.success(response.message, 'Feito', { progressBar: true });
       this.modal.hide();
@@ -65,10 +68,12 @@ export class AccountComponent implements OnInit {
     },
     error => {
       this.errorMessage(error);
+    }).add( () => {
+      this.loading = false;
     });
   }
 
-  errorMessage(err: any) {
+  public errorMessage(err: any) {
     if(err.status == 0) {
       this.toastr.error('Servidor Inacessível', 'ERRO', { progressBar: true });
     }
@@ -86,7 +91,6 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
-
     this.form = this._fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
       surname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
