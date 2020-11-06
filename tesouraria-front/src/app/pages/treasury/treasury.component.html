@@ -160,8 +160,9 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Nome" formControlName="name" required>
-                            <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            <input matInput maxlength="30" placeholder="Nome" formControlName="name" required>
+                            <mat-error *ngIf="this.f['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
+                            <mat-error *ngIf="this.f['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -169,16 +170,17 @@
                     <div class="col">
                         <mat-form-field  class="input-width">
                             <input matInput placeholder="Montante inicial" formControlName="initialAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
-                            <mat-error>Esse campo precisa ser preenchido</mat-error>
+                            <mat-error *ngIf="this.f['controls']['initialAmount'].errors?.required">O montante inicial é obrigatório</mat-error>
+                            <mat-error *ngIf="this.f['controls']['initialAmount'].errors?.invalidMoney">Não é permitido o valor dessa quantia</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
-                            <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                            <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            <textarea  #input matInput placeholder="Detalhes" maxlength="255" formControlName="details"></textarea>
+                            <mat-error>Informe no mínimo 4 caracteres ou se preferir deixe em branco</mat-error>
+                            <mat-hint>{{input.value?.length || 0}}/255</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>
@@ -204,24 +206,27 @@
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Nome" formControlName="name" required>
-                            <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                            <input matInput placeholder="Nome" maxlength="30" formControlName="name" required>
+                            <mat-error *ngIf="this.f['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
+                            <mat-error *ngIf="this.f['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field  class="input-width">
-                            <input matInput placeholder="Montante inicial" formControlName="initialAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">
+                            <input matInput placeholder="Montante inicial" formControlName="initialAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required>
+                            <mat-error *ngIf="this.f['controls']['initialAmount'].errors?.required">O montante inicial é obrigatório</mat-error>
+                            <mat-error *ngIf="this.f['controls']['initialAmount'].errors?.invalidMoney">Não é permitido o valor dessa quantia</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <mat-form-field class="input-width">
-                            <textarea  #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
-                            <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                            <mat-hint>{{input.value?.length || 0}}/200</mat-hint>
+                            <textarea  #input2 matInput placeholder="Detalhes" maxlength="255" formControlName="details"></textarea>
+                            <mat-error>Informe no mínimo 4 caracteres ou se preferir deixe em branco</mat-error>
+                            <mat-hint>{{input2.value?.length || 0}}/255</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>

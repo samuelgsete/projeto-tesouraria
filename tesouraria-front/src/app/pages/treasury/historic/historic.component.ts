@@ -97,6 +97,39 @@ export class HistoricComponent implements OnInit {
     }
   };
 
+  public chartOptionsMobile: any = {
+    responsive: true,
+    scales: 
+    { 
+      xAxes: [{
+        ticks: {
+          callback: function(value) {
+              return ``;
+          }
+        }
+      }], 
+      yAxes: [{ 
+        ticks: {
+          callback: function(value) {
+              return ``;
+          }
+        }
+      }] 
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem) {
+          return `R$ ${tooltipItem.value}`;
+        }
+      }
+    },
+    plugins: {
+      datalabels: {
+          display: false,
+      }
+    }
+  };
+
   public constructor(
                         private readonly router: Router, 
                         private readonly historicService: HistoricService, 

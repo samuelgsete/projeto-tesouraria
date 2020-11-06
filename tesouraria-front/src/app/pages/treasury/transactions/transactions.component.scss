@@ -93,6 +93,8 @@
     .body { display: none }
 
     .mobile {
+        padding-bottom: 10px;
+      
         .hero {
             height: 240px;
             padding: 30px 35px;
@@ -127,7 +129,7 @@
         }
 
         .movment {
-            padding: 20px 5px;
+            padding: 15px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             
             ngx-datatable {

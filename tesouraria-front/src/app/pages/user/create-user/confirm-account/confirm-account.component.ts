@@ -28,9 +28,9 @@ export class ConfirmAccountComponent implements OnInit {
     this.email = localStorage.getItem('email');
     this.name = localStorage.getItem('name');
 
-    if(this.email === null || this.name === null) {
+    /*if(this.email === null || this.name === null) {
       this.toNewUser();
-    }
+    }*/
   }
 
   public toNewUser() {
@@ -46,7 +46,6 @@ export class ConfirmAccountComponent implements OnInit {
       this.router.navigateByUrl('/user/auth');
     },
     err => {
-      console.log(err);
       this.errorMessage(err);
     }).add( () => {
       this.loading = false;
@@ -76,7 +75,7 @@ export class ConfirmAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.code = new FormControl('59334', {
+    this.code = new FormControl('', {
       validators: [
         Validators.required, 
         Validators.minLength(5), 

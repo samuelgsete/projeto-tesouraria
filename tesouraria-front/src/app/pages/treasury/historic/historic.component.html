@@ -123,9 +123,9 @@
                 </mat-expansion-panel>
             </mat-accordion>
 
-            <div class="row rendimentos">
-                <div class="col-12">
-                    <p class="text-center">Histórico de rendimentos de {{ yearSelected }}</p>
+            <div class="row">
+                <div class="col-12 rendimentos">
+                    <h5>Histórico de faturamento de {{ yearSelected }}</h5>
                 </div>
                 <div class="col-12">
                     <mdb-card mdbWavesEffect>
@@ -136,8 +136,8 @@
                                     [(datasets)]="transactions"
                                     [labels]="chartLabels"
                                     [colors]="transactionsColors"
-                                    [options]="chartOptions"
-                                    [legend]="true"
+                                    [options]="chartOptionsMobile"
+                                    [legend]="false"
                                 >
                                 </canvas>
                             </div>     
@@ -148,7 +148,7 @@
         
             <div class="row receitas">
                 <div class="col-12">
-                    <p class="text-center">Histórico de geral de faturamento de {{ yearSelected }}</p>  
+                    <h5>Histórico de inventário de {{ yearSelected }}</h5> 
                 </div>
                 <div class="col-12">
                     <mdb-card mdbWavesEffect>
@@ -159,8 +159,8 @@
                                     [(datasets)]="billing"
                                     [labels]="chartLabels"
                                     [colors]="billingColors"
-                                    [options]="chartOptions"
-                                    [legend]="true"
+                                    [options]="chartOptionsMobile"
+                                    [legend]="false"
                                 >
                         </canvas>
                             </div>     
