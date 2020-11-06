@@ -13,7 +13,7 @@
             <img src="/assets/img/avatar/avatar-new-user.png" alt="usuario" width="80px" height="80px">
             <h6>Confirme seu cadastro</h6>
             <p>Sua conta precisa ser confirmada</p>
-            <mdb-badge style="font-size: 13px; font-weight: normal;" pill="true" primary="true">{{ email }}</mdb-badge>
+            <mdb-badge style="font-size: 16px; font-weight: normal;" pill="true" primary="true">{{ email }}</mdb-badge>
         </div>
         <div class="body">
             <div class="form">
@@ -25,10 +25,11 @@
                     se o código estiver correto.
                 </p>
                 <mat-form-field class="input-width" appearance="outline">
-                    <mat-label>Código</mat-label>
-                    <input [formControl]="code" matInput autofocus required>
+                    <mat-label>Código de verificação</mat-label>
+                    <input [formControl]="code" matInput autofocus maxlength="5" mask="00000" required>
                     <mat-icon matSuffix>code</mat-icon>
-                    <mat-error>Por favor insira o código</mat-error>
+                    <mat-error *ngIf="this.code.errors?.required">Informe o código de verificação</mat-error>
+                    <mat-error *ngIf="this.code.errors?.minlength">Informe exatamente 5 caracteres</mat-error>
                 </mat-form-field>
                 <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="code.invalid" (click)="finalizeRegistration()" mdbWavesEffect>FINALIZAR CADASTRO</button>
             </div>

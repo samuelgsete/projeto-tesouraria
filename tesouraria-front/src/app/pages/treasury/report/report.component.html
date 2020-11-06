@@ -279,7 +279,7 @@
                         <mat-form-field>
                             <mat-label>Mês</mat-label>
                             <mat-select [(value)]="monthSelected" (selectionChange)="getReport()">
-                                <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+                                <mat-option *ngFor="let month of months; let i = index" [value]="month">{{ month }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -309,12 +309,12 @@
             <div *ngIf="report.recipes[0] != null || report.expenses[0] != null">
                 <div class="row">
                     <div class="col">
-                        <p style="margin-top: 10px;">Rendimentos de {{ monthSelected }} de {{ yearSelected }}</p>
+                        <p style="margin-top: 10px; font-weight: bold;">Rendimentos de {{ monthSelected }} de {{ yearSelected }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card mdbWavesEffect>
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
@@ -329,7 +329,7 @@
                         </mdb-card>
                     </div>
                 </div>
-                <table>
+                <table class="z-depth-1-half">
                     <tr>
                         <th class="info-color">RECEITAS</th>
                     </tr>
@@ -365,7 +365,7 @@
                 </table>
                 <div class="row">
                     <div class="col">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card mdbWavesEffect>
                             <mdb-card-body>
                                 <canvas mdbChart
                                     [chartType]="chartType"
@@ -380,7 +380,7 @@
                         </mdb-card>
                     </div>
                 </div>
-                <table>
+                <table class="z-depth-1-half">
                     <tr>
                         <th class="danger-color">DESPESAS</th>
                     </tr>

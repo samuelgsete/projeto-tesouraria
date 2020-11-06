@@ -20,17 +20,19 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Nome</mat-label>
-                            <input formControlName="name" matInput required>
+                            <input formControlName="name" maxlength="30" (keydown.space)="$event.preventDefault();" matInput required>
                             <mat-icon matSuffix>face</mat-icon>
-                            <mat-error>preencha o nome corretamente</mat-error>
-                        </mat-form-field>
+                            <mat-error *ngIf="this.form['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
+                            <mat-error *ngIf="this.form['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                        </mat-form-field>                        
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Sobrenome</mat-label>
-                            <input formControlName="surname" matInput required>
+                            <input formControlName="surname" maxlength="30" matInput required>
                             <mat-icon matSuffix>account_circle</mat-icon>
-                            <mat-error>preencha o sobrenome corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['surname'].errors?.required">O sobrenome é obrigatório</mat-error>
+                            <mat-error *ngIf="this.form['controls']['surname'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -38,9 +40,10 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input formControlName="email" matInput required>
+                            <input formControlName="email" maxlength="30" matInput required>
                             <mat-icon matSuffix>email</mat-icon>
-                            <mat-error>preencha o email corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['email'].errors?.required">O email é obrigatório</mat-error>
+                            <mat-error *ngIf="this.form['controls']['email'].errors?.email">Informe um email válido</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -48,17 +51,18 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Whatzapp</mat-label>
-                            <input formControlName="whatzapp" matInput required mask="(00) 00000-0000">
+                            <input formControlName="whatsapp" matInput required mask="(00)00000-0000">
                             <mat-icon matSuffix>phone</mat-icon>
-                            <mat-error>Preencha essa capo corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['whatsapp'].errors?.required">O WhatsApp é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Login</mat-label>
-                            <input formControlName="username" matInput required>
+                            <input formControlName="username" maxlength="30" matInput required>
                             <mat-icon matSuffix>security</mat-icon>
-                            <mat-error>preencha o nome corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['username'].errors?.required">O nome de usuário é obrigatório</mat-error>
+                            <mat-error *ngIf="this.form['controls']['username'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -67,9 +71,10 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Senha</mat-label>
-                            <input #pass formControlName="password" type="password" matInput required>
+                            <input #pass formControlName="password" type="password" maxlength="30" matInput required>
                             <mat-icon #icon style="cursor: pointer;" (mousedown)="showPassword(pass, icon)" (mouseup)="hidePassword(pass, icon)" matSuffix>visibility_off</mat-icon>
-                            <mat-error>preencha a senha corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['password'].errors?.required">A senha é obrigatória</mat-error>
+                            <mat-error *ngIf="this.form['controls']['password'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
@@ -77,7 +82,9 @@
                             <mat-label>Confirmação de senha</mat-label>
                             <input #pass2 formControlName="confirmPassword" type="password" matInput required>
                             <mat-icon #icon2 style="cursor: pointer;" (mousedown)="showPassword(pass2, icon2)" (mouseup)="hidePassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
-                            <mat-error>preencha a confirmação de senha corretamente</mat-error>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.required">A confirmaçao é obrigatória</mat-error>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.confirmedValidator">Informe a mesma senha</mat-error>
                         </mat-form-field>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ReportService {
 
-    private urlBase: string = 'http://localhost:3000/report';
+    private urlBase: string = 'https://tesouraria-core.herokuapp.com/report';
 
     public constructor(private readonly http: HttpClient) {}
 

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Pagination} from 'src/app/shared/models/pagination.entity';
 import { PaginationService } from 'src/app/shared/pagination/pagination.service';
+import { MaxInputMoneyValidator } from 'src/app/shared/validators/max-input-money.validator';
 
 @Component({
   selector: 'app-treasury',
@@ -171,9 +172,9 @@ export class TreasuryComponent implements OnInit {
     this.f = this._fb.group({
       id: [null],
       name:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      initialAmount:['', [Validators.required]],
+      initialAmount:['', [Validators.required, new MaxInputMoneyValidator()]],
       currentBalance:[0, []],
-      details: [null, [Validators.minLength(3), Validators.maxLength(255)]],
+      details: ['', [Validators.minLength(4), Validators.maxLength(255)]],
       recipes: [[]],
       expenses: [[]],
       inventories: [[]],

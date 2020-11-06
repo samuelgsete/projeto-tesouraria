@@ -133,7 +133,7 @@
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header mdbWavesEffect>
-                    <mat-panel-description>Filtre as transações que deseja gerenciar</mat-panel-description>
+                    <mat-panel-description>Filtre suas transações</mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="row">
                     <div class="col-12">
@@ -165,7 +165,7 @@
         </mat-accordion>
         <ngx-datatable
             [rows]="rows"
-            class="material z-depth-0"
+            class="material"
             [loadingIndicator]="loading"
             [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
             [columnMode]="'force'"
@@ -217,37 +217,40 @@
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="description" required>
-                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                                <input matInput placeholder="Descrição" maxlength="60" formControlName="description" required>
+                                <mat-error *ngIf="this.formRecipes['controls']['description'].errors?.required">A descrição é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['description'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
-                                <mat-error>Esse campo é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['value'].errors?.required">O valor é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['value'].errors?.invalidMoney">Valor não permitido</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Ofertante" formControlName="offerer">
-                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                                <input matInput placeholder="Ofertante" maxlength="60" formControlName="offerer">
+                                <mat-error>Informe no mínimo 4 caracteres ou se prefirir não preencha</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field class="input-width">
                                 <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
-                                <mat-error>A data de registro deve ser válida</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['registeredIn'].errors?.required">A data é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['registeredIn'].errors?.invalidDate">A data deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
-                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
+                                <textarea  #obs matInput placeholder="Detalhes" maxlength="255" formControlName="details"></textarea>
+                                <mat-error>Informe no mínimo 4 caracteres ou se prefirir ignore essa campo</mat-error>
+                                <mat-hint>{{obs.value?.length || 0}}/255</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>    
@@ -274,14 +277,16 @@
                     <div class="row">
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="description" required>
-                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                                <input matInput placeholder="Descrição" maxlength="60" formControlName="description" required>
+                                <mat-error *ngIf="this.formRecipes['controls']['description'].errors?.required">A descrição é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['description'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
-                                <mat-error>Esse campo é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['value'].errors?.required">O valor é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['value'].errors?.invalidMoney">Valor não permitido</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -289,22 +294,23 @@
                         <div class="col-md-8">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Ofertante" formControlName="offerer">
-                                <mat-error>Informe no mínimo quatro caracteres</mat-error>
+                                <mat-error>Informe no mínimo 4 caracteres ou se prefirir não preencha</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
-                                <mat-error>A data de registro deve ser válida</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['registeredIn'].errors?.required">A data é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formRecipes['controls']['registeredIn'].errors?.invalidDate">A data deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea  #obs matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
-                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{obs.value?.length || 0}}/200</mat-hint>
+                                <textarea  #obs2 matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <mat-error>Informe no mínimo 4 caracteres ou se prefirir ignore essa campo</mat-error>
+                                <mat-hint>{{obs2.value?.length || 0}}/255</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>       
@@ -331,8 +337,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field  class="input-width">
-                                <input matInput placeholder="Descrição" formControlName="description">
-                                <mat-error>Informe no mínimo 4  e no máximo 50 caracteres</mat-error>
+                                <input matInput placeholder="Descrição" maxlength="60" formControlName="description">
+                                <mat-error *ngIf="this.formExpenses['controls']['description'].errors?.required">A descriçaõ é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formExpenses['controls']['description'].errors?.minlength">informe no mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -340,7 +347,8 @@
                         <div class="col">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Valor" formControlName="value" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required >
-                                <mat-error>Esse campo é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formExpenses['controls']['value'].errors?.required">O valor é obrigatório</mat-error>
+                                <mat-error *ngIf="this.formExpenses['controls']['value'].errors?.invalidMoney">Valor não permitido</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
@@ -348,16 +356,17 @@
                         <div class="col">
                             <mat-form-field  class="input-width">
                                 <input matInput placeholder="Registrado em" formControlName="registeredIn" mask="00/00/0000" required>
-                                <mat-error>A data de registro deve ser válida</mat-error>
+                                <mat-error *ngIf="this.formExpenses['controls']['registeredIn'].errors?.required">A data é obrigatória</mat-error>
+                                <mat-error *ngIf="this.formExpenses['controls']['registeredIn'].errors?.invalidDate">A data deve ser válida</mat-error>
                             </mat-form-field> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #details matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
-                                <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{ details.value?.length || 0 }}/200</mat-hint>
+                                <textarea #details matInput placeholder="Detalhes" maxlength="255" formControlName="details"></textarea>
+                                <mat-error>Informe no mínimo 4 caracteres ou se prefirir ignore essa campo</mat-error>
+                                <mat-hint>{{ details.value?.length || 0 }}/255</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -408,9 +417,9 @@
                     <div class="row">
                         <div class="col">
                             <mat-form-field class="input-width">
-                                <textarea #input matInput placeholder="Detalhes" maxlength="200" formControlName="details"></textarea>
+                                <textarea #input matInput placeholder="Detalhes" maxlength="255" formControlName="details"></textarea>
                                 <mat-error>Informe um valor com no mínimo quatro caracteres</mat-error>
-                                <mat-hint>{{ input.value?.length || 0}}/200</mat-hint>
+                                <mat-hint>{{ input.value?.length || 0}}/255</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>

@@ -108,7 +108,7 @@
     }
 
     .mobile {
-        padding-bottom: 20px;
+        padding-bottom: 0px;
 
         .hero {
             height: 240px;
@@ -145,7 +145,7 @@
         .report {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 18px;
-            padding: 10px 10px;
+            padding: 15px;
  
             mat-form-field {
                 width: 100%;
@@ -159,6 +159,7 @@
                 .empty-data {
                     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                     text-align: center;
+                    margin-top: 15px;
                     padding: 40px;
                     h5 { margin-top: 15px }
                 }
@@ -178,6 +179,7 @@
                 table { 
                     width: 100%; 
                     margin: 20px 0;
+                    background-color: #fff;
     
                     th {
                         text-align: center;

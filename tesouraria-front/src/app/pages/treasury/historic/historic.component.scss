@@ -98,13 +98,15 @@
 
         .history {
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            padding: 10px;
+            padding: 0 15px;
             
             .main-content {
                 mat-form-field { width: 100% }
 
+                h5 { text-align: center; font-weight: bold; }
+
                 .rendimentos, .receitas {
-                    margin-top: 30px;
+                    margin-top: 20px;
                 }
             }
         }

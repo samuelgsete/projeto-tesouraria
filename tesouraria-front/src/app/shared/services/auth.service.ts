@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService  {
 
-  private urlBase: string = 'http://localhost:3000/auth/login';
+  private urlBase: string = 'https://tesouraria-core.herokuapp.com/auth/login';
 
   public constructor(
                       private http: HttpClient, 

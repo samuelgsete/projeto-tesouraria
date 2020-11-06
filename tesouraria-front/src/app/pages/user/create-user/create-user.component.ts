@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/shared/models/user.entity';
 import { UserService } from 'src/app/shared/services/user.service';
 import { PasswordValidator } from 'src/app/shared/validators/password.validator';
+import { NoWhiteSpaceValidator } from 'src/app/shared/validators/no.white.space.validator';
 
 const SERVER_OFFLINE = 0;
 
@@ -18,8 +19,7 @@ export class CreateUserComponent implements OnInit {
 
   public form: FormGroup;
   public loading = false;
-  public passwordValidator = new PasswordValidator();
-
+ 
   public constructor(
                         private readonly router: Router, 
                         private readonly _fb: FormBuilder, 
@@ -39,7 +39,7 @@ export class CreateUserComponent implements OnInit {
       name: data.name,
       surname: data.surname,
       email: data.email,
-      whatzapp: data.whatzapp,
+      whatzapp: data.whatsapp,
       username: data.username,
       password: data.password
     });
@@ -81,15 +81,16 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._fb.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      surname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      email: ['', [Validators.required, Validators.email]],
-      whatzapp: ['', [Validators.required]],
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required ]
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      surname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      whatsapp: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(15), new NoWhiteSpaceValidator()]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]]
     }, {
-      validators: this.passwordValidator.confirmed('password', 'confirmPassword')
+      validators: new PasswordValidator().confirmed('password', 'confirmPassword')
     });
+    console.log(this.form['controls']['name']);
   }
 }

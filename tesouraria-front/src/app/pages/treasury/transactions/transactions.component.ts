@@ -11,6 +11,7 @@ import { Recipe } from 'src/app/shared/models/recipe.entity';
 import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
+import { MaxInputMoneyValidator } from 'src/app/shared/validators/max-input-money.validator';
 
 @Component({
   selector: 'app-transactions',
@@ -104,23 +105,31 @@ export class TransactionsComponent implements OnInit {
   }
 
   public resetFormRecipes() {
-    this.formRecipes.patchValue({
+    /*this.formRecipes.patchValue({
         id: null,
         description: '',
         value: '',
         offerer: null,
         registeredIn: moment().format('DDMMYYYY'),
         details: null
+    });*/
+    this.formRecipes.reset();
+    this.formRecipes.patchValue({
+      registeredIn: moment().format('DDMMYYYY'),
     });
   }
 
   public resetFormExpenses() {
-    this.formExpenses.patchValue({
+    /*this.formExpenses.patchValue({
       id: null,
       description: '',
       value: '',
       registeredIn: moment().format('DDMMYYYY'),
       details: null,
+    });*/
+    this.formExpenses.reset();
+    this.formExpenses.patchValue({ 
+      registeredIn: moment().format('DDMMYYYY'),
     });
   }
 
@@ -277,21 +286,19 @@ export class TransactionsComponent implements OnInit {
     this.load();
     this.formRecipes = this._fb.group({
       id: [null],
-      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
-      value :[Validators.required],
-      offerer: [null, [Validators.minLength(2), Validators.maxLength(60)]],
-      type: [TransactionType.RECIPE],
+      description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
+      value: ['', [Validators.required, new MaxInputMoneyValidator()]],
+      offerer: ['', [Validators.minLength(4), Validators.maxLength(60)]],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: [null, Validators.maxLength(255)],
+      details: ['', [Validators.minLength(4), Validators.maxLength(255)]],
     });
 
     this.formExpenses = this._fb.group({
       id: [null],
-      description:['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
-      value:['', Validators.required],
-      type: [TransactionType.EXPENSE],
+      description:['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
+      value:['', [Validators.required, new MaxInputMoneyValidator()]],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: [null, Validators.maxLength(255)]
+      details: ['', [Validators.minLength(4), Validators.maxLength(255)]]
     });
   }
 }
