@@ -20,10 +20,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { PaginationModule } from './pagination/pagination.module';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { PhonePipe } from './pipes/phone.pipe';
+import { DateShowPipe } from './pipes/date-show.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PhonePipe,
+    DateShowPipe 
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -60,7 +64,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule, 
-    PaginationModule
+    PaginationModule,
+    PhonePipe,
+    DateShowPipe 
   ]
 })
 export class SharedModule { }

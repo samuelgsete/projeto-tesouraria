@@ -118,7 +118,7 @@
                                 <div class="card-body text-center">
                                     <p class="text-dark"><%= recipe.description %></p>
                                     <h4 class="card-title text-info">R$ <%= recipe.value.toFixed(2) %></h4>
-                                    <p class="text-dark"><%= moment(recipe.registeredIn).format('DD/MM/YYYY') %></p>
+                                    <p class="text-dark"><%= dateFormat(recipe.registeredIn) %></p>
                                     <p class="text-dark"><%= recipe.details %></p>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <div class="card-body text-center">
                                     <p class="text-dark"><%= expense.description %></p>
                                     <h4 class="card-title text-danger">R$ <%= expense.value.toFixed(2) %></h4>
-                                    <p class="text-dark"><%= moment(expense.registeredIn).format('DD/MM/YYYY') %></p>
+                                    <p class="text-dark"><%= dateFormat(expense.registeredIn) %></p>
                                     <p class="text-dark"><%= expense.details %></p>
                                 </div>
                             </div>

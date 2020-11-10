@@ -7,7 +7,7 @@ import { User } from '../models/user.entity';
 @Injectable()
 export class UserService {
 
-    private urlBase = 'https://tesouraria-core.herokuapp.com/user';
+    private urlBase = 'http://localhost:3000/user';
 
     public constructor(private http: HttpClient) { }
 

@@ -6,7 +6,7 @@ import { Inventory } from '../models/inventory.entity';
 @Injectable()
 export class InventoryService {
 
-    private urlBase: string = 'https://tesouraria-core.herokuapp.com/inventory';
+    private urlBase: string = 'http://localhost:3000/inventory';
 
     public constructor(private readonly http: HttpClient) {}
 

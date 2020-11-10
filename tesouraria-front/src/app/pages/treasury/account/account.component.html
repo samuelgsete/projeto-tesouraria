@@ -5,7 +5,7 @@
             <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10">
                 <div class="name-page">
                     <mat-icon>admin_panel_settings</mat-icon>
-                    <h2>Configurações</h2>
+                    <h2>Suas informações</h2>
                 </div>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
@@ -14,10 +14,7 @@
         </div>
     </div>
     <div class="account z-depth-1-half">
-        <div class="main">
-            <div *ngIf="loading">
-                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </div>
+        <div class="main">         
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <mdb-card mdbWavesEffect>
@@ -86,7 +83,7 @@
                         </mdb-card-body>
                     </mdb-card>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <mdb-card mdbWavesEffect>
                         <mdb-card-body>
                             <mat-icon>phone</mat-icon>
@@ -94,25 +91,12 @@
                                 <p>Whatzapp</p>
                             </mdb-card-title>
                             <mdb-card-title>
-                                <h4>{{ user.whatzapp }}</h4>
+                                <h4>{{ user.whatzapp | phone }}</h4>
                             </mdb-card-title>                   
                         </mdb-card-body>
                     </mdb-card>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                    <mdb-card mdbWavesEffect>
-                        <mdb-card-body>
-                            <mat-icon>security</mat-icon>
-                            <mdb-card-title>
-                                <p>Senha de acesso</p>
-                            </mdb-card-title> 
-                            <mdb-card-title>
-                                <h4>{{ user.password }}</h4>
-                            </mdb-card-title>                   
-                        </mdb-card-body>
-                    </mdb-card>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                     <mdb-card mdbWavesEffect>
                         <mdb-card-body>
                             <mat-icon>date_range</mat-icon>
@@ -120,21 +104,8 @@
                                 <p>Última atualização</p>
                             </mdb-card-title>
                             <mdb-card-title>
-                                <h4>{{ user.updated | date: 'dd/MM/yyyy'}}</h4>
+                                <h4>{{ user.updated | date: 'dd/MM/yyyy' }}</h4>
                             </mdb-card-title>                   
-                        </mdb-card-body>
-                    </mdb-card>
-                </div>
-                <div class="col">
-                    <mdb-card mdbWavesEffect class="aviso">
-                        <mdb-card-body>
-                            <mat-icon>info</mat-icon>
-                            <mdb-card-title>
-                                <h4>Atenção</h4>
-                            </mdb-card-title>  
-                            <mdb-card-title>
-                                <p>Evite a exposição das suas informações, não nos responsabilizamos por eventuais vazamentos de dados</p>
-                            </mdb-card-title>                 
                         </mdb-card-body>
                     </mdb-card>
                 </div>
@@ -239,19 +210,6 @@
             <div class="col-12">
                 <mdb-card mdbWavesEffect>
                     <mdb-card-body>
-                        <mat-icon>security</mat-icon>
-                        <mdb-card-title>
-                            <p>Senha de acesso</p>
-                        </mdb-card-title> 
-                        <mdb-card-title>
-                            <h4>{{ user.password }}</h4>
-                        </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-12">
-                <mdb-card mdbWavesEffect>
-                    <mdb-card-body>
                         <mat-icon>date_range</mat-icon>
                         <mdb-card-title>
                             <p>Última atualização</p>
@@ -259,19 +217,6 @@
                         <mdb-card-title>
                             <h4>{{ user.updated | date: 'dd/MM/yyyy' }}</h4>
                         </mdb-card-title>                   
-                    </mdb-card-body>
-                </mdb-card>
-            </div>
-            <div class="col-12">
-                <mdb-card class="aviso" mdbWavesEffect>
-                    <mdb-card-body>
-                        <mat-icon>info</mat-icon>
-                        <mdb-card-title>
-                            <h4>Atenção</h4>
-                        </mdb-card-title>  
-                        <mdb-card-title>
-                            <p>Evite a exposição das suas informações, não nos responsabilizamos por eventuais vazamentos de dados</p>
-                        </mdb-card-title>                 
                     </mdb-card-body>
                 </mdb-card>
             </div>
@@ -292,56 +237,78 @@
             <div class="modal-body">
                 <form [formGroup]="form">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <mat-form-field class="input-width" appearance="outline">
                                 <mat-label>Nome</mat-label>
-                                <input formControlName="name" matInput required>
-                                <mat-error>preencha o nome corretamente</mat-error>
-                            </mat-form-field>
+                                <input formControlName="name" maxlength="30" (keydown.space)="$event.preventDefault();" matInput required>
+                                <mat-icon matSuffix>face</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
+                                <mat-error *ngIf="this.form['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                            </mat-form-field>                        
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <mat-form-field class="input-width" appearance="outline">
                                 <mat-label>Sobrenome</mat-label>
-                                <input formControlName="surname" matInput required>
-                                <mat-error>preencha o sobrenome corretamente</mat-error>
+                                <input formControlName="surname" maxlength="30" matInput required>
+                                <mat-icon matSuffix>account_circle</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['surname'].errors?.required">O sobrenome é obrigatório</mat-error>
+                                <mat-error *ngIf="this.form['controls']['surname'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <mat-form-field class="input-width" appearance="outline">
                                 <mat-label>Email</mat-label>
-                                <input formControlName="email" matInput required>
-                                <mat-error>preencha o email corretamente</mat-error>
+                                <input formControlName="email" maxlength="30" matInput required>
+                                <mat-icon matSuffix>email</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['email'].errors?.required">O email é obrigatório</mat-error>
+                                <mat-error *ngIf="this.form['controls']['email'].errors?.email">Informe um email válido</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <mat-form-field class="input-width" appearance="outline">
-                                <mat-label>Whatzapp</mat-label>
-                                <input formControlName="whatzapp" matInput required mask="(00) 00000-0000">
-                                <mat-error>Preencha essa capo corretamente, ex: (00) 00000-000</mat-error>
+                                <mat-label>Whatsapp</mat-label>
+                                <input formControlName="whatzapp" matInput required mask="(00)00000-0000">
+                                <mat-icon matSuffix>phone</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['whatzapp'].errors?.required">O WhatsApp é obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <mat-form-field class="input-width" appearance="outline">
+                                <mat-label>Login</mat-label>
+                                <input formControlName="username" maxlength="30" matInput required>
+                                <mat-icon matSuffix>security</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['username'].errors?.required">O nome de usuário é obrigatório</mat-error>
+                                <mat-error *ngIf="this.form['controls']['username'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
+                   
                     <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                            <mat-form-field class="input-width" appearance="outline">
-                                <mat-label>Usuário</mat-label>
-                                <input formControlName="username" matInput required>
-                                <mat-error>preencha o nome corretamente</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <mat-form-field class="input-width" appearance="outline">
                                 <mat-label>Senha</mat-label>
-                                <input formControlName="password" matInput required>
-                                <mat-error>preencha o sobrenome corretamente</mat-error>
+                                <input #pass formControlName="password" type="password" maxlength="30" matInput required>
+                                <mat-icon #icon style="cursor: pointer;" (mousedown)="showPassword(pass, icon)" (mouseup)="hidePassword(pass, icon)" matSuffix>visibility_off</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['password'].errors?.required">A senha é obrigatória</mat-error>
+                                <mat-error *ngIf="this.form['controls']['password'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <mat-form-field class="input-width" appearance="outline">
+                                <mat-label>Confirmação de senha</mat-label>
+                                <input #pass2 formControlName="confirmPassword" type="password" matInput required>
+                                <mat-icon #icon2 style="cursor: pointer;" (mousedown)="showPassword(pass2, icon2)" (mouseup)="hidePassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
+                                <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.required">A confirmaçao é obrigatória</mat-error>
+                                <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.confirmedValidator">Informe a mesma senha</mat-error>
                             </mat-form-field>
                         </div>
                     </div>
-                </form>
+                </form> 
             </div>
             <div class="modal-footer"> 
                 <button type="button" mdbBtn color="info" class="relative waves-light z-depth-0" [disabled]="!form.valid" (click)="atualizar(form.value)" mdbWavesEffect>ATUALIZAR</button>

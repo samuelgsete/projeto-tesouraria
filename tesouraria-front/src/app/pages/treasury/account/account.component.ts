@@ -5,6 +5,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.entity';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { PasswordValidator } from 'src/app/shared/validators/password.validator';
+import { NoWhiteSpaceValidator } from 'src/app/shared/validators/no.white.space.validator';
 
 @Component({
   selector: 'app-account',
@@ -89,15 +91,28 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  public showPassword(input: any, icon: any) {
+    input.type = 'text';
+    icon._elementRef.nativeElement.firstChild.data = 'visibility';
+  }
+
+  public hidePassword(input: any, icon: any) {
+    icon._elementRef.nativeElement.firstChild.data = 'visibility_off';
+    input.type = 'password';
+  }
+
   ngOnInit(): void {
     this.load();
     this.form = this._fb.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      surname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      email: ['', [Validators.required, Validators.email]],
-      whatzapp: ['', [Validators.required]],
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      password: ['', Validators.required]
+      name: [this.user.name, [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      surname: [this.user.surname, [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      email: [this.user.email, [Validators.required, Validators.email, Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      whatzapp: [this.user.whatzapp, [Validators.required, Validators.minLength(11), Validators.maxLength(15), new NoWhiteSpaceValidator()]],
+      username: [this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      password: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]],
+      confirmPassword: [this.user.password, [Validators.required, Validators.minLength(4), Validators.maxLength(30), new NoWhiteSpaceValidator()]]
+    }, {
+      validators: new PasswordValidator().confirmed('password', 'confirmPassword')
     });
   }
 }

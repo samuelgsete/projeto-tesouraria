@@ -107,7 +107,9 @@
                                         <mdb-card-title>
                                             <h4 class="text-info">{{ recipe.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text>
+                                            <span>{{ recipe.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                        </mdb-card-text>   
                                         <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -122,7 +124,9 @@
                                         <mdb-card-title>
                                             <h4 class="text-danger">{{ expense.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text>
+                                            <span>{{ expense.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                        </mdb-card-text>   
                                         <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
@@ -189,7 +193,9 @@
                                     <mdb-card-title>
                                         <h4 class="text-info">{{ recipe.value | currency:'BRL' }}</h4>
                                     </mdb-card-title>    
-                                    <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                    <mdb-card-text>
+                                        <span>{{ recipe.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                    </mdb-card-text>   
                                     <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
                                     <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
                                 </mdb-card-body>
@@ -204,7 +210,9 @@
                                     <mdb-card-title>
                                         <h4 class="text-danger">{{ expense.value | currency:'BRL' }}</h4>
                                     </mdb-card-title>    
-                                    <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                    <mdb-card-text>
+                                        <span>{{ expense.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                    </mdb-card-text>   
                                     <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
                                 </mdb-card-body>
                             </mdb-card>
@@ -342,7 +350,9 @@
                                         <mdb-card-title>
                                             <h4 class="text-info">{{ recipe.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ recipe.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text>
+                                            <span>{{ recipe.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                        </mdb-card-text>   
                                         <mdb-card-text *ngIf="recipe.offerer != null" >{{ recipe.offerer }}</mdb-card-text> 
                                         <mdb-card-text *ngIf="recipe.details != null" >{{ recipe.details }}</mdb-card-text>            
                                     </mdb-card-body>
@@ -393,7 +403,9 @@
                                         <mdb-card-title>
                                             <h4 class="text-danger">{{ expense.value | currency:'BRL' }}</h4>
                                         </mdb-card-title>    
-                                        <mdb-card-text>{{ expense.registeredIn | date: 'dd/MM/yyyy' }}</mdb-card-text>   
+                                        <mdb-card-text>
+                                            <span>{{ expense.registeredIn | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                        </mdb-card-text>   
                                         <mdb-card-text *ngIf="expense.details != null" >{{ expense.details }}</mdb-card-text>             
                                     </mdb-card-body>
                                 </mdb-card>
