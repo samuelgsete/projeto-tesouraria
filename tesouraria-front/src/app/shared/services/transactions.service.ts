@@ -6,7 +6,7 @@ import { Expense } from '../models/expense.entity';
 
 @Injectable()
 export class TransactionsService {
-    private urlBase: string = 'https://tesouraria-core.herokuapp.com/transactions';
+    private urlBase: string = 'http://localhost:3000/transactions';
 
     public constructor(private readonly http: HttpClient) {}
 

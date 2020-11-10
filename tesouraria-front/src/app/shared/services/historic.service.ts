@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HistoricService {
 
-    private urlBase: string = 'https://tesouraria-core.herokuapp.com/historic';
+    private urlBase: string = 'http://localhost:3000/historic';
 
     public constructor(private readonly http: HttpClient) {}
 

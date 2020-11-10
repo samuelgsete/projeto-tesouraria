@@ -8,7 +8,7 @@ import { Pagination } from '../models/pagination.entity';
 @Injectable()
 export class TreasuryService {
     
-    private urlBase: string = 'https://tesouraria-core.herokuapp.com/treasury';
+    private urlBase: string = 'http://localhost:3000/treasury';
 
     constructor(private http: HttpClient) {}
 

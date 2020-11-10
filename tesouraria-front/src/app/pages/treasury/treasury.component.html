@@ -48,7 +48,11 @@
                             <mdb-card-title>
                                 <h4>{{ treasury.name }}</h4>
                             </mdb-card-title>
-                            <mdb-card-text>Atualizado em {{ treasury.updated | date: 'dd/MM/yyyy' }}</mdb-card-text>  
+                            
+                            <mdb-card-text>
+                                <p>Última atualização</p>
+                                <span>{{ treasury.updated | date: 'dd/MM/yyyy' | dateShow }}</span>
+                            </mdb-card-text>  
                             <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px" (click)="addTransactions(treasury.id)">
                                 <mat-icon>add</mat-icon>
                             </button>
@@ -119,7 +123,10 @@
                         <mdb-card-title>
                             <h4>{{ treasury.name }}</h4>
                         </mdb-card-title>
-                        <mdb-card-text>Atualizado em {{ treasury.updated | date: 'dd/MM/yyyy' }}</mdb-card-text>  
+                        <mdb-card-text>
+                            <p>Última atualização</p>
+                            <span>{{ treasury.updated | date: 'dd/MM/yyyy' | dateShow }}</span>
+                        </mdb-card-text>   
                         <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px;" (click)="addTransactions(treasury.id)">
                             <mat-icon>add</mat-icon>
                         </button>

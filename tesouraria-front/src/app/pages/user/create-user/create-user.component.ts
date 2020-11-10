@@ -91,6 +91,5 @@ export class CreateUserComponent implements OnInit {
     }, {
       validators: new PasswordValidator().confirmed('password', 'confirmPassword')
     });
-    console.log(this.form['controls']['name']);
   }
 }

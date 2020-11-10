@@ -62,34 +62,13 @@
             }
 
             mdb-card:hover {
-                background-color: #77aa77;
+                background-color: #6ebd6e;
                 
                 color: #fff;
                 p, mat-icon {
                     color: #fff;
                 }
             }
-
-            mdb-card.aviso {
-                background-color: #f7e7e7;
-                transition: background-color 0.6s, color 0.7s;
-
-                h4 { margin-top: 0px }
-
-                mat-icon {
-                    color: #ff4444;
-                    transition: background-color 0.6s, color 0.7s;
-                }
-            }
-
-            mdb-card.aviso:hover {
-                background-color: #ff4444;
-                color: #fff;
-                p, mat-icon {
-                    color: #fff;
-                }
-            }
-            
         }
     }
 
@@ -105,18 +84,30 @@
 
             .modal-body {
                 form {
-                    mat-form-field.input-width { width:100% } 
+                    .input-width { width: 100% }
+                    
+                    ::ng-deep {
+                        .mat-form-field-appearance-outline .mat-form-field-outline {
+                           color: #687e7d;
+                        }
+                        mat-form-field {
+                            input, ::placeholder, .mat-form-field-label {
+                                color: #5e6d6c;
+                            }
+                            mat-icon { color: #597271; }
+                        }
+                    }
+                    mat-error { margin-left: -10px }
                 }
             }
         }
     }
 }
 
-@media only screen and (max-width: 664px) {
-
+@media only screen and (max-width: 599px) {
     .body { display: none }
 
-    .mobile {        
+    .mobile {      
         .hero {
             height: 240px;
             padding: 60px 35px;
@@ -172,30 +163,11 @@
                     color: #6e818f;
                     font-family: Arial, Helvetica, sans-serif;
                     transition: background-color 0.6s, color 0.7s;
-                }
-
-                
+                }                
             }
 
             mdb-card:hover {
-                background-color: #2BBBAD;
-                color: #fff;
-                p, mat-icon {
-                    color: #fff;
-                }
-            }
-
-            mdb-card.aviso {
-                background-color: #f7e7e7;
-                transition: background-color 0.6s, color 0.7s;
-                mat-icon {
-                    color: #ff4444;
-                    transition: background-color 0.6s, color 0.7s;
-                }
-            }
-
-            mdb-card.aviso:hover {
-                background-color: #ff4444;
+                background-color: #6ebd6e;
                 color: #fff;
                 p, mat-icon {
                     color: #fff;
@@ -206,7 +178,7 @@
 }
 
 
-@media only screen and (min-width: 665px) {
+@media only screen and (min-width: 600px) {
     .mobile {
         display: none;
     }

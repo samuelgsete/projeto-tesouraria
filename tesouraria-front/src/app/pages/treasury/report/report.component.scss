@@ -32,7 +32,6 @@
 
     .report {
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 18px;
         margin: -70px 35px;
         padding: 30px 35px 40px 35px;
         background-color: #fff;
@@ -88,6 +87,9 @@
                        
                         mdb-card {
                             transition: background-color 0.7s;
+                            span { 
+                                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                            }
                         }
                         mdb-card:hover {
                             background-color: #eef0f7;
@@ -144,7 +146,6 @@
 
         .report {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 18px;
             padding: 15px;
  
             mat-form-field {
@@ -195,6 +196,9 @@
         
                         .box-moviment { 
                             margin-bottom: 20px;
+                            span { 
+                                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                            }
                         }
     
                         .box-moviment:last-child {  margin-bottom: 0px; }
