@@ -33,6 +33,8 @@ export class ReportService {
     public constructor(@InjectRepository(Treasury) private readonly repositoryTreasury: Repository<Treasury>) {}
 
     public async getReport(treasuryId: number, userId: number, year: number, month: number): Promise<any> {
+        const reports = [];
+
         if(treasuryId <= 0 || userId <= 0) {
             throw new IdInvalidException("O id informado é invalído");
         }
@@ -52,7 +54,8 @@ export class ReportService {
         }
 
         const report = this.getReportMonthly(year, month, treasury.recipes, treasury.expenses);
-        return report;
+        reports.push(report);
+        return reports;
     }
 
     public async downloadReport(treasuryId: number, userId: number, year: number, month: number) {
@@ -127,8 +130,8 @@ export class ReportService {
 
         const balanceMonthly = incomeRecipesMonthly - incomeExpensesMonthly;
         
-        recipes = transactions.recipes;
-        expenses = transactions.expenses;
+        recipes = this.sortTransactions(transactions.recipes);
+        expenses = this.sortTransactions(transactions.expenses);
 
         return {
             recipes, 
@@ -174,5 +177,19 @@ export class ReportService {
             incomeExpenses += expense.value;
         });
         return { incomeRecipes, incomeExpenses }
+    }
+
+    private sortTransactions(transactions: any[]) {
+        const sortedTransactions = transactions.sort((t1, t2) => {
+            if (t1.registeredIn > t2.registeredIn) { 
+                return 1; 
+            }
+            if (t1.registeredIn < t2.registeredIn) { 
+                return -1; 
+            }
+            return 0;
+        });
+        return sortedTransactions;
+        ;
     }
 }
