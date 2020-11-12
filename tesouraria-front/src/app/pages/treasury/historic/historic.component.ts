@@ -155,8 +155,8 @@ export class HistoricComponent implements OnInit {
 
   private populate(body: any) {
     this.transactions = [
-      { data: [], label: 'RECEITAS' },
-      { data: [], label: 'DESPESAS' }
+      { data: [], label: 'SOMATÓRIO DE RECEITAS' },
+      { data: [], label: 'SOMÁTORIO DESPESAS' }
     ];
 
     this.billing = [
