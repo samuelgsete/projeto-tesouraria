@@ -1,26 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import * as moment from 'moment';
 
 import { Income } from 'src/app/shared/models/income.entity';
 import { Report } from 'src/app/shared/models/report.entity';
 import { ReportService } from 'src/app/shared/services/report.service';
-import { Subscription } from 'rxjs';
+import { DateShowPipe } from 'src/app/shared/pipes/date-show.pipe';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss']
 })
-export class ReportComponent implements OnInit, OnDestroy {
+export class ReportComponent implements OnInit {
 
-  public report = new Report();
-  public annualReport: Report[] = [];
+  public reports: Report[] = [];
   public income = new Income();
   public loading = true;
-  public subscriptions: Subscription[] = [];
+  public dateShow = new DateShowPipe();
 
   public months = [
     'Janeiro',
@@ -38,67 +36,24 @@ export class ReportComponent implements OnInit, OnDestroy {
     "Todos os meses"
   ];
 
+  public monthsMobile = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril', 
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro', 
+    'Novembro',
+    'Dezembro'
+  ];
+
   public years = [ 2020, 2021, 2022 ];
   public monthSelected = 'Janeiro';
   public yearSelected = 2020;
-
-  public chartType: string = 'bar';
-
-  public recipes = [
-    { data: [], label: 'RECEITAS' }
-  ];
-
-  public expenses = [
-    { data: [], label: 'DESPESAS' }
-  ]
-
-  public labelsRecipes = [];
-  public labelsExpenses = [];
-
-  public colorsRecipes = [
-    {
-      backgroundColor: 'rgb(51, 181, 229, .9)'
-    }
-  ];
-
-  public colorsExpenses = [
-    {
-      backgroundColor: 'rgb(255, 68, 68, .9)'
-    }
-  ]
-
-  public chartOptions: any = {
-    responsive: true,
-    scales: 
-    { 
-      xAxes: [{
-        ticks: {
-          callback: function(value) {
-              return ``;
-          }
-        }
-      }], 
-      yAxes: [{ 
-        ticks: {
-          callback: function(value) {
-              return `R$ ${value}`;
-          }
-        }
-      }] 
-    },
-    tooltips: {
-      callbacks: {
-        label: function(tooltipItem) {
-          return `R$ ${tooltipItem.value}`;
-        }
-      }
-    },
-    plugins: {
-      datalabels: {
-          display: false,
-      }
-    }
-  };
 
   public constructor(
                         private service: ReportService,
@@ -113,65 +68,40 @@ export class ReportComponent implements OnInit, OnDestroy {
     let id = parseInt(this.router.url.split('/')[2]);
     let month = this.months.indexOf(this.monthSelected);
     this.loading = true;
-    this.subscriptions.push(this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
-      if(!Array.isArray(response.body)) {
-        this.report = response.body;
-        this.annualReport = [];
-      }
-      else {
-        this.annualReport = response.body;
-        this.report = new Report();
-      }
-      this.feedChart();
+    this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
+        this.reports = response.body;
     }, error => {
       this.errorMessage(error);
     }).add( () => {
       this.loading = false;
-    }));
+    });
   }
 
-  private feedChart() {
-    this.recipes = [
-      { data: [], label: 'RECEITAS' }
-      
-    ];
-
-    this.expenses = [
-      { data: [], label: 'DESPESAS' }
-    ]
-
-    this.labelsRecipes = [];
-    this.labelsExpenses = [];
-
-    this.report.recipes.forEach( recipe => {
-      this.recipes[0].data.push(recipe.value);
-      this.labelsRecipes.push(moment(recipe.registeredIn).format('DD/MM/YYYY'));
+  public getReportMobile() {
+    let id = parseInt(this.router.url.split('/')[2]);
+    let month = this.monthsMobile.indexOf(this.monthSelected);
+    this.loading = true;
+    this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
+      this.reports = response.body;
+    }, error => {
+      this.errorMessage(error);
+    }).add( () => {
+      this.loading = false;
     });
-
-    this.report.expenses.forEach( expense => {
-      this.expenses[0].data.push(expense.value);
-      this.labelsExpenses.push(moment(expense.registeredIn).format('DD/MM/YYYY'));
-    });
-
-    this.expenses[0].data.push(0);
-    this.labelsExpenses.push('');
-
-    this.recipes[0].data.push(0);
-    this.labelsRecipes.push('');
   }
 
   public download() {
     let id = parseInt(this.router.url.split('/')[2]);
     let month = this.months.indexOf(this.monthSelected);
     this.loading = true;
-    this.subscriptions.push(this.service.downloadReport(id, this.yearSelected, month).subscribe( res => {
+    this.service.downloadReport(id, this.yearSelected, month).subscribe( res => {
       const newWin = open();
       newWin.document.write(res.body);
     }, error => {
       this.errorMessage(error);
     }).add( () => {
       this.loading = false;
-    }));
+    });
   }
   
   private errorMessage(err: any) {
@@ -191,11 +121,5 @@ export class ReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit() { }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach( sub => {
-      sub.unsubscribe();
-    });
-  }
+  ngOnInit() {}
 }

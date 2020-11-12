@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { PaginationModule } from './pagination/pagination.module';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -45,6 +46,7 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatProgressBarModule,
     MatDatepickerModule, 
     MatNativeDateModule, 
+    MatStepperModule,
     PaginationModule
   ],
   exports: [
@@ -64,6 +66,7 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule, 
+    MatStepperModule,
     PaginationModule,
     PhonePipe,
     DateShowPipe 

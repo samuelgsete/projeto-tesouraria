@@ -29,12 +29,6 @@ export class HistoricComponent implements OnInit {
     { data: [], label: 'FATURAMENTO MENSAL' }
   ];
 
-  public inventories = [
-    { data: [], label: 'SALDO ATUAL' },
-    { data: [], label: 'SALDO REAL' },
-    { data: [], label: 'DEFASAGEM' }
-  ];
-
   public chartLabels = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -170,12 +164,6 @@ export class HistoricComponent implements OnInit {
       { data: [], label: 'FATURAMENTO MENSAL' }
     ];
 
-    this.inventories = [
-      { data: [], label: 'SALDO ATUAL' },
-      { data: [], label: 'SALDO REAL' },
-      { data: [], label: 'DEFASAGEM' }
-    ];
-
     const incomes = body.incomeYearly;
   
     incomes.forEach(income => {
@@ -190,13 +178,6 @@ export class HistoricComponent implements OnInit {
       this.billing[1].data.push(item.monthlyBiiling);
     });
 
-    const inventoryYearly = body.historicInventoriesYearly;
-
-    inventoryYearly.forEach( inventory => {
-      this.inventories[0].data.push(inventory.currentBalance);
-      this.inventories[1].data.push(inventory.actualBalance);
-      this.inventories[2].data.push(inventory.discrepancy);
-    })
   }
 
   private errorMessage(err: any) {
@@ -212,7 +193,6 @@ export class HistoricComponent implements OnInit {
     }
     else {
       this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
     }
   }
                   

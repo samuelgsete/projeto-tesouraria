@@ -174,7 +174,7 @@ export class TreasuryComponent implements OnInit {
       name:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       initialAmount:['', [Validators.required, new MaxInputMoneyValidator()]],
       currentBalance:[0, []],
-      details: ['', [Validators.minLength(4), Validators.maxLength(255)]],
+      details: [null, [Validators.minLength(4), Validators.maxLength(255)]],
       recipes: [[]],
       expenses: [[]],
       inventories: [[]],

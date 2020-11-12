@@ -6,6 +6,8 @@ export class recipes {
 
     public static readonly valueNotNull = 'O valor não pode ser nulo';
     public static readonly valueValid = 'O valor deve ser válido';
+    public static readonly valueMax = 'O valor dever no máximo R$ 100000';
+    public static readonly valueMin = 'O valor não pode ser negativo';
 
     public static readonly offererValid = 'O nome do ofertante deve ser válido';
     public static readonly offererLength = 'O nome do ofertante deve conter no mínimo 2 e no máximo 60 caracteres';

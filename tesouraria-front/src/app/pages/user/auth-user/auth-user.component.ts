@@ -49,7 +49,6 @@ export class AuthUserComponent implements OnInit {
     localStorage.setItem("id_token", token);
     try {
       const result = jwt_decode(token);
-      console.log(result);
       localStorage.setItem('name_user', result.name);
       localStorage.setItem('user_id', result.userid);
       localStorage.setItem('user', result.user);

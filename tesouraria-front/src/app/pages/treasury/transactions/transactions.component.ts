@@ -69,14 +69,13 @@ export class TransactionsComponent implements OnInit {
 
     else if(err.status == 401) {
       this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'ERRO', { progressBar: true });
+      this.toastr.error('Necessário autenticação', 'ERRO', { progressBar: true });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }
 
     else {
       this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
-      this.router.navigateByUrl('/home');
     }
   }
 
@@ -105,14 +104,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   public resetFormRecipes() {
-    /*this.formRecipes.patchValue({
-        id: null,
-        description: '',
-        value: '',
-        offerer: null,
-        registeredIn: moment().format('DDMMYYYY'),
-        details: null
-    });*/
     this.formRecipes.reset();
     this.formRecipes.patchValue({
       registeredIn: moment().format('DDMMYYYY'),
@@ -120,13 +111,6 @@ export class TransactionsComponent implements OnInit {
   }
 
   public resetFormExpenses() {
-    /*this.formExpenses.patchValue({
-      id: null,
-      description: '',
-      value: '',
-      registeredIn: moment().format('DDMMYYYY'),
-      details: null,
-    });*/
     this.formExpenses.reset();
     this.formExpenses.patchValue({ 
       registeredIn: moment().format('DDMMYYYY'),
@@ -290,7 +274,7 @@ export class TransactionsComponent implements OnInit {
       value: ['', [Validators.required, new MaxInputMoneyValidator()]],
       offerer: ['', [Validators.minLength(4), Validators.maxLength(60)]],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: ['', [Validators.minLength(4), Validators.maxLength(255)]],
+      details: [null, [Validators.minLength(4), Validators.maxLength(255)]],
     });
 
     this.formExpenses = this._fb.group({
@@ -298,7 +282,7 @@ export class TransactionsComponent implements OnInit {
       description:['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
       value:['', [Validators.required, new MaxInputMoneyValidator()]],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: ['', [Validators.minLength(4), Validators.maxLength(255)]]
+      details: [null, [Validators.minLength(4), Validators.maxLength(255)]]
     });
   }
 }

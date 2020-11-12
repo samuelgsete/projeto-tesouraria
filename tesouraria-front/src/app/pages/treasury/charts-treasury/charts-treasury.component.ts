@@ -4,8 +4,7 @@ import { Treasury } from 'src/app/shared/models/treasury.entity';
 
 @Component({
   selector: 'app-charts-treasury',
-  templateUrl: './charts-treasury.component.html',
-  styleUrls: ['./charts-treasury.component.scss']
+  templateUrl: './charts-treasury.component.html'
 })
 export class ChartsTreasuryComponent implements OnInit {
 

@@ -3,8 +3,10 @@ export class expenses {
     public static readonly descriptionLength = 'A descrição deve conter no mínimo 3 e no máximo 60 caracteres';
     public static readonly descriptionValid = 'A descrição deve ser uma cadeia de caracteres válida';
 
-    public static readonly valueNotNull = 'O valor não pode ser nulo';
+    public static readonly valueNotNull = 'O valor da não pode ser nulo';
     public static readonly valueValid = 'O valor deve ser válido';
+    public static readonly valueMax = 'O valor dever no máximo R$ 100000';
+    public static readonly valueMin = 'O valor não pode ser negativo';
 
     public static readonly typeNotNull = 'O tipo de transação é obrigatório';
     public static readonly typeValid = 'O tipo de trasação deve ser uma cadeia de caracteres válida';

@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany, UpdateDateColumn } from "typeorm";
-import { IsNotEmpty, IsString, Length, IsNumber, ValidateNested, IsOptional } from "class-validator";
+import { IsNotEmpty, IsString, Length, IsNumber, ValidateNested, IsOptional, Min, Max } from "class-validator";
 import { Type } from 'class-transformer';
 
 import { Expense } from "./expense.entity";
@@ -8,16 +8,17 @@ import { EntityBase } from "./entity-base.entity";
 import { Inventory } from "./inventory.entity";
 import { treasuries } from "../validation/treasuries.messages";
 
-
 @Entity()
 export class Treasury extends EntityBase {
-   
+  
     @IsNotEmpty({ message: `${treasuries.nameNotNull}`})
     @IsString({ message: `${treasuries.nameValid}`})
     @Length(2,30, {message: `${treasuries.nameLength}`})
     @Column({ length: 30, unique: false, nullable: false })
     public name: string;
 
+    @Min(0, { message: `${treasuries.initialAmountMin}`})
+    @Max(100000, { message: `${treasuries.initialAmountMax}`})
     @IsNotEmpty({ message: `${treasuries.initialAmountNotNull}`})
     @IsNumber({}, { message: `${treasuries.initialAmountValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
@@ -33,7 +34,7 @@ export class Treasury extends EntityBase {
     public incomeExpenses: number;
 
     @IsOptional()
-    @Length(3, 255, {message: `${treasuries.detailsLength}`})
+    @Length(4, 255, {message: `${treasuries.detailsLength}`})
     @IsString({ message:`${treasuries.detailsValid}`})
     @Column({ length: 255, unique: false, nullable: true })
     public details: string;

@@ -34,12 +34,7 @@
         border-radius: 6px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-        .header {
-            .input-width { 
-                width: 100%;
-                button:focus { outline: none } 
-            }
-
+        .main-content {
             .all-delete { 
                 margin-top: 10px;
                 button { 
@@ -49,9 +44,6 @@
 
                 button:focus { outline: none }
             }  
-        }
-
-        .main-content {
             ngx-datatable {
                 width: 100%; 
                 margin-top: 10px;
@@ -77,12 +69,6 @@
         .modal-content {
             .modal-header { 
                 h4 { text-align: center } 
-            }
-
-            .modal-body {
-                form {
-                    mat-form-field.input-width { width:100% }
-                }
             }
         }
     }

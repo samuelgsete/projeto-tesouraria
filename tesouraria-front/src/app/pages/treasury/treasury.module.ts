@@ -17,6 +17,8 @@ import { TransactionsService } from 'src/app/shared/services/transactions.servic
 import { ReportService } from 'src/app/shared/services/report.service';
 import { HistoricService } from 'src/app/shared/services/historic.service';
 import { InventoryService } from 'src/app/shared/services/inventory.service';
+import { ReportChartComponent } from './report/report-chart/report-chart.component';
+import { TransactionsChartComponent } from './transactions/transactions-chart/transactions-chart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { InventoryService } from 'src/app/shared/services/inventory.service';
     InventoryComponent,
     AccountComponent,
     IncomeComponent,
-    ChartsTreasuryComponent
+    ChartsTreasuryComponent,
+    ReportChartComponent,
+    TransactionsChartComponent
   ],
   imports: [
     CommonModule,

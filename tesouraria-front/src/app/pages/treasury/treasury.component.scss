@@ -39,6 +39,7 @@
                 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 text-align: center;
                 padding: 50px;
+                img { margin-bottom: 15px }
             }
             
             mdb-card { 
@@ -88,11 +89,6 @@
         .modal-content {
             .modal-header {
                 h4 { text-align: center }
-            }
-            .modal-body {
-                form {
-                    mat-form-field.input-width { width:100% }
-                }
             }
         }
     }
@@ -145,6 +141,7 @@
                 font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
                 text-align: center;
                 padding: 50px;
+                img { margin-bottom: 15px }
             }
             
             .input-width { 

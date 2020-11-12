@@ -28,7 +28,7 @@ export class TransactionsService {
         const recipes = filteredRecipes;
         const expenses = filteredExpenses;
 
-        return this.sortTransactions(recipes, expenses);;
+        return this.sortTransactions(recipes, expenses);
     }
 
     private sortTransactions(recipes: Recipe[], expenses: Expense[]) {

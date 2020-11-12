@@ -1,5 +1,5 @@
 import { Entity, ManyToOne, Column } from "typeorm";
-import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, IsDateString } from "class-validator";
+import { IsNotEmpty, Length, IsString, IsNumber, IsOptional, IsDateString, Min, Max } from "class-validator";
 
 import { Treasury } from "./treasury.entity";
 import { EntityBase } from "./entity-base.entity";
@@ -15,6 +15,8 @@ export class Recipe extends EntityBase {
     @Column({ length: 60, unique: false, nullable: false })
     public description: string;
 
+    @Min(0, { message: `${recipes.valueMin}`})
+    @Max(100000, { message: `${recipes.valueMax}`})
     @IsNotEmpty({ message: `${recipes.valueNotNull}`})
     @IsNumber({}, { message: `${recipes.valueValid}`})
     @Column({ type: 'float', unique: false, nullable: false })
@@ -39,7 +41,7 @@ export class Recipe extends EntityBase {
     public registeredIn: Date;
     
     @IsOptional()
-    @Length(3, 255, {message: `${recipes.detailsLength}`})
+    @Length(4, 255, {message: `${recipes.detailsLength}`})
     @IsString({ message:`${recipes.detailsValid}`})
     @Column({ length: 255, unique: false, nullable: true })
     public details: string;

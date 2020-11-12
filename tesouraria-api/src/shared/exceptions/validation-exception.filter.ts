@@ -75,6 +75,14 @@ export class ValidationExceptionFilter implements ExceptionFilter {
             return constraints.isOptional;
         }
 
+        if(constraints.max) {
+            return constraints.max;
+        }
+
+        if(constraints.min) {
+            return constraints.min;
+        }
+
         return '';
     }
 }
