@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
 
 import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { Pagination} from 'src/app/shared/models/pagination.entity';
-import { PaginationService } from 'src/app/shared/pagination/pagination.service';
 import { MaxInputMoneyValidator } from 'src/app/shared/validators/max-input-money.validator';
+import { ResetStateFormValidator } from 'src/app/shared/validators/reset-state-form.validator';
 
 @Component({
   selector: 'app-treasury',
@@ -33,19 +33,28 @@ export class TreasuryComponent implements OnInit {
                 private router: Router, 
                 private _fb: FormBuilder, 
                 private toastr: ToastrService, 
-                private servico: TreasuryService,
-                private paginationService: PaginationService
+                private servico: TreasuryService
   ) { }
 
   public load(paginacao: Pagination) {
     this.loading = true;
-    this.servico.findPaginate(paginacao).subscribe( res => {
-      this.treasuries = res.body.data;
-      this.paginationService.loader(res.body.count, paginacao.pageCurrent);
+    this.servico.findPaginate(paginacao).subscribe( response => {
+      this.treasuries = response.body.data;
+      this.pagination.count = response.body.count;
       this.loading = false;
     }, err => {
       this.errorMessage(err);
     });
+  }
+
+  public changePage(sense: boolean) {  
+    if(sense) {
+      this.pagination.nextPage();
+    }
+    else {
+      this.pagination.previousPage();
+    }
+    this.load(this.pagination);
   }
 
   private errorMessage(err: any) {
@@ -54,19 +63,14 @@ export class TreasuryComponent implements OnInit {
     }
 
     else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('user/auth');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true, positionClass: 'toast-bottom-center' });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }
     else {
       this.toastr.error(err.error.details, 'ERRO', { progressBar: true });
     }
-  }
-
-  public changePage(pagination: any) {
-    this.pagination.pageCurrent = pagination.pageCurrent.label;
-    this.load(this.pagination);
   }
 
   public createOrUpdateTreasury(dados: Treasury) {
@@ -78,7 +82,6 @@ export class TreasuryComponent implements OnInit {
       currentBalance: dados.currentBalance,
       recipes: dados.recipes,
       expenses: dados.expenses,
-      inventories: dados.inventories,
       details: dados.details,
       userId: userId
     });
@@ -141,7 +144,6 @@ export class TreasuryComponent implements OnInit {
       currentBalance: treasury.currentBalance,
       recipes: treasury.recipes,
       expenses: treasury.expenses,
-      inventories: treasury.inventories,
       details: treasury.details,
       userId: treasury.userId
     });
@@ -159,9 +161,7 @@ export class TreasuryComponent implements OnInit {
   public showHistoric(id: number) {
     this.router.navigateByUrl(`historic/${id}`);
   }
-
-  public takeInventory(id: number) { this.router.navigateByUrl(`inventory/${id}`) }
-
+  
   ngOnInit() {
     this.load(this.pagination);
     this.search.valueChanges.pipe(debounceTime(700)).subscribe(value => {
@@ -174,10 +174,9 @@ export class TreasuryComponent implements OnInit {
       name:['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
       initialAmount:['', [Validators.required, new MaxInputMoneyValidator()]],
       currentBalance:[0, []],
-      details: [null, [Validators.minLength(4), Validators.maxLength(255)]],
+      details: [null, [Validators.minLength(4), Validators.maxLength(255), new ResetStateFormValidator()]],
       recipes: [[]],
       expenses: [[]],
-      inventories: [[]],
       userId:[]
     });
   }

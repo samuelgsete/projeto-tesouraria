@@ -156,7 +156,7 @@ export class HistoricComponent implements OnInit {
   private populate(body: any) {
     this.transactions = [
       { data: [], label: 'SOMATÓRIO DE RECEITAS' },
-      { data: [], label: 'SOMÁTORIO DESPESAS' }
+      { data: [], label: 'SOMÁTORIO DE DESPESAS' }
     ];
 
     this.billing = [
@@ -186,8 +186,8 @@ export class HistoricComponent implements OnInit {
     }
 
     else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.error('Necessário autenticação', 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('user/auth');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true, positionClass: 'toast-bottom-center' });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }

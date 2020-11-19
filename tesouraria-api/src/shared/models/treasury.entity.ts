@@ -5,7 +5,6 @@ import { Type } from 'class-transformer';
 import { Expense } from "./expense.entity";
 import { Recipe } from "./recipe.entity";
 import { EntityBase } from "./entity-base.entity";
-import { Inventory } from "./inventory.entity";
 import { treasuries } from "../validation/treasuries.messages";
 
 @Entity()
@@ -56,12 +55,6 @@ export class Treasury extends EntityBase {
 
     @UpdateDateColumn()
     public updated: Date;
-
-    @IsOptional()
-    @Type(() => Inventory)
-    @ValidateNested()
-    @OneToMany(type => Inventory, inventory => inventory.treasury, { cascade: true })
-    public inventories: Inventory[];
 
     public constructor(values: Object = {}) {
         super();

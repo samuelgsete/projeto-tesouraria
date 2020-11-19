@@ -10,8 +10,8 @@ export class TransactionsService {
 
     public constructor(private readonly http: HttpClient) {}
 
-    public findAll(treasuryId: number, type: any, year: number, month: number) {
-        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`).set('type', `${type}`);
+    public findPaginate(treasuryId: number, type: any, year: number, month: number, page: number) {
+        const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`).set('type', `${type}`).set('page',`${page}`);
         return this.http.get<any>(this.urlBase.concat(`/${treasuryId}`), {
             observe: 'response', params: _params
         });

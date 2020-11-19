@@ -74,7 +74,11 @@
                 [selectionType]="'checkbox'"
                 (select)="whenSelecting($event)"
                 [selected]="transactionsSelected"
-                [limit]="6"
+                [externalPaging]="true"
+                [count]="pagination.count"
+                [offset]="pagination.pageCurrent-1"
+                [limit]="pagination.pageSize"
+                (page)="setPage($event)"
             >
             <ngx-datatable-column
                 [width]="50"
@@ -138,7 +142,7 @@
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalRecipe(modalRecipe)" mdbWavesEffect>NOVA RECEITA</button>
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="showModalExpense(modalExpense)" mdbWavesEffect>NOVA DESPESA</button>
         </div>
-    </div>
+    </div> 
     <div class="movment">
         <app-income></app-income>
         <mat-accordion>
@@ -174,42 +178,53 @@
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
-        <ngx-datatable
-            [rows]="rows"
-            class="material"
-            [loadingIndicator]="loading"
-            [messages]="{emptyMessage: '<center>Nenhuma movimentação cadastrada</center>', totalMessage: 'total', selectedMessage: 'selecionado'}"
-            [columnMode]="'force'"
-            [headerHeight]="50"
-            [footerHeight]="50"
-            [rowHeight]="50"
-            [limit]="6"
-        >
-            <ngx-datatable-column name="Descrição" [width]="250" prop="description"></ngx-datatable-column>
-            <ngx-datatable-column name="Valor" [width]="100" prop="value">
-                <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span class="mobile-hidden">{{ column.name }}</span>
-                  </ng-template>
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                    <span class="mobile-hidden">{{ value | currency:'BRL' }}</span>
-                  </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Ações" [width]="100">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                    <button class="btn-more" [matMenuTriggerFor]="actions"  mat-icon-button>
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #actions="matMenu">
-                        <button style="outline: none;" mat-menu-item  (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)">
-                            <mat-icon>edit</mat-icon>Editar
+        <div class="main">
+            <div *ngIf="loading">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <table class="z-depth-1-half" mdbTable>
+                <thead>
+                  <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr mdbTableCol *ngFor="let row of rows">
+                    <th>{{ row.description }}</th>
+                    <th>{{ row.value | currency:'BRL' }}</th>
+                    <th>
+                        <button [matMenuTriggerFor]="actions"  mat-icon-button>
+                            <mat-icon>more_vert</mat-icon>
                         </button>
-                        <button mat-menu-item (click)="deleteTransaction(row)">
-                            <mat-icon>delete</mat-icon>Deletar
-                        </button>
-                    </mat-menu> 
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
+                        <mat-menu #actions="matMenu">
+                            <button style="outline: none;" mat-menu-item  (click)="setFormRecipeOrExpense(row, modalUpdateRecipe, modalUpdateExpense)">
+                                <mat-icon>edit</mat-icon>Editar
+                            </button>
+                            <button mat-menu-item (click)="deleteTransaction(row)">
+                                <mat-icon>delete</mat-icon>Deletar
+                            </button>
+                        </mat-menu>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div style="margin-top: 20px;" class="row" *ngIf="this.pagination.count > 6">
+            <div class="col-sm-6 col-md-6">
+                <button mdbBtn style="margin-bottom: 10px;" type="button" block="true" color="indigo" (click)="changePage(false)" [disabled]="this.pagination.pageCurrent == 1" mdbWavesEffect>
+                    <mdb-icon fas icon="arrow-left"></mdb-icon>
+                    Anterior
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <button mdbBtn type="button" block="true" color="indigo" (click)="changePage(true)" [disabled]="this.pagination.pageCurrent > this.pagination.count/this.pagination.pageSize" mdbWavesEffect>
+                    Próxima
+                    <mdb-icon fas icon="arrow-right"></mdb-icon>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <app-footer></app-footer>

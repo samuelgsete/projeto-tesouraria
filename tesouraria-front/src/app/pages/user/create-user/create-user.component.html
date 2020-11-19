@@ -20,7 +20,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Nome</mat-label>
-                            <input formControlName="name" maxlength="30" (keydown.space)="$event.preventDefault();" matInput required>
+                            <input formControlName="name" maxlength="30" matInput required>
                             <mat-icon matSuffix>face</mat-icon>
                             <mat-error *ngIf="this.form['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
                             <mat-error *ngIf="this.form['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
@@ -72,7 +72,7 @@
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Senha</mat-label>
                             <input #pass formControlName="password" type="password" maxlength="30" matInput required>
-                            <mat-icon #icon style="cursor: pointer;" (mousedown)="showPassword(pass, icon)" (mouseup)="hidePassword(pass, icon)" matSuffix>visibility_off</mat-icon>
+                            <mat-icon #icon style="cursor: pointer;" (click)="hideOrShowPassword(pass, icon)" matSuffix>visibility_off</mat-icon>
                             <mat-error *ngIf="this.form['controls']['password'].errors?.required">A senha é obrigatória</mat-error>
                             <mat-error *ngIf="this.form['controls']['password'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                         </mat-form-field>
@@ -81,7 +81,7 @@
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Confirmação de senha</mat-label>
                             <input #pass2 formControlName="confirmPassword" type="password" matInput required>
-                            <mat-icon #icon2 style="cursor: pointer;" (mousedown)="showPassword(pass2, icon2)" (mouseup)="hidePassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
+                            <mat-icon #icon2 style="cursor: pointer;" (click)="hideOrShowPassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
                             <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.required">A confirmaçao é obrigatória</mat-error>
                             <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                             <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.confirmedValidator">Informe a mesma senha</mat-error>

@@ -11,16 +11,19 @@ import { IdInvalidException } from "src/shared/exceptions/models/Id-invalid.exce
 import { TreasuryNotFoundException } from "src/shared/exceptions/models/treasury-not-foud.exception";
 import { PermissionDeniedException } from "src/shared/exceptions/models/permission-denied.excepton";
 
+const PAGE_SIZE = 6;
+
 @Injectable()
 export class TransactionsService {
 
     public constructor(
-                        @InjectRepository(Treasury) private readonly repositoryTreasury: Repository<Treasury>,
-                        @InjectRepository(Recipe) private readonly repositoryRecipe: Repository<Recipe>,
-                        @InjectRepository(Expense) private readonly repositoryExpense: Repository<Expense>
-                      ){ }
+                            @InjectRepository(Treasury) private readonly repositoryTreasury: Repository<Treasury>,
+                            @InjectRepository(Recipe) private readonly repositoryRecipe: Repository<Recipe>,
+                            @InjectRepository(Expense) private readonly repositoryExpense: Repository<Expense>
+                      )
+    { }
 
-    public async findAll(treasuryId: number, userId: number, transactionsFilter: TransactionsFilter) {
+    public async findPaginate(treasuryId: number, userId: number, transactionsFilter: TransactionsFilter, page: number) {
         const treasury = await this.validateUser(treasuryId, userId);
    
         const { filteredRecipes, filteredExpenses } = this.filterTransactions(transactionsFilter, treasury.recipes, treasury.expenses);
@@ -28,7 +31,15 @@ export class TransactionsService {
         const recipes = filteredRecipes;
         const expenses = filteredExpenses;
 
-        return this.sortTransactions(recipes, expenses);
+        let transactions = this.sortTransactions(recipes, expenses);
+        const count = transactions.length;
+
+        transactions = transactions.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+        return {
+            data: transactions,
+            count: count
+        }
     }
 
     private sortTransactions(recipes: Recipe[], expenses: Expense[]) {

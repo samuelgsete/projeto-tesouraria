@@ -1,6 +1,5 @@
 import { Recipe } from './recipe.entity';
 import { Expense } from './expense.entity';
-import { Inventory } from './inventory.entity';
 
 export class Treasury {
 
@@ -12,7 +11,6 @@ export class Treasury {
     public expenses: Expense[] = [];
     public incomeRecipes: number;
     public incomeExpenses: number;
-    public inventories: Inventory[] = [];
     public details: string;
     public updated: Date;
     public userId: number;

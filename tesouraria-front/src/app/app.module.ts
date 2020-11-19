@@ -12,7 +12,6 @@ import { AppRoutingModule } from './app.routing.module';
 import { AuthService } from './shared/services/auth.service';
 import { AuthUserGuard } from './shared/auth/auth-user.guard';
 import { AuthUserInterceptor } from './shared/auth/auth-user.interceptor';
-import { PaginationService } from './shared/pagination/pagination.service';
 import { UserModule } from './pages/user/user.module';
 import { IncomeService } from './pages/treasury/income/income.service';
 
@@ -33,7 +32,6 @@ import { IncomeService } from './pages/treasury/income/income.service';
   providers: [
     AuthUserGuard, 
     AuthService,
-    PaginationService,
     IncomeService,
     {
       provide: HTTP_INTERCEPTORS,

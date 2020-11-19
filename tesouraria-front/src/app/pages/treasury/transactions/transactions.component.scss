@@ -34,16 +34,17 @@
         border-radius: 6px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-        .main-content {
-            .all-delete { 
-                margin-top: 10px;
-                button { 
-                    float: right;
-                    margin-top:-8px;
-                }
+        .all-delete { 
+            margin-top: 10px;
+            button { 
+                float: right;
+                margin-top:-8px;
+            }
 
-                button:focus { outline: none }
-            }  
+            button:focus { outline: none }
+        }  
+
+        .main-content {
             ngx-datatable {
                 width: 100%; 
                 margin-top: 10px;
@@ -118,14 +119,39 @@
             padding: 15px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             
-            ngx-datatable {
+            .progress-bar {
+                position: fixed;
                 width: 100%;
-                margin-top: 10px;
-
-                .btn-more { margin-top: -10px }
-
-                .btn-more:focus { outline: none }
+                bottom: 0;
             }
+
+            .main {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                h4, span {
+                    color: #fff;
+                }
+                button:focus { outline: none; }
+
+                table { 
+                    background-color: #fff;
+                    thead {
+                        color: #526177;
+                        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                    }
+
+                    p {
+                        margin-top: 10px;
+                    }
+
+                    button {
+                        margin-top: -8px;
+                        margin-bottom: -8px;
+                    }
+                }
+            }
+
+           
         }
     }
 }

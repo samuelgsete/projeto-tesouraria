@@ -81,8 +81,8 @@ export class AccountComponent implements OnInit {
     }
 
     else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.info('Necessário autenticação', 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('user/auth');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true, positionClass: 'toast-bottom-center' });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }
@@ -91,14 +91,15 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  public showPassword(input: any, icon: any) {
-    input.type = 'text';
-    icon._elementRef.nativeElement.firstChild.data = 'visibility';
-  }
-
-  public hidePassword(input: any, icon: any) {
-    icon._elementRef.nativeElement.firstChild.data = 'visibility_off';
-    input.type = 'password';
+  public hideOrShowPassword(pass, icon) {   
+    if(icon._elementRef.nativeElement.firstChild.data == 'visibility') {
+      pass.type = 'password'
+      icon._elementRef.nativeElement.firstChild.data = 'visibility_off';
+    }
+    else {
+      icon._elementRef.nativeElement.firstChild.data = 'visibility';
+      pass.type = 'text';
+    }
   }
 
   ngOnInit(): void {
