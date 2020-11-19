@@ -110,8 +110,8 @@ export class ReportComponent implements OnInit {
     }
     
     else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true });
+      this.router.navigateByUrl('user/auth');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true, positionClass: 'toast-bottom-center' });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }

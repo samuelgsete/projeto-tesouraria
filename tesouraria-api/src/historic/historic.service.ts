@@ -8,8 +8,6 @@ import { Expense } from "src/shared/models/expense.entity";
 import { IdInvalidException } from "src/shared/exceptions/models/Id-invalid.exception";
 import { TreasuryNotFoundException } from "src/shared/exceptions/models/treasury-not-foud.exception";
 import { PermissionDeniedException } from "src/shared/exceptions/models/permission-denied.excepton";
-import { Inventory } from "src/shared/models/inventory.entity";
-import { inventory } from "src/shared/validation/inventory.messages";
 
 @Injectable()
 export class HistoricService {
@@ -21,7 +19,7 @@ export class HistoricService {
             throw new IdInvalidException("O id informado é invalído");
         }
 
-        const treasury = await this.repositoryTreasury.findOne(treasuryId, { relations: ["expenses", "recipes", "inventories"] });
+        const treasury = await this.repositoryTreasury.findOne(treasuryId, { relations: ["expenses", "recipes"] });
         
         if(treasury == null) {
             throw new TreasuryNotFoundException("Tesouraria inexistente");
@@ -33,9 +31,8 @@ export class HistoricService {
 
         const incomeYearly = this.getIncomeTransactions(year, treasury.recipes, treasury.expenses);
         const historyYearly = this.getHistorcBilling(year, treasury.initialAmount, treasury.recipes, treasury.expenses);
-        const historicInventoriesYearly = this.getHistoricInventory(year, treasury.inventories);
-       
-        return { incomeYearly, historyYearly, historicInventoriesYearly }
+             
+        return { incomeYearly, historyYearly }
     }
 
     private getHistorcBilling(year: number, initialAmount: number, recipes: Recipe[], expenses: Expense[]): any[] {
@@ -73,37 +70,6 @@ export class HistoricService {
             });
         }
         return incomeMontly;
-    }
-
-    public getHistoricInventory(year: number, inventories: Inventory[]) {
-        let historicInventory = [];
-
-        for(let month = 0; month < 12; month++) {
-            const inventory = this.getInventoryByMonth(year, month, inventories);
-            if(inventory) {
-                historicInventory.push({
-                    currentBalance: inventory.currentBalance,
-                    actualBalance: inventory.actualBalance,
-                    discrepancy: inventory.discrepancy
-                });
-            }
-            else {
-                historicInventory.push({
-                    currentBalance: 0,
-                    actualBalance: 0,
-                    discrepancy: 0
-                });
-            }
-        }
-
-        return historicInventory;
-    }
-
-    private getInventoryByMonth(year: number, month: number, inventories: Inventory[]) {
-        const result = inventories.filter( inventory => {
-            return inventory.registeredIn.getFullYear() == year && inventory.registeredIn.getMonth() == month;
-        })[0];
-        return result;
     }
 
     private getTransactionsByMonth(year: number, month: number, recipes: Recipe[], expenses: Expense[]): any {

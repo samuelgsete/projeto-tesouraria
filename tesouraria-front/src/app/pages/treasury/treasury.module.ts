@@ -8,7 +8,6 @@ import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ReportComponent } from './report/report.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { HistoricComponent } from './historic/historic.component';
-import { InventoryComponent } from './inventory/inventory.component';
 import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';
 import { IncomeComponent } from './income/income.component';
@@ -16,7 +15,6 @@ import { ChartsTreasuryComponent } from './charts-treasury/charts-treasury.compo
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 import { ReportService } from 'src/app/shared/services/report.service';
 import { HistoricService } from 'src/app/shared/services/historic.service';
-import { InventoryService } from 'src/app/shared/services/inventory.service';
 import { ReportChartComponent } from './report/report-chart/report-chart.component';
 import { TransactionsChartComponent } from './transactions/transactions-chart/transactions-chart.component';
 
@@ -26,7 +24,6 @@ import { TransactionsChartComponent } from './transactions/transactions-chart/tr
     TransactionsComponent,
     ReportComponent,
     HistoricComponent,
-    InventoryComponent,
     AccountComponent,
     IncomeComponent,
     ChartsTreasuryComponent,
@@ -46,7 +43,6 @@ import { TransactionsChartComponent } from './transactions/transactions-chart/tr
     TransactionsService,
     ReportService,
     HistoricService,
-    InventoryService,
     UserService
   ]
 })

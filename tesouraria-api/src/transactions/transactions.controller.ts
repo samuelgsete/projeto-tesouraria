@@ -14,18 +14,19 @@ export class TransactionsController {
     public constructor(private readonly transactionsService: TransactionsService) {}
 
     @Get(':treasuryId')
-    public findAll(
-                    @Param('treasuryId') treasuryId: number, 
-                    @Req() request: Request,
-                    @Query('year') year: number,
-                    @Query('month') month: number,
-                    @Query('type') type: string,
-            ) 
+    public findPaginate(
+                            @Param('treasuryId') treasuryId: number, 
+                            @Req() request: Request,
+                            @Query('year') year: number,
+                            @Query('month') month: number,
+                            @Query('type') type: string,
+                            @Query('page') page: number,
+                        ) 
     {
         const userId = parseInt(request.headers['userid'].toString());
         const transactonsFilter = new TransactionsFilter({ year: year, month: month, type: type });
         
-        return this.transactionsService.findAll(treasuryId, userId, transactonsFilter);
+        return this.transactionsService.findPaginate(treasuryId, userId, transactonsFilter, page);
     }
 
     @Post('recipe/:treasuryId')

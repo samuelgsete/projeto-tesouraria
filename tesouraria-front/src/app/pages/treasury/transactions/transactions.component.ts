@@ -12,6 +12,8 @@ import { DateValidator } from 'src/app/shared/validators/date.validator';
 import { TransactionType } from 'src/app/shared/models/enums/transaction-type.enum';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 import { MaxInputMoneyValidator } from 'src/app/shared/validators/max-input-money.validator';
+import { ResetStateFormValidator } from 'src/app/shared/validators/reset-state-form.validator';
+import { Pagination } from 'src/app/shared/models/pagination.entity';
 
 @Component({
   selector: 'app-transactions',
@@ -28,8 +30,8 @@ export class TransactionsComponent implements OnInit {
   public rows: any[] = [];
   public loading = true;
   public transactionsSelected: any = [];
-  public dateValidator = new DateValidator();
   public transactionType = TransactionType;
+  public pagination = new Pagination();
 
   public yearSelected = 2020;
   public monthSelected = 'Todos os meses';
@@ -49,17 +51,34 @@ export class TransactionsComponent implements OnInit {
                       private readonly router: Router, 
                       private readonly toastr: ToastrService, 
                       private readonly transactionsService: TransactionsService
-  ) { }
+  ) {}
   
   public load() {
     this.incomeComponent.load();
+    this.loading = true;
     const month = this.months.indexOf(this.monthSelected);
-    this.transactionsService.findAll(this.treasuryId, this.typeTransactionSelected, this.yearSelected, month).subscribe( response => {
-      this.rows = response.body;
+    this.transactionsService.findPaginate(this.treasuryId, this.typeTransactionSelected, this.yearSelected, month, this.pagination.pageCurrent).subscribe( response => {
+      this.rows = response.body.data;
+      this.pagination.count = response.body.count;
       this.loading = false;
     }, err => {
       this.errorMessage(err);
     });
+  }
+
+  public changePage(sense: boolean) {  
+    if(sense) {
+      this.pagination.nextPage();
+    }
+    else {
+      this.pagination.previousPage();
+    }
+    this.load();
+  }
+
+  public setPage(event) {
+    this.pagination.pageCurrent = event.offset + 1;
+    this.load();
   }
 
   private errorMessage(err: any) {
@@ -68,8 +87,8 @@ export class TransactionsComponent implements OnInit {
     }
 
     else if(err.status == 401) {
-      this.router.navigateByUrl('/login');
-      this.toastr.error('Necessário autenticação', 'ERRO', { progressBar: true });
+      this.router.navigateByUrl('user/auth');
+      this.toastr.error('Necessário autenticação', 'Sessão expirada', { progressBar: true, positionClass: 'toast-bottom-center' });
       localStorage.removeItem('id_token');
       localStorage.removeItem('user_id');
     }
@@ -94,7 +113,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   public showModalExpense(modal: any) {
-    this.resetFormRecipes();
+    this.resetFormExpenses;
     modal.show();
   }
 
@@ -272,17 +291,17 @@ export class TransactionsComponent implements OnInit {
       id: [null],
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
       value: ['', [Validators.required, new MaxInputMoneyValidator()]],
-      offerer: ['', [Validators.minLength(4), Validators.maxLength(60)]],
-      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: [null, [Validators.minLength(4), Validators.maxLength(255)]],
+      offerer: [null, [Validators.minLength(4), Validators.maxLength(60), new ResetStateFormValidator()]],
+      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, new DateValidator().validate()]],
+      details: [null, [Validators.minLength(4), Validators.maxLength(255), new ResetStateFormValidator()]],
     });
 
     this.formExpenses = this._fb.group({
       id: [null],
       description:['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
       value:['', [Validators.required, new MaxInputMoneyValidator()]],
-      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, this.dateValidator.validate()]],
-      details: [null, [Validators.minLength(4), Validators.maxLength(255)]]
+      registeredIn: [moment().format('DDMMYYYY'), [Validators.required, new DateValidator().validate()]],
+      details: [null, [Validators.minLength(4), Validators.maxLength(255), new ResetStateFormValidator()]]
     });
   }
 }

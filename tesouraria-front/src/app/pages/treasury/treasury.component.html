@@ -43,7 +43,6 @@
                             <mat-menu #actions="matMenu">
                                 <button style="outline: none;" mat-menu-item (click)="emitterReport(treasury.id)"><mat-icon>description</mat-icon>Ver relatório</button>
                                 <button mat-menu-item (click)="showHistoric(treasury.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                                <button mat-menu-item (click)="takeInventory(treasury.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                             </mat-menu>  
                             <mdb-card-title>
                                 <h4>{{ treasury.name }}</h4>
@@ -67,12 +66,15 @@
                     </mdb-card>
                 </div>
             </div>            
-            <div class="main-footer">
-                <div class="row">
-                    <div class="col">
-                        <app-pagination #pagination (click)="changePage(pagination)"></app-pagination>
-                    </div>
-                </div>
+            <div class="main-footer" *ngIf="this.pagination.count > 6">         
+                <button mdbBtn type="button" color="indigo" (click)="changePage(false)" [disabled]="this.pagination.pageCurrent == 1" mdbWavesEffect>
+                    <mdb-icon fas icon="arrow-left"></mdb-icon>
+                    Anterior
+                </button>                               
+                <button mdbBtn type="button" color="indigo" (click)="changePage(true)" [disabled]="this.pagination.pageCurrent > this.pagination.count/this.pagination.pageSize" mdbWavesEffect>
+                    Próxima
+                    <mdb-icon fas icon="arrow-right"></mdb-icon>
+                </button>
             </div> 
         </div> 
     </div>
@@ -117,7 +119,6 @@
                         <mat-menu #actions="matMenu">
                             <button style="outline: none;" mat-menu-item (click)="emitterReport(treasury.id)"><mat-icon>description</mat-icon>Ver relatório</button>
                             <button mat-menu-item (click)="showHistoric(treasury.id)"><mat-icon>batch_prediction</mat-icon>Ver histórico</button>
-                            <button mat-menu-item (click)="takeInventory(treasury.id)"><mat-icon>style</mat-icon>Fazer inventário</button>
                         </mat-menu>  
                         <mdb-card-title>
                             <h4>{{ treasury.name }}</h4>
@@ -141,12 +142,15 @@
                 </mdb-card>
             </div>
         </div>
-        <div class="main-footer">
-            <div class="row">
-                <div class="col">
-                    <app-pagination #paginationMobile (click)="changePage(paginationMobile)"></app-pagination>
-                </div>
-            </div>
+        <div class="main-footer" *ngIf="this.pagination.count > 6">
+            <button mdbBtn style="margin-bottom: 10px;" type="button" block="true" color="indigo" (click)="changePage(false)" [disabled]="this.pagination.pageCurrent == 1" mdbWavesEffect>
+                <mdb-icon fas icon="arrow-left"></mdb-icon>
+                Anterior
+            </button>  
+            <button mdbBtn type="button" block="true" color="indigo" (click)="changePage(true)" [disabled]="this.pagination.pageCurrent > this.pagination.count/this.pagination.pageSize" mdbWavesEffect>
+                Próxima
+                <mdb-icon fas icon="arrow-right"></mdb-icon>
+            </button>
         </div> 
     </div>
 </div>

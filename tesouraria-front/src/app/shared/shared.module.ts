@@ -18,7 +18,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { PaginationModule } from './pagination/pagination.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PhonePipe } from './pipes/phone.pipe';
 import { DateShowPipe } from './pipes/date-show.pipe';
@@ -44,8 +43,7 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatExpansionModule,
     MatProgressBarModule,
     MatDatepickerModule, 
-    MatNativeDateModule, 
-    PaginationModule
+    MatNativeDateModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -63,8 +61,7 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatExpansionModule,
     MatProgressBarModule,
     MatDatepickerModule,
-    MatNativeDateModule, 
-    PaginationModule,
+    MatNativeDateModule,
     PhonePipe,
     DateShowPipe 
   ]

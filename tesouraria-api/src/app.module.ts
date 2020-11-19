@@ -10,12 +10,10 @@ import { UserModule } from './users/user.module';
 import { Treasury } from './shared/models/treasury.entity';
 import { Expense } from './shared/models/expense.entity';
 import { Recipe } from './shared/models/recipe.entity';
-import { Inventory} from './shared/models/inventory.entity';
 import { User } from './shared/models/user.entity';
 import { TransactionsModule } from './transactions/transactions.module';
 import { ReportModule } from './report/report.module';
 import { HistoricModule } from './historic/historic.module';
-import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -30,7 +28,6 @@ import { InventoryModule } from './inventory/inventory.module';
         Treasury, 
         Expense,
         Recipe,
-        Inventory,
         User
       ],
       synchronize: true
@@ -40,8 +37,7 @@ import { InventoryModule } from './inventory/inventory.module';
     UserModule,
     TransactionsModule,
     ReportModule,
-    HistoricModule,
-    InventoryModule,
+    HistoricModule
   ],
   controllers: [AppController],
   providers: [AppService],
