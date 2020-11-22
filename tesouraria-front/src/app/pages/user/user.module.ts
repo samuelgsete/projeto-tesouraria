@@ -7,12 +7,13 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { ConfirmAccountComponent } from './create-user/confirm-account/confirm-account.component';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthUserComponent } from './auth-user/auth-user.component';
+import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 
 @NgModule({
   declarations: [
     CreateUserComponent, 
     AuthUserComponent, 
-    ConfirmAccountComponent
+    ConfirmAccountComponent, DashboardUserComponent
   ],
   imports: [
     CommonModule,

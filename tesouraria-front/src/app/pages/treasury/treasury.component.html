@@ -49,7 +49,9 @@
                             </mdb-card-title>
                             <mdb-card-text>
                                 <p>Última atualização</p>
-                                <span>{{ treasury.updated | date: 'dd/MM/yyyy' | dateShow }}</span>
+                                <mdb-badge style="font-size: 16px; font-weight: normal; margin-top: 5px;" class="z-depth-0" pill="true" primary="true">
+                                    {{ treasury.updated | date: 'dd/MM/yyyy' | dateShow }}
+                                </mdb-badge>
                             </mdb-card-text>  
                             <button mat-fab class="warning-color text-white z-depth-0" style="margin-right: 5px" (click)="addTransactions(treasury.id)">
                                 <mat-icon>add</mat-icon>

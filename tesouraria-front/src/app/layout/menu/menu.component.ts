@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
   }
 
   public account() {
-    this.router.navigateByUrl('/account');
+    this.router.navigateByUrl('/user/dashboard');
   }
 
   ngOnInit() { }

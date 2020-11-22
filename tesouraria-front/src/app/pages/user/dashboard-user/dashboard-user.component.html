@@ -1,0 +1,138 @@
+<div class="dashboard">
+    <div class="updated">
+        <button mdbBtn type="button" color="indigo" outline="true" (click)="logoutUser()" mdbWavesEffect>DESCONECTAR</button> 
+        <br>
+        <span>Última atualização em</span>
+        <br>
+        <mdb-badge style="font-size: 16px; font-weight: normal; margin-top: 5px;" pill="true" primary="true">{{ user.updated | date: 'dd/MM/yyyy' | dateShow }}</mdb-badge>
+    </div>
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="body">
+        <div class="header">
+            <img src="/assets/img/avatar/dashboard-avatar.png" alt="usuario" width="80px" height="80px">
+            <h1>Bem-vindo {{ user.name }} {{ user.surname}}</h1>
+            <p>Personalize sua conta de acordo com suas necessidades</p>
+        </div>
+        <div class="main">
+            <form [formGroup]="form">
+                <mdb-card class="z-depth-0" mdbWavesEffect>
+                    <mdb-card-body> 
+                        <mdb-card-title>
+                            <h4>Perfil</h4>
+                        </mdb-card-title>
+                        <mdb-card-text>Informações pessoais</mdb-card-text> 
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Nome</mat-panel-title>
+                                    <mat-panel-description>{{ user.name }}</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input formControlName="name" maxlength="30" matInput required>
+                                    <mat-icon matSuffix>face</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['name'].errors?.required">O nome é obrigatório</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['name'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                </mat-form-field> 
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Sobre nome</mat-panel-title>
+                                    <mat-panel-description>{{ user.surname }}</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input formControlName="surname" maxlength="30" matInput required>
+                                    <mat-icon matSuffix>account_circle</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['surname'].errors?.required">O sobrenome é obrigatório</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['surname'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Email</mat-panel-title>
+                                    <mat-panel-description>{{ user.email }}</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input formControlName="email" maxlength="30" matInput required>
+                                    <mat-icon matSuffix>email</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['email'].errors?.required">O email é obrigatório</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['email'].errors?.email">Informe um email válido</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>WhatsApp</mat-panel-title>
+                                    <mat-panel-description>{{ user.whatzapp }}</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input formControlName="whatzapp" matInput required mask="(00)00000-0000">
+                                    <mat-icon matSuffix>phone</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['whatzapp'].errors?.required">O WhatsApp é obrigatório</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                        </mat-accordion> 
+                    </mdb-card-body>
+                </mdb-card>
+                <mdb-card class="z-depth-0" mdbWavesEffect>
+                    <mdb-card-body> 
+                        <mdb-card-title>
+                            <h4>Acesso</h4>
+                        </mdb-card-title>
+                        <mdb-card-text>Informações de autenticação</mdb-card-text> 
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Usuário</mat-panel-title>
+                                    <mat-panel-description>{{ user.username }}</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input formControlName="username" maxlength="30" matInput required>
+                                    <mat-icon matSuffix>security</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['username'].errors?.required">O nome de usuário é obrigatório</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['username'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Senha</mat-panel-title>
+                                    <mat-panel-description>******</mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input #pass formControlName="password" type="password" maxlength="30" matInput required>
+                                    <mat-icon #icon style="cursor: pointer;" (click)="hideOrShowPassword(pass, icon)" matSuffix>visibility_off</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['password'].errors?.required">A senha é obrigatória</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['password'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>Confirmação de senha</mat-panel-title>
+                                    <mat-panel-description></mat-panel-description>
+                                </mat-expansion-panel-header> 
+                                <mat-form-field class="input-width" appearance="fill">
+                                    <input #pass2 formControlName="confirmPassword" type="password" matInput required>
+                                    <mat-icon #icon2 style="cursor: pointer;" (click)="hideOrShowPassword(pass2, icon2)" matSuffix>visibility_off</mat-icon>
+                                    <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.required">A confirmaçao é obrigatória</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                                    <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.confirmedValidator">Informe a mesma senha</mat-error>
+                                </mat-form-field>
+                            </mat-expansion-panel>
+                        </mat-accordion>  
+                    </mdb-card-body>
+                </mdb-card>
+                <button mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="updateUser(form.value)" mdbWavesEffect>ATUALIZAR CONTA</button> 
+            </form>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>
+    <div class="about">
+        <img src="/assets/img/settings.png" alt="usuario" width="80px" height="80px">
+        <h1>Gerencie sua conta</h1>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon> Por aqui você tem acesso as suas informações de cadastro. Você tem liberdade para personalizar suas informações conforme desejar. Caso deseje pode retornar ao menu principar através do botão abaixo <mdb-icon fas icon="quote-right"></mdb-icon> </p>
+        <button mdbBtn type="button" color="indigo" outline="true" (click)="toMenu()" mdbWavesEffect>MENU PRINCIPAL</button> 
+    </div>
+</div>
