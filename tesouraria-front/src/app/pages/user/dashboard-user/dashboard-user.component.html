@@ -2,17 +2,17 @@
     <div class="updated">
         <button mdbBtn type="button" color="indigo" outline="true" (click)="logoutUser()" mdbWavesEffect>DESCONECTAR</button> 
         <br>
-        <span>Última atualização em</span>
+        <span><mdb-icon fas icon="quote-left"></mdb-icon> Última atualização em</span>
         <br>
         <mdb-badge style="font-size: 16px; font-weight: normal; margin-top: 5px;" pill="true" primary="true">{{ user.updated | date: 'dd/MM/yyyy' | dateShow }}</mdb-badge>
     </div>
     <div class="progress-bar" *ngIf="loading">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div class="body">
+    <div class="body z-depth-2">
         <div class="header">
             <img src="/assets/img/avatar/dashboard-avatar.png" alt="usuario" width="80px" height="80px">
-            <h1>Bem-vindo {{ user.name }} {{ user.surname}}</h1>
+            <h1 style="margin-top: 10px;">Bem-vindo {{ user.name }} {{ user.surname}}</h1>
             <p>Personalize sua conta de acordo com suas necessidades</p>
         </div>
         <div class="main">

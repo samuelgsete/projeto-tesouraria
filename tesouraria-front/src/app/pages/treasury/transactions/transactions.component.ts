@@ -66,6 +66,11 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
+  public filterTransactions() {
+    this.pagination = new Pagination();
+    this.load();
+  }
+
   public changePage(sense: boolean) {  
     if(sense) {
       this.pagination.nextPage();
