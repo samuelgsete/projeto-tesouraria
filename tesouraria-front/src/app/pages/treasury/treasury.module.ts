@@ -8,7 +8,6 @@ import { TreasuryService } from 'src/app/shared/services/treasury.service';
 import { ReportComponent } from './report/report.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { HistoricComponent } from './historic/historic.component';
-import { AccountComponent } from './account/account.component';
 import { UserService } from 'src/app/shared/services/user.service';
 import { IncomeComponent } from './income/income.component';
 import { ChartsTreasuryComponent } from './charts-treasury/charts-treasury.component';
@@ -24,7 +23,6 @@ import { TransactionsChartComponent } from './transactions/transactions-chart/tr
     TransactionsComponent,
     ReportComponent,
     HistoricComponent,
-    AccountComponent,
     IncomeComponent,
     ChartsTreasuryComponent,
     ReportChartComponent,
