@@ -133,6 +133,13 @@
                 }
                 button:focus { outline: none; }
 
+                .empty-data {
+                    font-family: 'Lato', sans-serif;
+                    text-align: center;
+                    padding: 10px;
+                    img { margin-bottom: 15px }
+                }
+
                 table { 
                     background-color: #fff;
                     thead {

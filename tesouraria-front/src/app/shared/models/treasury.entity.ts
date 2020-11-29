@@ -14,6 +14,10 @@ export class Treasury {
     public details: string;
     public updated: Date;
     public userId: number;
+    public countSale: number;
+    public countOffer: number;
+    public countTaxpayer: number;
+    public countOther: number;
 
     public constructor(values: Object = {}) { Object.assign(this, values) }
 }

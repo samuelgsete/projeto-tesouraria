@@ -12,12 +12,13 @@
     <div class="body z-depth-2">
         <div class="header">
             <img src="/assets/img/avatar/dashboard-avatar.png" alt="usuario" width="80px" height="80px">
-            <h1 style="margin-top: 10px;">Bem-vindo {{ user.name }} {{ user.surname}}</h1>
+            <h1 class="welcome-desktop" style="margin-top: 10px;">Bem-vindo {{ user.name }} {{ user.surname}}</h1>
+            <h1 class="welcome-mobile" style="margin-top: 10px;">Bem-vindo <br> {{ user.name }} {{ user.surname}}</h1>
             <p>Personalize sua conta de acordo com suas necessidades</p>
         </div>
         <div class="main">
             <form [formGroup]="form">
-                <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card class="z-depth-0">
                     <mdb-card-body> 
                         <mdb-card-title>
                             <h4>Perfil</h4>
@@ -25,7 +26,7 @@
                         <mdb-card-text>Informações pessoais</mdb-card-text> 
                         <mat-accordion>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>Nome</mat-panel-title>
                                     <mat-panel-description>{{ user.name }}</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -37,7 +38,7 @@
                                 </mat-form-field> 
                             </mat-expansion-panel>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>Sobre nome</mat-panel-title>
                                     <mat-panel-description>{{ user.surname }}</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -49,7 +50,7 @@
                                 </mat-form-field>
                             </mat-expansion-panel>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>Email</mat-panel-title>
                                     <mat-panel-description>{{ user.email }}</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -61,7 +62,7 @@
                                 </mat-form-field>
                             </mat-expansion-panel>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>WhatsApp</mat-panel-title>
                                     <mat-panel-description>{{ user.whatzapp }}</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -74,7 +75,7 @@
                         </mat-accordion> 
                     </mdb-card-body>
                 </mdb-card>
-                <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card class="z-depth-0">
                     <mdb-card-body> 
                         <mdb-card-title>
                             <h4>Acesso</h4>
@@ -82,7 +83,7 @@
                         <mdb-card-text>Informações de autenticação</mdb-card-text> 
                         <mat-accordion>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>Usuário</mat-panel-title>
                                     <mat-panel-description>{{ user.username }}</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -94,7 +95,7 @@
                                 </mat-form-field>
                             </mat-expansion-panel>
                             <mat-expansion-panel>
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header mdbWavesEffect>
                                     <mat-panel-title>Senha</mat-panel-title>
                                     <mat-panel-description>******</mat-panel-description>
                                 </mat-expansion-panel-header> 
@@ -132,7 +133,7 @@
     <div class="about">
         <img src="/assets/img/settings.png" alt="usuario" width="80px" height="80px">
         <h1>Gerencie sua conta</h1>
-        <p><mdb-icon fas icon="quote-left"></mdb-icon> Por aqui você tem acesso as suas informações de cadastro. Você tem liberdade para personalizar suas informações conforme desejar. Caso deseje pode retornar ao menu principar através do botão abaixo <mdb-icon fas icon="quote-right"></mdb-icon> </p>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon> Por aqui você tem acesso as suas informações de cadastro. Você tem liberdade para personalizar suas informações conforme desejar. Se preferir, acesse o menu principal clicando no botão abaixo <mdb-icon fas icon="quote-right"></mdb-icon> </p>
         <button mdbBtn type="button" color="indigo" outline="true" (click)="toMenu()" mdbWavesEffect>MENU PRINCIPAL</button> 
     </div>
 </div>

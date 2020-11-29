@@ -3,7 +3,7 @@
         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <mdb-card class="default-color text-white z-depth-0" mdbWavesEffect>
                 <mdb-card-body>
-                    <mat-icon>attach_money</mat-icon>
+                    <mat-icon class="main-icons">attach_money</mat-icon>
                     <mdb-card-text>
                         <p class="text-white label">Montante inicial</p>
                     </mdb-card-text>
@@ -16,7 +16,7 @@
         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <mdb-card class="warning-color text-white z-depth-0" mdbWavesEffect>
                 <mdb-card-body>
-                    <mat-icon>attach_money</mat-icon>
+                    <mat-icon class="main-icons">attach_money</mat-icon>
                     <mdb-card-text>
                         <p class="text-white label">Saldo atual</p>
                     </mdb-card-text>
@@ -29,7 +29,7 @@
         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <mdb-card class="info-color text-white z-depth-0" mdbWavesEffect>
                 <mdb-card-body>
-                    <mat-icon>attach_money</mat-icon>
+                    <mat-icon class="main-icons">attach_money</mat-icon>
                     <mdb-card-text>
                         <p class="text-white label">Total de receitas</p>
                     </mdb-card-text>
@@ -42,13 +42,67 @@
         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <mdb-card class="danger-color text-white z-depth-0" mdbWavesEffect>
                 <mdb-card-body>
-                    <mat-icon>attach_money</mat-icon>
+                    <mat-icon class="main-icons">attach_money</mat-icon>
                     <mdb-card-text>
                         <p class="text-white label">Total de despesas</p>
                     </mdb-card-text>
                     <mdb-card-title>
                         <h4 class="money">{{ income.incomeExpenses | currency:'BRL' }}</h4>
                     </mdb-card-title>                   
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card-body>
+                    <mat-list>
+                        <mat-list-item >
+                          <mat-icon class="text-primary" mat-list-icon>shopping_basket</mat-icon>
+                          <div mat-line>Vendas</div>
+                          <div mat-line>{{ income.countSales | currency:'BRL' }}</div>
+                        </mat-list-item>
+                    </mat-list>      
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card-body>
+                    <mat-list>
+                        <mat-list-item >
+                          <mat-icon class="text-primary"  mat-list-icon>local_offer</mat-icon>
+                          <div mat-line>Ofertas</div>
+                          <div mat-line>{{ income.countOffers | currency:'BRL' }}</div>
+                        </mat-list-item>
+                    </mat-list>      
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card-body>
+                    <mat-list>
+                        <mat-list-item >
+                          <mat-icon class="text-primary"  mat-list-icon>supervised_user_circle</mat-icon>
+                          <div mat-line>Contribuíntes</div>
+                          <div mat-line>{{ income.countContributors | currency:'BRL' }}</div>
+                        </mat-list-item>
+                    </mat-list>      
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+            <mdb-card class="z-depth-0" mdbWavesEffect>
+                <mdb-card-body>
+                    <mat-list>
+                        <mat-list-item >
+                          <mat-icon class="text-primary"  mat-list-icon>bookmarks</mat-icon>
+                          <div mat-line>Outros recebimentos</div>
+                          <div mat-line>{{ income.countOthers | currency:'BRL' }}</div>
+                        </mat-list-item>
+                    </mat-list>      
                 </mdb-card-body>
             </mdb-card>
         </div>

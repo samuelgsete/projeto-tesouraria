@@ -24,6 +24,24 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
+
+--
+-- Name: credit_status_enum; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.credit_status_enum AS ENUM (
+    'QUITADO',
+    'ABERTO',
+    'ENCERRADO'
+);
+
+
+ALTER TYPE public.credit_status_enum OWNER TO postgres;
+
+--
+-- Name: expense_type_enum; Type: TYPE; Schema: public; Owner: postgres
+--
+
 CREATE TYPE public.expense_type_enum AS ENUM (
     'RECEITA',
     'DESPESA'
@@ -31,6 +49,20 @@ CREATE TYPE public.expense_type_enum AS ENUM (
 
 
 ALTER TYPE public.expense_type_enum OWNER TO postgres;
+
+--
+-- Name: recipe_recipetype_enum; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public.recipe_recipetype_enum AS ENUM (
+    'Venda',
+    'Oferta do culto',
+    'Contribuinte',
+    'Outros'
+);
+
+
+ALTER TYPE public.recipe_recipetype_enum OWNER TO postgres;
 
 --
 -- Name: recipe_type_enum; Type: TYPE; Schema: public; Owner: postgres
@@ -56,7 +88,7 @@ CREATE TABLE public.expense (
     id integer NOT NULL,
     description character varying(60) NOT NULL,
     value double precision NOT NULL,
-    "registeredIn" timestamp without time zone DEFAULT '2020-11-04 15:10:38.839'::timestamp without time zone NOT NULL,
+    "registeredIn" timestamp without time zone DEFAULT '2020-11-29 19:02:53.633'::timestamp without time zone NOT NULL,
     details character varying(255),
     type public.expense_type_enum NOT NULL,
     "treasuryId" integer
@@ -95,7 +127,7 @@ CREATE TABLE public.inventory (
     "actualBalance" double precision NOT NULL,
     "currentBalance" double precision,
     discrepancy double precision,
-    "registeredIn" timestamp without time zone DEFAULT '2020-11-04 15:10:38.845'::timestamp without time zone NOT NULL,
+    "registeredIn" timestamp without time zone DEFAULT '2020-11-15 17:44:23.61'::timestamp without time zone NOT NULL,
     "treasuryId" integer
 );
 
@@ -133,9 +165,10 @@ CREATE TABLE public.recipe (
     value double precision NOT NULL,
     offerer character varying(60),
     type public.recipe_type_enum NOT NULL,
-    "registeredIn" timestamp without time zone DEFAULT '2020-11-04 15:10:38.843'::timestamp without time zone NOT NULL,
+    "registeredIn" timestamp without time zone DEFAULT '2020-11-29 19:02:53.637'::timestamp without time zone NOT NULL,
     details character varying(255),
-    "treasuryId" integer
+    "treasuryId" integer,
+    "recipeType" public.recipe_recipetype_enum
 );
 
 
@@ -175,7 +208,11 @@ CREATE TABLE public.treasury (
     "incomeExpenses" double precision DEFAULT 0,
     details character varying(255),
     "userId" integer NOT NULL,
-    updated timestamp without time zone DEFAULT now() NOT NULL
+    updated timestamp without time zone DEFAULT now() NOT NULL,
+    "countSale" double precision DEFAULT 0,
+    "countOffer" double precision DEFAULT 0,
+    "countTaxpayer" double precision DEFAULT 0,
+    "countOther" double precision DEFAULT 0
 );
 
 
