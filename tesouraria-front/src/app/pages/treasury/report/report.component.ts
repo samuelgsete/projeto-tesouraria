@@ -70,19 +70,7 @@ export class ReportComponent implements OnInit {
     this.loading = true;
     this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
         this.reports = response.body;
-    }, error => {
-      this.errorMessage(error);
-    }).add( () => {
-      this.loading = false;
-    });
-  }
-
-  public getReportMobile() {
-    let id = parseInt(this.router.url.split('/')[2]);
-    let month = this.monthsMobile.indexOf(this.monthSelected);
-    this.loading = true;
-    this.service.getReport(id, this.yearSelected, month).subscribe( response => { 
-      this.reports = response.body;
+        console.log(this.reports);
     }, error => {
       this.errorMessage(error);
     }).add( () => {

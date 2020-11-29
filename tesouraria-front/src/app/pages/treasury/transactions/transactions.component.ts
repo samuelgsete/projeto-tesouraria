@@ -43,6 +43,7 @@ export class TransactionsComponent implements OnInit {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro','Todos os meses'
   ];
   public types = ['RECEITA', 'DESPESA', 'RECEITA E DESPESA'];
+  public recipeOptions = ['Venda', 'Oferta do culto', 'Contribuinte', 'Outros'];
 
   @ViewChild('income', { static: true }) incomeComponent: any;
   
@@ -148,6 +149,7 @@ export class TransactionsComponent implements OnInit {
       value: recipe.value,
       offerer: recipe.offerer,
       type: TransactionType.RECIPE,
+      recipeType: recipe.recipeType,
       details: recipe.details,
       registeredIn: moment(recipe.registeredIn, 'DDMMYYYY', true).toDate()
     });
@@ -281,6 +283,7 @@ export class TransactionsComponent implements OnInit {
         id: row.id,
         description: row.description,
         value: row.value,
+        recipeType: row.recipeType,
         offerer: row.offerer,
         registeredIn: moment(row.registeredIn).format('DDMMYYYY'),
         details: row.details
@@ -296,6 +299,7 @@ export class TransactionsComponent implements OnInit {
       id: [null],
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
       value: ['', [Validators.required, new MaxInputMoneyValidator()]],
+      recipeType: ['', Validators.required],
       offerer: [null, [Validators.minLength(4), Validators.maxLength(60), new ResetStateFormValidator()]],
       registeredIn: [moment().format('DDMMYYYY'), [Validators.required, new DateValidator().validate()]],
       details: [null, [Validators.minLength(4), Validators.maxLength(255), new ResetStateFormValidator()]],

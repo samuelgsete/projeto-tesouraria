@@ -5,6 +5,7 @@ import { Treasury } from "./treasury.entity";
 import { EntityBase } from "./entity-base.entity";
 import { recipes } from "../validation/recipes.messages";
 import { TransactionType } from "./enums/transaction-type.enum";
+import { RecipeType } from "./enums/recipe-type.enum";
 
 @Entity()
 export class Recipe extends EntityBase {
@@ -34,6 +35,13 @@ export class Recipe extends EntityBase {
         unique: false, nullable: false
     })
     public readonly type: TransactionType;
+
+    @Column({ 
+        type: 'enum', 
+        enum: ['Venda', 'Oferta do culto', 'Contribuinte', 'Outros'], 
+        unique: false, nullable: true
+    })
+    public recipeType: RecipeType;
 
     @IsNotEmpty({message: `${recipes.dateNotNull}`})
     @IsDateString({message: `${recipes.dateValid}`})

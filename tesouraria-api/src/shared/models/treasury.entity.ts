@@ -32,6 +32,18 @@ export class Treasury extends EntityBase {
     @Column({ type: 'float', unique: false, nullable: true, default: 0 })
     public incomeExpenses: number;
 
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public countSale: number;
+
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public countOffer: number;
+
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public countTaxpayer: number;
+
+    @Column({ type: 'float', unique: false, nullable: true, default: 0 })
+    public countOther: number;
+
     @IsOptional()
     @Length(4, 255, {message: `${treasuries.detailsLength}`})
     @IsString({ message:`${treasuries.detailsValid}`})

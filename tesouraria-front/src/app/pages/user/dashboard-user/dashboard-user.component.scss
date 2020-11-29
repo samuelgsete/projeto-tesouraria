@@ -88,29 +88,38 @@
         }
         .body {
             padding: 50px;
+            .header {
+                h1.welcome-mobile { display: none; }
+            }
         }
     }
 }
 
-@media (min-width: 520px) and (max-width: 979px) { 
+@media (min-width: 480px) and (max-width: 979px) { 
     .dashboard {
         .about {
             padding: 50px 50px;
         }
         .body {
             padding: 40px;
+            .header {
+                h1.welcome-mobile { display: none; }
+            }
         }
     }
 }
 
-@media (max-width: 519px) { 
+@media (max-width: 479px) { 
     .dashboard {
         .about {
-            padding: 20px;
+            padding: 40px 15px;
         }
 
         .body {
             padding: 10px;
+            .header {
+                h1.welcome-desktop { display: none; }
+            }
         }
     }
 }

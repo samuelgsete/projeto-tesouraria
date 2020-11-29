@@ -10,6 +10,7 @@ import { Expense } from "src/shared/models/expense.entity";
 import { IdInvalidException } from "src/shared/exceptions/models/Id-invalid.exception";
 import { TreasuryNotFoundException } from "src/shared/exceptions/models/treasury-not-foud.exception";
 import { PermissionDeniedException } from "src/shared/exceptions/models/permission-denied.excepton";
+import { RecipeType } from "src/shared/models/enums/recipe-type.enum";
 
 const ALL_MONTHS = 12;
 const MONTHS = [
@@ -132,14 +133,56 @@ export class ReportService {
         
         recipes = this.sortTransactions(transactions.recipes);
         expenses = this.sortTransactions(transactions.expenses);
+        const accountants = this.categorizeRecipes(recipes);
 
         return {
             recipes, 
             expenses,
             incomeRecipesMonthly,
             incomeExpensesMonthly,
-            balanceMonthly 
+            balanceMonthly,
+            accountants 
         }
+    }
+
+    private categorizeRecipes(recipes: Recipe[]) {
+        let countSales = 0;
+        let countOffers = 0;
+        let countContributors = 0;
+        let countOthers = 0;
+        
+        const sales = recipes.filter( recipe => {
+            return recipe.recipeType == RecipeType.SALE;
+        });
+        const offers = recipes.filter( recipe => {
+            return recipe.recipeType == RecipeType.OFFER;
+        });
+        const contributors = recipes.filter( recipe => {
+            return recipe.recipeType == RecipeType.TAXPAYER;
+        });
+        const others = recipes.filter( recipe => {
+            return recipe.recipeType == RecipeType.OTHER;
+        });
+
+        sales.forEach( recipe => {
+            countSales += recipe.value;
+        });
+        offers.forEach( recipe => {
+            countOffers += recipe.value;
+        });
+        contributors.forEach( recipe => {
+            countContributors += recipe.value;
+        });
+        others.forEach( recipe => {
+            countOthers += recipe.value;
+        });
+
+        return { 
+            countSales: countSales,
+            countOffers: countOffers,
+            countContributors: countContributors,
+            countOthers: countOthers
+        };            
     }
 
     private getReportYearly(year: number, recipes: Recipe[], expenses: Expense[]) {

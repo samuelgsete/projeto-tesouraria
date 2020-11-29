@@ -29,7 +29,6 @@ export class TreasuryController {
                         @Req() request: Request
                      ): Promise<any> 
     {
-  
         const userId = parseInt(request.headers['userid'].toString());
         return this.service.getResume(id, userId);
     }

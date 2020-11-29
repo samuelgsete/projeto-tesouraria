@@ -10,6 +10,7 @@ import { TransactionType } from "src/shared/models/enums/transaction-type.enum";
 import { IdInvalidException } from "src/shared/exceptions/models/Id-invalid.exception";
 import { TreasuryNotFoundException } from "src/shared/exceptions/models/treasury-not-foud.exception";
 import { PermissionDeniedException } from "src/shared/exceptions/models/permission-denied.excepton";
+import { RecipeType } from "src/shared/models/enums/recipe-type.enum";
 
 const PAGE_SIZE = 6;
 
@@ -62,6 +63,11 @@ export class TransactionsService {
         treasury.recipes.push(recipe);
         treasury.currentBalance += recipe.value;
         treasury.incomeRecipes += recipe.value;
+
+        treasury.countSale = recipe.recipeType == RecipeType.SALE ? treasury.countSale + recipe.value : treasury.countSale;
+        treasury.countOffer = recipe.recipeType == RecipeType.OFFER ? treasury.countOffer + recipe.value : treasury.countOffer;
+        treasury.countTaxpayer = recipe.recipeType == RecipeType.TAXPAYER ? treasury.countTaxpayer + recipe.value : treasury.countTaxpayer;
+        treasury.countOther = recipe.recipeType == RecipeType.OTHER ? treasury.countOther + recipe.value : treasury.countOther;
         
         await this.repositoryTreasury.save(treasury);  
     }
@@ -77,6 +83,11 @@ export class TransactionsService {
         
         treasury.incomeRecipes +=  recipeUpdated.value - currentRecipe.value;
         treasury.currentBalance += recipeUpdated.value - currentRecipe.value;
+
+        treasury.countSale = recipeUpdated.recipeType == RecipeType.SALE ? treasury.countSale + (recipeUpdated.value - currentRecipe.value) : treasury.countSale;
+        treasury.countOffer = recipeUpdated.recipeType == RecipeType.OFFER ? treasury.countOffer + (recipeUpdated.value - currentRecipe.value) : treasury.countOffer;
+        treasury.countTaxpayer = recipeUpdated.recipeType == RecipeType.TAXPAYER ? treasury.countTaxpayer + (recipeUpdated.value - currentRecipe.value) : treasury.countTaxpayer;
+        treasury.countOther = recipeUpdated.recipeType == RecipeType.OTHER ? treasury.countOther + (recipeUpdated.value - currentRecipe.value) : treasury.countOther;
 
         treasury.recipes[index] = recipeUpdated;
         await this.repositoryTreasury.save(treasury);

@@ -14,6 +14,7 @@ import { DashboardUserComponent } from './pages/user/dashboard-user/dashboard-us
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            { path: '', component: AuthUserComponent },
             { path: 'home', component: TreasuryComponent, canActivate: [AuthUserGuard] },
             { path: 'transactions/:id', component: TransactionsComponent, canActivate: [AuthUserGuard] },
             { path: 'report/:id', component: ReportComponent, canActivate: [AuthUserGuard] },

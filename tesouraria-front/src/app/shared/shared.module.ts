@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatListModule } from '@angular/material/list';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { PhonePipe } from './pipes/phone.pipe';
@@ -43,7 +44,8 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatExpansionModule,
     MatProgressBarModule,
     MatDatepickerModule, 
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatListModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -62,6 +64,7 @@ import { DateShowPipe } from './pipes/date-show.pipe';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatListModule,
     PhonePipe,
     DateShowPipe 
   ]
