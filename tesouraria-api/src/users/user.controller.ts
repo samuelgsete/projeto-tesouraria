@@ -35,4 +35,14 @@ export class UserController {
     public update(@Body() user: User) {
         return this.service.update(user);
     }
+
+    @Put('recover/account')
+    public recoverAccount(@Body() body: any) {
+        return this.service.recoverAccount(body.email);
+    }
+
+    @Put('finalize/recover')
+    public finalizeRecover(@Body() body: any) {
+        return this.service.finalizeRecover(body.username, body.password, body.code);
+    }
 }

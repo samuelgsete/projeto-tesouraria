@@ -11,9 +11,9 @@ import { EmailService } from 'src/shared/services/email.service';
 export class UserService {
 
     public constructor(
-                        @InjectRepository(User) private repository: Repository<User>,
-                        private readonly emailService: EmailService
-    ) { }
+                            @InjectRepository(User) private repository: Repository<User>,
+                            private readonly emailService: EmailService
+                      ) { }
 
     public async findById(id: number): Promise<User> {
         if(id <= 0) {
@@ -53,27 +53,16 @@ export class UserService {
 
         this.emailService.verifyUser(user.name, user.email, user.codeVerify);
 
-        return this.repository
-                    .save(user)
-                    .then( e => {
-                        return {
-                            message: 'Aguardando confirmação'
-                        };
-                    }) 
-    }
+        await this.repository.save(user);
+    }        
 
     public async confirmUser(code: string) {
         const result = await this.repository.find({ where: { codeVerify: code }});
         let user = result[0];
         if(user) {
             user.isActive = true;
-            return this.repository
-                .save(user)
-                .then( e => {
-                    return {
-                        message: 'Criado com sucesso'
-                    }
-                })
+            await this.repository.save(user);
+            return;
         }
         throw new IdInvalidException('Codigo de verificação inválido');
     }
@@ -91,13 +80,7 @@ export class UserService {
 
         this.emailService.verifyUser(user.name, user.email, user.codeVerify);
 
-        return this.repository
-                    .save(user)
-                    .then( () => {
-                        return {
-                            message: 'Código reenviado'
-                        };
-                    });
+        await this.repository.save(user);
     }
 
     public async update(user: User) {
@@ -121,13 +104,31 @@ export class UserService {
             }
         }
 
-        return this.repository
-                    .save(user)
-                    .then( e => {
-                        return {
-                            message: 'Atualizado com sucesso'
-                        };
-                    }); 
+        await this.repository.save(user);
+    }
+
+    public async recoverAccount(email: string) {
+        const user = await this.findByEmail(email);
+        if(user) {
+            user.codeVerify = this.generateVerificationCode();
+            this.emailService.recoverUser(user.name, user.email, user.codeVerify);
+            await this.repository.save(user);
+            return { name: user.name };
+        }
+        throw new HttpException('O email não está cadastrado', HttpStatus.BAD_REQUEST);
+    }
+
+    public async finalizeRecover(newUsername: string, newPassowrd: string, code: string) {
+        const result = await this.repository.find({ where: { codeVerify: code }});
+        let user = result[0];
+        if(user) {
+            user.isActive = true;
+            user.username = newUsername;
+            user.password = newPassowrd;
+            await this.repository.save(user);
+            return;
+        }
+        throw new HttpException('Codigo de verificação inválido', HttpStatus.BAD_REQUEST);
     }
 
     private generateVerificationCode(): string {

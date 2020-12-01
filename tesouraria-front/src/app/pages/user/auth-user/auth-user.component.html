@@ -26,7 +26,8 @@
                     <mat-error *ngIf="this.form['controls']['password'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                 </mat-form-field>
                 <button mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="signIn(form.value)" mdbWavesEffect>ACESSAR</button> 
-                <p class="link" (click)="toNewUser()">Criar nova conta</p>         
+                <p class="link" (click)="toNewUser()">Criar nova conta</p>   
+                <p class="link" (click)="toRecoverAccount()">Esqueçeu o usuário ou senha?</p>         
             </form>
         </div>
         <div class="footer">
