@@ -5,7 +5,7 @@
             <div class="col-xl-10 col-lg-8 col-md-8 col-sm-6">
                 <div class="name-page">
                     <mat-icon>how_to_vote</mat-icon>
-                    <h2 >Tesourarias</h2>
+                    <h2>Tesourarias</h2>
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
@@ -13,10 +13,10 @@
             </div>
         </div>
     </div>
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
     <div class="box z-depth-1-half">
-        <div *ngIf="loading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
         <div class="header">
             <mat-form-field class="input-width" appearance="fill">
                 <input [formControl]="search" matInput placeholder="Diga-me o que deseja procurar">
@@ -25,12 +25,11 @@
                 </button>
             </mat-form-field>
         </div>
-        
         <div class="main-content">           
             <div class="empty-data" *ngIf="this.treasuries.length == 0">
                 <img src="/assets/img/info.png" width="128px" height="128px" alt="empty info">
                 <h4>Nenhuma tesouraria encontrada</h4>
-                <h5>Crie uma clicando no botão acima</h5>  
+                <h5><mdb-icon fas icon="quote-left"></mdb-icon> Crie uma clicando no botão acima</h5>  
             </div>
             <div class="row">
                 <div class="col-xl-4 col-lg-6 col-md-6" *ngFor="let treasury of treasuries">
@@ -91,10 +90,10 @@
             <button type="button" mdbBtn color="light" block="true" class="z-depth-0" (click)="modalCreate.show()" mdbWavesEffect>NOVA TESOURARIA</button>
         </div>
     </div>
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
     <div class="box">
-        <div *ngIf="loading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
         <mat-form-field class="input-width" appearance="fill">
             <input [formControl]="search" matInput placeholder="Qual tesouraria você está procurando?">
             <button mat-icon-button matSuffix>

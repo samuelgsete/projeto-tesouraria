@@ -1,6 +1,6 @@
 .body {
     padding-bottom: 115px;
-
+ 
     .hero {
         height: 220px;
         padding: 10px 35px;
@@ -30,6 +30,13 @@
         }
     }
 
+    .progress-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        z-index: 99999999;
+    }
+
     .report {
         font-family: 'Lato', sans-serif;
         margin: -70px 35px;
@@ -38,6 +45,19 @@
         border-radius: 6px;
        
         .main-content {
+            mdb-card.counts {
+                mat-icon {
+                    font-size: 35px;
+                    float: right;
+                    margin-top: 10px;
+                    color:#0d47a1;
+                }
+                h4 { 
+                    margin-top: -8px;
+                    color:#0d47a1;
+                }
+            }
+
             mdb-card {
                 cursor: pointer;
             }
@@ -128,11 +148,30 @@
             }
         }
 
+        .progress-bar {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 99999999;
+        }
+
         .report {
             font-family: 'Lato', sans-serif;
             padding: 15px;
- 
+             
             .main-content {
+                mdb-card.counts {
+                    mat-icon {
+                        font-size: 35px;
+                        float: right;
+                        margin-top: 10px;
+                        color:#0d47a1;
+                    }
+                    h4 { 
+                        margin-top: -8px;
+                        color:#0d47a1;
+                    }
+                }
                 mdb-card {
                     cursor: pointer;
                     padding: 15px;

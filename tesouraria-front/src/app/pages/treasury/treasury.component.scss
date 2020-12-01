@@ -23,6 +23,13 @@
         button {  margin-top: -10px } 
     }
 
+    .progress-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        z-index: 99999999;
+    }
+
     .box {
         margin: -70px 35px;
         padding: 30px 35px 40px 35px;
@@ -132,6 +139,13 @@
                 
                 button { width: 290px }
             }  
+        }
+
+        .progress-bar {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 99999999;
         }
 
         .box {

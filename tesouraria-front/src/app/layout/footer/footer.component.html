@@ -1,10 +1,112 @@
-<footer>
-    <ul>
-        <li *ngFor="let icon of icons">
-            <a>
-                <i [ngClass]="icon"></i>
-            </a>
-        </li>
-    </ul>
-    <p>© {{ year }} Copyright - Todos os direitos autorais estão reservados.</p>
+<footer>  
+    <div class="main">
+        <div class="about">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>TREASURY</h5>
+                                <hr>
+                            </mdb-card-title>  
+                            <br>
+                            <mdb-card-text>
+                                <p>O Treasury é um sistema de gerenciamento de tesourarias com foco em emissão de relatórios.</p>
+                            </mdb-card-text>  
+                            <button mdbBtn type="button" color="light" outline="true">SAIBA MAIS</button>        
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>ENDEREÇO</h5>
+                                <hr>
+                            </mdb-card-title>  
+                            <br>
+                            <mdb-card-text>
+                                <p>Rua Paulo Henrique Cavalcante, nº 95, 61.895-000, Água Verde, Guaiúba-CE</p>
+                            </mdb-card-text>         
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>CONTATOS</h5>
+                                <hr>
+                            </mdb-card-title>  
+                            <br>
+                            <mdb-card-text>
+                                <p><mdb-icon fas icon="envelope"></mdb-icon> samuelgsete@gmail.com</p>
+                                <p><mdb-icon fas icon="phone"></mdb-icon> +55 (85) 98971-1010</p>
+                            </mdb-card-text>         
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>REDES SOCIAIS</h5>
+                                <hr>
+                            </mdb-card-title>  
+                            <br>
+                            <ul>
+                                <li *ngFor="let icon of icons">
+                                    <a [href]="icon.link">
+                                        <i [ngClass]="icon.name"></i>
+                                    </a>
+                                </li>
+                            </ul>       
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
+        </div>
+        <div class="feedback">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0">
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>FAÇA A SUA SUGESTÃO</h5>
+                                <hr>
+                            </mdb-card-title> 
+                            <br>
+                            <mdb-card-text>
+                                <p>Suas sugestões são muito importantes para que possamos sempre está buscando melhorar nossos serviços. Faça uma avaliação sincera sobre o sistema</p>
+                            </mdb-card-text>  
+                            <mat-form-field class="input-width" appearance="fill">
+                                <textarea [formControl]="feedback" #ombudsman matInput placeholder="Como podemos melhorar?" maxlength="600"></textarea>
+                                <mat-error>Informe no mínimo 5 caracteres ou se preferir deixe em branco</mat-error>
+                                <mat-hint>{{ ombudsman.value?.length || 0 }}/600</mat-hint>
+                            </mat-form-field>
+                            <button mdbBtn type="button" color="light" outline="true" [disabled]="!feedback.valid">ENVIAR AVALIAÇÃO</button>        
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <mdb-card class="z-depth-0" mdbWavesEffect>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <h5>DESENVOLVEDOR</h5>
+                                <hr>
+                            </mdb-card-title>  
+                            <br>
+                            <mdb-card-text>
+                                <p>Samuel de Souza Taveira, 25 anos</p>
+                                <p>Estudante de Computação pelo IFCE campus Maracanaú-CE</p>
+                            </mdb-card-text>         
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="copyright" mdbWavesEffect>
+        <p>© {{ year }} Copyright - Todos os direitos autorais estão reservados.</p>
+    </div>
 </footer>
