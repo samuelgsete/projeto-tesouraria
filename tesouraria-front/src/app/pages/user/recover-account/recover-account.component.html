@@ -1,0 +1,37 @@
+<div class="recover-account">
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="about">
+        <img src="/assets/img/mail.png" alt="recuperar usuário" width="80px" height="80px">
+        <h1>Acesso negado</h1>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon> Parece que você está tendo problemas ao acessar nosso sistema, mas fique tranquilo iremos guiá-lo para que o mais breve possivel o seu acesso seja liberado. Siga as intruções e tudo irá correr bem. Se desejar pode criar uma nova conta <mdb-icon fas icon="quote-right"></mdb-icon> </p>
+        <button mdbBtn type="button" color="indigo" (click)="toNewUser()" outline="true" mdbWavesEffect>QUERO FAZER UM NOVO CADASTRO</button> 
+    </div>
+    <div class="main z-depth-2">
+        <div class="header">
+            <img src="/assets/img/avatar/user-recover.png" alt="usuario" width="80px" height="80px">
+            <h6>Recuperação de conta</h6>
+            <p>Informe seu email</p>
+        </div>
+        <div class="body">
+            <div class="form">
+                <p>
+                    Olá, para recuperar sua conta precisamos verificar seu email de cadastro. Um código será enviado para o seu email, fique atento porque precisaremos desse código para redefinir suas crendenciais.
+                </p>
+                <mat-form-field class="input-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input [formControl]="email" maxlength="30" matInput autofocus required>
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error *ngIf="email.errors?.required">O email é obrigatório</mat-error>
+                    <mat-error *ngIf="email.errors?.email">Informe um email válido</mat-error>
+                </mat-form-field>
+                <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!email.valid" (click)="verifyUser()" mdbWavesEffect>VERIFICAR EMAIL</button>
+            </div>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>
+</div>

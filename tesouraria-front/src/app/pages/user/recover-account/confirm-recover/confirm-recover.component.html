@@ -1,0 +1,62 @@
+<div class="confirm-recover">
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="about">
+        <img src="/assets/img/note.png" alt="usuario" width="80px" height="80px">
+        <h1>Quase tudo pronto</h1>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon> Muito bem, se acesso está bem perto de ser restabelecido. Lembre de fornecer uma senha fácil de ser lembrada por você. Caso não tenha recebido o código de verificação clique no botão abaixo para solicitar o reenvio <mdb-icon fas icon="quote-right"></mdb-icon></p>
+        <button mdbBtn type="button" color="indigo" outline="true" (click)="resendCode()" mdbWavesEffect>REENVIAR CÓDIGO</button> 
+    </div>
+    <div class="main z-depth-2">
+        <div class="header">
+            <img src="/assets/img/avatar/user-recover2.png" alt="Usuário restaurado" width="80px" height="80px">
+            <h6>Recuperação de conta</h6>
+            <p>Atualize suas informações</p>
+            <mdb-badge style="font-size: 13px; font-weight: normal;" pill="true" primary="true">{{ email }}</mdb-badge>  
+        </div>
+        <div class="body">
+            <form [formGroup]="form">
+                <p>
+                    Olá, <span>{{ name }}</span> forneça o código de verificação enviado ao seu email, em seguida informe o novo usuário e a nova senha de sua preferência. Atenção, se o código de verificação estiver incorreto seus dados não serão atualizados.
+                </p>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="input-width" appearance="outline">
+                            <mat-label>Código de verificação</mat-label>
+                            <input formControlName="code" matInput maxlength="5" mask="00000" required>
+                            <mat-icon matSuffix>code</mat-icon>
+                            <mat-error *ngIf="form['controls']['code'].errors?.required">Informe o código de verificação</mat-error>
+                            <mat-error *ngIf="form['controls']['code'].errors?.minlength">Informe exatamente 5 caracteres</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+               <div class="row">
+                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <mat-form-field class="input-width" appearance="outline">
+                        <mat-label>Login</mat-label>
+                        <input formControlName="newUsername" maxlength="30" matInput required>
+                        <mat-icon matSuffix>security</mat-icon>
+                        <mat-error *ngIf="this.form['controls']['newUsername'].errors?.required">O nome de usuário é obrigatório</mat-error>
+                        <mat-error *ngIf="this.form['controls']['newUsername'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <mat-form-field class="input-width" appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input #pass formControlName="newPassword" type="password" maxlength="30" matInput required>
+                        <mat-icon #icon style="cursor: pointer;" (click)="hideOrShowPassword(pass, icon)" matSuffix>visibility_off</mat-icon>
+                        <mat-error *ngIf="this.form['controls']['newPassword'].errors?.required">A senha é obrigatória</mat-error>
+                        <mat-error *ngIf="this.form['controls']['newPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+               </div>
+                <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="updateUser(form.value)" mdbWavesEffect>ATUALIZAR DADOS</button>
+            </form>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>
+</div>

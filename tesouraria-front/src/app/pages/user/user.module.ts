@@ -8,12 +8,17 @@ import { ConfirmAccountComponent } from './create-user/confirm-account/confirm-a
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthUserComponent } from './auth-user/auth-user.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
+import { RecoverAccountComponent } from './recover-account/recover-account.component';
+import { ConfirmRecoverComponent } from './recover-account/confirm-recover/confirm-recover.component';
 
 @NgModule({
   declarations: [
     CreateUserComponent, 
     AuthUserComponent, 
-    ConfirmAccountComponent, DashboardUserComponent
+    ConfirmAccountComponent, 
+    DashboardUserComponent,
+    RecoverAccountComponent,
+    ConfirmRecoverComponent
   ],
   imports: [
     CommonModule,

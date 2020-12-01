@@ -31,6 +31,10 @@ export class AuthUserComponent implements OnInit {
     this.router.navigateByUrl('/user/create');
   }
 
+  public toRecoverAccount() {
+    this.router.navigateByUrl('/user/recover');
+  }
+
   public signIn(user: User) {
     this.loading = true;
     this.service.loginUser(user).subscribe( res => {
