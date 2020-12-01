@@ -13,10 +13,10 @@
             </div>
         </div>
     </div>
-    <div id="report" class="report z-depth-1-half">
-        <div *ngIf="loading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="report z-depth-1-half">
         <app-income></app-income>     
         <mat-accordion>
             <mat-expansion-panel>
@@ -52,6 +52,52 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Vendas</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countSales | currency:'BRL' }}</h4>
+                                </mdb-card-title>           
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Ofertas</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countOffers | currency:'BRL' }}</h4>
+                                </mdb-card-title>             
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Contribuites</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countContributors | currency:'BRL' }}</h4>
+                                </mdb-card-title>          
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Outros recebimentos</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countOthers | currency:'BRL' }}</h4>
+                                </mdb-card-title>          
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-6">
                         <mdb-card class="z-depth-0" mdbWavesEffect>
                             <app-report-chart [transactions]="report.recipes"></app-report-chart>
@@ -60,48 +106,6 @@
                     <div class="col-6">
                         <mdb-card class="z-depth-0" mdbWavesEffect>
                             <app-report-chart [transactions]="report.expenses"></app-report-chart>
-                        </mdb-card>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Vendas</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countSales | currency:'BRL' }}</h4>
-                                </mdb-card-title>           
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Ofertas</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countOffers | currency:'BRL' }}</h4>
-                                </mdb-card-title>             
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Contribuites</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countContributors | currency:'BRL' }}</h4>
-                                </mdb-card-title>          
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                        <mdb-card class="z-depth-0" mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Outros recebimentos</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countOthers | currency:'BRL' }}</h4>
-                                </mdb-card-title>          
-                            </mdb-card-body>
                         </mdb-card>
                     </div>
                 </div>
@@ -197,13 +201,11 @@
             <button type="button" mdbBtn color="light" class="z-depth-0" (click)="download()" mdbWavesEffect>IMPRIMIR</button>
         </div>
     </div>
+    <div class="progress-bar" *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
     <div class="report z-depth-0">
-        <div *ngIf="loading">
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
-
         <app-income></app-income>
-        
         <mat-accordion>
             <mat-expansion-panel>
                 <mat-expansion-panel-header mdbWavesEffect>
@@ -233,55 +235,59 @@
             <div>
                 <div class="row">
                     <div class="col">
-                        <p style="margin-top: 10px; font-weight: bold;">Rendimentos em {{ monthSelected }} de {{ yearSelected }}</p>
+                        <p style="margin-top: 10px;">Rendimentos em {{ monthSelected }} de {{ yearSelected }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Vendas</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countSales | currency:'BRL' }}</h4>
+                                </mdb-card-title>           
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Ofertas</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countOffers | currency:'BRL' }}</h4>
+                                </mdb-card-title>             
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Contribuites</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countContributors | currency:'BRL' }}</h4>
+                                </mdb-card-title>          
+                            </mdb-card-body>
+                        </mdb-card>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                        <mdb-card class="z-depth-0 counts" mdbWavesEffect>
+                            <mdb-card-body>
+                                <mat-icon>timeline</mat-icon>
+                                <mdb-card-text>Outros recebimentos</mdb-card-text>
+                                <mdb-card-title>
+                                    <h4>{{ report.accountants.countOthers | currency:'BRL' }}</h4>
+                                </mdb-card-title>          
+                            </mdb-card-body>
+                        </mdb-card>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <mdb-card mdbWavesEffect>
                             <app-report-chart [transactions]="report.recipes"></app-report-chart>
-                        </mdb-card>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="margin-top: 7px;">
-                        <mdb-card mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Vendas</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countSales | currency:'BRL' }}</h4>
-                                </mdb-card-title>           
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-12" style="margin-top: 7px;">
-                        <mdb-card mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Ofertas</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countOffers | currency:'BRL' }}</h4>
-                                </mdb-card-title>             
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-12" style="margin-top: 7px;">
-                        <mdb-card mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Contribuites</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countContributors | currency:'BRL' }}</h4>
-                                </mdb-card-title>          
-                            </mdb-card-body>
-                        </mdb-card>
-                    </div>
-                    <div class="col-12" style="margin-top: 7px;">
-                        <mdb-card mdbWavesEffect>
-                            <mdb-card-body>
-                                <mdb-card-text>Outros recebimentos</mdb-card-text>
-                                <mdb-card-title>
-                                    <h4 style="margin-top: -7px;" class="text-default">{{ report.accountants.countOthers | currency:'BRL' }}</h4>
-                                </mdb-card-title>          
-                            </mdb-card-body>
                         </mdb-card>
                     </div>
                 </div>

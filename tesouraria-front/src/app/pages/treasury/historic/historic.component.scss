@@ -5,12 +5,6 @@
         height: 220px;
         padding: 10px 35px;
    
-        a:first-child {
-            color: #fff;
-            margin-left: -10px;
-        }
-        a, mdb-icon { color: #fff; }
-
         .header-page {
             margin-top: 50px;
 
@@ -34,6 +28,13 @@
 
             button { margin-top: -10px }
         }
+    }
+
+    .progress-bar {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        z-index: 99999999;
     }
 
     .graphic {
@@ -94,9 +95,16 @@
             }
         }
 
+        .progress-bar {
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 99999999;
+        }
+
         .history {
             font-family: 'Lato', sans-serif;
-            padding: 0 15px;
+            padding: 15px;
             
             .main-content {
                 mat-form-field { width: 100% }
