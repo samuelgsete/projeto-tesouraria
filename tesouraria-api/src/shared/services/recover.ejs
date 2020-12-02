@@ -1,0 +1,43 @@
+<div class="body" style="text-align: center; background-color: #77aa77; color: black">
+    <div class="created" style="padding: 30px;">
+        <span style="color: #ffff;">Solicitado em</span>
+        <br>
+        <span style="color: #4b5fd3; font-weight: bold;"><%= dateFormat(registeredIn) %></span>
+    </div>
+    <div class="welcome" style="background-color: #ffffff; padding: 50px;">
+        <div class="header">
+            <img src="https://i.ibb.co/j4cPz2J/logotipo.png" style="margin-bottom: 10px;" alt="logotipo" width="80px" height="80px" border="0">
+            <h1>Olá, <%= name %>  <%= surname %></h1>
+            <h1>Há algo errado</h1>
+        </div>
+        <div class="main">
+            <p style="font-size: 16px">Percebemos que você não está conseguindo acessar nosso sistema, mas fique tranquilo, iremos ajudar você. Utilize o código abaixo para redefinir suas informações de autenticação</p>
+            <h1 style="color: black"><%= code %></h1>
+            <p style="font-size: 16px">Retorne à página de redefinição de conta ou se quiser clique <a style="color: #3f51b5" href="http://localhost:4200/confirm/recover">aqui</a> para ser redirecionado</p>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>  
+    <div class="about" style="padding: 50px 80px; color:#ffffff;">
+        <img src="https://i.ibb.co/wWJGt4Z/wait.png" alt="wait" width="80px" height="80px" border="0">
+        <h1 style="margin-top: 10px;">Quase lá</h1>
+        <p style="font-size: 16px">Você precisa informar o código na página de restauração de conta. Lembre-se de que seus dados só seram atualizados se o código estiver correto. Caso deseje, pode seguir para a página de autenticação clicando no botão abaixo</p>
+        <br>
+        <a 
+            href="http://localhost:4200/user/auth"
+            style=" border: 2px solid black;
+                    color: black;
+                    padding: 14px 28px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    border-color:#4b5fd3;
+                    color: #4b5fd3;
+                    text-decoration: none;
+                    background: rgb(0, 0, 0) transparent;
+                    background: rgba(0, 0, 0, 0.0);" 
+            type="button">ACESSAR SISTEMA
+        </a>
+    </div> 
+</div> 

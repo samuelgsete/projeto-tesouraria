@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from 'src/app/shared/services/user.service';
+import { PasswordValidator } from 'src/app/shared/validators/password.validator';
 
 @Component({
   selector: 'app-confirm-recover',
@@ -17,6 +18,8 @@ export class ConfirmRecoverComponent implements OnInit {
   public loading: boolean = false;
   public email: string;
   public name: string;
+  public surname: string;
+  public username: string
 
   public constructor(
                       private readonly _fb: FormBuilder, 
@@ -27,8 +30,10 @@ export class ConfirmRecoverComponent implements OnInit {
   { 
     this.email = localStorage.getItem('email');
     this.name = localStorage.getItem('name');
+    this.surname = localStorage.getItem('surname');
+    this.username = localStorage.getItem('username');
 
-    if(!this.email || !this.name) {
+    if(!this.email || !this.name || !this.surname || !this.username) {
       this.router.navigateByUrl('user/recover');
     }
   }
@@ -38,8 +43,10 @@ export class ConfirmRecoverComponent implements OnInit {
     this.service.finalizeRecover(value.newUsername, value.newPassword, value.code).subscribe( res => {
       localStorage.removeItem('email');
       localStorage.removeItem('name');
-      this.toastr.success('Sua senha foi atualizada', 'Tudo ok', { progressBar: true, positionClass: 'toast-bottom-center' });
-      this.router.navigateByUrl('/user/login');
+      localStorage.removeItem('surname');
+      localStorage.removeItem('username');
+      this.toastr.success('Dados atualizado', 'Tudo ok', { progressBar: true, positionClass: 'toast-bottom-center' });
+      this.router.navigateByUrl('/user/auth');
     }, 
     erro => {
       this.errorMessage(erro);
@@ -84,8 +91,11 @@ export class ConfirmRecoverComponent implements OnInit {
   ngOnInit(): void {
     this.form = this._fb.group({
       code: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
-      newUsername: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      newPassword: ['', [Validators.required, Validators.required, Validators.minLength(4), Validators.maxLength(30)]]
+      newUsername: [this.username, [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      newPassword: ['', [Validators.required, Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      confirmPassword: ['', [Validators.required, Validators.required, Validators.minLength(4), Validators.maxLength(30)]]
+    }, {
+      validators: new PasswordValidator().confirmed('newPassword', 'confirmPassword') 
     });
   }
 }

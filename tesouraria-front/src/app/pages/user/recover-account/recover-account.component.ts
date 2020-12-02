@@ -31,6 +31,8 @@ export class RecoverAccountComponent implements OnInit {
     localStorage.setItem('email', this.email.value);
     this.service.recoverAccount(this.email.value).subscribe( res => {
       localStorage.setItem('name', res.name);
+      localStorage.setItem('surname', res.surname);
+      localStorage.setItem('username', res.username);
       this.router.navigateByUrl('/confirm/recover');
       this.toastr.success('Verificação concluída', 'Feito', { progressBar: true, positionClass: 'toast-bottom-center' });
     }, 

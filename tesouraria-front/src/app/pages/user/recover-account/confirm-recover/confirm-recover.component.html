@@ -18,29 +18,29 @@
         <div class="body">
             <form [formGroup]="form">
                 <p>
-                    Olá, <span>{{ name }}</span> forneça o código de verificação enviado ao seu email, em seguida informe o novo usuário e a nova senha de sua preferência. Atenção, se o código de verificação estiver incorreto seus dados não serão atualizados.
+                    Olá, <span>{{ name }} {{ surname }}</span> forneça o código de verificação enviado ao seu email, em seguida informe o novo usuário e a nova senha de sua preferência. Atenção, se o código de verificação estiver incorreto seus dados não serão atualizados.
                 </p>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <mat-form-field class="input-width" appearance="outline">
                             <mat-label>Código de verificação</mat-label>
-                            <input formControlName="code" matInput maxlength="5" mask="00000" required>
+                            <input formControlName="code" autofocus matInput maxlength="5" mask="00000" required>
                             <mat-icon matSuffix>code</mat-icon>
                             <mat-error *ngIf="form['controls']['code'].errors?.required">Informe o código de verificação</mat-error>
                             <mat-error *ngIf="form['controls']['code'].errors?.minlength">Informe exatamente 5 caracteres</mat-error>
                         </mat-form-field>
                     </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <mat-form-field class="input-width" appearance="outline">
+                            <mat-label>Login</mat-label>
+                            <input formControlName="newUsername" maxlength="30" matInput required>
+                            <mat-icon matSuffix>security</mat-icon>
+                            <mat-error *ngIf="this.form['controls']['newUsername'].errors?.required">O nome de usuário é obrigatório</mat-error>
+                            <mat-error *ngIf="this.form['controls']['newUsername'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
                <div class="row">
-                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <mat-form-field class="input-width" appearance="outline">
-                        <mat-label>Login</mat-label>
-                        <input formControlName="newUsername" maxlength="30" matInput required>
-                        <mat-icon matSuffix>security</mat-icon>
-                        <mat-error *ngIf="this.form['controls']['newUsername'].errors?.required">O nome de usuário é obrigatório</mat-error>
-                        <mat-error *ngIf="this.form['controls']['newUsername'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
-                    </mat-form-field>
-                </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <mat-form-field class="input-width" appearance="outline">
                         <mat-label>Senha</mat-label>
@@ -50,6 +50,16 @@
                         <mat-error *ngIf="this.form['controls']['newPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
                     </mat-form-field>
                 </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <mat-form-field class="input-width" appearance="outline">
+                            <mat-label>confirmação de senha</mat-label>
+                            <input #confirmaPass formControlName="confirmPassword" type="password" maxlength="30" matInput required>
+                            <mat-icon #confirmIcon style="cursor: pointer;" (click)="hideOrShowPassword(confirmaPass, confirmIcon)" matSuffix>visibility_off</mat-icon>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.required">A confirmação é obrigatória</mat-error>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.minlength">Informe no mínimo 4 caracteres</mat-error>
+                            <mat-error *ngIf="this.form['controls']['confirmPassword'].errors?.confirmedValidator">Informe a mesma senha</mat-error>
+                        </mat-form-field>
+                    </div>
                </div>
                 <button class="z-depth-0" mdbBtn type="button" block="true" color="indigo" [disabled]="!form.valid" (click)="updateUser(form.value)" mdbWavesEffect>ATUALIZAR DADOS</button>
             </form>
