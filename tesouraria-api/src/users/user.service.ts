@@ -51,7 +51,7 @@ export class UserService {
         const code = this.generateVerificationCode();
         user.codeVerify = code;
 
-        this.emailService.verifyUser(user.name, user.email, user.codeVerify);
+        this.emailService.verifyUser(user.name, user.surname, user.email, user.codeVerify);
 
         await this.repository.save(user);
     }        
@@ -78,7 +78,7 @@ export class UserService {
         const code = this.generateVerificationCode();
         user.codeVerify = code;
 
-        this.emailService.verifyUser(user.name, user.email, user.codeVerify);
+        this.emailService.verifyUser(user.name, user.surname, user.email, user.codeVerify);
 
         await this.repository.save(user);
     }
@@ -111,9 +111,9 @@ export class UserService {
         const user = await this.findByEmail(email);
         if(user) {
             user.codeVerify = this.generateVerificationCode();
-            this.emailService.recoverUser(user.name, user.email, user.codeVerify);
+            this.emailService.recoverUser(user.name, user.surname, user.email, user.codeVerify);
             await this.repository.save(user);
-            return { name: user.name };
+            return { name: user.name, surname: user.surname, username: user.username };
         }
         throw new HttpException('O email não está cadastrado', HttpStatus.BAD_REQUEST);
     }
