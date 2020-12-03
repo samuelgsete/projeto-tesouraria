@@ -81,7 +81,11 @@ export class ReportService {
             initialAmount: treasury.initialAmount,
             currentBalance: treasury.currentBalance,
             incomeRecipes:  treasury.incomeRecipes,
-            incomeExpenses: treasury.incomeExpenses
+            incomeExpenses: treasury.incomeExpenses,
+            countSales: treasury.countSale,
+            countOffers: treasury.countOffer,
+            countContributors: treasury.countTaxpayer,
+            countOthers: treasury.countOther
         }
 
         const dateFormat = (date: Date) => {
@@ -106,7 +110,7 @@ export class ReportService {
         }
 
         const report = this.getReportMonthly(year, month, treasury.recipes, treasury.expenses);
-       
+            
         const monthSelected = MONTHS[month];
         
         ejs.renderFile('src/report/report-template.ejs', { dateFormat: dateFormat, income: income, report: report, year: year, month: monthSelected }, (err, html) => {

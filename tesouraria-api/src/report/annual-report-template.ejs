@@ -12,8 +12,14 @@
     </head>
     <style>
         .report {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Lato', sans-serif;
             padding: 0px 30px;
+        }
+
+        .title {
+            color: black;
+            font-family: 'Lato', sans-serif;
+            text-align: center;
         }
 
         .card {
@@ -23,10 +29,6 @@
 
         .card h4 {
             margin-top: -10px
-        }
-
-        .card p, h4 {
-            color: #fff;
         }
 
         .card p {
@@ -44,19 +46,10 @@
         }
         
         table th {
-            text-align: center;
             font-size: 20px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            width: 50%;
-            color: #fff;      
+            text-align: center;
+            width: 50%;     
         }
-
-        .label {
-            font-family: Century Gothic;   
-        }
-
-        .title { font-family: 'Kalinga' }
-
     </style>
 
     <body>
@@ -64,41 +57,82 @@
             <table>
                 <tr>
                     <td colspan="2">
-                        <h5 class="text-center title text-dark">RESUMO ANUAL</h5>
+                        <h5 class="title">RESUMO GERAL</h5>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="card grey lighten-4 text-left">
+                        <div class="card" style="background-color: #f5f5f5">
                             <div class="card-body">
-                                <p class="text-dark label">Montante inicial</p>
-                                <h4 class="text-primary card-title">R$ <%= income.initialAmount.toFixed(2) %></h4>
+                                <p>Montante inicial</p>
+                                <h4 style="color: #3f51b5">R$ <%= income.initialAmount.toFixed(2) %></h4>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <div class="card grey lighten-4 text-left">
+                        <div class="card" style="background-color: #f5f5f5">
                             <div class="card-body">
-                                <p class="text-dark label">Saldo atual</p>
-                                <h4 class="text-primary card-title">R$ <%= income.currentBalance.toFixed(2) %></h4>
+                                <p>Saldo atual</p>
+                                <h4 style="color: #3f51b5">R$ <%= income.currentBalance.toFixed(2) %></h4>
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div class="card grey lighten-4 text-left">
+                        <div class="card" style="background-color: #f5f5f5">
                             <div class="card-body">
-                                <p class="text-dark label">Total de receitas</p>
-                                <h4 class="text-info card-title">R$ <%= income.incomeRecipes.toFixed(2) %></h4>
+                                <p>Total de receitas</p>
+                                <h4 style="color: #0099CC">R$ <%= income.incomeRecipes.toFixed(2) %></h4>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <div class="card grey lighten-4 text-left">
+                        <div class="card" style="background-color: #f5f5f5">
                             <div class="card-body">
-                                <p class="text-dark label">Total de despesas</p>
-                                <h4 class="text-danger card-title">R$ <%= income.incomeExpenses.toFixed(2) %></h4>
+                                <p>Total de despesas</p>
+                                <h4 style="color: #CC0000;">R$ <%= income.incomeExpenses.toFixed(2) %></h4>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h5 class="title">RESUMO DE RECEITAS</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="card" style="background-color: #f5f5f5">
+                            <div class="card-body">
+                                <p>Vendas</p>
+                                <h4 style="color: #4285F4">R$ <%= income.countSales.toFixed(2) %></h4>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="background-color: #f5f5f5">
+                            <div class="card-body">
+                                <p>Ofertas</p>
+                                <h4 style="color: #4285F4">R$ <%= income.countOffers.toFixed(2) %></h4>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="card" style="background-color: #f5f5f5">
+                            <div class="card-body">
+                                <p>Contribuíntes</p>
+                                <h4 style="color: #4285F4">R$ <%= income.countContributors.toFixed(2) %></h4>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="card" style="background-color: #f5f5f5">
+                            <div class="card-body">
+                                <p>Outros recebimentos</p>
+                                <h4 style="color: #4285F4;">R$ <%= income.countOthers.toFixed(2) %></h4>
                             </div>
                         </div>
                     </td>
@@ -107,25 +141,61 @@
         </div>
         <% annualReport.forEach(function(report, index){ %>
             <div class="report">                              
-                <table>
+                <table style="text-align: center;"> 
                     <tr>
                         <td colspan="2">
-                            <h5 class="text-center title">Transações de <%= months[index] %> de <%= year %></h5>
+                            <h5 class="title">Transações de <%= months[index] %> de <%= year %></h5>
                         </td>
                     </tr>
                     <tr>
-                        <th class="info-color-dark label" style="font-family: Calibri;">RECEITAS</th>
-                        <th class="danger-color label" style="font-family: Calibri;"> DESPESAS</th>
+                        <td>
+                            <div class="card" style="background-color:#f5f5f5">
+                                <div class="card-body">
+                                    <p>Vendas</p>
+                                    <h4>R$ <%= report.accountants.countSales.toFixed(2) %></h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card" style="background-color:#f5f5f5">
+                                <div class="card-body">
+                                    <p>Ofertas</p>
+                                    <h4>R$ <%= report.accountants.countOffers.toFixed(2) %></h4>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="card" style="background-color: #f5f5f5">
+                                <div class="card-body">
+                                    <p>Contribuíntes</p>
+                                    <h4>R$ <%= report.accountants.countContributors.toFixed(2) %></h4>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card" style="background-color:#f5f5f5">
+                                <div class="card-body">
+                                    <p>Outros recebimentos</p>
+                                    <h4>R$ <%= report.accountants.countOthers.toFixed(2) %></h4>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="color: #fff; background-color: #0099CC; font-size: 18px;">RECEITAS</th>
+                        <th style="color: #fff; background-color: #CC0000; font-size: 18px;"> DESPESAS</th>
                     </tr>
                     <tr>
                         <td>
                             <% report.recipes.forEach(function(recipe){ %>
                                 <div class="card">
-                                    <div class="card-body text-center">
-                                        <p class="text-dark"><%= recipe.description %></p>
-                                        <h4 class="card-title text-info">R$ <%= recipe.value.toFixed(2) %></h4>
-                                        <p class="text-dark"><%= dateFormat(recipe.registeredIn) %></p>
-                                        <p class="text-dark"><%= recipe.details %></p>
+                                    <div class="card-body">
+                                        <p><%= recipe.description %></p>
+                                        <h4 style="color: #33b5e5">R$ <%= recipe.value.toFixed(2) %></h4>
+                                        <p><%= dateFormat(recipe.registeredIn) %></p>
+                                        <p><%= recipe.details %></p>
                                     </div>
                                 </div>
                             <% }); %>  
@@ -133,11 +203,11 @@
                         <td>
                             <% report.expenses.forEach(function(expense){ %>
                                 <div class="card">
-                                    <div class="card-body text-center">
-                                        <p class="text-dark"><%= expense.description %></p>
-                                        <h4 class="card-title text-danger">R$ <%= expense.value.toFixed(2) %></h4>
-                                        <p class="text-dark"><%= dateFormat(expense.registeredIn) %></p>
-                                        <p class="text-dark"><%= expense.details %></p>
+                                    <div class="card-body">
+                                        <p><%= expense.description %></p>
+                                        <h4 style="color: #ff4444;">R$ <%= expense.value.toFixed(2) %></h4>
+                                        <p><%= dateFormat(expense.registeredIn) %></p>
+                                        <p><%= expense.details %></p>
                                     </div>
                                 </div>
                             <% }); %> 
@@ -145,40 +215,40 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="card-body grey lighten-2 text-center">
-                                <p class="text-dark">Receitas mensais</p>
-                                <h4 class="card-title text-dark" style="margin-top: -12px;">R$ <%= report.incomeRecipesMonthly.toFixed(2) %></h4>
+                            <div class="card-body" style="background-color: #eceff1;">
+                                <p>Receitas mensais</p>
+                                <h4 style="margin-top: -12px;">R$ <%= report.incomeRecipesMonthly.toFixed(2) %></h4>
                             </div>
                         </td>
                         <td>
-                            <div class="card-body grey lighten-2 text-center">
-                                <p class="text-dark">Despesas mensais</p>
-                                <h4 class="card-title text-dark" style="margin-top: -12px;">R$ <%= report.incomeExpensesMonthly.toFixed(2) %></h4>
+                            <div class="card-body" style="background-color: #eceff1;">
+                                <p>Despesas mensais</p>
+                                <h4 style="margin-top: -12px;">R$ <%= report.incomeExpensesMonthly.toFixed(2) %></h4>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <% if (report.balanceMonthly > 0) { %>
-                            <td colspan="2">
-                                <div class="card-body info-color-dark text-center">
-                                    <p class="text-light label">Faturamento mensal</p>
-                                    <h4 class="text-light" style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
+                            <td colspan="2" style="color: #fff; background-color: #33b5e5;">
+                                <div class="card-body">
+                                    <p>Faturamento mensal</p>
+                                    <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
                                 </div>
                             </td>
                         <% } %>
                         <% if (report.balanceMonthly == 0) { %>
-                            <td colspan="2">
-                                <div class="card-body default-color text-center">
-                                    <p class="text-light label">Faturamento mensal</p>
-                                    <h4 class="text-light" style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
+                            <td colspan="2" style="color: #fff; background-color: #2BBBAD;">
+                                <div class="card-body">
+                                    <p>Faturamento mensal</p>
+                                    <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
                                 </div>
                             </td>
                         <% } %>
                         <% if (report.balanceMonthly < 0) { %>
-                            <td colspan="2">
-                                <div class="card-body danger-color text-center">
-                                    <p class="text-light label">Faturamento mensal</p>
-                                    <h4 class="text-light" style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
+                            <td colspan="2" style="color: #fff; background-color: #ff4444;">
+                                <div class="card-body">
+                                    <p>Faturamento mensal</p>
+                                    <h4 style="margin-top: -12px;">R$ <%= report.balanceMonthly.toFixed(2) %></h4>
                                 </div>
                             </td>
                         <% } %>
