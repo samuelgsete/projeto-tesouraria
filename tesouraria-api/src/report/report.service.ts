@@ -110,8 +110,7 @@ export class ReportService {
         }
 
         const report = this.getReportMonthly(year, month, treasury.recipes, treasury.expenses);
-        console.log(report);
-       
+            
         const monthSelected = MONTHS[month];
         
         ejs.renderFile('src/report/report-template.ejs', { dateFormat: dateFormat, income: income, report: report, year: year, month: monthSelected }, (err, html) => {
