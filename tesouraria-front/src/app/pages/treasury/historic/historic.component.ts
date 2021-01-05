@@ -15,7 +15,7 @@ export class HistoricComponent implements OnInit {
   public historic = {};
   public loading = true;
   public years = [ 2019, 2020, 2021, 2022 ];
-  public yearSelected = new Date().getFullYear();
+  public yearSelected = 2021
 
   public chartType: string = 'bar';
  

@@ -53,7 +53,7 @@ export class ReportComponent implements OnInit {
 
   public years = [ 2020, 2021, 2022 ];
   public monthSelected = 'Janeiro';
-  public yearSelected = 2020;
+  public yearSelected = 2021;
 
   public constructor(
                         private service: ReportService,

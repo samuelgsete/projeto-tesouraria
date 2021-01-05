@@ -1,0 +1,121 @@
+<div class="home">
+    <div class="logotipo">
+        <img class="logo" src="/assets/img/logotipo.png" alt="logotipo" width="50px" height="50px">
+        <span>TREASURY</span>
+        <button class="z-depth-0" style="float: right;" mdbBtn type="button" color="indigo" outline="true" (click)="toLogin()" mdbWavesEffect>ENTRAR</button>
+        <hr>
+    </div>
+    <div class="presentation">
+        <div class="started">
+            <mdb-card class="z-depth-0">
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <h2>Um sistema feito para facilitar a vida de quem manuseia tesourarias</h2>
+                    </mdb-card-title> 
+                    <mdb-card-text>
+                        <p><mdb-icon fas icon="quote-left"></mdb-icon>
+                            Quem já se responsabilizou em gerir tesourarias com certeza já se deparou com a dor de cabeça de ter que organizar as receitas e gastos realizados e preparar relatórios. 
+                            Normalmente essa tarefa acaba se tornando problématica, porque os tesoureiros são obrigados a utilizar ferramentas que não são o bastante para automatizar esse tipo de atividade. Na tentativa 
+                            de obter melhor consistência, muitos tesoureiros acabam apelando para papel e caneta.
+                            Pois é, eu já tive que lidar com esse problema e como um amante da computação resolvi desenvolver um sistema Web para facilitar o manuseio dessas transações e automatizar a emissão de relatórios.
+                            O Treasury é um gerenciador de tesourarias com foco em emissão de relátorios. Clique agora mesmo no botão abaixo para garantir seu acesso.
+                        </p>
+                    </mdb-card-text>
+                    <button mdbBtn type="button" color="indigo" outline="true" (click)="toNewUser()" mdbWavesEffect>QUERO ME CADASTRAR</button> 
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="art">
+            <img src="/assets/img/solutions.jpg" alt="art solutions" width="480px" height="360px">
+        </div>
+    </div>
+    <div class="about">
+        <img src="/assets/img/computer.png" alt="criar usuário" width="80px" height="80px">
+        <h2>Acesse agora mesmo</h2>
+        <p><mdb-icon fas icon="quote-left"></mdb-icon>
+            Nosso sistema foi feito para ajudar você, que precisa registrar os ganhos e gastos da sua tesouraria e preparar relátorio ao final do mês. Se já criou a sua conta, não perca tempo, acesse agora mesmo a página de autenticação
+            e utilize ao máximo tudo o que o nosso sitema tem a oferecer. <mdb-icon fas icon="quote-right"></mdb-icon>
+        </p>
+        <button mdbBtn type="button" color="indigo" outline="true" (click)="toLogin()" mdbWavesEffect>QUERO ACESSAR</button> 
+    </div>
+    <div class="features">
+        <h2>Funcionalidades do sistema</h2>
+        <div class="row">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <mdb-card>
+                    <mdb-card-body>
+                        <mat-icon>how_to_vote</mat-icon>
+                        <mdb-card-title>
+                            <h4>Cadastro de tesourarias</h4>
+                        </mdb-card-title> 
+                        <mdb-card-text>
+                            <p>
+                                O usuário poderá criar quantas tesourarias desejar. Cada tesouraria terá as suas próprias transações (receitas e despesas) que irão impacar no valor saldo. O usuário poderá a qualquer
+                                momento alterar os dados customizaveis da tesouraria e até mesmo deletá-la se for o caso.  
+                            </p>
+                        </mdb-card-text>
+                        <button mdbBtn type="button" color="indigo" outline="true" mdbWavesEffect>VER PRÉVIA</button> 
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <mdb-card>
+                    <mdb-card-body>
+                        <mat-icon>wifi_protected_setup</mat-icon>
+                        <mdb-card-title>
+                            <h4>Cadastro de receitas e despesas</h4>
+                        </mdb-card-title> 
+                        <mdb-card-text>
+                            <p>
+                                Após criar uma tesouraria, o usuário poderá cadastrar receitas (ganhos) e despesas (gastos) para a recém criada tesouraria. Para melhor gerir essaas transações, o usuário terá dispónivel um filtro de transações, que filtra por tipo e período.
+                                O usuário também terá a sua disposição um gráfico das transações filtradas. Com isso, ele poderá rapidamente fazer uma analise de suas transações.
+                            </p>
+                        </mdb-card-text>
+                        <button mdbBtn type="button" color="indigo" outline="true" mdbWavesEffect>VER PRÉVIA</button> 
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <mdb-card>
+                    <mdb-card-body>
+                        <mat-icon>assessment</mat-icon>
+                        <mdb-card-title>
+                            <h4>Verificação de histórico</h4>
+                        </mdb-card-title> 
+                        <mdb-card-text>
+                            <p>
+                                O usuário pode analisar o histórico da tesouraria que desejar. Com esse histórico é possivel analisar a quantidade de receitas e despesas arrecadas em cada mês. Além disso, também é possível analisar o comportamento do saldo acumulado ao longo do ano bem como o saldo espécifico de cada mês.
+                                O usuário também terá liberdade para alterar o ano que deseja verificar o histórico.
+                            </p>
+                        </mdb-card-text>
+                        <button mdbBtn type="button" color="indigo" outline="true" mdbWavesEffect>VER PRÉVIA</button> 
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <mdb-card>
+                    <mdb-card-body>
+                        <mat-icon>description</mat-icon>
+                        <mdb-card-title>
+                            <h4>Emissão de relatório</h4>
+                        </mdb-card-title> 
+                        <mdb-card-text>
+                            <p>
+                                O usuário poderá verificar o relatório de qualquer tesouraria que tiver cadastrado. O relatório está disponível para cada mês específico ou do ano inteiro conforme a preferência do usuário.
+                                Para cada mês conterá no relátorio todas as receitas e dispesas realizadas, o somatório total dessas transações e o saldo do mês. Junto com o relátorio também estará disponível um gráfico
+                                mostrando as transações do mês. 
+                            </p>
+                        </mdb-card-text>
+                        <button mdbBtn type="button" color="indigo" outline="true" mdbWavesEffect>VER PRÉVIA</button> 
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer">
+            <hr>
+            <p>© 2020 Todos os direitos autorais estão reservados</p>
+        </div>
+    </div>
+</div>
