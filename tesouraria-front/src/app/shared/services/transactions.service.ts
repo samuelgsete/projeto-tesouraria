@@ -6,23 +6,23 @@ import { Expense } from '../models/expense.entity';
 
 @Injectable()
 export class TransactionsService {
-    private urlBase: string = 'http://localhost:3000/transactions';
+    private urlBase: string = 'http://localhost:3000/treasury';
 
     public constructor(private readonly http: HttpClient) {}
 
-    public findPaginate(treasuryId: number, type: any, year: number, month: number, page: number) {
+    public findPaginate(id: number, type: any, year: number, month: number, page: number) {
         const _params = new HttpParams().set('year', `${year}`).set('month', `${month}`).set('type', `${type}`).set('page',`${page}`);
-        return this.http.get<any>(this.urlBase.concat(`/${treasuryId}`), {
+        return this.http.get<any>(this.urlBase.concat(`/${id}/transactions`), {
             observe: 'response', params: _params
         });
     }
 
-    public createRecipe(treasuryId: number, recipe: Recipe) {
-        return this.http.post<Recipe>(this.urlBase.concat(`/recipe/${treasuryId}`), recipe);
+    public createRecipe(id: number, recipe: Recipe) {
+        return this.http.post<Recipe>(this.urlBase.concat(`/${id}/recipe`), recipe);
     }
 
-    public updateRecipe(treasuryId: number, recipe: Recipe) {
-        return this.http.put<Recipe>(this.urlBase.concat(`/recipe/${treasuryId}`), recipe);
+    public updateRecipe(id: number, recipe: Recipe) {
+        return this.http.put<Recipe>(this.urlBase.concat(`/${id}/recipe`), recipe);
     }
 
     public deleteRecipe(treasuryId: number, recipeId: number) {
@@ -34,15 +34,15 @@ export class TransactionsService {
               id: recipeId
             }
         }
-        return this.http.delete<any>(this.urlBase.concat(`/recipe/${treasuryId}`), options);
+        return this.http.delete<any>(this.urlBase.concat(`/${treasuryId}/recipe`), options);
     }
 
-    public createExpense(treasuryId: number, expense: Expense) {
-        return this.http.post<Expense>(this.urlBase.concat(`/expense/${treasuryId}`), expense);
+    public createExpense(id: number, expense: Expense) {
+        return this.http.post<Expense>(this.urlBase.concat(`/${id}/expense`), expense);
     }
 
-    public updateExpense(treasuryId: number, expense: Expense) {
-        return this.http.put<Expense>(this.urlBase.concat(`/expense/${treasuryId}`), expense);
+    public updateExpense(id: number, expense: Expense) {
+        return this.http.put<Expense>(this.urlBase.concat(`/${id}/expense`), expense);
     }
 
     public deleteExpense(treasuryId: number, expenseId: number) {
@@ -54,6 +54,6 @@ export class TransactionsService {
               id: expenseId
             }
         }
-        return this.http.delete<any>(this.urlBase.concat(`/expense/${treasuryId}`), options);
+        return this.http.delete<any>(this.urlBase.concat(`/${treasuryId}/expense`), options);
     }
 }

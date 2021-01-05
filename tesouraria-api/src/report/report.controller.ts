@@ -5,14 +5,14 @@ import { ReportService } from './report.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
-@Controller('report')
+@Controller('treasury')
 export class ReportController {
 
     public constructor(private readonly reportService: ReportService) {}
 
-    @Get(':treasuryId')
+    @Get(':id/report')
     public getReport(
-                        @Param('treasuryId') treasuryId: number, 
+                        @Param('id') treasuryId: number, 
                         @Req() request: Request,
                         @Query('year') year:number,
                         @Query('month') month: number
@@ -22,7 +22,7 @@ export class ReportController {
         return this.reportService.getReport(treasuryId, userId, year, month);
     }
 
-    @Get('download/:id')
+    @Get(':id/report/download')
     public downloadReportMonthly(
                                     @Param('id') id: number,
                                     @Query('year') year:number,

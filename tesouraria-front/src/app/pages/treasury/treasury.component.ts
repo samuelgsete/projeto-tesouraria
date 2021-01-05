@@ -151,15 +151,15 @@ export class TreasuryComponent implements OnInit {
   }
 
   public addTransactions(id: number) {
-    this.router.navigateByUrl(`transactions/${id}`);
+    this.router.navigateByUrl(`treasury/${id}/transactions`);
   }
 
   public emitterReport(id: number) {
-    this.router.navigateByUrl(`report/${id}`);
+    this.router.navigateByUrl(`treasury/${id}/report`);
   }
 
   public showHistoric(id: number) {
-    this.router.navigateByUrl(`historic/${id}`);
+    this.router.navigateByUrl(`treasury/${id}/historic`);
   }
   
   ngOnInit() {

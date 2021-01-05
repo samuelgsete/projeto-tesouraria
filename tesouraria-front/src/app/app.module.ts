@@ -14,6 +14,7 @@ import { AuthUserGuard } from './shared/auth/auth-user.guard';
 import { AuthUserInterceptor } from './shared/auth/auth-user.interceptor';
 import { UserModule } from './pages/user/user.module';
 import { IncomeService } from './pages/treasury/income/income.service';
+import { HomeModule } from './pages/home/home.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { IncomeService } from './pages/treasury/income/income.service';
     TreasuryModule,
     UserModule,
     AppRoutingModule,
+    HomeModule,
   ],
   providers: [
     AuthUserGuard, 

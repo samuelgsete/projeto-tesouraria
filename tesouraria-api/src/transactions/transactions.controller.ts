@@ -8,14 +8,14 @@ import { TransactionsFilter } from 'src/shared/models/transactions-filter.entity
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
-@Controller('transactions')
+@Controller('treasury')
 export class TransactionsController {
 
     public constructor(private readonly transactionsService: TransactionsService) {}
 
-    @Get(':treasuryId')
+    @Get(':id/transactions')
     public findPaginate(
-                            @Param('treasuryId') treasuryId: number, 
+                            @Param('id') treasuryId: number, 
                             @Req() request: Request,
                             @Query('year') year: number,
                             @Query('month') month: number,
@@ -29,9 +29,9 @@ export class TransactionsController {
         return this.transactionsService.findPaginate(treasuryId, userId, transactonsFilter, page);
     }
 
-    @Post('recipe/:treasuryId')
+    @Post(':id/recipe')
     public saveRecipe(
-                        @Param('treasuryId') treasuryId: number, 
+                        @Param('id') treasuryId: number, 
                         @Req() request: Request,
                         @Body() recipe: Recipe
                      ) 
@@ -40,9 +40,9 @@ export class TransactionsController {
         return this.transactionsService.createRecipe(treasuryId, userId, recipe);
     }
 
-    @Put('recipe/:treasuryId')
+    @Put(':id/recipe')
     public updateRecipe(
-                        @Param('treasuryId') treasuryId: number, 
+                        @Param('id') treasuryId: number, 
                         @Req() request: Request,
                         @Body() recipe: Recipe
                      ) 
@@ -51,9 +51,9 @@ export class TransactionsController {
         return this.transactionsService.updateRecipe(treasuryId, userId, recipe);
     }
 
-    @Delete('recipe/:treasuryId')
+    @Delete(':id/recipe')
     public deleteRecipe(
-                            @Param('treasuryId') treasuryId: number, 
+                            @Param('id') treasuryId: number, 
                             @Req() request: Request,
                             @Body('id') id: number,
                         ) 
@@ -62,9 +62,9 @@ export class TransactionsController {
         return this.transactionsService.deleteRecipe(treasuryId, userId, id);
     }
 
-    @Post('expense/:treasuryId')
+    @Post(':id/expense')
     public saveExpense(
-                        @Param('treasuryId') treasuryId: number, 
+                        @Param('id') treasuryId: number, 
                         @Req() request: Request,
                         @Body() expense: Expense
                      ) 
@@ -73,9 +73,9 @@ export class TransactionsController {
         return this.transactionsService.createExpense(treasuryId, userId, expense);
     }
 
-    @Put('expense/:treasuryId')
+    @Put(':id/expense')
     public updateExpense(
-                        @Param('treasuryId') treasuryId: number, 
+                        @Param('id') treasuryId: number, 
                         @Req() request: Request,
                         @Body() expense: Expense
                      ) 
@@ -84,9 +84,9 @@ export class TransactionsController {
         return this.transactionsService.updateExpense(treasuryId, userId, expense);
     }
 
-    @Delete('expense/:treasuryId')
+    @Delete(':id/expense')
     public deleteExpense(
-                            @Param('treasuryId') treasuryId: number, 
+                            @Param('id') treasuryId: number, 
                             @Req() request: Request,
                             @Body('id') id: number,
                         ) 

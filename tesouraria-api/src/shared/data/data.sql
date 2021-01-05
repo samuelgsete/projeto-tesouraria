@@ -15,9 +15,9 @@ SET client_min_messages = warning;
 -- Data for Name: treasury; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (22, 'Tesouraria das crianças', 1.1100000000000001, 1.1100000000000001, 0, 0, NULL, 2, '2020-11-22 15:15:39.211', 0, 0, 0, 0);
-INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (2, 'Tesouraria dos Jovens', 154.65000000000001, 959.14999999999998, 1252.75, 448.25, 'Essa tesouraria é dedicada às finanças do departamento de mocidade', 1, '2020-11-29 15:35:13.626', 977, 265.75, 0, 10);
-INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (1, 'Tesouraria da banda', 12.1, 228.90000000000003, 2093.5, 1876.7, 'Tesouraria dedicada para as finanças da banda Geração Sete', 1, '2020-11-29 15:33:27.138', 1831.25, 0, 262.25, 0);
+INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (1, 'Tesouraria da banda', 12.1, 427.39999999999998, 2392, 1976.7, 'Tesouraria dedicada para as finanças da banda Geração Sete', 1, '2020-12-29 11:12:30.176', 2129.75, 0, 262.25, 0);
+INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (2, 'Tesouraria dos Jovens', 154.65000000000001, 202.59999999999999, 1398.2, 1350.25, 'Essa tesouraria é dedicada às finanças do departamento de mocidade', 1, '2020-12-29 11:20:03.745', 977, 411.19999999999999, 0, 10);
+INSERT INTO public.treasury (id, name, "initialAmount", "currentBalance", "incomeRecipes", "incomeExpenses", details, "userId", updated, "countSale", "countOffer", "countTaxpayer", "countOther") VALUES (22, 'Tesouraria das crianças', 57, 17.049999999999997, 13.550000000000001, 53.5, NULL, 2, '2021-01-05 15:02:03.59', 0, 13.550000000000001, 0, 0);
 
 
 --
@@ -49,13 +49,21 @@ INSERT INTO public.expense (id, description, value, "registeredIn", details, typ
 INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (32, 'Compra de equipamentos para a banda', 316.69999999999999, '2020-11-26 00:00:00', 'Nessa despesa foi comprado: 3 suportes para instrumentos de cordas, 2 cabos p10 de 5 metros e 1 encordoamento para contrabaixo', 'DESPESA', 1);
 INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (31, 'Impressão de hinos', 16, '2020-11-21 00:00:00', 'Essa despesa se refere às impressão de hinos para os jovens', 'DESPESA', 2);
 INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (33, 'Compra de material para encomendar hinários', 50, '2020-11-23 00:00:00', 'Nessa despesa foi comprado o material necessário para encomendar os hinários para o encontro de jovens', 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (34, 'Mensalidade do PAD da bateria eletrônica', 70, '2020-12-23 00:00:00', 'PAD da bateria eletrônica e bateria 9V para o violão', 'DESPESA', 1);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (35, 'Doação para o jantar de passagem do ano', 30, '2020-12-28 00:00:00', 'Jantar após o culto da virada', 'DESPESA', 1);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (36, 'Compra de almoço para os jovens', 38, '2020-12-10 00:00:00', 'Almoço para os jovens que foram limpar a Igreja', 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (37, 'Ornamentação dos hinários da mocidade', 10, '2020-12-10 00:00:00', NULL, 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (38, 'Jantar e caldo para toda a Igreja', 834, '2020-12-10 00:00:00', 'Compra de produtos para fazer o caldo e o jantar nos dias festivos da mocidade', 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (39, 'Fretamento do veículo para a congregação do Assentamento', 15, '2020-12-12 00:00:00', NULL, 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (40, 'Impressão de hinos', 5, '2020-12-20 00:00:00', NULL, 'DESPESA', 2);
+INSERT INTO public.expense (id, description, value, "registeredIn", details, type, "treasuryId") VALUES (41, 'Confraternização das crianças', 53.5, '2020-12-17 00:00:00', NULL, 'DESPESA', 22);
 
 
 --
 -- Name: expense_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.expense_id_seq', 33, true);
+SELECT pg_catalog.setval('public.expense_id_seq', 41, true);
 
 
 --
@@ -93,13 +101,17 @@ INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn"
 INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (28, 'Venda da mocidade', 243.75, NULL, 'RECEITA', '2020-09-20 00:00:00', NULL, 2, 'Venda');
 INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (30, 'Venda da mocidade', 241.5, NULL, 'RECEITA', '2020-11-01 00:00:00', NULL, 2, 'Venda');
 INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (9, 'Contribuição vonlutária', 25, 'José Joabe de Sousa Amorim', 'RECEITA', '2020-06-18 00:00:00', 'Oferta recebida para efetuar o pagamento da mensalidade dos pratos da bateria eletrônica', 1, 'Contribuinte');
+INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (47, 'Venda da banda', 298.5, NULL, 'RECEITA', '2020-11-29 00:00:00', NULL, 1, 'Venda');
+INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (48, 'Ofertas do 1º dia do encontro de jovens', 56.700000000000003, NULL, 'RECEITA', '2020-12-11 00:00:00', NULL, 2, 'Oferta do culto');
+INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (49, 'Oferta do 2º dia do encontro de jovens', 88.75, NULL, 'RECEITA', '2020-12-12 00:00:00', NULL, 2, 'Oferta do culto');
+INSERT INTO public.recipe (id, description, value, offerer, type, "registeredIn", details, "treasuryId", "recipeType") VALUES (50, 'Oferta do culto', 13.550000000000001, NULL, 'RECEITA', '2020-12-17 00:00:00', 'Oferta do último culto de crianças do ano  de 2020', 22, 'Oferta do culto');
 
 
 --
 -- Name: recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recipe_id_seq', 46, true);
+SELECT pg_catalog.setval('public.recipe_id_seq', 50, true);
 
 
 --
@@ -113,16 +125,15 @@ SELECT pg_catalog.setval('public.treasury_id_seq', 22, true);
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."user" (id, name, surname, email, username, password, whatzapp, "isActive", "codeVerify", updated) VALUES (1, 'Samuel', 'Souza', 'samuelgsete@gmail.com', 'samuelgsete', '1234', '85989711010', true, '12345', '2020-11-01 11:12:57.538');
-INSERT INTO public."user" (id, name, surname, email, username, password, whatzapp, "isActive", "codeVerify", updated) VALUES (3, 'Layla', 'Duarte', 'layladuarte@gmail.com', 'layla', 'davi', '85988922477', true, '44539', '2020-11-20 23:23:04.725');
 INSERT INTO public."user" (id, name, surname, email, username, password, whatzapp, "isActive", "codeVerify", updated) VALUES (2, 'Joabe', 'Sousa', 'joabebass@gmail.com', 'joabe', '1234', '85987544500', true, '68538', '2020-11-21 13:01:10.028');
+INSERT INTO public."user" (id, name, surname, email, username, password, whatzapp, "isActive", "codeVerify", updated) VALUES (1, 'Samuel', 'Souza', 'samuelgsete@gmail.com', 'samuelgsete', '123456', '85989711010', true, '12345', '2020-12-01 16:02:12.532');
 
 
 --
 -- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 3, true);
+SELECT pg_catalog.setval('public.user_id_seq', 50, true);
 
 
 --

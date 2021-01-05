@@ -33,7 +33,7 @@ export class TransactionsComponent implements OnInit {
   public transactionType = TransactionType;
   public pagination = new Pagination();
 
-  public yearSelected = 2020;
+  public yearSelected = 2021;
   public monthSelected = 'Todos os meses';
   public typeTransactionSelected = 'RECEITA E DESPESA';
 

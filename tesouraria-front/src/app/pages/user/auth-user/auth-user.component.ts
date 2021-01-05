@@ -39,7 +39,7 @@ export class AuthUserComponent implements OnInit {
     this.loading = true;
     this.service.loginUser(user).subscribe( res => {
       this.decodePayloadJWT(res.access_token);
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/treasury');
       this.toastr.success('Você está autenticado', 'Tudo ok', { progressBar: true, positionClass: 'toast-bottom-center' });
     },
     err => {
