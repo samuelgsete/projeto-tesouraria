@@ -17,6 +17,7 @@ import { HomeComponent } from './pages/home/home.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            { path: '', component: HomeComponent },
             { path: 'home', component: HomeComponent },
             { path: 'treasury', component: TreasuryComponent, canActivate: [AuthUserGuard] },
             { path: 'treasury/:id/transactions', component: TransactionsComponent, canActivate: [AuthUserGuard] },
